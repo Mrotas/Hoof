@@ -1,8 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace DataAccess.Entities
+﻿namespace DataAccess.Entities
 {
-    //[Table("Huntsman")]
     public class Huntsman
     {
         public int Id { get; set; }

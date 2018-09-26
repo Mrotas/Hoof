@@ -1,0 +1,445 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Plan" xml:space="preserve">
+    <value>Roczny Plan</value>
+  </data>
+  <data name="March10Condition" xml:space="preserve">
+    <value>Stan na 10 marca roku, na który sporządza się plan {0} r.</value>
+  </data>
+  <data name="Paragraph1st" xml:space="preserve">
+    <value>Obwód łowiecki nr 20, powierzchnia 4777 ha, w tym powierzchnia gruntów leśnych 4394 ha.</value>
+  </data>
+  <data name="Paragraph2nd" xml:space="preserve">
+    <value>Województwo Wielkopolskie, Powiat Złotowski.</value>
+  </data>
+  <data name="Paragraph3rd" xml:space="preserve">
+    <value>Nadleśnictwo Płytnica z siedzibą w Nowej Szwecji, Szwecja 6 78-600 Wałcz.</value>
+  </data>
+  <data name="Paragraph4th" xml:space="preserve">
+    <value>Regionalna Dyrekcja Lasów Państwowych Piła, 64-921 Piła - Kalina.</value>
+  </data>
+  <data name="Paragraph5th" xml:space="preserve">
+    <value>Zarząd Okręgowy PZŁ, Piła, Al. Powstańców Wlkp. 190 64-920 Piła.</value>
+  </data>
+  <data name="Paragraph6th" xml:space="preserve">
+    <value>Dzierżawca/lub zarządca, Koło Łowieckie nr 39 Literatów Polskich „Pióro” ul. Rostworowskego 6/2, 01-496 Warszawa.</value>
+  </data>
+  <data name="AmericanMinks" xml:space="preserve">
+    <value>Norki amerykańskie</value>
+  </data>
+  <data name="Aviaries" xml:space="preserve">
+    <value>woliery</value>
+  </data>
+  <data name="Badgers" xml:space="preserve">
+    <value>Borsuki</value>
+  </data>
+  <data name="Barriers" xml:space="preserve">
+    <value>Pasy zaporowe</value>
+  </data>
+  <data name="BigGamePlanBeforeHuntSeason" xml:space="preserve">
+    <value>Planowana liczebność zwierzyny grubej przed okresem polowań</value>
+  </data>
+  <data name="Boars" xml:space="preserve">
+    <value>Dziki</value>
+  </data>
+  <data name="CarcassesRevenues" xml:space="preserve">
+    <value>Przychody ze sprzedaży tusz zwierzyny płowej</value>
+  </data>
+  <data name="Compensation" xml:space="preserve">
+    <value>w tym : kwota wypłaconych odszkodowań łowieckich</value>
+  </data>
+  <data name="ContractEmployees" xml:space="preserve">
+    <value>Liczba osób zatrudnionych w oparciu o umowę o pracę w celu  wykonywania zadań z zakresu gospodarki łowieckiej</value>
+  </data>
+  <data name="Coots" xml:space="preserve">
+    <value>Łyski</value>
+  </data>
+  <data name="Costs" xml:space="preserve">
+    <value>Koszty poniesione na prowadzenie gospodarki łowieckiej</value>
+  </data>
+  <data name="CullPieces" xml:space="preserve">
+    <value>odstrzał szt.</value>
+  </data>
+  <data name="CurrentYearPlan" xml:space="preserve">
+    <value>Stan planowany do osiągnięcia w bieżącym roku gospodarczym {0} / {1}</value>
+  </data>
+  <data name="DamagedArea" xml:space="preserve">
+    <value>Powierzchnia zredukowana upraw rolnych uszkodzonych przez zwierzęta łowne</value>
+  </data>
+  <data name="DeerBull" xml:space="preserve">
+    <value>byki razem</value>
+  </data>
+  <data name="DeerCalves" xml:space="preserve">
+    <value>cielęta</value>
+  </data>
+  <data name="DeerDoes" xml:space="preserve">
+    <value>łanie</value>
+  </data>
+  <data name="DeerLickers" xml:space="preserve">
+    <value>lizawki</value>
+  </data>
+  <data name="DeersSikaTogether" xml:space="preserve">
+    <value>Jelenie Sika razem</value>
+  </data>
+  <data name="DeersTogether" xml:space="preserve">
+    <value>Jelenie razem</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Dane ogólne.</value>
+  </data>
+  <data name="Doves" xml:space="preserve">
+    <value>Gołębie grzywacze</value>
+  </data>
+  <data name="Dry" xml:space="preserve">
+    <value>objętościowa sucha</value>
+  </data>
+  <data name="DuckBlackberries" xml:space="preserve">
+    <value>czernice</value>
+  </data>
+  <data name="DuckBrands" xml:space="preserve">
+    <value>głowienki</value>
+  </data>
+  <data name="DuckHybrid" xml:space="preserve">
+    <value>krzyżówki</value>
+  </data>
+  <data name="DucksTogether" xml:space="preserve">
+    <value>Dzikie kaczki razem</value>
+  </data>
+  <data name="DuckTeals" xml:space="preserve">
+    <value>cyraneczki</value>
+  </data>
+  <data name="EconomyDetriment" xml:space="preserve">
+    <value>Zagospodarowanie obwodu łowieckiego, szkody łowieckie.</value>
+  </data>
+  <data name="EstimatedNumberGamesColonized10March" xml:space="preserve">
+    <value>Szacowana liczebność zwierząt na 10.03 {0}</value>
+  </data>
+  <data name="Farms" xml:space="preserve">
+    <value>zagrody</value>
+  </data>
+  <data name="Ferrets" xml:space="preserve">
+    <value>Tchórze zwyczajne</value>
+  </data>
+  <data name="Fields" xml:space="preserve">
+    <value>Zagospodarowane przez dzierżawcę lub zarządcę łąki śródleśne i przyleśne</value>
+  </data>
+  <data name="FollowDeersTogether" xml:space="preserve">
+    <value>Daniele razem</value>
+  </data>
+  <data name="FoodAndSalt" xml:space="preserve">
+    <value>Karma i sól</value>
+  </data>
+  <data name="Foxes" xml:space="preserve">
+    <value>Lisy</value>
+  </data>
+  <data name="GamesColonized10March" xml:space="preserve">
+    <value>Liczba zasiedlonych zwierząt do 10.03 poprzedniego roku gospodarczego</value>
+  </data>
+  <data name="GamesColonizedPlan" xml:space="preserve">
+    <value>Plan zasiedleń w roku gospodarczym {0} / {1}</value>
+  </data>
+  <data name="GamesGainPlan" xml:space="preserve">
+    <value>Optymalna liczba zwierząt zaplanowanych do pozyskania w {0} / {1} roku
+gospodarczym</value>
+  </data>
+  <data name="GameTypes" xml:space="preserve">
+    <value>Gatunki zwierząt łownych</value>
+  </data>
+  <data name="GooseAlbatrosses" xml:space="preserve">
+    <value>białoczelne</value>
+  </data>
+  <data name="GooseGrains" xml:space="preserve">
+    <value>zbożowe</value>
+  </data>
+  <data name="GooseGreylags" xml:space="preserve">
+    <value>gęgawy</value>
+  </data>
+  <data name="GoosesTogether" xml:space="preserve">
+    <value>Gęsi razem</value>
+  </data>
+  <data name="Hares" xml:space="preserve">
+    <value>Zające szaraki</value>
+  </data>
+  <data name="HazelGrouses" xml:space="preserve">
+    <value>Jarząbki</value>
+  </data>
+  <data name="Header" xml:space="preserve">
+    <value>Roczny Plan Łowiecki na rok gospodarczy {0} / {1} oraz sprawozdanie z wykonania planu gospodarczego roku {2} / {1}</value>
+  </data>
+  <data name="HuntingEquipment" xml:space="preserve">
+    <value>Urządzenia związane z prowadzeniem gospodarki łowieckiej</value>
+  </data>
+  <data name="Juicy" xml:space="preserve">
+    <value>objętościowa soczysta</value>
+  </data>
+  <data name="Maren" xml:space="preserve">
+    <value>tumaki</value>
+  </data>
+  <data name="MarenKamionki" xml:space="preserve">
+    <value>kamionki</value>
+  </data>
+  <data name="MarensTogether" xml:space="preserve">
+    <value>Kuny razem</value>
+  </data>
+  <data name="Max" xml:space="preserve">
+    <value>max</value>
+  </data>
+  <data name="Min" xml:space="preserve">
+    <value>min</value>
+  </data>
+  <data name="MinMaxGameGainPlan" xml:space="preserve">
+    <value>Minimalna i maksymalna liczba zwierząt zaplanowana do pozyskania w roku gospodarczym {0} /{1}</value>
+  </data>
+  <data name="MooseBulls" xml:space="preserve">
+    <value>byki</value>
+  </data>
+  <data name="MooseCalves" xml:space="preserve">
+    <value>łoszaki</value>
+  </data>
+  <data name="MooseMares" xml:space="preserve">
+    <value>klępy</value>
+  </data>
+  <data name="MoosesTogether" xml:space="preserve">
+    <value>Łosie razem</value>
+  </data>
+  <data name="MouflonLambs" xml:space="preserve">
+    <value>jagnięta</value>
+  </data>
+  <data name="MouflonRams" xml:space="preserve">
+    <value>tryki</value>
+  </data>
+  <data name="Mouflons" xml:space="preserve">
+    <value>Muflony razem</value>
+  </data>
+  <data name="MouflonSheeps" xml:space="preserve">
+    <value>owce</value>
+  </data>
+  <data name="Muskrats" xml:space="preserve">
+    <value>Piżmaki</value>
+  </data>
+  <data name="NonContractEmployees" xml:space="preserve">
+    <value>Liczba osób zatrudnionych na innej podstawie niż umowa o pracę, lub powołanych, w celu wykonywania zadań z zakresu gospodarki łowieckiej</value>
+  </data>
+  <data name="Partridges" xml:space="preserve">
+    <value>Kuropatwy</value>
+  </data>
+  <data name="Pastures" xml:space="preserve">
+    <value>paśniki</value>
+  </data>
+  <data name="Pheasants" xml:space="preserve">
+    <value>Bażanty</value>
+  </data>
+  <data name="Pithy" xml:space="preserve">
+    <value>treściwa</value>
+  </data>
+  <data name="PreviousEconomyPlan" xml:space="preserve">
+    <value>Plan poprzedniego roku gospodarczego {0} / {1}</value>
+  </data>
+  <data name="PreviousPlanExecution" xml:space="preserve">
+    <value>Wykonanie planu poprzedniego roku gospodarczego {0} / {1}</value>
+  </data>
+  <data name="PreviousYearExecution" xml:space="preserve">
+    <value>Wykonanie planu pozyskania roku poprzed niego {0} / {1}</value>
+  </data>
+  <data name="PreviousYearGainPlan" xml:space="preserve">
+    <value>Plan pozyskania roku poprzedniego {0} / {1}</value>
+  </data>
+  <data name="Pulpits" xml:space="preserve">
+    <value>ambony</value>
+  </data>
+  <data name="Rabbits" xml:space="preserve">
+    <value>Dzikie króliki</value>
+  </data>
+  <data name="RaccoonDogs" xml:space="preserve">
+    <value>Jenoty</value>
+  </data>
+  <data name="Raccoons" xml:space="preserve">
+    <value>Szopy pracze</value>
+  </data>
+  <data name="RoeGoat" xml:space="preserve">
+    <value>kozy</value>
+  </data>
+  <data name="RoeGoatling" xml:space="preserve">
+    <value>koźlęta</value>
+  </data>
+  <data name="RoesRoebuckTogether" xml:space="preserve">
+    <value>kozły razem</value>
+  </data>
+  <data name="RoesTogether" xml:space="preserve">
+    <value>Sarny razem</value>
+  </data>
+  <data name="SalesRevenuesAndCosts" xml:space="preserve">
+    <value>Informacja o przychodach ze sprzedaży tusz zwierzyny płowej i kosztach zagospodarowania obwodu.</value>
+  </data>
+  <data name="Salt" xml:space="preserve">
+    <value>sól</value>
+  </data>
+  <data name="SmallAnimals" xml:space="preserve">
+    <value>zwierzyna drobna</value>
+  </data>
+  <data name="Specification" xml:space="preserve">
+    <value>Wyszczególnienie</value>
+  </data>
+  <data name="TrunkFood" xml:space="preserve">
+    <value>Poletka łowieckie(obszary obsiane lub obsadzone roślinami stanowiącymi żer dla zwierzyny na pniu)</value>
+  </data>
+  <data name="Unit" xml:space="preserve">
+    <value>Jednostka miary</value>
+  </data>
+  <data name="UnitAltogetherPieces" xml:space="preserve">
+    <value>ogółem szt.</value>
+  </data>
+  <data name="UnitCatchAlivePieces" xml:space="preserve">
+    <value>odłów szt.</value>
+  </data>
+  <data name="UnitHectare" xml:space="preserve">
+    <value>ha</value>
+  </data>
+  <data name="UnitKilometers" xml:space="preserve">
+    <value>km</value>
+  </data>
+  <data name="UnitPerson" xml:space="preserve">
+    <value>osoby</value>
+  </data>
+  <data name="UnitPersonPartTime" xml:space="preserve">
+    <value>osoby / etaty</value>
+  </data>
+  <data name="UnitPiece" xml:space="preserve">
+    <value>szt.</value>
+  </data>
+  <data name="UnitThousandZlotych" xml:space="preserve">
+    <value>tys. Zł</value>
+  </data>
+  <data name="UnitTon" xml:space="preserve">
+    <value>tona</value>
+  </data>
+  <data name="UnitWastagesPieces" xml:space="preserve">
+    <value>ubytki szt.</value>
+  </data>
+  <data name="WateringPlaces" xml:space="preserve">
+    <value>inne - wodopoje</value>
+  </data>
+  <data name="Woodcocks" xml:space="preserve">
+    <value>Słonki</value>
+  </data>
+  <data name="X" xml:space="preserve">
+    <value>X</value>
+  </data>
+</root>

@@ -38,11 +38,13 @@ namespace DataAccess.Test.Entities
             using (var db = new DbContext())
             {
                 db.Huntsman.Add(huntsman);
-                db.SaveChanges();
                 insertedHuntsman = db.Huntsman.Find(huntsman.Id);
             }
 
             Assert.That(insertedHuntsman, Is.Not.Null);
+            Assert.That(insertedHuntsman.Id, Is.EqualTo(huntsman.Id));
+            Assert.That(insertedHuntsman.Name, Is.EqualTo(huntsman.Name));
+            Assert.That(insertedHuntsman.LastName, Is.EqualTo(huntsman.LastName));
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccess.Entities
 {
-    [Table("Hunt")]
     public class Hunt
     {
         public int Id { get; set; }
