@@ -183,7 +183,7 @@
   <data name="DamagedArea" xml:space="preserve">
     <value>Powierzchnia zredukowana upraw rolnych uszkodzonych przez zwierzęta łowne</value>
   </data>
-  <data name="DeerBull" xml:space="preserve">
+  <data name="DeerBulls" xml:space="preserve">
     <value>byki razem</value>
   </data>
   <data name="DeerCalves" xml:space="preserve">
@@ -240,7 +240,7 @@
   <data name="Fields" xml:space="preserve">
     <value>Zagospodarowane przez dzierżawcę lub zarządcę łąki śródleśne i przyleśne</value>
   </data>
-  <data name="FollowDeersTogether" xml:space="preserve">
+  <data name="FallowDeersTogether" xml:space="preserve">
     <value>Daniele razem</value>
   </data>
   <data name="FoodAndSalt" xml:space="preserve">

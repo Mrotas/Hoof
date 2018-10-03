@@ -189,9 +189,9 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to byki razem.
         /// </summary>
-        internal static string DeerBull {
+        internal static string DeerBulls {
             get {
-                return ResourceManager.GetString("DeerBull", resourceCulture);
+                return ResourceManager.GetString("DeerBulls", resourceCulture);
             }
         }
         
@@ -331,6 +331,15 @@ namespace Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Daniele razem.
+        /// </summary>
+        internal static string FallowDeersTogether {
+            get {
+                return ResourceManager.GetString("FallowDeersTogether", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to zagrody.
         /// </summary>
         internal static string Farms {
@@ -354,15 +363,6 @@ namespace Common {
         internal static string Fields {
             get {
                 return ResourceManager.GetString("Fields", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Daniele razem.
-        /// </summary>
-        internal static string FollowDeersTogether {
-            get {
-                return ResourceManager.GetString("FollowDeersTogether", resourceCulture);
             }
         }
         
