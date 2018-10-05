@@ -1,6 +1,6 @@
-﻿namespace Hoof.Models.AnnualPlan
+﻿namespace Hoof.Models.AnnualPlanExecution
 {
-    public class BigGameModel
+    public class BigGameExecutionModel
     {
         public int MooseBull { get; set; }
         public int MooseMare { get; set; }

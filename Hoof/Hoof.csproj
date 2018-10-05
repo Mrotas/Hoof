@@ -153,14 +153,25 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AnnualPlanExecution\AnnualPlanExecution.cs" />
+    <Compile Include="Models\AnnualPlanExecution\CostExecutionModel.cs" />
+    <Compile Include="Models\AnnualPlanExecution\EconomyExecutionModel.cs" />
     <Compile Include="Models\AnnualPlan\AnnualPlanModel.cs" />
-    <Compile Include="Models\AnnualPlan\BigGameModel.cs" />
-    <Compile Include="Models\AnnualPlan\CostModel.cs" />
-    <Compile Include="Models\AnnualPlan\EconomyModel.cs" />
-    <Compile Include="Models\AnnualPlan\FodderModel.cs" />
-    <Compile Include="Models\AnnualPlan\HuntEquipmentModel.cs" />
-    <Compile Include="Models\AnnualPlan\SmallGameModel.cs" />
-    <Compile Include="Models\HuntModel.cs" />
+    <Compile Include="Models\AnnualPlanExecution\BigGameExecutionModel.cs" />
+    <Compile Include="Models\AnnualPlan\BigGamePlanModel.cs" />
+    <Compile Include="Models\AnnualPlan\CostPlanModel.cs" />
+    <Compile Include="Models\AnnualPlan\Economy\BarrierPlanModel.cs" />
+    <Compile Include="Models\AnnualPlan\Economy\DamagedFieldPlanModel.cs" />
+    <Compile Include="Models\AnnualPlan\Economy\EconomyPlanModel.cs" />
+    <Compile Include="Models\AnnualPlan\Economy\EmployeePlanModel.cs" />
+    <Compile Include="Models\AnnualPlan\Economy\FieldPlanModel.cs" />
+    <Compile Include="Models\AnnualPlan\FodderPlanModel.cs" />
+    <Compile Include="Models\AnnualPlan\Economy\TrunkFoodPlanModel.cs" />
+    <Compile Include="Models\AnnualPlanExecution\FodderExecutionModel.cs" />
+    <Compile Include="Models\AnnualPlanExecution\HuntEquipmentModel.cs" />
+    <Compile Include="Models\AnnualPlanExecution\SmallGameExecutionModel.cs" />
+    <Compile Include="Models\AnnualPlan\HuntEquipmentPlanModel.cs" />
+    <Compile Include="Models\AnnualPlan\SmallGamePlanModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

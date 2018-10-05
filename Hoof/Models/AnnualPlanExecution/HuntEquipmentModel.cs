@@ -1,6 +1,6 @@
-﻿namespace Hoof.Models.AnnualPlan
+﻿namespace Hoof.Models.AnnualPlanExecution
 {
-    public class HuntEquipmentModel
+    public class HuntEquipmentExecutionModel
     {
         public int Pastures { get; set; }
         public int DeerLickers { get; set; }

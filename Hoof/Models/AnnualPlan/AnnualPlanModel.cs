@@ -1,12 +1,14 @@
-﻿namespace Hoof.Models.AnnualPlan
+﻿using Hoof.Models.AnnualPlan.Economy;
+
+namespace Hoof.Models.AnnualPlan
 {
     public class AnnualPlanModel
     {
-        public HuntEquipmentModel HuntEquipmentModel { get; set; }
-        public FodderModel FodderModel { get; set; }
-        public EconomyModel EconomyModel { get; set; }
-        public CostModel CostModel { get; set; }
-        public BigGameModel BigGameModel { get; set; }
-        public SmallGameModel SmallGameModel { get; set; }
+        public EconomyPlanModel EconomyPlanModel { get; set; }
+        public HuntEquipmentPlanModel HuntEquipmentPlanModel { get; set; }
+        public FodderPlanModel FodderPlanModel { get; set; }
+        public CostPlanModel CostModel { get; set; }
+        public BigGamePlanModel BigGameModel { get; set; }
+        public SmallGamePlanModel SmallGameModel { get; set; }
     }
 }
