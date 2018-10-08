@@ -50,10 +50,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\DbContext.cs" />
+    <Compile Include="Context\DbContext.cs" />
     <Compile Include="Dao\DaoBase.cs" />
     <Compile Include="Dao\Hunt\HuntDao.cs" />
     <Compile Include="Dao\Hunt\IHuntDao.cs" />
+    <Compile Include="Entities\AnnualPlan\CostPlan.cs" />
+    <Compile Include="Entities\AnnualPlan\EmployeePlan.cs" />
+    <Compile Include="Entities\AnnualPlan\EstimatedGameBeforeHuntPeriodPlan.cs" />
+    <Compile Include="Entities\AnnualPlan\EstimatedGameCount30MarchPlan.cs" />
+    <Compile Include="Entities\AnnualPlan\FieldPlan.cs" />
+    <Compile Include="Entities\AnnualPlan\FodderPlan.cs" />
+    <Compile Include="Entities\AnnualPlan\GamePlan.cs" />
+    <Compile Include="Entities\AnnualPlan\HuntEquipmentPlan.cs" />
+    <Compile Include="Entities\AnnualPlan\TrunkFoodPlan.cs" />
     <Compile Include="Entities\CodeTable.cs" />
     <Compile Include="Entities\Game.cs" />
     <Compile Include="Entities\Hunt.cs" />

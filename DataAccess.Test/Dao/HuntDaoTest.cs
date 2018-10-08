@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using DataAccess.Config;
+using DataAccess.Context;
 using DataAccess.Dao.Hunt;
 using DataAccess.Entities;
 using NUnit.Framework;

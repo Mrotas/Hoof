@@ -1,9 +1,10 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using DataAccess.Entities;
+using DataAccess.Entities.AnnualPlan;
 using DataBaseContext = System.Data.Entity.DbContext;
 
-namespace DataAccess.Config
+namespace DataAccess.Context
 {
     public class DbContext : DataBaseContext
     {
@@ -17,6 +18,12 @@ namespace DataAccess.Config
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             base.OnModelCreating(modelBuilder);
         }
+
+        #region AnnualPlan
+        
+        public DbSet<GamePlan> GamePlan { get; set; }
+
+        #endregion
 
         public DbSet<Hunt> Hunt { get; set; }
         public DbSet<Huntsman> Huntsman { get; set; }

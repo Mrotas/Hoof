@@ -1,4 +1,4 @@
-﻿using DataAccess.Config;
+﻿using DataAccess.Context;
 
 namespace DataAccess.Dao
 {

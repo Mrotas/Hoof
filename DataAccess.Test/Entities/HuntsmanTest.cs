@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DataAccess.Config;
+using DataAccess.Context;
 using DataAccess.Entities;
 using NUnit.Framework;
 
