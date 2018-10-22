@@ -1,0 +1,1442 @@
+﻿@using Common
+@using Domain.AnnualPlan.Models
+@model Domain.AnnualPlan.ViewModels.AnnualPlanViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section scripts
+{
+    <link rel="stylesheet" href="~/Content/AnnualPlan/AnnualPlanStyles.css" />
+}
+
+<h2>Index</h2>
+
+<table class="table-bordered annualPlanTable">
+    <tr>
+        <th>@AnnualPlan.Specification</th>
+        <th class="unit">@AnnualPlan.Unit</th>
+        <th class="long-header">@String.Format(AnnualPlan.PreviousEconomyPlan, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
+        <th class="long-header">@String.Format(AnnualPlan.PreviousPlanExecution, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
+        <th class="long-header">@String.Format(AnnualPlan.March10Condition, DateTime.Now.Year)</th>
+        <th class="long-header">@String.Format(AnnualPlan.CurrentYearPlan, DateTime.Now.Year, DateTime.Now.Year + 1)</th>
+    </tr>
+    <tr>
+        <td class="column_number">1</td>
+        <td class="column_number">2</td>
+        <td class="column_number">3</td>
+        <td class="column_number">4</td>
+        <td class="column_number">5</td>
+        <td class="column_number">6</td>
+    </tr>
+    <tr>
+        <td class="paragraph">1. @AnnualPlan.ContractEmployees</td>
+        <td>@AnnualPlan.UnitPersonPartTime</td>
+        <td>@Model.LastYearAnnualPlanModel.EmployeePlanModels.FirstOrDefault(x => x.Type == (int)EmploymentType.FullTime).Count</td>
+        <td>-</td>
+        <td>-</td>
+        <td>@Model.CurrentAnnualPlanModel.EmployeePlanModels.FirstOrDefault(x => x.Type == (int)EmploymentType.FullTime).Count</td>
+    </tr>
+    <tr>
+        <td class="paragraph">2. @AnnualPlan.NonContractEmployees</td>
+        <td>@AnnualPlan.UnitPerson</td>
+        <td>@Model.LastYearAnnualPlanModel.EmployeePlanModels.FirstOrDefault(x => x.Type == (int)EmploymentType.PartTime).Count</td>
+        <td>-</td>
+        <td>-</td>
+        <td>@Model.CurrentAnnualPlanModel.EmployeePlanModels.FirstOrDefault(x => x.Type == (int)EmploymentType.PartTime).Count</td>
+    </tr>
+    <tr>
+        <td class="paragraph">3. @AnnualPlan.HuntingEquipment</td>
+        <td>@AnnualPlan.X</td>
+        <td>@AnnualPlan.X</td>
+        <td>@AnnualPlan.X</td>
+        <td>@AnnualPlan.X</td>
+        <td>@AnnualPlan.X</td>
+    </tr>
+    <tr>
+        <td>a) @AnnualPlan.Pastures</td>
+        <td>@AnnualPlan.UnitPiece</td>
+        <td>@Model.LastYearAnnualPlanModel.HuntEquipmentPlanModels.FirstOrDefault(x => x.Type == (int)HuntEquipment.Pastures).Count</td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModels.FirstOrDefault(x => x.Type == (int)HuntEquipment.Pastures).Count</td>
+    </tr>
+    <tr>
+        <td>b) @AnnualPlan.DeerLickers</td>
+        <td>@AnnualPlan.UnitPiece</td>
+        <td>@Model.LastYearAnnualPlanModel.HuntEquipmentPlanModels.FirstOrDefault(x => x.Type == (int)HuntEquipment.DeerLickers).Count</td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModels.FirstOrDefault(x => x.Type == (int)HuntEquipment.DeerLickers).Count</td>
+    </tr>
+    <tr>
+        <td>c) @AnnualPlan.Pulpits</td>
+        <td>@AnnualPlan.UnitPiece</td>
+        <td>@Model.LastYearAnnualPlanModel.HuntEquipmentPlanModels.FirstOrDefault(x => x.Type == (int)HuntEquipment.Pulpits).Count</td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModels.FirstOrDefault(x => x.Type == (int)HuntEquipment.Pulpits).Count</td>
+    </tr>
+    <tr>
+        <td>d) @AnnualPlan.Aviaries</td>
+        <td>@AnnualPlan.UnitPiece</td>
+        <td>@Model.LastYearAnnualPlanModel.HuntEquipmentPlanModels.FirstOrDefault(x => x.Type == (int)HuntEquipment.Aviaries).Count</td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModels.FirstOrDefault(x => x.Type == (int)HuntEquipment.Aviaries).Count</td>
+    </tr>
+    <tr>
+        <td>e) @AnnualPlan.Farms</td>
+        <td>@AnnualPlan.UnitPiece</td>
+        <td>@Model.LastYearAnnualPlanModel.HuntEquipmentPlanModels.FirstOrDefault(x => x.Type == (int)HuntEquipment.Farms).Count</td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModels.FirstOrDefault(x => x.Type == (int)HuntEquipment.Farms).Count</td>
+    </tr>
+    <tr>
+        <td>f) @AnnualPlan.WateringPlaces</td>
+        <td>@AnnualPlan.UnitPiece</td>
+        <td>@Model.LastYearAnnualPlanModel.HuntEquipmentPlanModels.FirstOrDefault(x => x.Type == (int)HuntEquipment.WateringPlaces).Count</td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModels.FirstOrDefault(x => x.Type == (int)HuntEquipment.WateringPlaces).Count</td>
+    </tr>
+    <tr>
+        <td class="paragraph">4. @AnnualPlan.TrunkFood</td>
+        <td>@AnnualPlan.UnitHectare</td>
+        <td>@Model.LastYearAnnualPlanModel.TrunkFoodPlanModel.Count</td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.TrunkFoodPlanModel.Count</td>
+    </tr>
+    <tr>
+        <td class="paragraph">5. @AnnualPlan.Barriers</td>
+        <td>@AnnualPlan.UnitKilometers</td>
+        <td>@Model.LastYearAnnualPlanModel.BarrierPlanModel.Count</td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.BarrierPlanModel.Count</td>
+    </tr>
+    <tr>
+        <td class="paragraph">6. @AnnualPlan.Fields</td>
+        <td>@AnnualPlan.UnitHectare</td>
+        <td>@Model.LastYearAnnualPlanModel.FieldPlanModel.Count</td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.FieldPlanModel.Count</td>
+    </tr>
+    <tr>
+        <td class="paragraph">7. @AnnualPlan.FoodAndSalt</td>
+        <td>@AnnualPlan.X</td>
+        <td>@AnnualPlan.X</td>
+        <td>@AnnualPlan.X</td>
+        <td>@AnnualPlan.X</td>
+        <td>@AnnualPlan.X</td>
+    </tr>
+    <tr>
+        <td>a) @AnnualPlan.Dry</td>
+        <td>@AnnualPlan.UnitTon</td>
+        <td>@Model.LastYearAnnualPlanModel.FodderPlanModels.FirstOrDefault(x => x.Type == (int)Fodder.Dry).Count</td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.FodderPlanModels.FirstOrDefault(x => x.Type == (int)Fodder.Dry).Count</td>
+    </tr>
+    <tr>
+        <td>b) @AnnualPlan.Juicy</td>
+        <td>@AnnualPlan.UnitTon</td>
+        <td>@Model.LastYearAnnualPlanModel.FodderPlanModels.FirstOrDefault(x => x.Type == (int)Fodder.Juicy).Count</td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.FodderPlanModels.FirstOrDefault(x => x.Type == (int)Fodder.Juicy).Count</td>
+    </tr>
+    <tr>
+        <td>c) @AnnualPlan.Pithy</td>
+        <td>@AnnualPlan.UnitTon</td>
+        <td>@Model.LastYearAnnualPlanModel.FodderPlanModels.FirstOrDefault(x => x.Type == (int)Fodder.Pithy).Count</td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.FodderPlanModels.FirstOrDefault(x => x.Type == (int)Fodder.Pithy).Count</td>
+    </tr>
+    <tr>
+        <td>d) @AnnualPlan.Salt</td>
+        <td>@AnnualPlan.UnitTon</td>
+        <td>@Model.LastYearAnnualPlanModel.FodderPlanModels.FirstOrDefault(x => x.Type == (int)Fodder.Salt).Count</td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.FodderPlanModels.FirstOrDefault(x => x.Type == (int)Fodder.Salt).Count</td>
+    </tr>
+    <tr>
+        <td class="paragraph">8. @AnnualPlan.DamagedArea</td>
+        <td>@AnnualPlan.UnitHectare</td>
+        <td>@Model.LastYearAnnualPlanModel.DamagedFieldPlanModel.Count</td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.DamagedFieldPlanModel.Count</td>
+    </tr>
+    <tr>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="paragraph">1. @AnnualPlan.Costs</td>
+        <td>@AnnualPlan.UnitThousandZlotych</td>
+        <td>@Model.LastYearAnnualPlanModel.CostPlanModels.FirstOrDefault(x => x.Type == (int)CostType.Cost).Cost</td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.CostPlanModels.FirstOrDefault(x => x.Type == (int)CostType.Cost).Cost</td>
+    </tr>
+    <tr>
+        <td>@AnnualPlan.Compensation</td>
+        <td>@AnnualPlan.UnitThousandZlotych</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="paragraph">2. @AnnualPlan.CarcassesRevenues</td>
+        <td>@AnnualPlan.UnitThousandZlotych</td>
+        <td>@Model.LastYearAnnualPlanModel.CostPlanModels.FirstOrDefault(x => x.Type == (int)CostType.Revenue).Cost</td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.CostPlanModels.FirstOrDefault(x => x.Type == (int)CostType.Revenue).Cost</td>
+    </tr>
+</table>
+<hr/>
+<table class="table-bordered gameTable" style="text-align: center">
+    <tr>
+        <th rowspan="3">@AnnualPlan.GameTypes</th>
+        <th colspan="2">@String.Format(AnnualPlan.PreviousYearGainPlan, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
+        <th colspan="4">@String.Format(AnnualPlan.PreviousYearExecution, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
+        <th>@AnnualPlan.GamesColonized10March</th>
+        <th>@String.Format(AnnualPlan.EstimatedNumberGamesColonized10March, DateTime.Now.Year - 1)</th>
+        <th>@String.Format(AnnualPlan.GamesColonizedPlan, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
+        <th>@AnnualPlan.BigGamePlanBeforeHuntSeason</th>
+        <th colspan="2">@String.Format(AnnualPlan.GamesGainPlan, DateTime.Now.Year, DateTime.Now.Year + 1)</th>
+        <th colspan="4">@String.Format(AnnualPlan.MinMaxGameGainPlan, DateTime.Now.Year, DateTime.Now.Year + 1)</th>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td colspan="3">w tym szt.</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td colspan="2">odstrzał szt.</td>
+        <td colspan="2">odłów szt.</td>
+    </tr>
+    <tr>
+        <td>odstrzał szt.</td>
+        <td>odłów szt.</td>
+        <td>ogółem szt.</td>
+        <td>odstrzał</td>
+        <td>odłów</td>
+        <td>ubytki</td>
+        <td>szt.</td>
+        <td>szt.</td>
+        <td>szt.</td>
+        <td>szt.</td>
+        <td>odstrzał szt.</td>
+        <td>odłów szt.</td>
+        <td>min</td>
+        <td>max</td>
+        <td>min</td>
+        <td>max</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+        <td>15</td>
+        <td>16</td>
+        <td>17</td>
+    </tr>
+    <tr>
+        <td>1. @AnnualPlan.MoosesTogether</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>a) @AnnualPlan.MooseBulls</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 11).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 11).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 11).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 11).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>b) @AnnualPlan.MooseMares</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 12).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 12).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 12).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 12).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>c) @AnnualPlan.MooseCalves</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 13).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 13).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 13).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 13).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>2. @AnnualPlan.DeersTogether</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>a) @AnnualPlan.DeerBulls</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>- @AnnualPlan.FirstClass</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 14 && x.Class == 1).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 14 && x.Class == 1).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 14 && x.Class == 1).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 14 && x.Class == 1).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>- @AnnualPlan.SecondClass</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 14 && x.Class == 2).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 14 && x.Class == 2).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 14 && x.Class == 2).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 14 && x.Class == 2).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>- @AnnualPlan.ThirdClass</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 14 && x.Class == 3).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 14 && x.Class == 3).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 14 && x.Class == 3).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 14 && x.Class == 3).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>b) @AnnualPlan.DeerDoes</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 15).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 15).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 15).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 15).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>c) @AnnualPlan.DeerCalves</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 16).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 16).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 16).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 16).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>3. @AnnualPlan.DeersSikaTogether</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>a) @AnnualPlan.DeerBulls</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>- @AnnualPlan.FirstClass</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 17 && x.Class == 1).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 17 && x.Class == 1).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 17 && x.Class == 1).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 17 && x.Class == 1).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>- @AnnualPlan.SecondClass</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 17 && x.Class == 2).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 17 && x.Class == 2).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 17 && x.Class == 2).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 17 && x.Class == 2).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>- @AnnualPlan.ThirdClass</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 17 && x.Class == 3).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 17 && x.Class == 3).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 17 && x.Class == 3).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 17 && x.Class == 3).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>b) @AnnualPlan.DeerDoes</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 18).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 18).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 18).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 18).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>c) @AnnualPlan.DeerCalves</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 19).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 19).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 19).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 19).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>4. @AnnualPlan.FallowDeersTogether</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>a) @AnnualPlan.DeerBulls</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>- @AnnualPlan.FirstClass</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 20 && x.Class == 1).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 20 && x.Class == 1).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 20 && x.Class == 1).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 20 && x.Class == 1).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>- @AnnualPlan.SecondClass</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 20 && x.Class == 2).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 20 && x.Class == 2).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 20 && x.Class == 2).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 20 && x.Class == 2).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>- @AnnualPlan.ThirdClass</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 20 && x.Class == 3).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 20 && x.Class == 3).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 20 && x.Class == 3).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 20 && x.Class == 3).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>b) @AnnualPlan.DeerDoes</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 21).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 21).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 21).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 21).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>c) @AnnualPlan.DeerCalves</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 22).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 22).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 22).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 22).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>5. @AnnualPlan.RoesTogether</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>a) @AnnualPlan.RoesRoebuckTogether</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>- @AnnualPlan.FirstClass</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 23 && x.Class == 1).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 23 && x.Class == 1).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 23 && x.Class == 1).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 23 && x.Class == 1).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>- @AnnualPlan.SecondClass</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 23 && x.Class == 2).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 23 && x.Class == 2).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 23 && x.Class == 2).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 23 && x.Class == 2).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>b) @AnnualPlan.RoeGoat</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 24).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 24).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 24).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 24).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>c) @AnnualPlan.RoeGoatling</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 25).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 25).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 25).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 25).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>6. @AnnualPlan.Mouflons</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>a) @AnnualPlan.MouflonRams</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 26).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 26).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 26).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 26).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>b) @AnnualPlan.MouflonSheeps</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 27).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 27).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 27).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 27).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>c) @AnnualPlan.MouflonLambs</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 28).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 28).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 28).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 28).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>7. @AnnualPlan.Boars</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 29).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 29).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 29).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 29).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+<hr/>
+<table class="table-bordered" style="text-align: center">
+    <tr>
+        <th rowspan="3">@AnnualPlan.GameTypes</th>
+        <th colspan="2">@String.Format(AnnualPlan.PreviousYearGainPlan, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
+        <th colspan="2">@String.Format(AnnualPlan.PreviousYearExecution, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
+        <th>@AnnualPlan.GamesColonized10March</th>
+        <th>@String.Format(AnnualPlan.EstimatedNumberGamesColonized10March, DateTime.Now.Year - 1)</th>
+        <th>@String.Format(AnnualPlan.GamesColonizedPlan, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
+        <th colspan="2">@String.Format(AnnualPlan.GamesGainPlan, DateTime.Now.Year, DateTime.Now.Year + 1)</th>
+        <th colspan="4">@String.Format(AnnualPlan.MinMaxGameGainPlan, DateTime.Now.Year, DateTime.Now.Year + 1)</th>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td colspan="2">odstrzał szt.</td>
+        <td colspan="2">odłów szt.</td>
+    </tr>
+    <tr>
+        <td>odstrzał szt.</td>
+        <td>odłów szt.</td>
+        <td>odstrzał szt.</td>
+        <td>odłów szt.</td>
+        <td>szt.</td>
+        <td>szt.</td>
+        <td>szt.</td>
+        <td>odstrzał szt.</td>
+        <td>odłów szt.</td>
+        <td>min</td>
+        <td>max</td>
+        <td>min</td>
+        <td>max</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+    </tr>
+    <tr>
+        <td>8. @AnnualPlan.Foxes</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 30).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 30).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 30).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 30).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>9. @AnnualPlan.RaccoonDogs</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 31).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 31).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 31).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 31).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>10. @AnnualPlan.Badgers</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 32).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 32).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 32).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 32).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>11. @AnnualPlan.MarensTogether</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>- @AnnualPlan.Maren</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 33).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 33).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 33).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 33).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>- @AnnualPlan.MarenKamionki</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 34).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 34).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 34).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 34).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>12. @AnnualPlan.AmericanMinks</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 35).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 35).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 35).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 35).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>13. @AnnualPlan.Ferrets</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 36).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 36).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 36).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 36).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>14. @AnnualPlan.Raccoons</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 37).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 37).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 37).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 37).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>15. @AnnualPlan.Muskrats</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 38).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 38).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 38).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 38).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>16. @AnnualPlan.Hares</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 39).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 39).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 39).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 39).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>17. @AnnualPlan.Rabbits</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 40).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 40).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 40).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 40).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>18. @AnnualPlan.HazelGrouses</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 41).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 41).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 41).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 41).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>19. @AnnualPlan.Pheasants</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 42).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 42).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 42).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 42).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>20. @AnnualPlan.Partridges</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 43).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 43).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 43).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 43).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>21. @AnnualPlan.GoosesTogether</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>- @AnnualPlan.GooseGreylags</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 44).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 44).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 44).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 44).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>- @AnnualPlan.GooseGrains</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 45).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 45).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 45).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 45).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>- @AnnualPlan.GooseAlbatrosses</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 46).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 46).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 46).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 46).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>22. @AnnualPlan.DucksTogether</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>- @AnnualPlan.DuckHybrid</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 47).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 47).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 47).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 47).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>- @AnnualPlan.DuckTeals</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 48).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 48).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 48).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 48).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>- @AnnualPlan.DuckBrands</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 49).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 49).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 49).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 49).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>- @AnnualPlan.DuckBlackberries</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 50).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 50).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 50).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 50).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>23. @AnnualPlan.Doves</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 51).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 51).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 51).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 51).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>24. @AnnualPlan.Woodcocks</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 52).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 52).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 52).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 52).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>25. @AnnualPlan.Coots</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 53).Cull</td>
+        <td>@Model.LastYearAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 53).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 53).Cull</td>
+        <td>@Model.CurrentAnnualPlanModel.GamePlanModels.FirstOrDefault(x => x.SubType == 53).Catch</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>

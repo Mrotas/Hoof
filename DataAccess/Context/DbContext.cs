@@ -20,8 +20,16 @@ namespace DataAccess.Context
         }
 
         #region AnnualPlan
-        
+
+        public DbSet<CostPlan> CostPlan { get; set; }
+        public DbSet<EmployeePlan> EmployeePlan { get; set; }
+        public DbSet<EstimatedGameBeforeHuntPeriodPlan> EstimatedGameBeforeHuntPeriodPlan { get; set; }
+        public DbSet<EstimatedGameCount30MarchPlan> EstimatedGameCount30MarchPlan { get; set; }
+        public DbSet<FieldPlan> FieldPlan { get; set; }
+        public DbSet<FodderPlan> FodderPlan { get; set; }
         public DbSet<GamePlan> GamePlan { get; set; }
+        public DbSet<HuntEquipmentPlan> HuntEquipmentPlan { get; set; }
+        public DbSet<TrunkFoodPlan> TrunkFoodPlan { get; set; }
 
         #endregion
 

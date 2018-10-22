@@ -22,7 +22,7 @@ namespace Common {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AnnualPlan {
+    public class AnnualPlan {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Common {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Common.Resources.AnnualPlan", typeof(AnnualPlan).Assembly);
@@ -51,7 +51,7 @@ namespace Common {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Norki amerykańskie.
         /// </summary>
-        internal static string AmericanMinks {
+        public static string AmericanMinks {
             get {
                 return ResourceManager.GetString("AmericanMinks", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to woliery.
         /// </summary>
-        internal static string Aviaries {
+        public static string Aviaries {
             get {
                 return ResourceManager.GetString("Aviaries", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Borsuki.
         /// </summary>
-        internal static string Badgers {
+        public static string Badgers {
             get {
                 return ResourceManager.GetString("Badgers", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Pasy zaporowe.
         /// </summary>
-        internal static string Barriers {
+        public static string Barriers {
             get {
                 return ResourceManager.GetString("Barriers", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Planowana liczebność zwierzyny grubej przed okresem polowań.
         /// </summary>
-        internal static string BigGamePlanBeforeHuntSeason {
+        public static string BigGamePlanBeforeHuntSeason {
             get {
                 return ResourceManager.GetString("BigGamePlanBeforeHuntSeason", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Dziki.
         /// </summary>
-        internal static string Boars {
+        public static string Boars {
             get {
                 return ResourceManager.GetString("Boars", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Przychody ze sprzedaży tusz zwierzyny płowej.
         /// </summary>
-        internal static string CarcassesRevenues {
+        public static string CarcassesRevenues {
             get {
                 return ResourceManager.GetString("CarcassesRevenues", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to w tym : kwota wypłaconych odszkodowań łowieckich.
         /// </summary>
-        internal static string Compensation {
+        public static string Compensation {
             get {
                 return ResourceManager.GetString("Compensation", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Liczba osób zatrudnionych w oparciu o umowę o pracę w celu  wykonywania zadań z zakresu gospodarki łowieckiej.
         /// </summary>
-        internal static string ContractEmployees {
+        public static string ContractEmployees {
             get {
                 return ResourceManager.GetString("ContractEmployees", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Łyski.
         /// </summary>
-        internal static string Coots {
+        public static string Coots {
             get {
                 return ResourceManager.GetString("Coots", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Koszty poniesione na prowadzenie gospodarki łowieckiej.
         /// </summary>
-        internal static string Costs {
+        public static string Costs {
             get {
                 return ResourceManager.GetString("Costs", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to odstrzał szt..
         /// </summary>
-        internal static string CullPieces {
+        public static string CullPieces {
             get {
                 return ResourceManager.GetString("CullPieces", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Stan planowany do osiągnięcia w bieżącym roku gospodarczym {0} / {1}.
         /// </summary>
-        internal static string CurrentYearPlan {
+        public static string CurrentYearPlan {
             get {
                 return ResourceManager.GetString("CurrentYearPlan", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Powierzchnia zredukowana upraw rolnych uszkodzonych przez zwierzęta łowne.
         /// </summary>
-        internal static string DamagedArea {
+        public static string DamagedArea {
             get {
                 return ResourceManager.GetString("DamagedArea", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to byki razem.
         /// </summary>
-        internal static string DeerBulls {
+        public static string DeerBulls {
             get {
                 return ResourceManager.GetString("DeerBulls", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to cielęta.
         /// </summary>
-        internal static string DeerCalves {
+        public static string DeerCalves {
             get {
                 return ResourceManager.GetString("DeerCalves", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to łanie.
         /// </summary>
-        internal static string DeerDoes {
+        public static string DeerDoes {
             get {
                 return ResourceManager.GetString("DeerDoes", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to lizawki.
         /// </summary>
-        internal static string DeerLickers {
+        public static string DeerLickers {
             get {
                 return ResourceManager.GetString("DeerLickers", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Jelenie Sika razem.
         /// </summary>
-        internal static string DeersSikaTogether {
+        public static string DeersSikaTogether {
             get {
                 return ResourceManager.GetString("DeersSikaTogether", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Jelenie razem.
         /// </summary>
-        internal static string DeersTogether {
+        public static string DeersTogether {
             get {
                 return ResourceManager.GetString("DeersTogether", resourceCulture);
             }
@@ -243,7 +243,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Dane ogólne..
         /// </summary>
-        internal static string Details {
+        public static string Details {
             get {
                 return ResourceManager.GetString("Details", resourceCulture);
             }
@@ -252,7 +252,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Gołębie grzywacze.
         /// </summary>
-        internal static string Doves {
+        public static string Doves {
             get {
                 return ResourceManager.GetString("Doves", resourceCulture);
             }
@@ -261,7 +261,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to objętościowa sucha.
         /// </summary>
-        internal static string Dry {
+        public static string Dry {
             get {
                 return ResourceManager.GetString("Dry", resourceCulture);
             }
@@ -270,7 +270,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to czernice.
         /// </summary>
-        internal static string DuckBlackberries {
+        public static string DuckBlackberries {
             get {
                 return ResourceManager.GetString("DuckBlackberries", resourceCulture);
             }
@@ -279,7 +279,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to głowienki.
         /// </summary>
-        internal static string DuckBrands {
+        public static string DuckBrands {
             get {
                 return ResourceManager.GetString("DuckBrands", resourceCulture);
             }
@@ -288,7 +288,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to krzyżówki.
         /// </summary>
-        internal static string DuckHybrid {
+        public static string DuckHybrid {
             get {
                 return ResourceManager.GetString("DuckHybrid", resourceCulture);
             }
@@ -297,7 +297,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Dzikie kaczki razem.
         /// </summary>
-        internal static string DucksTogether {
+        public static string DucksTogether {
             get {
                 return ResourceManager.GetString("DucksTogether", resourceCulture);
             }
@@ -306,7 +306,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to cyraneczki.
         /// </summary>
-        internal static string DuckTeals {
+        public static string DuckTeals {
             get {
                 return ResourceManager.GetString("DuckTeals", resourceCulture);
             }
@@ -315,7 +315,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Zagospodarowanie obwodu łowieckiego, szkody łowieckie..
         /// </summary>
-        internal static string EconomyDetriment {
+        public static string EconomyDetriment {
             get {
                 return ResourceManager.GetString("EconomyDetriment", resourceCulture);
             }
@@ -324,7 +324,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Szacowana liczebność zwierząt na 10.03 {0}.
         /// </summary>
-        internal static string EstimatedNumberGamesColonized10March {
+        public static string EstimatedNumberGamesColonized10March {
             get {
                 return ResourceManager.GetString("EstimatedNumberGamesColonized10March", resourceCulture);
             }
@@ -333,7 +333,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Daniele razem.
         /// </summary>
-        internal static string FallowDeersTogether {
+        public static string FallowDeersTogether {
             get {
                 return ResourceManager.GetString("FallowDeersTogether", resourceCulture);
             }
@@ -342,7 +342,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to zagrody.
         /// </summary>
-        internal static string Farms {
+        public static string Farms {
             get {
                 return ResourceManager.GetString("Farms", resourceCulture);
             }
@@ -351,7 +351,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Tchórze zwyczajne.
         /// </summary>
-        internal static string Ferrets {
+        public static string Ferrets {
             get {
                 return ResourceManager.GetString("Ferrets", resourceCulture);
             }
@@ -360,16 +360,25 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Zagospodarowane przez dzierżawcę lub zarządcę łąki śródleśne i przyleśne.
         /// </summary>
-        internal static string Fields {
+        public static string Fields {
             get {
                 return ResourceManager.GetString("Fields", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I kl. wieku.
+        /// </summary>
+        public static string FirstClass {
+            get {
+                return ResourceManager.GetString("FirstClass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Karma i sól.
         /// </summary>
-        internal static string FoodAndSalt {
+        public static string FoodAndSalt {
             get {
                 return ResourceManager.GetString("FoodAndSalt", resourceCulture);
             }
@@ -378,7 +387,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Lisy.
         /// </summary>
-        internal static string Foxes {
+        public static string Foxes {
             get {
                 return ResourceManager.GetString("Foxes", resourceCulture);
             }
@@ -387,7 +396,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Liczba zasiedlonych zwierząt do 10.03 poprzedniego roku gospodarczego.
         /// </summary>
-        internal static string GamesColonized10March {
+        public static string GamesColonized10March {
             get {
                 return ResourceManager.GetString("GamesColonized10March", resourceCulture);
             }
@@ -396,7 +405,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Plan zasiedleń w roku gospodarczym {0} / {1}.
         /// </summary>
-        internal static string GamesColonizedPlan {
+        public static string GamesColonizedPlan {
             get {
                 return ResourceManager.GetString("GamesColonizedPlan", resourceCulture);
             }
@@ -406,7 +415,7 @@ namespace Common {
         ///   Looks up a localized string similar to Optymalna liczba zwierząt zaplanowanych do pozyskania w {0} / {1} roku
         ///gospodarczym.
         /// </summary>
-        internal static string GamesGainPlan {
+        public static string GamesGainPlan {
             get {
                 return ResourceManager.GetString("GamesGainPlan", resourceCulture);
             }
@@ -415,7 +424,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Gatunki zwierząt łownych.
         /// </summary>
-        internal static string GameTypes {
+        public static string GameTypes {
             get {
                 return ResourceManager.GetString("GameTypes", resourceCulture);
             }
@@ -424,7 +433,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to białoczelne.
         /// </summary>
-        internal static string GooseAlbatrosses {
+        public static string GooseAlbatrosses {
             get {
                 return ResourceManager.GetString("GooseAlbatrosses", resourceCulture);
             }
@@ -433,7 +442,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to zbożowe.
         /// </summary>
-        internal static string GooseGrains {
+        public static string GooseGrains {
             get {
                 return ResourceManager.GetString("GooseGrains", resourceCulture);
             }
@@ -442,7 +451,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to gęgawy.
         /// </summary>
-        internal static string GooseGreylags {
+        public static string GooseGreylags {
             get {
                 return ResourceManager.GetString("GooseGreylags", resourceCulture);
             }
@@ -451,7 +460,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Gęsi razem.
         /// </summary>
-        internal static string GoosesTogether {
+        public static string GoosesTogether {
             get {
                 return ResourceManager.GetString("GoosesTogether", resourceCulture);
             }
@@ -460,7 +469,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Zające szaraki.
         /// </summary>
-        internal static string Hares {
+        public static string Hares {
             get {
                 return ResourceManager.GetString("Hares", resourceCulture);
             }
@@ -469,7 +478,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Jarząbki.
         /// </summary>
-        internal static string HazelGrouses {
+        public static string HazelGrouses {
             get {
                 return ResourceManager.GetString("HazelGrouses", resourceCulture);
             }
@@ -478,7 +487,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Roczny Plan Łowiecki na rok gospodarczy {0} / {1} oraz sprawozdanie z wykonania planu gospodarczego roku {2} / {1}.
         /// </summary>
-        internal static string Header {
+        public static string Header {
             get {
                 return ResourceManager.GetString("Header", resourceCulture);
             }
@@ -487,7 +496,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Urządzenia związane z prowadzeniem gospodarki łowieckiej.
         /// </summary>
-        internal static string HuntingEquipment {
+        public static string HuntingEquipment {
             get {
                 return ResourceManager.GetString("HuntingEquipment", resourceCulture);
             }
@@ -496,7 +505,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to objętościowa soczysta.
         /// </summary>
-        internal static string Juicy {
+        public static string Juicy {
             get {
                 return ResourceManager.GetString("Juicy", resourceCulture);
             }
@@ -505,7 +514,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Stan na 10 marca roku, na który sporządza się plan {0} r..
         /// </summary>
-        internal static string March10Condition {
+        public static string March10Condition {
             get {
                 return ResourceManager.GetString("March10Condition", resourceCulture);
             }
@@ -514,7 +523,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to tumaki.
         /// </summary>
-        internal static string Maren {
+        public static string Maren {
             get {
                 return ResourceManager.GetString("Maren", resourceCulture);
             }
@@ -523,7 +532,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to kamionki.
         /// </summary>
-        internal static string MarenKamionki {
+        public static string MarenKamionki {
             get {
                 return ResourceManager.GetString("MarenKamionki", resourceCulture);
             }
@@ -532,7 +541,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Kuny razem.
         /// </summary>
-        internal static string MarensTogether {
+        public static string MarensTogether {
             get {
                 return ResourceManager.GetString("MarensTogether", resourceCulture);
             }
@@ -541,7 +550,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to max.
         /// </summary>
-        internal static string Max {
+        public static string Max {
             get {
                 return ResourceManager.GetString("Max", resourceCulture);
             }
@@ -550,7 +559,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to min.
         /// </summary>
-        internal static string Min {
+        public static string Min {
             get {
                 return ResourceManager.GetString("Min", resourceCulture);
             }
@@ -559,7 +568,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Minimalna i maksymalna liczba zwierząt zaplanowana do pozyskania w roku gospodarczym {0} /{1}.
         /// </summary>
-        internal static string MinMaxGameGainPlan {
+        public static string MinMaxGameGainPlan {
             get {
                 return ResourceManager.GetString("MinMaxGameGainPlan", resourceCulture);
             }
@@ -568,7 +577,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to byki.
         /// </summary>
-        internal static string MooseBulls {
+        public static string MooseBulls {
             get {
                 return ResourceManager.GetString("MooseBulls", resourceCulture);
             }
@@ -577,7 +586,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to łoszaki.
         /// </summary>
-        internal static string MooseCalves {
+        public static string MooseCalves {
             get {
                 return ResourceManager.GetString("MooseCalves", resourceCulture);
             }
@@ -586,7 +595,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to klępy.
         /// </summary>
-        internal static string MooseMares {
+        public static string MooseMares {
             get {
                 return ResourceManager.GetString("MooseMares", resourceCulture);
             }
@@ -595,7 +604,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Łosie razem.
         /// </summary>
-        internal static string MoosesTogether {
+        public static string MoosesTogether {
             get {
                 return ResourceManager.GetString("MoosesTogether", resourceCulture);
             }
@@ -604,7 +613,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to jagnięta.
         /// </summary>
-        internal static string MouflonLambs {
+        public static string MouflonLambs {
             get {
                 return ResourceManager.GetString("MouflonLambs", resourceCulture);
             }
@@ -613,7 +622,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to tryki.
         /// </summary>
-        internal static string MouflonRams {
+        public static string MouflonRams {
             get {
                 return ResourceManager.GetString("MouflonRams", resourceCulture);
             }
@@ -622,7 +631,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Muflony razem.
         /// </summary>
-        internal static string Mouflons {
+        public static string Mouflons {
             get {
                 return ResourceManager.GetString("Mouflons", resourceCulture);
             }
@@ -631,7 +640,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to owce.
         /// </summary>
-        internal static string MouflonSheeps {
+        public static string MouflonSheeps {
             get {
                 return ResourceManager.GetString("MouflonSheeps", resourceCulture);
             }
@@ -640,7 +649,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Piżmaki.
         /// </summary>
-        internal static string Muskrats {
+        public static string Muskrats {
             get {
                 return ResourceManager.GetString("Muskrats", resourceCulture);
             }
@@ -649,7 +658,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Liczba osób zatrudnionych na innej podstawie niż umowa o pracę, lub powołanych, w celu wykonywania zadań z zakresu gospodarki łowieckiej.
         /// </summary>
-        internal static string NonContractEmployees {
+        public static string NonContractEmployees {
             get {
                 return ResourceManager.GetString("NonContractEmployees", resourceCulture);
             }
@@ -658,7 +667,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Obwód łowiecki nr 20, powierzchnia 4777 ha, w tym powierzchnia gruntów leśnych 4394 ha..
         /// </summary>
-        internal static string Paragraph1st {
+        public static string Paragraph1st {
             get {
                 return ResourceManager.GetString("Paragraph1st", resourceCulture);
             }
@@ -667,7 +676,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Województwo Wielkopolskie, Powiat Złotowski..
         /// </summary>
-        internal static string Paragraph2nd {
+        public static string Paragraph2nd {
             get {
                 return ResourceManager.GetString("Paragraph2nd", resourceCulture);
             }
@@ -676,7 +685,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Nadleśnictwo Płytnica z siedzibą w Nowej Szwecji, Szwecja 6 78-600 Wałcz..
         /// </summary>
-        internal static string Paragraph3rd {
+        public static string Paragraph3rd {
             get {
                 return ResourceManager.GetString("Paragraph3rd", resourceCulture);
             }
@@ -685,7 +694,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Regionalna Dyrekcja Lasów Państwowych Piła, 64-921 Piła - Kalina..
         /// </summary>
-        internal static string Paragraph4th {
+        public static string Paragraph4th {
             get {
                 return ResourceManager.GetString("Paragraph4th", resourceCulture);
             }
@@ -694,7 +703,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Zarząd Okręgowy PZŁ, Piła, Al. Powstańców Wlkp. 190 64-920 Piła..
         /// </summary>
-        internal static string Paragraph5th {
+        public static string Paragraph5th {
             get {
                 return ResourceManager.GetString("Paragraph5th", resourceCulture);
             }
@@ -703,7 +712,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Dzierżawca/lub zarządca, Koło Łowieckie nr 39 Literatów Polskich „Pióro” ul. Rostworowskego 6/2, 01-496 Warszawa..
         /// </summary>
-        internal static string Paragraph6th {
+        public static string Paragraph6th {
             get {
                 return ResourceManager.GetString("Paragraph6th", resourceCulture);
             }
@@ -712,7 +721,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Kuropatwy.
         /// </summary>
-        internal static string Partridges {
+        public static string Partridges {
             get {
                 return ResourceManager.GetString("Partridges", resourceCulture);
             }
@@ -721,7 +730,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to paśniki.
         /// </summary>
-        internal static string Pastures {
+        public static string Pastures {
             get {
                 return ResourceManager.GetString("Pastures", resourceCulture);
             }
@@ -730,7 +739,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Bażanty.
         /// </summary>
-        internal static string Pheasants {
+        public static string Pheasants {
             get {
                 return ResourceManager.GetString("Pheasants", resourceCulture);
             }
@@ -739,7 +748,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to treściwa.
         /// </summary>
-        internal static string Pithy {
+        public static string Pithy {
             get {
                 return ResourceManager.GetString("Pithy", resourceCulture);
             }
@@ -748,7 +757,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Roczny Plan.
         /// </summary>
-        internal static string Plan {
+        public static string Plan {
             get {
                 return ResourceManager.GetString("Plan", resourceCulture);
             }
@@ -757,7 +766,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Plan poprzedniego roku gospodarczego {0} / {1}.
         /// </summary>
-        internal static string PreviousEconomyPlan {
+        public static string PreviousEconomyPlan {
             get {
                 return ResourceManager.GetString("PreviousEconomyPlan", resourceCulture);
             }
@@ -766,7 +775,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Wykonanie planu poprzedniego roku gospodarczego {0} / {1}.
         /// </summary>
-        internal static string PreviousPlanExecution {
+        public static string PreviousPlanExecution {
             get {
                 return ResourceManager.GetString("PreviousPlanExecution", resourceCulture);
             }
@@ -775,7 +784,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Wykonanie planu pozyskania roku poprzed niego {0} / {1}.
         /// </summary>
-        internal static string PreviousYearExecution {
+        public static string PreviousYearExecution {
             get {
                 return ResourceManager.GetString("PreviousYearExecution", resourceCulture);
             }
@@ -784,7 +793,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Plan pozyskania roku poprzedniego {0} / {1}.
         /// </summary>
-        internal static string PreviousYearGainPlan {
+        public static string PreviousYearGainPlan {
             get {
                 return ResourceManager.GetString("PreviousYearGainPlan", resourceCulture);
             }
@@ -793,7 +802,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to ambony.
         /// </summary>
-        internal static string Pulpits {
+        public static string Pulpits {
             get {
                 return ResourceManager.GetString("Pulpits", resourceCulture);
             }
@@ -802,7 +811,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Dzikie króliki.
         /// </summary>
-        internal static string Rabbits {
+        public static string Rabbits {
             get {
                 return ResourceManager.GetString("Rabbits", resourceCulture);
             }
@@ -811,7 +820,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Jenoty.
         /// </summary>
-        internal static string RaccoonDogs {
+        public static string RaccoonDogs {
             get {
                 return ResourceManager.GetString("RaccoonDogs", resourceCulture);
             }
@@ -820,7 +829,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Szopy pracze.
         /// </summary>
-        internal static string Raccoons {
+        public static string Raccoons {
             get {
                 return ResourceManager.GetString("Raccoons", resourceCulture);
             }
@@ -829,7 +838,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to kozy.
         /// </summary>
-        internal static string RoeGoat {
+        public static string RoeGoat {
             get {
                 return ResourceManager.GetString("RoeGoat", resourceCulture);
             }
@@ -838,7 +847,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to koźlęta.
         /// </summary>
-        internal static string RoeGoatling {
+        public static string RoeGoatling {
             get {
                 return ResourceManager.GetString("RoeGoatling", resourceCulture);
             }
@@ -847,7 +856,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to kozły razem.
         /// </summary>
-        internal static string RoesRoebuckTogether {
+        public static string RoesRoebuckTogether {
             get {
                 return ResourceManager.GetString("RoesRoebuckTogether", resourceCulture);
             }
@@ -856,7 +865,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Sarny razem.
         /// </summary>
-        internal static string RoesTogether {
+        public static string RoesTogether {
             get {
                 return ResourceManager.GetString("RoesTogether", resourceCulture);
             }
@@ -865,7 +874,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Informacja o przychodach ze sprzedaży tusz zwierzyny płowej i kosztach zagospodarowania obwodu..
         /// </summary>
-        internal static string SalesRevenuesAndCosts {
+        public static string SalesRevenuesAndCosts {
             get {
                 return ResourceManager.GetString("SalesRevenuesAndCosts", resourceCulture);
             }
@@ -874,16 +883,25 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to sól.
         /// </summary>
-        internal static string Salt {
+        public static string Salt {
             get {
                 return ResourceManager.GetString("Salt", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to II kl. wieku.
+        /// </summary>
+        public static string SecondClass {
+            get {
+                return ResourceManager.GetString("SecondClass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to zwierzyna drobna.
         /// </summary>
-        internal static string SmallAnimals {
+        public static string SmallAnimals {
             get {
                 return ResourceManager.GetString("SmallAnimals", resourceCulture);
             }
@@ -892,16 +910,25 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Wyszczególnienie.
         /// </summary>
-        internal static string Specification {
+        public static string Specification {
             get {
                 return ResourceManager.GetString("Specification", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to III kl. wieku.
+        /// </summary>
+        public static string ThirdClass {
+            get {
+                return ResourceManager.GetString("ThirdClass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Poletka łowieckie(obszary obsiane lub obsadzone roślinami stanowiącymi żer dla zwierzyny na pniu).
         /// </summary>
-        internal static string TrunkFood {
+        public static string TrunkFood {
             get {
                 return ResourceManager.GetString("TrunkFood", resourceCulture);
             }
@@ -910,7 +937,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Jednostka miary.
         /// </summary>
-        internal static string Unit {
+        public static string Unit {
             get {
                 return ResourceManager.GetString("Unit", resourceCulture);
             }
@@ -919,7 +946,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to ogółem szt..
         /// </summary>
-        internal static string UnitAltogetherPieces {
+        public static string UnitAltogetherPieces {
             get {
                 return ResourceManager.GetString("UnitAltogetherPieces", resourceCulture);
             }
@@ -928,7 +955,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to odłów szt..
         /// </summary>
-        internal static string UnitCatchAlivePieces {
+        public static string UnitCatchAlivePieces {
             get {
                 return ResourceManager.GetString("UnitCatchAlivePieces", resourceCulture);
             }
@@ -937,7 +964,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to ha.
         /// </summary>
-        internal static string UnitHectare {
+        public static string UnitHectare {
             get {
                 return ResourceManager.GetString("UnitHectare", resourceCulture);
             }
@@ -946,7 +973,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to km.
         /// </summary>
-        internal static string UnitKilometers {
+        public static string UnitKilometers {
             get {
                 return ResourceManager.GetString("UnitKilometers", resourceCulture);
             }
@@ -955,7 +982,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to osoby.
         /// </summary>
-        internal static string UnitPerson {
+        public static string UnitPerson {
             get {
                 return ResourceManager.GetString("UnitPerson", resourceCulture);
             }
@@ -964,7 +991,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to osoby / etaty.
         /// </summary>
-        internal static string UnitPersonPartTime {
+        public static string UnitPersonPartTime {
             get {
                 return ResourceManager.GetString("UnitPersonPartTime", resourceCulture);
             }
@@ -973,7 +1000,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to szt..
         /// </summary>
-        internal static string UnitPiece {
+        public static string UnitPiece {
             get {
                 return ResourceManager.GetString("UnitPiece", resourceCulture);
             }
@@ -982,7 +1009,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to tys. Zł.
         /// </summary>
-        internal static string UnitThousandZlotych {
+        public static string UnitThousandZlotych {
             get {
                 return ResourceManager.GetString("UnitThousandZlotych", resourceCulture);
             }
@@ -991,7 +1018,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to tona.
         /// </summary>
-        internal static string UnitTon {
+        public static string UnitTon {
             get {
                 return ResourceManager.GetString("UnitTon", resourceCulture);
             }
@@ -1000,7 +1027,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to ubytki szt..
         /// </summary>
-        internal static string UnitWastagesPieces {
+        public static string UnitWastagesPieces {
             get {
                 return ResourceManager.GetString("UnitWastagesPieces", resourceCulture);
             }
@@ -1009,7 +1036,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to inne - wodopoje.
         /// </summary>
-        internal static string WateringPlaces {
+        public static string WateringPlaces {
             get {
                 return ResourceManager.GetString("WateringPlaces", resourceCulture);
             }
@@ -1018,7 +1045,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to Słonki.
         /// </summary>
-        internal static string Woodcocks {
+        public static string Woodcocks {
             get {
                 return ResourceManager.GetString("Woodcocks", resourceCulture);
             }
@@ -1027,7 +1054,7 @@ namespace Common {
         /// <summary>
         ///   Looks up a localized string similar to X.
         /// </summary>
-        internal static string X {
+        public static string X {
             get {
                 return ResourceManager.GetString("X", resourceCulture);
             }

@@ -45,6 +45,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -148,33 +154,16 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AnnualPlanController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HuntController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AnnualPlanExecution\AnnualPlanExecution.cs" />
-    <Compile Include="Models\AnnualPlanExecution\CostExecutionModel.cs" />
-    <Compile Include="Models\AnnualPlanExecution\EconomyExecutionModel.cs" />
-    <Compile Include="Models\AnnualPlan\AnnualPlanModel.cs" />
-    <Compile Include="Models\AnnualPlanExecution\BigGameExecutionModel.cs" />
-    <Compile Include="Models\AnnualPlan\BigGamePlanModel.cs" />
-    <Compile Include="Models\AnnualPlan\CostPlanModel.cs" />
-    <Compile Include="Models\AnnualPlan\Economy\BarrierPlanModel.cs" />
-    <Compile Include="Models\AnnualPlan\Economy\DamagedFieldPlanModel.cs" />
-    <Compile Include="Models\AnnualPlan\Economy\EconomyPlanModel.cs" />
-    <Compile Include="Models\AnnualPlan\Economy\EmployeePlanModel.cs" />
-    <Compile Include="Models\AnnualPlan\Economy\FieldPlanModel.cs" />
-    <Compile Include="Models\AnnualPlan\FodderPlanModel.cs" />
-    <Compile Include="Models\AnnualPlan\Economy\TrunkFoodPlanModel.cs" />
-    <Compile Include="Models\AnnualPlanExecution\FodderExecutionModel.cs" />
-    <Compile Include="Models\AnnualPlanExecution\HuntEquipmentModel.cs" />
-    <Compile Include="Models\AnnualPlanExecution\SmallGameExecutionModel.cs" />
-    <Compile Include="Models\AnnualPlan\HuntEquipmentPlanModel.cs" />
-    <Compile Include="Models\AnnualPlan\SmallGamePlanModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\AnnualPlan\AnnualPlanStyles.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -214,6 +203,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Hunt\Index.cshtml" />
+    <Content Include="Views\AnnualPlan\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -232,9 +222,13 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
-      <Project>{170D4773-4FEF-4337-94AF-2B8A383343A9}</Project>
-      <Name>DataAccess</Name>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{af007440-ffde-42ac-a678-e0b7f2503b07}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{4B1A750C-D6F1-48C5-B2FF-DFABD4D5052D}</Project>
+      <Name>Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -1,0 +1,24 @@
+﻿.long-header {
+    width: 15%;
+}
+
+.unit {
+    width: 10%;
+}
+
+.column_number {
+    font-size: smaller;
+    text-align: center
+}
+
+table.annualPlanTable{
+    text-align: center;
+}
+
+table.annualPlanTable > tbody > tr > td:first-child{
+    text-align: left;
+}
+
+.paragraph {
+    font-weight: bold;
+}

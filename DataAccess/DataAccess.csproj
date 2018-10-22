@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{170D4773-4FEF-4337-94AF-2B8A383343A9}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>DataAccess</RootNamespace>
     <AssemblyName>DataAccess</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -51,6 +54,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\DbContext.cs" />
+    <Compile Include="Dao\AnnualPlan\Cost\CostPlanDao.cs" />
+    <Compile Include="Dao\AnnualPlan\Cost\ICostPlanDao.cs" />
+    <Compile Include="Dao\AnnualPlan\Employee\EmployeePlanDao.cs" />
+    <Compile Include="Dao\AnnualPlan\Employee\IEmployeePlanDao.cs" />
+    <Compile Include="Dao\AnnualPlan\EstimatedGameBeforeHunting\EstimatedGameBeforeHuntingPlanDao.cs" />
+    <Compile Include="Dao\AnnualPlan\EstimatedGameBeforeHunting\IEstimatedGameBeforeHuntingPlanDao.cs" />
+    <Compile Include="Dao\AnnualPlan\EstimatedGameCount30March\EstimatedGameCount30MarchPlanDao.cs" />
+    <Compile Include="Dao\AnnualPlan\EstimatedGameCount30March\IEstimatedGameCount30MarchPlanDao.cs" />
+    <Compile Include="Dao\AnnualPlan\Field\FieldPlanDao.cs" />
+    <Compile Include="Dao\AnnualPlan\Field\IFieldPlanDao.cs" />
+    <Compile Include="Dao\AnnualPlan\Fodder\FodderPlanDao.cs" />
+    <Compile Include="Dao\AnnualPlan\Fodder\IFodderPlanDao.cs" />
+    <Compile Include="Dao\AnnualPlan\Game\GamePlanDao.cs" />
+    <Compile Include="Dao\AnnualPlan\Game\IGamePlanDao.cs" />
+    <Compile Include="Dao\AnnualPlan\HuntEquipment\HuntEquipmentPlanDao.cs" />
+    <Compile Include="Dao\AnnualPlan\HuntEquipment\IHuntEquipmentPlanDao.cs" />
+    <Compile Include="Dao\AnnualPlan\TrunkFood\ITrunkFoodPlanDao.cs" />
+    <Compile Include="Dao\AnnualPlan\TrunkFood\TrunkFoodPlanDao.cs" />
     <Compile Include="Dao\DaoBase.cs" />
     <Compile Include="Dao\Hunt\HuntDao.cs" />
     <Compile Include="Dao\Hunt\IHuntDao.cs" />

@@ -1,8 +1,7 @@
-﻿namespace DataAccess.Entities.AnnualPlan
+﻿namespace Domain.AnnualPlan.Models
 {
-    public class FieldPlan
+    public class BarrierPlanModel
     {
-        public int Id { get; set; }
         public double? Count { get; set; }
         public int Unit { get; set; }
         public int Year { get; set; }

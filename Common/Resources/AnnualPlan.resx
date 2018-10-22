@@ -442,4 +442,13 @@ gospodarczym</value>
   <data name="X" xml:space="preserve">
     <value>X</value>
   </data>
+  <data name="FirstClass" xml:space="preserve">
+    <value>I kl. wieku</value>
+  </data>
+  <data name="SecondClass" xml:space="preserve">
+    <value>II kl. wieku</value>
+  </data>
+  <data name="ThirdClass" xml:space="preserve">
+    <value>III kl. wieku</value>
+  </data>
 </root>
