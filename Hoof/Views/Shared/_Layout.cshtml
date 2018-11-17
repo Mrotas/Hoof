@@ -23,7 +23,17 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("AnnualPlan", "Index", "AnnualPlan")</li>
+                    <li>@Html.ActionLink("Roczny plan", "Index", "AnnualPlan")</li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Polowania
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Wszystkie polowania", "Index", "Hunt")</li>
+                            <li>@Html.ActionLink("Moje polowania", "MyHunts", "Hunt")</li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -73,8 +73,14 @@
     <Compile Include="Dao\AnnualPlan\TrunkFood\ITrunkFoodPlanDao.cs" />
     <Compile Include="Dao\AnnualPlan\TrunkFood\TrunkFoodPlanDao.cs" />
     <Compile Include="Dao\DaoBase.cs" />
+    <Compile Include="Dao\Game\GameDao.cs" />
+    <Compile Include="Dao\Game\IGameDao.cs" />
+    <Compile Include="Dao\Huntsman\HuntsmanDao.cs" />
+    <Compile Include="Dao\Huntsman\IHuntsmanDao.cs" />
     <Compile Include="Dao\Hunt\HuntDao.cs" />
     <Compile Include="Dao\Hunt\IHuntDao.cs" />
+    <Compile Include="Dao\Region\IRegionDao.cs" />
+    <Compile Include="Dao\Region\RegionDao.cs" />
     <Compile Include="Entities\AnnualPlan\CostPlan.cs" />
     <Compile Include="Entities\AnnualPlan\EmployeePlan.cs" />
     <Compile Include="Entities\AnnualPlan\EstimatedGameBeforeHuntPeriodPlan.cs" />

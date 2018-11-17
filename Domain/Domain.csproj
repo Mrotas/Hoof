@@ -65,6 +65,10 @@
     <Compile Include="AnnualPlan\Models\HuntEquipmentPlanModel.cs" />
     <Compile Include="AnnualPlan\Models\TrunkFoodPlanModel.cs" />
     <Compile Include="AnnualPlan\ViewModels\AnnualPlanViewModel.cs" />
+    <Compile Include="Hunt\HuntService.cs" />
+    <Compile Include="Hunt\IHuntService.cs" />
+    <Compile Include="Hunt\Models\HuntModel.cs" />
+    <Compile Include="Hunt\ViewModels\HuntViewModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

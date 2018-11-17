@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace DataAccess.Entities
+namespace Domain.Hunt.Models
 {
-    public class Hunt
+    public class HuntModel
     {
         public int Id { get; set; }
         public int HuntsmanId { get; set; }

@@ -59,7 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dao\HuntDaoTest.cs" />
-    <Compile Include="Entities\AnnualPlan\EmployeePlan.cs" />
     <Compile Include="Entities\AnnualPlan\GamePlanTest.cs" />
     <Compile Include="Entities\HuntsmanTest.cs" />
     <Compile Include="Program.cs" />
