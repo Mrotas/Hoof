@@ -65,9 +65,14 @@
     <Compile Include="AnnualPlan\Models\HuntEquipmentPlanModel.cs" />
     <Compile Include="AnnualPlan\Models\TrunkFoodPlanModel.cs" />
     <Compile Include="AnnualPlan\ViewModels\AnnualPlanViewModel.cs" />
+    <Compile Include="Game\GameService.cs" />
+    <Compile Include="Game\IGameService.cs" />
+    <Compile Include="Game\Model\GameModel.cs" />
     <Compile Include="Hunt\HuntService.cs" />
     <Compile Include="Hunt\IHuntService.cs" />
+    <Compile Include="Hunt\Models\HuntCreateModel.cs" />
     <Compile Include="Hunt\Models\HuntModel.cs" />
+    <Compile Include="Hunt\ViewModels\HuntCreateViewModel.cs" />
     <Compile Include="Hunt\ViewModels\HuntViewModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

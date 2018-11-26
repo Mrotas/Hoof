@@ -15,5 +15,23 @@ namespace DataAccess.Dao.Game
 
             return games;
         }
+
+        public IList<Entities.Game> Get(int type, int kind, int? subKind)
+        {
+            var games = new List<Entities.Game>();
+            using (DbContext)
+            {
+                games = DbContext.Game
+                    .Where(x => x.Type == type &&
+                                x.Kind == kind)
+                    .ToList();
+                if (subKind.HasValue)
+                {
+                    games.Where(x => x.SubKind == subKind.Value);
+                }
+            }
+
+            return games;
+        }
     }
 }

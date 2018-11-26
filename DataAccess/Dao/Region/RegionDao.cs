@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DataAccess.Dao.Region
@@ -14,6 +15,21 @@ namespace DataAccess.Dao.Region
             }
 
             return regions;
+        }
+
+        public int GetRegionId(string city, int circuit, int district)
+        {
+            using (DbContext)
+            {
+                List<Entities.Region> regions = DbContext.Region.ToList();
+                int regionId = DbContext.Region
+                    .Where(x => x.City == city &&
+                                x.Circuit == circuit &&
+                                x.District == district)
+                    .Select(x => x.Id).FirstOrDefault();
+
+                return regionId;
+            }
         }
     }
 }

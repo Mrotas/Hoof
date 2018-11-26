@@ -3,14 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Hunt.ViewModels
 {
-    public class HuntViewModel
+    public class HuntCreateViewModel
     {
-        [Display(Name = "Imię")]
-        public string HuntsmanName { get; set; }
-
-        [Display(Name = "Nazwisko")]
-        public string HuntsmanLastName { get; set; }
-
         [Display(Name = "Data")]
         public DateTime Date { get; set; }
 
@@ -24,19 +18,16 @@ namespace Domain.Hunt.ViewModels
         public int District { get; set; }
 
         [Display(Name = "Zwierzyna Gruba/Drobna")]
-        public string GameType { get; set; }
+        public int? GameType { get; set; }
 
         [Display(Name = "Zwierzyna")]
-        public string GameKindName { get; set; }
-
-        [Display(Name = "Rodzaj zwierzyny")]
-        public string GameSubKindName { get; set; }
+        public int? GameSubType { get; set; }
 
         [Display(Name = "Klasa zwierzyny")]
-        public string GameClass { get; set; }
+        public int? GameClass { get; set; }
 
         [Display(Name = "Waga zwierzyny")]
-        public string GameWeight { get; set; }
+        public double? GameWeight { get; set; }
 
         [Display(Name = "Strzały")]
         public int? Shots { get; set; }

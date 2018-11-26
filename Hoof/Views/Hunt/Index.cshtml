@@ -27,10 +27,16 @@
             @Html.DisplayNameFor(model => model.GameType)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GameSubType)
+            @Html.DisplayNameFor(model => model.GameKindName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GameSubKindName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.GameClass)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GameWeight)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Shots)
@@ -62,7 +68,13 @@
             @Html.DisplayFor(modelItem => item.GameType)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.GameSubType)
+            @Html.DisplayFor(modelItem => item.GameKindName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GameSubKindName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GameWeight)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.GameClass)

@@ -58,7 +58,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dao\GameDaoTest.cs" />
     <Compile Include="Dao\HuntDaoTest.cs" />
+    <Compile Include="Dao\RegionDaoTest.cs" />
     <Compile Include="Entities\AnnualPlan\GamePlanTest.cs" />
     <Compile Include="Entities\HuntsmanTest.cs" />
     <Compile Include="Program.cs" />

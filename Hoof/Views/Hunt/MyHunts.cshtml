@@ -6,9 +6,10 @@
 
 <h2>Moje polowania</h2>
 
-<p>
-    @Html.ActionLink("Dodaj", "Create")
-</p>
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addHuntModal">
+    Dodaj polowanie
+</button>
+
 <table class="table">
     <tr>
         <th>
@@ -27,7 +28,10 @@
             @Html.DisplayNameFor(model => model.GameType)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GameSubType)
+            @Html.DisplayNameFor(model => model.GameKindName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GameSubKindName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.GameClass)
@@ -38,37 +42,385 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Circuit)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.District)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GameType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GameSubType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GameClass)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Shots)
-        </td>
-        <td>
-            @Html.ActionLink("Edytuj", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Usuń", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Circuit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.District)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GameType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GameKindName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GameSubKindName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GameClass)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Shots)
+            </td>
+            <td>
+                @Html.ActionLink("Edytuj", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Usuń", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
 
 </table>
+
+<div class="modal" id="addHuntModal">
+<div class="modal-dialog">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h4 class="modal-title">Dodaj polowanie</h4>
+            <button type="button" class="close" data-dismiss="modal" id="closeModalXButton">&times;</button>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-horizontal">
+                <div class="form-group form-horizontal">
+                    <div class="col-md-10">
+                        Data: <input type="date" class="form-control" id="huntDatepicker">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        Okręg: @Html.DropDownList("Wybierz Obwód", new List<SelectListItem>
+                               {
+                                   new SelectListItem {Text = "Płytnica", Value = "20"}
+                               }, "", new { @class = "form-control", id="circuit"})
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        Region: @Html.DropDownList("Wybierz Rewir", new List<SelectListItem>
+                                {
+                                    new SelectListItem {Text = "1", Value = "1"},
+                                    new SelectListItem {Text = "2", Value = "2"},
+                                    new SelectListItem {Text = "3", Value = "3"},
+                                    new SelectListItem {Text = "4", Value = "4"},
+                                    new SelectListItem {Text = "5", Value = "5"},
+                                    new SelectListItem {Text = "6", Value = "6"},
+                                    new SelectListItem {Text = "7", Value = "7"},
+                                    new SelectListItem {Text = "8", Value = "8"},
+                                    new SelectListItem {Text = "9", Value = "9"},
+                                    new SelectListItem {Text = "10", Value = "10"},
+                                    new SelectListItem {Text = "11", Value = "11"},
+                                    new SelectListItem {Text = "12", Value = "12"},
+                                    new SelectListItem {Text = "13", Value = "13"},
+                                    new SelectListItem {Text = "14", Value = "14"},
+                                    new SelectListItem {Text = "15", Value = "15"},
+                                    new SelectListItem {Text = "16", Value = "16"}
+                                }, "", new { @class = "form-control", id= "district" })
+                    </div>
+                </div>
+                    
+                <div id="gameSection">
+                    <div class="form-group" id="gameTypeSection">
+                        <div class="col-md-10">
+                            Rodzaj zwierzyny: @Html.DropDownList("Wybierz rodzaj zwierzyny", new List<SelectListItem>
+                                              {
+                                                  new SelectListItem {Text = "", Value = "-1"},
+                                                  new SelectListItem {Text = "Gruba", Value = "1"},
+                                                  new SelectListItem {Text = "Drobna", Value = "2"},
+                                              }, new { @class = "form-control" , id = "gameTypeSelect"})
+                        </div>
+                    </div>
+                        
+                    <div class="form-group" id="shotsSection">
+                        <div class="col-md-10">
+                            Oddane strzały: <input type="number" class="form-control" id="shots"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="closeModalButton">Zamknij</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" id="saveButton">Zapisz</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+
+        $(window).on('load',
+            function() {
+                $.ajax({
+                    type: "GET",
+                    url: '/Hunt/GetGameList',
+                    success: function(data) {
+                        $gameList = data;
+                    },
+                    error: function() {
+                        alert('Coś poszło nie tak, proszę odświeżyć stronę.');
+                    }
+                });
+            });
+
+        function insertSelectSectionAfter(selectLabel, selectId, sectionId, afterElement) {
+            $("<div class=\"form-group\" style=\"display: none\" id=" + sectionId + "><div class=\"col-md-10\">" + selectLabel + ": <select class=\"form-control\" id=" + selectId + "></select></div></div>").insertAfter("#" + afterElement).show("slow");
+        }
+
+        function getGamesWhereTypeEquals(type) {
+            var gameArray = $.grep($gameList,
+                function(item, index) {
+                    return item.Type === type;
+                });
+
+            var usedGameKinds = [];
+            var uniqueGameKinds = [];
+            for (var i = 0; i < gameArray.length; i++) {
+                if (usedGameKinds.indexOf(gameArray[i].Kind) === -1) {
+                    usedGameKinds.push(gameArray[i].Kind);
+
+                    var gameKind = {
+                        Kind: gameArray[i].Kind,
+                        KindName: gameArray[i].KindName
+                    };
+
+                    uniqueGameKinds.push(gameKind);
+                }
+            }
+
+            return uniqueGameKinds;
+        }
+
+        function getGameWithSubKinds() {
+            var gamesWithSubKindArray = $.grep($gameList,
+                function(item, index) {
+                    return item.SubKind !== null;
+                });
+
+            return gamesWithSubKindArray;
+        }
+
+        function getGameSubKinds() {
+            var gameType = parseInt($('#gameTypeSelect').val());
+            var gameKind = parseInt($('#gameKindSelect').val());
+            var gamesSubKindArray = $.grep($gameList,
+                function(item, index) {
+                    return item.Kind === gameKind &&
+                        item.Type === gameType;
+                });
+
+            return gamesSubKindArray;
+        }
+
+        function isGameWithSubKindSelected(selectedValue, gamesWithSubKindArray) {
+            var gameType = parseInt($('#gameTypeSelect').val());
+            for (var i = 0; i < gamesWithSubKindArray.length; i++) {
+                if (gamesWithSubKindArray[i].Kind === selectedValue && gamesWithSubKindArray[i].Type === gameType) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function getGamesWithClass() {
+            var gamesWithClassArray = $.grep($gameList,
+                function(item, index) {
+                    return item.Class !== null;
+                });
+
+            return gamesWithClassArray;
+        }
+
+        function isGameWithClass() {
+            var gamesWithClassArray = [{ Type: 1, Kind: 2, SubKind: 1 }, { Type: 1, Kind: 3, SubKind: 1 }, { Type: 1, Kind: 4, SubKind: 1 }, { Type: 1, Kind: 5, SubKind: 1 }];
+
+            var gameType = parseInt($('#gameTypeSelect').val());
+            var gameKind = parseInt($('#gameKindSelect').val());
+            var gameSubKind = parseInt($('#gameSubKindSelect').val());
+
+            for (var i = 0; i < gamesWithClassArray.length; i++) {
+                if (gamesWithClassArray[i].Type === gameType && gamesWithClassArray[i].Kind === gameKind && gamesWithClassArray[i].SubKind === gameSubKind) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function setGameKindOptions(selectedValue) {
+            $('#gameSubKindSection').hide("slow", function() { $(this).remove(); });
+            $('#gameClassSection').hide("slow", function() { $(this).remove(); });
+            $('#gameWeightSection').hide("slow", function() { $(this).remove(); });
+
+            var selectedValueInt = parseInt(selectedValue);
+            if (selectedValueInt !== 1 && selectedValueInt !== 2) {
+                $('#gameKindSection').hide("slow", function() { $(this).remove(); });
+                return;
+            }
+
+            if ($('#gameKindSection').length === 0) {
+                insertSelectSectionAfter("Zwierzyna", "gameKindSelect", "gameKindSection", "gameTypeSection");
+            }
+
+            $('#gameKindSelect').empty();
+            $('#gameKindSelect').append($('<option>'));
+
+            var gameItems = getGamesWhereTypeEquals(selectedValueInt);
+
+            $.each(gameItems,
+                function(i, item) {
+                    $('#gameKindSelect').append($('<option>',
+                        {
+                            value: item.Kind,
+                            text: item.KindName
+                        }));
+                });
+        }
+
+        function setGameSubKindOptions(selectedValue) {
+            var selectedValueInt = parseInt(selectedValue);
+
+            if (isNaN(selectedValueInt)) {
+                $('#gameWeightSection').hide("slow", function() { $(this).remove(); });
+            }
+
+            var gamesWithSubKinds = getGameWithSubKinds();
+            var isSelected = isGameWithSubKindSelected(selectedValueInt, gamesWithSubKinds);
+            if (!isSelected) {
+                $('#gameSubKindSection').hide("slow", function() { $(this).remove(); });
+                $('#gameClassSection').hide("slow", function() { $(this).remove(); });
+                return;
+            }
+
+            if ($('#gameSubKindSection').length === 0) {
+                insertSelectSectionAfter("Rodzaj", "gameSubKindSelect", "gameSubKindSection", "gameKindSection");
+            }
+
+            var items = getGameSubKinds();
+
+            $('#gameSubKindSelect').empty();
+            $('#gameSubKindSelect').append($('<option>'));
+            $.each(items,
+                function(i, item) {
+                    $('#gameSubKindSelect').append($('<option>',
+                        {
+                            value: item.SubKind,
+                            text: item.SubKindName
+                        }));
+                });
+        }
+
+        function setGameClassOptions() {
+
+            var isClass = isGameWithClass();
+            if (!isClass) {
+                $('#gameClassSection').hide("slow", function() { $(this).remove(); });
+                return;
+            }
+
+            if ($('#gameClassSection').length === 0) {
+                insertSelectSectionAfter("Klasa", "gameClassSelect", "gameClassSection", "gameSubKindSection");
+            }
+
+            $('#gameClassSelect').empty();
+            $('#gameClassSelect').append($('<option>'));
+
+            var classItems = [{ Value: 1, Key: 'I' }, { Value: 2, Key: 'II' }, { Value: 3, Key: 'III' }];
+
+            $.each(classItems,
+                function(i, item) {
+                    $('#gameClassSelect').append($('<option>',
+                        {
+                            value: item.Value,
+                            text: item.Key
+                        }));
+                });
+        }
+
+        $('#gameTypeSelect').on("change", function () {
+                var selectedValue = $("#gameTypeSelect").val();
+                setGameKindOptions(selectedValue);
+            });
+
+        $(document).on("change", "#gameKindSelect", function() {
+            var selectedValue = $("#gameKindSelect").val();
+            setGameSubKindOptions(selectedValue);
+
+            if ($('#gameWeightSection').length === 0) {
+                $("<div class=\"form-group\" style=\"display: none\" id=\"gameWeightSection\"> <div class=\"col-md-10\"> Waga: <input type=\"number\" class=\"form-control\" step=\"0.01\"/ id=\"gameWeight\"> </div> </div>").insertBefore("#shotsSection").show('slow');
+            }
+        });
+
+        $(document).on("change", "#gameSubKindSelect", function() {
+            setGameClassOptions();
+        });
+    </script>
+
+    <script type="text/javascript">
+
+        function clearModal() {
+            $("#city").val("");
+            $("#circuit").val("");
+            $("#district").val("");
+            $("#gameTypeSelect").val("-1");
+            $("#gameKindSection").remove();
+            $("#gameSubKindSection").remove();
+            $("#gameClassSection").remove();
+            $("#gameWeightSection").remove();
+        }
+
+        $('#closeModalButton').on('click',
+            function() {
+                clearModal();
+            });
+
+        $('#closeModalXButton').on('click',
+            function() {
+                clearModal();
+            });
+
+        $('#saveButton').on('click',
+            function () {
+                var model = {
+                    Date: $('#huntDatepicker').val(),
+                    City: $('#circuit :selected').text(),
+                    Circuit: $('#circuit :selected').val(),
+                    District: $('#district :selected').val(),
+                    GameType: $('#gameTypeSelect :selected').val(),
+                    GameKind: $('#gameKindSelect :selected').val(),
+                    GameSubKind: $('#gameSubKindSelect :selected').val(),
+                    GameClass: $('#gameClassSelect :selected').val(),
+                    GameWeight: $('#gameWeight').val(),
+                    Shots: $('#shots').val()
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: '/Hunt/Create',
+                    data: model,
+                    dataType: 'json',
+                    success: function(data) {
+                        location.reload();
+                    }
+                });
+
+                clearModal();
+            });
+
+    </script>
+}

@@ -1,6 +1,6 @@
-﻿namespace DataAccess.Entities
+﻿namespace Domain.Game.Model
 {
-    public class Game
+    public class GameModel
     {
         public int Id { get; set; }
         public int Type { get; set; }

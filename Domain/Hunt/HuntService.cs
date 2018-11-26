@@ -6,6 +6,7 @@ using DataAccess.Dao.Hunt;
 using DataAccess.Dao.Huntsman;
 using DataAccess.Dao.Region;
 using DataAccess.Entities;
+using Domain.Hunt.Models;
 using Domain.Hunt.ViewModels;
 
 namespace Domain.Hunt
@@ -32,7 +33,7 @@ namespace Domain.Hunt
         public IList<HuntViewModel> GetAllHuntModels()
         {
             IList<DataAccess.Entities.Hunt> hunts = _huntDao.GetAll();
-            IList<Game> games = _gameDao.GetAll();
+            IList<DataAccess.Entities.Game> games = _gameDao.GetAll();
             IList<Huntsman> huntsmans = _huntsmanDao.GetAll();
             IList<Region> regions = _regionDao.GetAll();
 
@@ -45,8 +46,10 @@ namespace Domain.Hunt
                     HuntsmanName = huntsman.Name,
                     HuntsmanLastName = huntsman.LastName,
                     GameType = GetGameType(game?.Type),
-                    GameSubType = GetGameName(game?.Type, game?.SubType),
-                    GameClass = GetGameClass(game?.Class),
+                    GameKindName = game.KindName,
+                    GameSubKindName = GetSubKindName(game.SubKindName),
+                    GameClass = GetGameClass(hunt.GameClass),
+                    GameWeight = GetGameWeight(hunt.GameWeight),
                     City = region.City,
                     Circuit = region.Circuit,
                     District = region.District,
@@ -60,7 +63,7 @@ namespace Domain.Hunt
         public IList<HuntViewModel> GetHuntViewModels(int huntsmanId)
         {
             IList<DataAccess.Entities.Hunt> hunts = _huntDao.GetAll();
-            IList<Game> games = _gameDao.GetAll();
+            IList<DataAccess.Entities.Game> games = _gameDao.GetAll();
             IList<Huntsman> huntsmans = _huntsmanDao.GetAll();
             IList<Region> regions = _regionDao.GetAll();
 
@@ -72,8 +75,10 @@ namespace Domain.Hunt
                 select new HuntViewModel
                 {
                     GameType = GetGameType(game?.Type),
-                    GameSubType = GetGameName(game?.Type, game?.SubType),
-                    GameClass = GetGameClass(game?.Class),
+                    GameKindName = game.KindName,
+                    GameSubKindName = GetSubKindName(game.SubKindName),
+                    GameClass = GetGameClass(hunt.GameClass),
+                    GameWeight = GetGameWeight(hunt.GameWeight),
                     City = region.City,
                     Circuit = region.Circuit,
                     District = region.District,
@@ -84,27 +89,50 @@ namespace Domain.Hunt
             return huntViewModels;
         }
 
+        public void Create(HuntCreateModel model, int huntsmanId)
+        {
+            DataAccess.Entities.Game game = null;
+            if (model.GameType.HasValue & model.GameKind.HasValue)
+            {
+                game = _gameDao.Get(model.GameType.Value, model.GameKind.Value, model.GameSubKind).FirstOrDefault();
+            }
+
+            int regionId = _regionDao.GetRegionId(model.City, model.Circuit, model.District);
+
+            var hunt = new DataAccess.Entities.Hunt
+            {
+                HuntsmanId = huntsmanId,
+                GameId = game.Id,
+                GameClass = model.GameClass,
+                GameWeight= model.GameWeight,
+                RegionId = regionId,
+                Shots = model.Shots,
+                Date = DateTime.Today
+            };
+
+            _huntDao.Insert(hunt);
+        }
+        
         private string GetGameType(int? gameType)
         {
             if (gameType == null)
             {
-                return "-";
+                throw new Exception("Nie można znaleźć typu zwierzyny!");
             }
-
-            //TODO: Get value from enum
-            return gameType == 4 ? "Gruba" : "Drobna";
+            
+            return gameType == 1 ? "Gruba" : "Drobna";
         }
 
-        private string GetGameName(int? type, int? subType)
+        private string GetSubKindName(string subKindName)
         {
-            if (type == null || subType == null)
+            if (String.IsNullOrEmpty(subKindName))
             {
                 return "-";
             }
 
-            //TODO: Get value from enum
-            return "Dzik";
+            return subKindName;
         }
+
         private string GetGameClass(int? gameClass)
         {
             if (gameClass == null)
@@ -112,7 +140,23 @@ namespace Domain.Hunt
                 return "-";
             }
 
-            return gameClass.ToString();
+            switch (gameClass)
+            {
+                case 1: return "I";
+                case 2: return "II";
+                case 3: return "III";
+                default: return "-";
+            }
+        }
+
+        private string GetGameWeight(double? weight)
+        {
+            if (weight == null)
+            {
+                return "-";
+            }
+
+            return weight.ToString();
         }
     }
 }
