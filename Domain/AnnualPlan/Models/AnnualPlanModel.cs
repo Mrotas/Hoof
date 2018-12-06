@@ -12,6 +12,5 @@ namespace Domain.AnnualPlan.Models
         public List<HuntEquipmentPlanModel> HuntEquipmentPlanModels { get; set; }
         public List<FodderPlanModel> FodderPlanModels { get; set; }
         public List<CostPlanModel> CostPlanModels { get; set; }
-        public List<GamePlanModel> GamePlanModels { get; set; }
     }
 }

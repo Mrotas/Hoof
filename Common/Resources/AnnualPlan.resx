@@ -451,4 +451,7 @@ gospodarczym</value>
   <data name="ThirdClass" xml:space="preserve">
     <value>III kl. wieku</value>
   </data>
+  <data name="SanitaryLoss" xml:space="preserve">
+    <value>Odstrzał sanitarny w poprzednim roku gospodarczym</value>
+  </data>
 </root>

@@ -2,16 +2,26 @@
     width: 15%;
 }
 
+.medium-header {
+    width: 12%;
+}
+
+.short-header,
 .unit {
     width: 10%;
 }
 
+.game-unit,
 .column_number {
     font-size: smaller;
-    text-align: center
+    text-align: center;
 }
 
 table.annualPlanTable{
+    text-align: center;
+}
+
+table.annualPlanTable > tbody > tr > th {
     text-align: center;
 }
 

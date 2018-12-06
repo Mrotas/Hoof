@@ -14,7 +14,7 @@ namespace DataAccess.Test.Entities.AnnualPlan
         [Explicit("This test will impact on real Data")]
         public void GetData()
         {
-            List<GamePlan> gamesPlan;
+            List<GameHuntPlan> gamesPlan;
             using (var db = new DbContext())
             {
                 gamesPlan = db.GamePlan.ToList();
@@ -22,8 +22,7 @@ namespace DataAccess.Test.Entities.AnnualPlan
 
             Assert.That(gamesPlan, Is.Not.Null);
             Assert.That(gamesPlan[0].Id, Is.EqualTo(1));
-            Assert.That(gamesPlan[0].Type, Is.EqualTo(4));
-            Assert.That(gamesPlan[0].SubType, Is.EqualTo(11));
+            Assert.That(gamesPlan[0].GameId, Is.EqualTo(1));
             Assert.That(gamesPlan[0].Class, Is.EqualTo(null));
             Assert.That(gamesPlan[0].Cull, Is.EqualTo(0));
             Assert.That(gamesPlan[0].Catch, Is.EqualTo(0));

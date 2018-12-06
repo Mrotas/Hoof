@@ -5,10 +5,13 @@ using DataAccess.Dao.AnnualPlan.Cost;
 using DataAccess.Dao.AnnualPlan.Employee;
 using DataAccess.Dao.AnnualPlan.Field;
 using DataAccess.Dao.AnnualPlan.Fodder;
-using DataAccess.Dao.AnnualPlan.Game;
+using DataAccess.Dao.AnnualPlan.GameHuntPlan;
 using DataAccess.Dao.AnnualPlan.HuntEquipment;
 using DataAccess.Dao.AnnualPlan.TrunkFood;
+using DataAccess.Dao.Game;
+using DataAccess.Dao.Hunt;
 using DataAccess.Entities.AnnualPlan;
+using Domain.AnnualPlan.GamePlan;
 using Domain.AnnualPlan.Models;
 using Domain.AnnualPlan.ViewModels;
 
@@ -22,9 +25,10 @@ namespace Domain.AnnualPlan
         private readonly IFieldPlanDao _fieldPlanDao;
         private readonly IFodderPlanDao _fodderPlanDao;
         private readonly ICostPlanDao _costPlanDao;
-        private readonly IGamePlanDao _gamePlanDao;
+        private readonly IGamePlanService _gamePlanService;
 
-        public AnnualPlanService() : this(new EmployeePlanDao(), new HuntEquipmentPlanDao(), new TrunkFoodPlanDao(), new FieldPlanDao(), new FodderPlanDao(), new CostPlanDao(), new GamePlanDao())
+        public AnnualPlanService() : this(new EmployeePlanDao(), new HuntEquipmentPlanDao(), new TrunkFoodPlanDao(), new FieldPlanDao(), new FodderPlanDao(), new CostPlanDao(), 
+            new GamePlanService(new GameDao(), new GameHuntPlanDao(), new HuntDao()))
         {
             
         }
@@ -35,7 +39,7 @@ namespace Domain.AnnualPlan
             IFieldPlanDao fieldPlanDao, 
             IFodderPlanDao fodderPlanDao, 
             ICostPlanDao costPlanDao, 
-            IGamePlanDao gamePlanDao)
+            IGamePlanService gamePlanService)
         {
             _employeePlanDao = employeePlanDao;
             _huntEquipmentPlanDao = huntEquipmentPlanDao;
@@ -43,7 +47,7 @@ namespace Domain.AnnualPlan
             _fieldPlanDao = fieldPlanDao;
             _fodderPlanDao = fodderPlanDao;
             _costPlanDao = costPlanDao;
-            _gamePlanDao = gamePlanDao;
+            _gamePlanService = gamePlanService;
         }
 
         public AnnualPlanViewModel GetAnnualPlanViewModel()
@@ -53,6 +57,8 @@ namespace Domain.AnnualPlan
             annualPlanViewModel.CurrentAnnualPlanModel = GetAnnualPlanModel(DateTime.Now.Year);
 
             annualPlanViewModel.LastYearAnnualPlanModel = GetAnnualPlanModel(DateTime.Now.Year - 1);
+
+            annualPlanViewModel.GamePlanModel = _gamePlanService.GetGamePlanModels(DateTime.Now.Year);
             
             return annualPlanViewModel;
         }
@@ -76,8 +82,6 @@ namespace Domain.AnnualPlan
             annualPlanModel.DamagedFieldPlanModel = GetDamagedFieldPlanModel(year);
 
             annualPlanModel.CostPlanModels = GetCostPlanModels(year);
-
-            annualPlanModel.GamePlanModels = GetGamePlanModels(year);
 
             return annualPlanModel;
         }
@@ -176,24 +180,6 @@ namespace Domain.AnnualPlan
             }).ToList();
 
             return costPlanModels;
-        }
-
-        private List<GamePlanModel> GetGamePlanModels(int year)
-        {
-            List<GamePlan> gamePlan = _gamePlanDao.GetGamePlan(year);
-
-            List<GamePlanModel> gamePlanModels = gamePlan.Select(x => new GamePlanModel
-            {
-                Type = x.Type,
-                SubType = x.SubType,
-                Class = x.Class,
-                Cull = x.Cull,
-                Catch = x.Catch,
-                Loss = 0,
-                Year = x.Year
-            }).ToList();
-
-            return gamePlanModels;
         }
     }
 }

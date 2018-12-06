@@ -890,6 +890,15 @@ namespace Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Odstrzał sanitarny w poprzednim roku gospodarczym.
+        /// </summary>
+        public static string SanitaryLoss {
+            get {
+                return ResourceManager.GetString("SanitaryLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to II kl. wieku.
         /// </summary>
         public static string SecondClass {

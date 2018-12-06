@@ -16,6 +16,17 @@ namespace DataAccess.Dao.Hunt
             return hunts;
         }
 
+        public IList<Entities.Hunt> GetHuntsByYear(int year)
+        {
+            var hunts = new List<Entities.Hunt>();
+            using (DbContext)
+            {
+                hunts = DbContext.Hunt.Where(x => x.Date.Year == year).ToList();
+            }
+
+            return hunts;
+        }
+
         public void Insert(Entities.Hunt hunt)
         {
             using (DbContext)

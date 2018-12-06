@@ -66,8 +66,8 @@
     <Compile Include="Dao\AnnualPlan\Field\IFieldPlanDao.cs" />
     <Compile Include="Dao\AnnualPlan\Fodder\FodderPlanDao.cs" />
     <Compile Include="Dao\AnnualPlan\Fodder\IFodderPlanDao.cs" />
-    <Compile Include="Dao\AnnualPlan\Game\GamePlanDao.cs" />
-    <Compile Include="Dao\AnnualPlan\Game\IGamePlanDao.cs" />
+    <Compile Include="Dao\AnnualPlan\GameHuntPlan\GameHuntPlanDao.cs" />
+    <Compile Include="Dao\AnnualPlan\GameHuntPlan\IGameHuntPlanDao.cs" />
     <Compile Include="Dao\AnnualPlan\HuntEquipment\HuntEquipmentPlanDao.cs" />
     <Compile Include="Dao\AnnualPlan\HuntEquipment\IHuntEquipmentPlanDao.cs" />
     <Compile Include="Dao\AnnualPlan\TrunkFood\ITrunkFoodPlanDao.cs" />
@@ -87,7 +87,7 @@
     <Compile Include="Entities\AnnualPlan\EstimatedGameCount30MarchPlan.cs" />
     <Compile Include="Entities\AnnualPlan\FieldPlan.cs" />
     <Compile Include="Entities\AnnualPlan\FodderPlan.cs" />
-    <Compile Include="Entities\AnnualPlan\GamePlan.cs" />
+    <Compile Include="Entities\AnnualPlan\GameHuntPlan.cs" />
     <Compile Include="Entities\AnnualPlan\HuntEquipmentPlan.cs" />
     <Compile Include="Entities\AnnualPlan\TrunkFoodPlan.cs" />
     <Compile Include="Entities\CodeTable.cs" />

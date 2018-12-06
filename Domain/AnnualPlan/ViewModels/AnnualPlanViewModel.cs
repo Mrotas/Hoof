@@ -1,4 +1,6 @@
-﻿using Domain.AnnualPlan.Models;
+﻿using System.Collections.Generic;
+using Domain.AnnualPlan.GamePlan.Models;
+using Domain.AnnualPlan.Models;
 
 namespace Domain.AnnualPlan.ViewModels
 {
@@ -6,5 +8,6 @@ namespace Domain.AnnualPlan.ViewModels
     {
         public AnnualPlanModel CurrentAnnualPlanModel { get; set; }
         public AnnualPlanModel LastYearAnnualPlanModel { get; set; }
+        public IList<GamePlanModel> GamePlanModel { get; set; }
     }
 }

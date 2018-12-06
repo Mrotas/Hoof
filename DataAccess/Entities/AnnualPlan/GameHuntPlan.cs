@@ -1,10 +1,9 @@
 ﻿namespace DataAccess.Entities.AnnualPlan
 {
-    public class GamePlan
+    public class GameHuntPlan
     {
         public int Id { get; set; }
-        public int Type { get; set; }
-        public int? SubType { get; set; }
+        public int GameId { get; set; }
         public int? Class { get; set; }
         public int? Cull { get; set; }
         public int? Catch { get; set; }

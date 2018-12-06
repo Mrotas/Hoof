@@ -53,6 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnnualPlan\AnnualPlanService.cs" />
+    <Compile Include="AnnualPlan\GamePlan\GamePlanService.cs" />
+    <Compile Include="AnnualPlan\GamePlan\IGamePlanService.cs" />
+    <Compile Include="AnnualPlan\GamePlan\Models\EstimatedGameCountModel.cs" />
+    <Compile Include="AnnualPlan\GamePlan\Models\GameExecutionModel.cs" />
+    <Compile Include="AnnualPlan\GamePlan\Models\GameHuntPlanModel.cs" />
+    <Compile Include="AnnualPlan\GamePlan\Models\GameSettlementPlanModel.cs" />
     <Compile Include="AnnualPlan\IAnnualPlanService.cs" />
     <Compile Include="AnnualPlan\Models\AnnualPlanModel.cs" />
     <Compile Include="AnnualPlan\Models\BarrierPlanModel.cs" />
@@ -61,7 +67,7 @@
     <Compile Include="AnnualPlan\Models\EmployeePlanModel.cs" />
     <Compile Include="AnnualPlan\Models\FieldPlanModel.cs" />
     <Compile Include="AnnualPlan\Models\FodderPlanModel.cs" />
-    <Compile Include="AnnualPlan\Models\GamePlanModel.cs" />
+    <Compile Include="AnnualPlan\GamePlan\Models\GamePlanModel.cs" />
     <Compile Include="AnnualPlan\Models\HuntEquipmentPlanModel.cs" />
     <Compile Include="AnnualPlan\Models\TrunkFoodPlanModel.cs" />
     <Compile Include="AnnualPlan\ViewModels\AnnualPlanViewModel.cs" />

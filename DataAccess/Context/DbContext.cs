@@ -27,7 +27,7 @@ namespace DataAccess.Context
         public DbSet<EstimatedGameCount30MarchPlan> EstimatedGameCount30MarchPlan { get; set; }
         public DbSet<FieldPlan> FieldPlan { get; set; }
         public DbSet<FodderPlan> FodderPlan { get; set; }
-        public DbSet<GamePlan> GamePlan { get; set; }
+        public DbSet<GameHuntPlan> GamePlan { get; set; }
         public DbSet<HuntEquipmentPlan> HuntEquipmentPlan { get; set; }
         public DbSet<TrunkFoodPlan> TrunkFoodPlan { get; set; }
 
