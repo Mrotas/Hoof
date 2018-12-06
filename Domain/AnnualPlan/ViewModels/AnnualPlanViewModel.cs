@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Domain.AnnualPlan.GamePlan.Models;
 using Domain.AnnualPlan.Models;
+using Domain.AnnualPlan.Models.GamePlan;
 
 namespace Domain.AnnualPlan.ViewModels
 {

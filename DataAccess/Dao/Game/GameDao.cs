@@ -21,13 +21,11 @@ namespace DataAccess.Dao.Game
             var games = new List<Entities.Game>();
             using (DbContext)
             {
-                games = DbContext.Game
-                    .Where(x => x.Type == type &&
-                                x.Kind == kind)
-                    .ToList();
+                games = DbContext.Game.Where(x => x.Type == type && x.Kind == kind).ToList();
+
                 if (subKind.HasValue)
                 {
-                    games.Where(x => x.SubKind == subKind.Value);
+                    games = games.Where(x => x.SubKind == subKind.Value).ToList();
                 }
             }
 

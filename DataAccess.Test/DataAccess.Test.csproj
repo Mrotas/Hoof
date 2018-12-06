@@ -61,7 +61,7 @@
     <Compile Include="Dao\GameDaoTest.cs" />
     <Compile Include="Dao\HuntDaoTest.cs" />
     <Compile Include="Dao\RegionDaoTest.cs" />
-    <Compile Include="Entities\AnnualPlan\GamePlanTest.cs" />
+    <Compile Include="Entities\GameHuntPlanTest.cs" />
     <Compile Include="Entities\HuntsmanTest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

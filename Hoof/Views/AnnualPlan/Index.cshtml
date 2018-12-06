@@ -326,10 +326,10 @@
             <td>@gameKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Catch)</td>
             <td>@(gameKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Loss) + gameKindPlanModels.Sum(x => x.PreviousGamePlanExecution.SanitaryLoss))</td>
             <td>@gameKindPlanModels.Sum(x => x.PreviousGamePlanExecution.SanitaryLoss)</td>
-            <td>@gameKindPlanModels.Sum(x => x.GameSettlementPlan.SettlementedGameCountFor10March)</td>
-            <td>@gameKindPlanModels.Sum(x => x.EstimatedGameCount.EstimatedGameCountFor10March)</td>
+            <td>@gameKindPlanModels.Sum(x => x.GameSettlementPlan.GameSettlementCountBefore10March)</td>
+            <td>@gameKindPlanModels.Sum(x => x.GameCountModel.GameCountBefore10March)</td>
             <td>@gameKindPlanModels.Sum(x => x.GameSettlementPlan.GameSettlementPlanCount)</td>
-            <td>@gameKindPlanModels.Sum(x => x.EstimatedGameCount.EstimatedGameCountBeforeHuntingSeason)</td>
+            <td>@gameKindPlanModels.Sum(x => x.GameCountModel.GameCountBeforeHuntingSeason)</td>
             <td>@gameKindPlanModels.Sum(x => x.CurrentGameHuntPlan.Cull)</td>
             <td>@gameKindPlanModels.Sum(x => x.CurrentGameHuntPlan.Catch)</td>
             <td>@(gameKindPlanModels.Key.Equals(7) ? "" : "X")</td>
@@ -350,10 +350,10 @@
                     <td>@gameSubKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Catch)</td>
                     <td>@(gameSubKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Loss) + gameSubKindPlanModels.Sum(x => x.PreviousGamePlanExecution.SanitaryLoss))</td>
                     <td>@gameSubKindPlanModels.Sum(x => x.PreviousGamePlanExecution.SanitaryLoss)</td>
-                    <td>@gameSubKindPlanModels.Sum(x => x.GameSettlementPlan.SettlementedGameCountFor10March)</td>
-                    <td>@gameSubKindPlanModels.Sum(x => x.EstimatedGameCount.EstimatedGameCountFor10March)</td>
+                    <td>@gameSubKindPlanModels.Sum(x => x.GameSettlementPlan.GameSettlementCountBefore10March)</td>
+                    <td>@gameSubKindPlanModels.Sum(x => x.GameCountModel.GameCountBefore10March)</td>
                     <td>@gameSubKindPlanModels.Sum(x => x.GameSettlementPlan.GameSettlementPlanCount)</td>
-                    <td>@gameSubKindPlanModels.Sum(x => x.EstimatedGameCount.EstimatedGameCountBeforeHuntingSeason)</td>
+                    <td>@gameSubKindPlanModels.Sum(x => x.GameCountModel.GameCountBeforeHuntingSeason)</td>
                     <td>@gameSubKindPlanModels.Sum(x => x.CurrentGameHuntPlan.Cull)</td>
                     <td>@gameSubKindPlanModels.Sum(x => x.CurrentGameHuntPlan.Catch)</td>
                     <td>X</td>
@@ -375,10 +375,10 @@
                         <td>@gameClassPlanModel.Sum(x => x.PreviousGamePlanExecution.Catch)</td>
                         <td>@(gameClassPlanModel.Sum(x => x.PreviousGamePlanExecution.Loss) + gameSubKindPlanModels.Sum(x => x.PreviousGamePlanExecution.SanitaryLoss))</td>
                         <td>@gameClassPlanModel.Sum(x => x.PreviousGamePlanExecution.SanitaryLoss)</td>
-                        <td>@gameClassPlanModel.Sum(x => x.GameSettlementPlan.SettlementedGameCountFor10March)</td>
-                        <td>@gameClassPlanModel.Sum(x => x.EstimatedGameCount.EstimatedGameCountFor10March)</td>
+                        <td>@gameClassPlanModel.Sum(x => x.GameSettlementPlan.GameSettlementCountBefore10March)</td>
+                        <td>@gameClassPlanModel.Sum(x => x.GameCountModel.GameCountBefore10March)</td>
                         <td>@gameClassPlanModel.Sum(x => x.GameSettlementPlan.GameSettlementPlanCount)</td>
-                        <td>@gameClassPlanModel.Sum(x => x.EstimatedGameCount.EstimatedGameCountBeforeHuntingSeason)</td>
+                        <td>@gameClassPlanModel.Sum(x => x.GameCountModel.GameCountBeforeHuntingSeason)</td>
                         <td>@gameClassPlanModel.Sum(x => x.CurrentGameHuntPlan.Cull)</td>
                         <td>@gameClassPlanModel.Sum(x => x.CurrentGameHuntPlan.Catch)</td>
                         <td>X</td>
@@ -452,8 +452,8 @@
             <td>@gameKindPlanModel.Sum(x => x.PreviousGameHuntPlan.Catch)</td>
             <td>@gameKindPlanModel.Sum(x => x.PreviousGamePlanExecution.Cull)</td>
             <td>@gameKindPlanModel.Sum(x => x.PreviousGamePlanExecution.Catch)</td>
-            <td>@gameKindPlanModel.Sum(x => x.GameSettlementPlan.SettlementedGameCountFor10March)</td>
-            <td>@gameKindPlanModel.Sum(x => x.EstimatedGameCount.EstimatedGameCountFor10March)</td>
+            <td>@gameKindPlanModel.Sum(x => x.GameSettlementPlan.GameSettlementCountBefore10March)</td>
+            <td>@gameKindPlanModel.Sum(x => x.GameCountModel.GameCountBefore10March)</td>
             <td>@gameKindPlanModel.Sum(x => x.GameSettlementPlan.GameSettlementPlanCount)</td>
             <td>@gameKindPlanModel.Sum(x => x.CurrentGameHuntPlan.Cull)</td>
             <td>@gameKindPlanModel.Sum(x => x.CurrentGameHuntPlan.Catch)</td>
@@ -473,8 +473,8 @@
                     <td>@gameSubKindPlanModel.Sum(x => x.PreviousGameHuntPlan.Catch)</td>
                     <td>@gameSubKindPlanModel.Sum(x => x.PreviousGamePlanExecution.Cull)</td>
                     <td>@gameSubKindPlanModel.Sum(x => x.PreviousGamePlanExecution.Catch)</td>
-                    <td>@gameSubKindPlanModel.Sum(x => x.GameSettlementPlan.SettlementedGameCountFor10March)</td>
-                    <td>@gameSubKindPlanModel.Sum(x => x.EstimatedGameCount.EstimatedGameCountFor10March)</td>
+                    <td>@gameSubKindPlanModel.Sum(x => x.GameSettlementPlan.GameSettlementCountBefore10March)</td>
+                    <td>@gameSubKindPlanModel.Sum(x => x.GameCountModel.GameCountBefore10March)</td>
                     <td>@gameSubKindPlanModel.Sum(x => x.GameSettlementPlan.GameSettlementPlanCount)</td>
                     <td>@gameSubKindPlanModel.Sum(x => x.CurrentGameHuntPlan.Cull)</td>
                     <td>@gameSubKindPlanModel.Sum(x => x.CurrentGameHuntPlan.Catch)</td>
