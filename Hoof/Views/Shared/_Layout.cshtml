@@ -20,10 +20,19 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Roczny plan", "Index", "AnnualPlan")</li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Roczny plan
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Dokument", "Index", "AnnualPlan")</li>
+                            <li>@Html.ActionLink("Gospodarka łowiecka", "Index", "AnnualPlan")</li>
+                            <li>@Html.ActionLink("Przychody/Koszty", "Index", "AnnualPlan")</li>
+                            <li>@Html.ActionLink("Pozyskanie zwierzyny", "Index", "AnnualPlan")</li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("Meldunek", "Index", "AnnualPlan")</li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             Polowania
@@ -34,6 +43,7 @@
                             <li>@Html.ActionLink("Moje polowania", "MyHunts", "Hunt")</li>
                         </ul>
                     </li>
+                    <li>@Html.ActionLink("Ubytki", "Loss", "Hunt")</li>
                 </ul>
             </div>
         </div>

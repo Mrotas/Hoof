@@ -5,9 +5,6 @@ using DataAccess.Dao.Cost;
 using DataAccess.Dao.Employee;
 using DataAccess.Dao.Field;
 using DataAccess.Dao.Fodder;
-using DataAccess.Dao.Game;
-using DataAccess.Dao.GameHuntPlan;
-using DataAccess.Dao.Hunt;
 using DataAccess.Dao.HuntEquipment;
 using DataAccess.Dao.TrunkFood;
 using DataAccess.Entities;
@@ -27,8 +24,7 @@ namespace Domain.AnnualPlan.Service
         private readonly ICostPlanDao _costPlanDao;
         private readonly IGamePlanService _gamePlanService;
 
-        public AnnualPlanService() : this(new EmployeePlanDao(), new HuntEquipmentPlanDao(), new TrunkFoodPlanDao(), new FieldPlanDao(), new FodderPlanDao(), new CostPlanDao(), 
-            new GamePlanService(new GameDao(), new GameHuntPlanDao(), new HuntDao()))
+        public AnnualPlanService() : this(new EmployeePlanDao(), new HuntEquipmentPlanDao(), new TrunkFoodPlanDao(), new FieldPlanDao(), new FodderPlanDao(), new CostPlanDao(), new GamePlanService())
         {
             
         }

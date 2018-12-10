@@ -2,6 +2,7 @@
 using System.Linq;
 using DataAccess.Dao.Game;
 using DataAccess.Dao.GameHuntPlan;
+using DataAccess.Dao.GameLoss;
 using DataAccess.Dao.Hunt;
 using DataAccess.Entities;
 using Domain.AnnualPlan.Models.GamePlan;
@@ -13,22 +14,25 @@ namespace Domain.AnnualPlan.Service.GamePlan
     {
         private IList<GameHuntPlan> _gameHuntPlans;
         private IList<DataAccess.Entities.Hunt> _gameHuntExecutions;
+        private List<DataAccess.Entities.GameLoss> _lossGames;
 
         private readonly IGameDao _gameDao;
         private readonly IGameHuntPlanDao _gameHuntPlanDao;
         private readonly IHuntDao _huntDao;
+        private readonly IGameLossDao _gameLossDao;
 
-        public GamePlanService() : this(new GameDao(), new GameHuntPlanDao(), new HuntDao())
+        public GamePlanService() : this(new GameDao(), new GameHuntPlanDao(), new HuntDao(), new GameLossDao())
         {
             _gameHuntPlans = new List<GameHuntPlan>();
             _gameHuntExecutions = new List<DataAccess.Entities.Hunt>();
         }
 
-        public GamePlanService(IGameDao gameDao, IGameHuntPlanDao gamePlanDao, IHuntDao huntDao)
+        public GamePlanService(IGameDao gameDao, IGameHuntPlanDao gamePlanDao, IHuntDao huntDao, IGameLossDao gameLossDao)
         {
             _gameDao = gameDao;
             _gameHuntPlanDao = gamePlanDao;
             _huntDao = huntDao;
+            _gameLossDao = gameLossDao;
         }
 
         public IList<GamePlanModel> GetGamePlanModels(int year)
@@ -41,7 +45,7 @@ namespace Domain.AnnualPlan.Service.GamePlan
 
             _gameHuntExecutions = _huntDao.GetAll();
 
-            
+            _lossGames = _gameLossDao.GetAll();
 
             foreach (DataAccess.Entities.Game game in allGames)
             {
@@ -145,12 +149,18 @@ namespace Domain.AnnualPlan.Service.GamePlan
 
         private GameExecutionModel GetGamePlanExecution(int year, int gameId, int? gameClass)
         {
-            List<DataAccess.Entities.Hunt> hunts = _gameHuntExecutions.Where(x => x.GameId == gameId && x.GameClass == gameClass && x.Date.Year == year).ToList();
+            int culls = _gameHuntExecutions.Count(x => x.GameId == gameId && x.GameClass == gameClass && x.Date.Year == year);
+
+            int gameLosses = _lossGames.Count(x => x.GameId == gameId);
+
+            int sanitaryLosses = _lossGames.Count(x => x.GameId == gameId && x.SanitaryLoss);
 
             //TODO: Fill rest properties
             var model = new GameExecutionModel
             {
-                Cull = hunts.Count
+                Cull = culls,
+                Loss = gameLosses,
+                SanitaryLoss = sanitaryLosses
             };
 
             return model;

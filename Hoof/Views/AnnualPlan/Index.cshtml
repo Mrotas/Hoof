@@ -220,7 +220,18 @@
         <td>@Model.CurrentAnnualPlanModel.DamagedFieldPlanModel.Count</td>
     </tr>
     <tr>
-        <td colspan="6"> III. Informacja o przychodach ze sprzedaży tusz zwierzyny płowej i kosztach zagospodarowania obwodu.</td>
+        <td colspan="6">&nbsp;</td>
+    </tr>
+    <tr style="border: 0">
+        <td colspan="6" style="font-size: x-large; font-weight: bold"> III. Informacja o przychodach ze sprzedaży tusz zwierzyny płowej i kosztach zagospodarowania obwodu.</td>
+    </tr>
+    <tr>
+        <td class="column_number" style="text-align: center">1</td>
+        <td class="column_number">2</td>
+        <td class="column_number">3</td>
+        <td class="column_number">4</td>
+        <td class="column_number">5</td>
+        <td class="column_number">6</td>
     </tr>
     <tr>
         <td class="paragraph">1. @AnnualPlan.Costs</td>
@@ -252,7 +263,7 @@
 <br />
 
 <h3 style="font-weight: bold">IV. Dane dotyczące zwierząt łownych.</h3>
-<h3 style="font-weight: bold">a) zwierzyna gruba</h3>
+<h4 style="font-weight: bold">a) zwierzyna gruba</h4>
 <table class="table-bordered annualPlanTable" style="text-align: center" id="bigGameTable">
     <tr>
         <th class="short-header" rowspan="4">@AnnualPlan.GameTypes</th>
@@ -324,7 +335,7 @@
             <td>@(gameKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Cull) + gameKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Catch))</td>
             <td>@gameKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Cull)</td>
             <td>@gameKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Catch)</td>
-            <td>@(gameKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Loss) + gameKindPlanModels.Sum(x => x.PreviousGamePlanExecution.SanitaryLoss))</td>
+            <td>@(gameKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Loss))</td>
             <td>@gameKindPlanModels.Sum(x => x.PreviousGamePlanExecution.SanitaryLoss)</td>
             <td>@gameKindPlanModels.Sum(x => x.GameSettlementPlan.GameSettlementCountBefore10March)</td>
             <td>@gameKindPlanModels.Sum(x => x.GameCountModel.GameCountBefore10March)</td>
@@ -348,7 +359,7 @@
                     <td>@(gameSubKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Cull) + gameSubKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Catch))</td>
                     <td>@gameSubKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Cull)</td>
                     <td>@gameSubKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Catch)</td>
-                    <td>@(gameSubKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Loss) + gameSubKindPlanModels.Sum(x => x.PreviousGamePlanExecution.SanitaryLoss))</td>
+                    <td>@gameSubKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Loss)</td>
                     <td>@gameSubKindPlanModels.Sum(x => x.PreviousGamePlanExecution.SanitaryLoss)</td>
                     <td>@gameSubKindPlanModels.Sum(x => x.GameSettlementPlan.GameSettlementCountBefore10March)</td>
                     <td>@gameSubKindPlanModels.Sum(x => x.GameCountModel.GameCountBefore10March)</td>
@@ -373,7 +384,7 @@
                         <td>@(gameClassPlanModel.Sum(x => x.PreviousGamePlanExecution.Cull) + gameSubKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Catch))</td>
                         <td>@gameClassPlanModel.Sum(x => x.PreviousGamePlanExecution.Cull)</td>
                         <td>@gameClassPlanModel.Sum(x => x.PreviousGamePlanExecution.Catch)</td>
-                        <td>@(gameClassPlanModel.Sum(x => x.PreviousGamePlanExecution.Loss) + gameSubKindPlanModels.Sum(x => x.PreviousGamePlanExecution.SanitaryLoss))</td>
+                        <td>@gameClassPlanModel.Sum(x => x.PreviousGamePlanExecution.Loss)</td>
                         <td>@gameClassPlanModel.Sum(x => x.PreviousGamePlanExecution.SanitaryLoss)</td>
                         <td>@gameClassPlanModel.Sum(x => x.GameSettlementPlan.GameSettlementCountBefore10March)</td>
                         <td>@gameClassPlanModel.Sum(x => x.GameCountModel.GameCountBefore10March)</td>
@@ -396,7 +407,7 @@
 <br />
 <br />
 
-<h3 style="font-weight: bold">b) zwierzyna drobna.</h3>
+<h4 style="font-weight: bold">b) zwierzyna drobna.</h4>
 <table class="table-bordered annualPlanTable" style="text-align: center" id="smallGameTable">
     <tr>
         <th class="medium-header" rowspan="3">@AnnualPlan.GameTypes</th>

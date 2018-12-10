@@ -1,11 +1,12 @@
 ﻿using System;
 
-namespace DataAccess.Entities
+namespace Domain.GameLoss.Model
 {
-    public class GameLoss
+    public class GameLossModel
     {
-        public int Id { get; set; }
-        public int GameId { get; set; }
+        public int GameType { get; set; }
+        public int GameKind { get; set; }
+        public int? GameSubKind { get; set; }
         public bool SanitaryLoss { get; set; }
         public string City { get; set; }
         public int? Circuit { get; set; }

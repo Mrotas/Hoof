@@ -160,6 +160,7 @@
     <Compile Include="Controllers\AnnualPlanController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HuntController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -208,6 +209,8 @@
     <Content Include="Views\AnnualPlan\Index.cshtml" />
     <Content Include="Views\Hunt\Index.cshtml" />
     <Content Include="Views\Hunt\MyHunts.cshtml" />
+    <Content Include="Views\Hunt\Loss.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -2,6 +2,9 @@
 using System.Web.Mvc;
 using Domain.Game;
 using Domain.Game.Model;
+using Domain.GameLoss;
+using Domain.GameLoss.Model;
+using Domain.GameLoss.ViewModel;
 using Domain.Hunt;
 using Domain.Hunt.Models;
 using Domain.Hunt.ViewModels;
@@ -12,15 +15,17 @@ namespace Hoof.Controllers
     {
         private readonly IHuntService _huntService;
         private readonly IGameService _gameService;
+        private readonly IGameLossService _gameLossService;
 
-        public HuntController() : this(new HuntService(), new GameService())
+        public HuntController() : this(new HuntService(), new GameService(), new GameLossService())
         {
         }
 
-        public HuntController(IHuntService huntService, IGameService gameService)
+        public HuntController(IHuntService huntService, IGameService gameService, IGameLossService gameLossService)
         {
             _huntService = huntService;
             _gameService = gameService;
+            _gameLossService = gameLossService;
         }
 
         public ActionResult Index()
@@ -49,6 +54,19 @@ namespace Hoof.Controllers
             List<GameModel> gameModels = _gameService.GetAllGames();
 
             return Json(gameModels, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Loss()
+        {
+            List<GameLossViewModel> lossGames = _gameLossService.GetAllLossGames();
+            return View(lossGames);
+        }
+
+        public ActionResult ReportLoss(GameLossModel model)
+        {
+            _gameLossService.ReportLoss(model);
+
+            return Json(new {data = true}, JsonRequestBehavior.AllowGet);
         }
     }
 }

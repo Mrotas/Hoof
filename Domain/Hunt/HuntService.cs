@@ -107,7 +107,7 @@ namespace Domain.Hunt
                 GameWeight= model.GameWeight,
                 RegionId = regionId,
                 Shots = model.Shots,
-                Date = DateTime.Today
+                Date = model.Date
             };
 
             _huntDao.Insert(hunt);

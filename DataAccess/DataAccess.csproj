@@ -68,6 +68,8 @@
     <Compile Include="Dao\Fodder\IFodderPlanDao.cs" />
     <Compile Include="Dao\GameHuntPlan\GameHuntPlanDao.cs" />
     <Compile Include="Dao\GameHuntPlan\IGameHuntPlanDao.cs" />
+    <Compile Include="Dao\GameLoss\GameLossDao.cs" />
+    <Compile Include="Dao\GameLoss\IGameLossDao.cs" />
     <Compile Include="Dao\HuntEquipment\HuntEquipmentPlanDao.cs" />
     <Compile Include="Dao\HuntEquipment\IHuntEquipmentPlanDao.cs" />
     <Compile Include="Dao\TrunkFood\ITrunkFoodPlanDao.cs" />
