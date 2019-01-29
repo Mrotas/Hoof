@@ -1,6 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using Domain.AnnualPlan;
-using Domain.AnnualPlan.Service;
 using Domain.AnnualPlan.ViewModels;
 
 namespace Hoof.Controllers
@@ -20,7 +20,12 @@ namespace Hoof.Controllers
 
         public ActionResult Index()
         {
-            AnnualPlanViewModel annualPlanViewModel = _annualPlanService.GetAnnualPlanViewModel();
+            return View();
+        }
+
+        public ActionResult Plan(int marketingYearId)
+        {
+            AnnualPlanViewModel annualPlanViewModel = _annualPlanService.GetAnnualPlanViewModel(marketingYearId);
             return View(annualPlanViewModel);
         }
     }

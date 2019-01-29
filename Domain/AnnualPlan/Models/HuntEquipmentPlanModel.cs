@@ -7,7 +7,7 @@ namespace Domain.AnnualPlan.Models
         public int? Type { get; set; }
         public int? Count { get; set; }
         public int Unit { get; set; }
-        public int Year { get; set; }
+        public int MarketingYearId { get; set; }
     }
     public enum HuntEquipment
     {

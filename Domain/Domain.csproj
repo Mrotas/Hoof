@@ -52,19 +52,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnnualPlan\Service\AnnualPlanService.cs" />
-    <Compile Include="AnnualPlan\Service\GamePlan\GamePlanService.cs" />
-    <Compile Include="AnnualPlan\Service\GamePlan\IGamePlanService.cs" />
+    <Compile Include="AnnualPlan\AnnualPlanService.cs" />
+    <Compile Include="AnnualPlan\Models\EmploymentPlanModel.cs" />
+    <Compile Include="GamePlan\GamePlanService.cs" />
+    <Compile Include="GamePlan\IGamePlanService.cs" />
     <Compile Include="AnnualPlan\Models\GamePlan\GameCountModel.cs" />
     <Compile Include="AnnualPlan\Models\GamePlan\GameExecutionModel.cs" />
     <Compile Include="AnnualPlan\Models\GamePlan\GameHuntPlanModel.cs" />
     <Compile Include="AnnualPlan\Models\GamePlan\GameSettlementPlanModel.cs" />
-    <Compile Include="AnnualPlan\Service\IAnnualPlanService.cs" />
+    <Compile Include="AnnualPlan\IAnnualPlanService.cs" />
     <Compile Include="AnnualPlan\Models\AnnualPlanModel.cs" />
     <Compile Include="AnnualPlan\Models\BarrierPlanModel.cs" />
     <Compile Include="AnnualPlan\Models\CostPlanModel.cs" />
     <Compile Include="AnnualPlan\Models\DamagedFieldPlanModel.cs" />
-    <Compile Include="AnnualPlan\Models\EmployeePlanModel.cs" />
     <Compile Include="AnnualPlan\Models\FieldPlanModel.cs" />
     <Compile Include="AnnualPlan\Models\FodderPlanModel.cs" />
     <Compile Include="AnnualPlan\Models\GamePlan\GamePlanModel.cs" />
@@ -82,8 +82,12 @@
     <Compile Include="Hunt\IHuntService.cs" />
     <Compile Include="Hunt\Models\HuntCreateModel.cs" />
     <Compile Include="Hunt\ViewModels\HuntViewModel.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="MarketingYear\IMarketingYearService.cs" />
+    <Compile Include="MarketingYear\MarketingYearService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\IReportService.cs" />
+    <Compile Include="Report\Models\MonthlyReportModel.cs" />
+    <Compile Include="Report\ReportService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

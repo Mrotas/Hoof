@@ -1,7 +1,506 @@
 ﻿
-@{
-    ViewBag.Title = "Index";
-}
+@section Scripts{
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#endDatepicker").datepicker($.datepicker.regional["pl"]);
+        });
 
-<h2>Index</h2>
+        var fillReport = function (data) {
+            var rows = $('#monthlyReportTable > tbody > tr');
+            $.each(rows, function (i, row) {
+                if (i !== 0 && i !== 1) {
+                    var gameName = row.cells[0].innerText;
+
+                    var games = $.grep(data, function(item, index) {
+                        return gameName.indexOf(item.GameKindName) >= 0 || gameName.indexOf(item.GameSubKindName) >= 0 || gameName.indexOf(item.GameClass) >= 0;
+                    });
+                    
+                    var culls = 0, catchWithLoss = 0, total = 0, planned = 0, left = 0;
+                    $.each(games, function(i, game) {
+                        culls += parseInt(game.Cull);
+                        catchWithLoss += parseInt(game.Catch) + parseInt(game.Loss);
+                        total += parseInt(game.Cull) + parseInt(game.Catch) + parseInt(game.Loss);
+                        planned += parseInt(game.Planned);
+                        left += parseInt(game.Planned) - (parseInt(game.Cull) + parseInt(game.Catch) + parseInt(game.Loss));
+                    });
+
+                    row.cells[1].innerText = culls;
+                    row.cells[2].innerText = catchWithLoss;
+                    row.cells[3].innerText = total;
+                    row.cells[4].innerText = planned;
+                    row.cells[5].innerText = left;
+                }
+            });
+        }
+
+        $('#getReportData').on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: '/Report/GetMonthlyReportData',
+                data: {
+                    startDate: '04/01/2018',
+                    endDate: $('#endDatepicker').val()
+                },
+                success: function (data) {
+                    fillReport(data);
+                },
+                error: function () {
+                    alert('Coś poszło nie tak, proszę spróbować jeszcze raz.');
+                }
+            });
+        });
+    </script>
+}
+<h2>Meldunek</h2>
+
+<p>Pobierz meldunek za okres od 01/04/@(DateTime.Today.Year - 1) do <input type="text" id="endDatepicker"> <button class="btn btn-default" id="getReportData">Pobierz</button></p>
+
+<br />
+
+<table class="table-bordered" style="text-align: center" id="monthlyReportTable">
+    <tr>
+        <th style="padding: 10px">Gatunek zwierzyny</th>
+        <th style="padding: 10px">Odstrzelono</th>
+        <th style="padding: 10px">Sztuki padłe i skłusowane</th>
+        <th style="padding: 10px">Razem</th>
+        <th style="padding: 10px">Plan odstrzału w roku gospodarczym</th>
+        <th style="padding: 10px">Pozostaje do pozyskania</th>
+        <th style="padding: 10px">Uwagi</th>
+    </tr>
+    <tr>
+        <td style="text-align: center; font-size: smaller">1</td>
+        <td style="text-align: center; font-size: smaller">2</td>
+        <td style="text-align: center; font-size: smaller">3</td>
+        <td style="text-align: center; font-size: smaller">4</td>
+        <td style="text-align: center; font-size: smaller">5</td>
+        <td style="text-align: center; font-size: smaller">6</td>
+        <td style="text-align: center; font-size: smaller">7</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Jeleń</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>-byk</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="text-align: center">-selekcyjne</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="text-align: center">-łowne</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>-łania</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>-cielę</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>ogółem</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Daniel</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>-byk</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="text-align: center">-selekcyjne</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="text-align: center">-łowne</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>-łania</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>-cielę</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>ogółem</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Muflon</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>-tryk</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>-owca</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>-jagnię</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>ogółem</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Sarna</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>-kozioł</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="text-align: center">-selekcyjne</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="text-align: center">-łowne</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>-koza</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>-koźlę</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>ogółem</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Dzik</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Lis</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Jenot</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Borsuk</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Szakal złocisty</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Kuna leśna</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Kuna domowa</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Norka amerykańska</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Tchórz</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Szopy pracz</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Piżmak</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Zając szarak</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Dziki królik</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Kuropatwa</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Gęś</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Kaczka</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Słonka</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Łyska</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td rowspan="4" colspan="3">W obwodzie wyłożono następujące ilośći karmy:</td>
+        <td colspan="2">objętościowej suchej</td>
+        <td colspan="1"></td>
+        <td colspan="1">kg</td>
+    </tr>
+    <tr>
+        <td colspan="2">objętościowej soczystej</td>
+        <td colspan="1"></td>
+        <td colspan="1">kg</td>
+    </tr>
+    <tr>
+        <td colspan="2">treściwej</td>
+        <td colspan="1"></td>
+        <td colspan="1">kg</td>
+    </tr>
+    <tr>
+        <td colspan="2">soli</td>
+        <td colspan="1"></td>
+        <td colspan="1">kg</td>
+    </tr>
+</table>
+
+
+
+
+
 

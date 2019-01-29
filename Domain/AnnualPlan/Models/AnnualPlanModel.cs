@@ -4,7 +4,7 @@ namespace Domain.AnnualPlan.Models
 {
     public class AnnualPlanModel
     {
-        public List<EmployeePlanModel> EmployeePlanModels { get; set; }
+        public List<EmploymentPlanModel> EmployeePlanModels { get; set; }
         public TrunkFoodPlanModel TrunkFoodPlanModel { get; set; }
         public BarrierPlanModel BarrierPlanModel { get; set; }
         public FieldPlanModel FieldPlanModel { get; set; }

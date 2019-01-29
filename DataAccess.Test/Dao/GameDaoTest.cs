@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using DataAccess.Dao.Game;
-using DataAccess.Entities;
+using DataAccess.Dto;
 using NUnit.Framework;
 
 namespace DataAccess.Test.Dao
@@ -19,7 +19,7 @@ namespace DataAccess.Test.Dao
         [Test]
         public void GetTest()
         {
-            IList<Game> games = _gameDao.GetAll();
+            IList<GameDto> games = _gameDao.GetAll();
 
             Assert.That(games, Is.Not.Empty);
         }

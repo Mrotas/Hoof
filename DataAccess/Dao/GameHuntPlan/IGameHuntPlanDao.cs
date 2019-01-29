@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using DataAccess.Dto;
+using System.Collections.Generic;
 
 namespace DataAccess.Dao.GameHuntPlan
 {
     public interface IGameHuntPlanDao
     {
-        List<Entities.GameHuntPlan> GetAll();
-        List<Entities.GameHuntPlan> GetGameHuntPlan(int year);
+        IList<GameHuntPlanDto> GetAll();
+        IList<GameHuntPlanDto> GetGameHuntPlan(int marketingYearId);
     }
 }

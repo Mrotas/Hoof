@@ -7,6 +7,6 @@
         public int? Class { get; set; }
         public int? Cull { get; set; }
         public int? Catch { get; set; }
-        public int Year { get; set; }
+        public int MarketingYearId { get; set; }
     }
 }

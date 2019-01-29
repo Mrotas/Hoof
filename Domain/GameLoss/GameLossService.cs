@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DataAccess.Dao.Game;
 using DataAccess.Dao.GameLoss;
+using DataAccess.Dao.Region;
+using DataAccess.Dto;
 using Domain.GameLoss.Model;
 using Domain.GameLoss.ViewModel;
 
@@ -11,32 +14,36 @@ namespace Domain.GameLoss
     {
         private readonly IGameDao _gameDao;
         private readonly IGameLossDao _gameLossDao;
+        private readonly IRegionDao _regionDao;
 
-        public GameLossService() : this(new GameDao(), new GameLossDao())
+        public GameLossService() : this(new GameDao(), new GameLossDao(), new RegionDao())
         {
             
         }
 
-        public GameLossService(IGameDao gameDao, IGameLossDao gameLossDao)
+        public GameLossService(IGameDao gameDao, IGameLossDao gameLossDao, IRegionDao regionDao)
         {
             _gameDao = gameDao;
             _gameLossDao = gameLossDao;
+            _regionDao = regionDao;
         }
 
         public List<GameLossViewModel> GetAllLossGames()
         {
-            List<DataAccess.Entities.GameLoss> lossGames = _gameLossDao.GetAll();
-            IList<DataAccess.Entities.Game> games = _gameDao.GetAll();
+            IList<GameLossDto> lossGames = _gameLossDao.GetAll();
+            IList<GameDto> games = _gameDao.GetAll();
+            IList<RegionDto> regions = _regionDao.GetAll();
 
             List<GameLossViewModel> gameLossModels = (from gameLoss in lossGames
                                                 join game in games on gameLoss.GameId equals game.Id
+                                                join region in regions on gameLoss.RegionId equals region.Id
                                                 select new GameLossViewModel
                                                 {
                                                     TypeName = game.Type == 1 ? "Gruba" : "Drobna",
                                                     KindName = game.KindName,
                                                     SubKindName = game.SubKindName,
-                                                    Circuit = gameLoss.City,
-                                                    District = gameLoss.District,
+                                                    Circuit = region.City,
+                                                    District = region.District,
                                                     Description = gameLoss.Description,
                                                     SanitaryLoss = gameLoss.SanitaryLoss,
                                                     Date = gameLoss.Date
@@ -47,15 +54,22 @@ namespace Domain.GameLoss
 
         public void ReportLoss(GameLossModel model)
         {
-            DataAccess.Entities.Game game = _gameDao.Get(model.GameType, model.GameKind, model.GameSubKind).FirstOrDefault();
+            IList<GameDto> gameDtos = _gameDao.Get(model.GameType, model.GameKind, model.GameSubKind);
 
-            var gameLoss = new DataAccess.Entities.GameLoss
+            GameDto gameDto = gameDtos.FirstOrDefault();
+
+            if (gameDto == null)
             {
-                GameId = game.Id,
+                throw new Exception("Could not find specified game!");
+            }
+
+            int regionId = _regionDao.GetRegionId(model.City, model.Circuit, model.District);
+
+            var gameLoss = new GameLossDto
+            {
+                GameId = gameDto.Id,
                 SanitaryLoss = model.SanitaryLoss,
-                City = model.City,
-                Circuit = model.Circuit,
-                District = model.District,
+                RegionId = regionId,
                 Description = model.Description,
                 Date = model.Date
             };

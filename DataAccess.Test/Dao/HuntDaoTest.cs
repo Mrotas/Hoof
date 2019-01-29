@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DataAccess.Context;
 using DataAccess.Dao.Hunt;
+using DataAccess.Dto;
 using DataAccess.Entities;
 using NUnit.Framework;
 
@@ -23,7 +24,7 @@ namespace DataAccess.Test.Dao
         [Explicit("This test will impact on real Data")]
         public void GetData()
         {
-            IList<Hunt> result = _huntDao.GetAll();
+            IList<HuntDto> result = _huntDao.GetAll();
 
             Assert.That(result, Is.Not.Empty);
         }
@@ -35,7 +36,7 @@ namespace DataAccess.Test.Dao
             var hunt = new Hunt
             {
                 HuntsmanId = 1,
-                GameId = 1,
+                HuntedGameId = 1,
                 RegionId = 1,
                 Date = DateTime.Now,
                 Shots = 1
@@ -51,7 +52,7 @@ namespace DataAccess.Test.Dao
             Assert.That(insertedHunt, Is.Not.Null);
             Assert.That(insertedHunt.Id, Is.EqualTo(hunt.Id));
             Assert.That(insertedHunt.HuntsmanId, Is.EqualTo(hunt.HuntsmanId));
-            Assert.That(insertedHunt.GameId, Is.EqualTo(hunt.GameId));
+            Assert.That(insertedHunt.HuntedGameId, Is.EqualTo(hunt.HuntedGameId));
             Assert.That(insertedHunt.RegionId, Is.EqualTo(hunt.RegionId));
             Assert.That(insertedHunt.Date, Is.EqualTo(hunt.Date));
             Assert.That(insertedHunt.Shots, Is.EqualTo(hunt.Shots));

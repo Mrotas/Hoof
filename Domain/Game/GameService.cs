@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DataAccess.Dao.Game;
+using DataAccess.Dto;
 using Domain.Game.Model;
 
 namespace Domain.Game
@@ -21,7 +22,7 @@ namespace Domain.Game
 
         public List<GameModel> GetAllGames()
         {
-            IList<DataAccess.Entities.Game> games = _gameDao.GetAll();
+            IList<GameDto> games = _gameDao.GetAll();
 
             var gameModels = games.Select(x => new GameModel
             {

@@ -206,11 +206,12 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\AnnualPlan\Index.cshtml" />
+    <Content Include="Views\AnnualPlan\Plan.cshtml" />
     <Content Include="Views\Hunt\Index.cshtml" />
     <Content Include="Views\Hunt\MyHunts.cshtml" />
     <Content Include="Views\Hunt\Loss.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\AnnualPlan\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

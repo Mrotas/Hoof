@@ -82,25 +82,30 @@
 </table>
 
 <div class="modal" id="addHuntModal">
-<div class="modal-dialog">
+<div class="modal-dialog" style="width: 500px;">
     <div class="modal-content">
 
-        <div class="modal-header">
-            <h4 class="modal-title">Dodaj polowanie</h4>
-            <button type="button" class="close" data-dismiss="modal" id="closeModalXButton">&times;</button>
+        <div class="modal-header" style="text-align: center; background-color: rgba(92, 184, 92, 0.6)">
+            <button type="button" class="close" data-dismiss="modal" id="closeModalXButton">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+                Dodaj polowanie
+            </h4>
         </div>
 
         <div class="modal-body">
             <div class="form-horizontal">
-                <div class="form-group form-horizontal">
-                    <div class="col-md-10">
+                <div class="form-group">
+                    <div class="col-md-6 col-md-offset-2" style="width: 75%">
                         Data: <input type="date" class="form-control" id="huntDatepicker">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <div class="col-md-10">
-                        Okręg: @Html.DropDownList("Wybierz Obwód", new List<SelectListItem>
+                    <div class="col-md-6 col-md-offset-2" style="width: 75%">
+                        Obwód: @Html.DropDownList("Wybierz Obwód", new List<SelectListItem>
                                {
                                    new SelectListItem {Text = "Płytnica", Value = "20"}
                                }, "", new { @class = "form-control", id="circuit"})
@@ -108,8 +113,8 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="col-md-10">
-                        Region: @Html.DropDownList("Wybierz Rewir", new List<SelectListItem>
+                    <div class="col-md-6 col-md-offset-2" style="width: 75%">
+                        Rewir: @Html.DropDownList("Wybierz Rewir", new List<SelectListItem>
                                 {
                                     new SelectListItem {Text = "1", Value = "1"},
                                     new SelectListItem {Text = "2", Value = "2"},
@@ -133,7 +138,7 @@
                     
                 <div id="gameSection">
                     <div class="form-group" id="gameTypeSection">
-                        <div class="col-md-10">
+                        <div class="col-md-6 col-md-offset-2" style="width: 75%">
                             Rodzaj zwierzyny: @Html.DropDownList("Wybierz rodzaj zwierzyny", new List<SelectListItem>
                                               {
                                                   new SelectListItem {Text = "", Value = "-1"},
@@ -144,7 +149,7 @@
                     </div>
                         
                     <div class="form-group" id="shotsSection">
-                        <div class="col-md-10">
+                        <div class="col-md-6 col-md-offset-2" style="width: 75%">
                             Oddane strzały: <input type="number" class="form-control" id="shots"/>
                         </div>
                     </div>
@@ -180,7 +185,7 @@
             });
 
         function insertSelectSectionAfter(selectLabel, selectId, sectionId, afterElement) {
-            $("<div class=\"form-group\" style=\"display: none\" id=" + sectionId + "><div class=\"col-md-10\">" + selectLabel + ": <select class=\"form-control\" id=" + selectId + "></select></div></div>").insertAfter("#" + afterElement).show("slow");
+            $("<div class=\"form-group\" style=\"display: none\" id=" + sectionId + "><div class=\"col-md-6 col-md-offset-2\" style=\"width: 75%\">" + selectLabel + ": <select class=\"form-control\" id=" + selectId + "></select></div></div>").insertAfter("#" + afterElement).show("slow");
         }
 
         function getGamesWhereTypeEquals(type) {
@@ -362,7 +367,7 @@
             setGameSubKindOptions(selectedValue);
 
             if ($('#gameWeightSection').length === 0) {
-                $("<div class=\"form-group\" style=\"display: none\" id=\"gameWeightSection\"> <div class=\"col-md-10\"> Waga: <input type=\"number\" class=\"form-control\" step=\"0.01\"/ id=\"gameWeight\"> </div> </div>").insertBefore("#shotsSection").show('slow');
+                $("<div class=\"form-group\" style=\"display: none\" id=\"gameWeightSection\"> <div class=\"col-md-6 col-md-offset-2\" style=\"width: 75%\"> Waga: <input type=\"number\" class=\"form-control\" step=\"0.01\"/ id=\"gameWeight\"> </div> </div>").insertBefore("#shotsSection").show('slow');
             }
         });
 
@@ -374,6 +379,7 @@
     <script type="text/javascript">
 
         function clearModal() {
+            $('#huntDatepicker').val("");
             $("#city").val("");
             $("#circuit").val("");
             $("#district").val("");
@@ -382,6 +388,7 @@
             $("#gameSubKindSection").remove();
             $("#gameClassSection").remove();
             $("#gameWeightSection").remove();
+            $('#shots').val("");
         }
 
         $('#closeModalButton').on('click',

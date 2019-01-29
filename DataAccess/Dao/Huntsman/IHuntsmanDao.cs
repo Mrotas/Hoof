@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using DataAccess.Dto;
+using System.Collections.Generic;
 
 namespace DataAccess.Dao.Huntsman
 {
     public interface IHuntsmanDao
     {
-        IList<Entities.Huntsman> GetAll();
+        IList<HuntsmanDto> GetAll();
     }
 }

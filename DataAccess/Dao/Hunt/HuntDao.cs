@@ -1,39 +1,83 @@
-﻿using System.Collections.Generic;
+﻿using DataAccess.Dto;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DataAccess.Dao.Hunt
 {
     public class HuntDao : DaoBase, IHuntDao
     {
-        public IList<Entities.Hunt> GetAll()
+        public IList<HuntDto> GetAll()
         {
-            var hunts = new List<Entities.Hunt>();
             using (DbContext)
             {
-                hunts = DbContext.Hunt.ToList();
+                List<Entities.Hunt> hunts = DbContext.Hunt.ToList();
+
+                IList<HuntDto> dtos = ToDtos(hunts);
+
+                return dtos;
             }
-            
-            return hunts;
         }
 
-        public IList<Entities.Hunt> GetHuntsByYear(int year)
+        public IList<HuntDto> GetHuntsByYear(int year)
         {
-            var hunts = new List<Entities.Hunt>();
             using (DbContext)
             {
-                hunts = DbContext.Hunt.Where(x => x.Date.Year == year).ToList();
-            }
+                List<Entities.Hunt> hunts = DbContext.Hunt.Where(x => x.Date.Year == year).ToList();
 
-            return hunts;
+                IList<HuntDto> dtos = ToDtos(hunts);
+
+                return dtos;
+            }
         }
 
-        public void Insert(Entities.Hunt hunt)
+        public IList<HuntDto> GetHuntsByDateRange(DateTime startDate, DateTime endDate)
         {
+            using (DbContext)
+            {
+                List<Entities.Hunt> hunts = DbContext.Hunt.Where(x => x.Date > startDate && x.Date < endDate).ToList();
+
+                var dtos = ToDtos(hunts);
+
+                return dtos;
+            }
+        }
+
+        public void Insert(HuntDto huntDto)
+        {
+            var hunt = new Entities.Hunt
+            {
+                HuntsmanId = huntDto.HuntsmanId,
+                HuntedGameId = huntDto.HuntedGameId,
+                RegionId = huntDto.RegionId,
+                Date = huntDto.Date,
+                Shots = huntDto.Shots
+            };
+
             using (DbContext)
             {
                 DbContext.Hunt.Add(hunt);
                 DbContext.SaveChanges();
             }
+        }
+
+        private IList<HuntDto> ToDtos(IList<Entities.Hunt> entityList)
+        {
+            var dtos = new List<HuntDto>();
+            foreach (Entities.Hunt entity in entityList)
+            {
+                var dto = new HuntDto
+                {
+                    Id = entity.Id,
+                    HuntsmanId = entity.HuntsmanId,
+                    HuntedGameId = entity.HuntedGameId,
+                    RegionId = entity.RegionId,
+                    Date = entity.Date,
+                    Shots = entity.Shots
+                };
+                dtos.Add(dto);
+            }
+            return dtos;
         }
     }
 }

@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using DataAccess.Dto;
+using System.Collections.Generic;
 
 namespace DataAccess.Dao.Region
 {
     public interface IRegionDao
     {
-        IList<Entities.Region> GetAll();
+        IList<RegionDto> GetAll();
         int GetRegionId(string city, int circuit, int district);
     }
 }

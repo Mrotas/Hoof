@@ -4,12 +4,12 @@
     {
         public double? Cost { get; set; }
         public int? Type { get; set; }
-        public int Year { get; set; }
+        public int MarketingYearId { get; set; }
     }
 
     public enum CostType
     {
-        Cost = 62,
-        Revenue = 63
+        Cost = 1,
+        Revenue = 2
     }
 }

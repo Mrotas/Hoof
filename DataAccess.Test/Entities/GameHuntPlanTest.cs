@@ -26,7 +26,7 @@ namespace DataAccess.Test.Entities
             Assert.That(gamesPlan[0].Class, Is.EqualTo(null));
             Assert.That(gamesPlan[0].Cull, Is.EqualTo(0));
             Assert.That(gamesPlan[0].Catch, Is.EqualTo(0));
-            Assert.That(gamesPlan[0].Year, Is.EqualTo(2017));
+            Assert.That(gamesPlan[0].MarketingYearId, Is.EqualTo(2017));
         }
     }
 }

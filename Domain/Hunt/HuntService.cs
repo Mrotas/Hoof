@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using DataAccess.Dao.Game;
 using DataAccess.Dao.Hunt;
+using DataAccess.Dao.HuntedGame;
 using DataAccess.Dao.Huntsman;
 using DataAccess.Dao.Region;
-using DataAccess.Entities;
+using DataAccess.Dto;
 using Domain.Hunt.Models;
 using Domain.Hunt.ViewModels;
 
@@ -17,29 +18,33 @@ namespace Domain.Hunt
         private readonly IGameDao _gameDao;
         private readonly IHuntsmanDao _huntsmanDao;
         private readonly IRegionDao _regionDao;
+        private readonly IHuntedGameDao _huntedGameDao;
 
-        public HuntService() : this (new HuntDao(), new GameDao(), new HuntsmanDao(), new RegionDao())
+        public HuntService() : this (new HuntDao(), new GameDao(), new HuntsmanDao(), new RegionDao(), new HuntedGameDao())
         {
         }
 
-        public HuntService(IHuntDao huntDao, IGameDao gameDao, IHuntsmanDao huntsmanDao, IRegionDao regionDao)
+        public HuntService(IHuntDao huntDao, IGameDao gameDao, IHuntsmanDao huntsmanDao, IRegionDao regionDao, IHuntedGameDao huntedGameDao)
         {
             _huntDao = huntDao;
             _gameDao = gameDao;
             _huntsmanDao = huntsmanDao;
             _regionDao = regionDao;
+            _huntedGameDao = huntedGameDao;
         }
 
         public IList<HuntViewModel> GetAllHuntModels()
         {
-            IList<DataAccess.Entities.Hunt> hunts = _huntDao.GetAll();
-            IList<DataAccess.Entities.Game> games = _gameDao.GetAll();
-            IList<Huntsman> huntsmans = _huntsmanDao.GetAll();
-            IList<Region> regions = _regionDao.GetAll();
+            IList<HuntDto> hunts = _huntDao.GetAll();
+            IList<GameDto> games = _gameDao.GetAll();
+            IList<HuntsmanDto> huntsmans = _huntsmanDao.GetAll();
+            IList<RegionDto> regions = _regionDao.GetAll();
+            IList<HuntedGameDto> huntedGames = _huntedGameDao.GetAll();
 
             List<HuntViewModel> huntViewModels = (from hunt in hunts
                 join huntsman in huntsmans on hunt.HuntsmanId equals huntsman.Id
-                join game in games on hunt.GameId equals game.Id
+                join huntedGame in huntedGames on hunt.HuntedGameId equals huntedGame.Id
+                join game in games on huntedGame.GameId equals game.Id
                 join region in regions on hunt.RegionId equals region.Id
                 select new HuntViewModel
                 {
@@ -48,8 +53,8 @@ namespace Domain.Hunt
                     GameType = GetGameType(game?.Type),
                     GameKindName = game.KindName,
                     GameSubKindName = GetSubKindName(game.SubKindName),
-                    GameClass = GetGameClass(hunt.GameClass),
-                    GameWeight = GetGameWeight(hunt.GameWeight),
+                    GameClass = GetGameClass(huntedGame.GameClass),
+                    GameWeight = GetGameWeight(huntedGame.GameWeight),
                     City = region.City,
                     Circuit = region.Circuit,
                     District = region.District,
@@ -62,14 +67,16 @@ namespace Domain.Hunt
 
         public IList<HuntViewModel> GetHuntViewModels(int huntsmanId)
         {
-            IList<DataAccess.Entities.Hunt> hunts = _huntDao.GetAll();
-            IList<DataAccess.Entities.Game> games = _gameDao.GetAll();
-            IList<Huntsman> huntsmans = _huntsmanDao.GetAll();
-            IList<Region> regions = _regionDao.GetAll();
+            IList<HuntDto> hunts = _huntDao.GetAll();
+            IList<GameDto> games = _gameDao.GetAll();
+            IList<HuntsmanDto> huntsmans = _huntsmanDao.GetAll();
+            IList<RegionDto> regions = _regionDao.GetAll();
+            IList<HuntedGameDto> huntedGames = _huntedGameDao.GetAll();
 
             List<HuntViewModel> huntViewModels = (from hunt in hunts
                 join huntsman in huntsmans on hunt.HuntsmanId equals huntsman.Id
-                join game in games on hunt.GameId equals game.Id
+                join huntedGame in huntedGames on hunt.HuntedGameId equals huntedGame.Id
+                join game in games on huntedGame.GameId equals game.Id
                 join region in regions on hunt.RegionId equals region.Id
                 where huntsman.Id == huntsmanId
                 select new HuntViewModel
@@ -77,8 +84,8 @@ namespace Domain.Hunt
                     GameType = GetGameType(game?.Type),
                     GameKindName = game.KindName,
                     GameSubKindName = GetSubKindName(game.SubKindName),
-                    GameClass = GetGameClass(hunt.GameClass),
-                    GameWeight = GetGameWeight(hunt.GameWeight),
+                    GameClass = GetGameClass(huntedGame.GameClass),
+                    GameWeight = GetGameWeight(huntedGame.GameWeight),
                     City = region.City,
                     Circuit = region.Circuit,
                     District = region.District,
@@ -91,26 +98,34 @@ namespace Domain.Hunt
 
         public void Create(HuntCreateModel model, int huntsmanId)
         {
-            DataAccess.Entities.Game game = null;
+            GameDto game = null;
+            int? huntedGameId = null;
             if (model.GameType.HasValue & model.GameKind.HasValue)
             {
                 game = _gameDao.Get(model.GameType.Value, model.GameKind.Value, model.GameSubKind).FirstOrDefault();
+
+                var huntGameDto = new HuntedGameDto
+                {
+                    GameId = game.Id,
+                    GameClass = model.GameClass,
+                    GameWeight = model.GameWeight
+                };
+
+                huntedGameId = _huntedGameDao.Insert(huntGameDto);
             }
 
             int regionId = _regionDao.GetRegionId(model.City, model.Circuit, model.District);
 
-            var hunt = new DataAccess.Entities.Hunt
+            var huntDto = new HuntDto
             {
                 HuntsmanId = huntsmanId,
-                GameId = game.Id,
-                GameClass = model.GameClass,
-                GameWeight= model.GameWeight,
+                HuntedGameId = huntedGameId,
                 RegionId = regionId,
                 Shots = model.Shots,
                 Date = model.Date
             };
 
-            _huntDao.Insert(hunt);
+            _huntDao.Insert(huntDto);
         }
         
         private string GetGameType(int? gameType)

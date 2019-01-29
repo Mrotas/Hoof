@@ -1,22 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using DataAccess.Dto;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DataAccess.Dao.Game
 {
     public class GameDao : DaoBase, IGameDao
     {
-        public IList<Entities.Game> GetAll()
+        public IList<GameDto> GetAll()
         {
-            var games = new List<Entities.Game>();
             using (DbContext)
             {
-                games = DbContext.Game.ToList();
-            }
+                List<Entities.Game> games = DbContext.Game.ToList();
 
-            return games;
+                IList<GameDto> dtos = ToDtos(games);
+
+                return dtos;
+            }
         }
 
-        public IList<Entities.Game> Get(int type, int kind, int? subKind)
+        public IList<GameDto> Get(int type, int kind, int? subKind)
         {
             var games = new List<Entities.Game>();
             using (DbContext)
@@ -29,7 +31,28 @@ namespace DataAccess.Dao.Game
                 }
             }
 
-            return games;
+            IList<GameDto> dtos = ToDtos(games);
+
+            return dtos;
+        }
+
+        private IList<GameDto> ToDtos(IList<Entities.Game> entityList)
+        {
+            var dtos = new List<GameDto>();
+            foreach (Entities.Game entity in entityList)
+            {
+                var dto = new GameDto
+                {
+                    Id = entity.Id,
+                    Type = entity.Type,
+                    Kind = entity.Kind,
+                    KindName = entity.KindName,
+                    SubKind = entity.SubKind,
+                    SubKindName = entity.SubKindName
+                };
+                dtos.Add(dto);
+            }
+            return dtos;
         }
     }
 }

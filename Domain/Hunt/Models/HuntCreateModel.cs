@@ -20,8 +20,8 @@ namespace Domain.Hunt.Models
         
         public int? GameClass { get; set; }
         
-        public double? GameWeight { get; set; }
+        public double GameWeight { get; set; }
         
-        public int? Shots { get; set; }
+        public int Shots { get; set; }
     }
 }

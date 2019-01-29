@@ -3,8 +3,7 @@
     public class FieldPlan
     {
         public int Id { get; set; }
-        public double? Count { get; set; }
-        public int Unit { get; set; }
-        public int Year { get; set; }
+        public double Hectare { get; set; }
+        public int MarketingYearId { get; set; }
     }
 }

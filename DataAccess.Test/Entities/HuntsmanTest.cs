@@ -31,7 +31,7 @@ namespace DataAccess.Test.Entities
             {
                 Name = "Marian",
                 LastName = "Buda",
-                Rank = "Nadleśniczy"
+                Role = "Nadleśniczy"
             };
 
             Huntsman insertedHuntsman;

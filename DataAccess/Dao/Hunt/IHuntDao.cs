@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using DataAccess.Dto;
+using System;
+using System.Collections.Generic;
 
 namespace DataAccess.Dao.Hunt
 {
     public interface IHuntDao
     {
-        IList<Entities.Hunt> GetAll();
-        IList<Entities.Hunt> GetHuntsByYear(int year);
-        void Insert(Entities.Hunt hunt);
+        IList<HuntDto> GetAll();
+        IList<HuntDto> GetHuntsByYear(int year);
+        IList<HuntDto> GetHuntsByDateRange(DateTime startDate, DateTime endDate);
+        void Insert(HuntDto huntDto);
     }
 }
