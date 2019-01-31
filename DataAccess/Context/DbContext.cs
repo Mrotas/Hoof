@@ -18,6 +18,7 @@ namespace DataAccess.Context
             base.OnModelCreating(modelBuilder);
         }
         
+        public DbSet<GameClass> GameClass { get; set; }
         public DbSet<CostPlan> CostPlan { get; set; }
         public DbSet<EmploymentPlan> EmploymentPlan { get; set; }
         public DbSet<FieldPlan> FieldPlan { get; set; }

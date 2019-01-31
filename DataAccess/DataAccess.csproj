@@ -62,6 +62,8 @@
     <Compile Include="Dao\FieldPlan\IFieldPlanDao.cs" />
     <Compile Include="Dao\FodderPlan\FodderPlanDao.cs" />
     <Compile Include="Dao\FodderPlan\IFodderPlanDao.cs" />
+    <Compile Include="Dao\GameClass\GameClassDao.cs" />
+    <Compile Include="Dao\GameClass\IGameClassDao.cs" />
     <Compile Include="Dao\GameCountFor10March\GameCountFor10MarchDao.cs" />
     <Compile Include="Dao\GameCountFor10March\IGameCountFor10MarchDao.cs" />
     <Compile Include="Dao\GameHuntPlan\GameHuntPlanDao.cs" />
@@ -89,6 +91,7 @@
     <Compile Include="Dto\EmploymentPlanDto.cs" />
     <Compile Include="Dto\FieldPlanDto.cs" />
     <Compile Include="Dto\FodderPlanDto.cs" />
+    <Compile Include="Dto\GameClassDto.cs" />
     <Compile Include="Dto\GameCountFor10MarchDto.cs" />
     <Compile Include="Dto\GameDto.cs" />
     <Compile Include="Dto\GameHuntPlanDto.cs" />
@@ -104,6 +107,7 @@
     <Compile Include="Entities\EmploymentPlan.cs" />
     <Compile Include="Entities\FieldPlan.cs" />
     <Compile Include="Entities\FodderPlan.cs" />
+    <Compile Include="Entities\GameClass.cs" />
     <Compile Include="Entities\GameCountFor10March.cs" />
     <Compile Include="Entities\GameHuntPlan.cs" />
     <Compile Include="Entities\GameLoss.cs" />
@@ -121,5 +125,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

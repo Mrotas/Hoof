@@ -6,7 +6,7 @@ namespace Domain.AnnualPlan.Models.GamePlan
     {
         public GameModel GameModel { get; set; }
         public int? Class { get; set; }
-        public string ClassName => !Class.HasValue ? "" : Class.Value == 1 ? "selekcyjne" : "łowne";
+        public string ClassName { get; set; }
         public GameHuntPlanModel PreviousGameHuntPlan { get; set; }
         public GameExecutionModel PreviousGamePlanExecution { get; set; }
         public GameCountModel GameCountModel { get; set; }

@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DataAccess.Dao.Game;
+using DataAccess.Dao.GameClass;
 using DataAccess.Dao.GameHuntPlan;
 using DataAccess.Dao.GameLoss;
 using DataAccess.Dao.Hunt;
@@ -18,6 +20,7 @@ namespace Domain.GamePlan
         private IList<HuntDto> _gameHuntExecutions;
         private IList<HuntedGameDto> _huntedGames;
         private IList<GameLossDto> _lossGames;
+        private IList<GameClassDto> _gameClasses;
 
         private readonly IGameDao _gameDao;
         private readonly IGameHuntPlanDao _gameHuntPlanDao;
@@ -25,15 +28,18 @@ namespace Domain.GamePlan
         private readonly IHuntDao _huntDao;
         private readonly IGameLossDao _gameLossDao;
         private readonly IMarketingYearService _marketingYearService;
+        private readonly IGameClassDao _gameClassDao;
 
-        public GamePlanService() : this(new GameDao(), new GameHuntPlanDao(), new HuntDao(), new GameLossDao(), new HuntedGameDao(), new MarketingYearService())
+        public GamePlanService() : this(new GameDao(), new GameHuntPlanDao(), new HuntDao(), new GameLossDao(), new HuntedGameDao(), new MarketingYearService(), new GameClassDao())
         {
             _gameHuntPlans = new List<GameHuntPlanDto>();
             _gameHuntExecutions = new List<HuntDto>();
             _huntedGames = new List<HuntedGameDto>();
+            _lossGames = new List<GameLossDto>();
+            _gameClasses = new List<GameClassDto>();
         }
 
-        public GamePlanService(IGameDao gameDao, IGameHuntPlanDao gamePlanDao, IHuntDao huntDao, IGameLossDao gameLossDao, IHuntedGameDao huntedGameDao, IMarketingYearService marketingYearService)
+        public GamePlanService(IGameDao gameDao, IGameHuntPlanDao gamePlanDao, IHuntDao huntDao, IGameLossDao gameLossDao, IHuntedGameDao huntedGameDao, IMarketingYearService marketingYearService, IGameClassDao gameClassDao)
         {
             _gameDao = gameDao;
             _gameHuntPlanDao = gamePlanDao;
@@ -41,6 +47,7 @@ namespace Domain.GamePlan
             _gameLossDao = gameLossDao;
             _huntedGameDao = huntedGameDao;
             _marketingYearService = marketingYearService;
+            _gameClassDao = gameClassDao;
         }
 
         public IList<GamePlanModel> GetGamePlanModels(int marketingYearId)
@@ -56,6 +63,8 @@ namespace Domain.GamePlan
             _huntedGames = _huntedGameDao.GetAll();
 
             _lossGames = _gameLossDao.GetAll();
+
+            _gameClasses = _gameClassDao.GetAll();
 
             foreach (GameDto game in allGames)
             {
@@ -84,6 +93,7 @@ namespace Domain.GamePlan
                 var bigGameModel = new GamePlanModel
                 {
                     Class = currentGameHuntPlanModel.Class,
+                    ClassName = GetClassName(currentGameHuntPlanModel.Class),
                     GameModel = new GameModel
                     {
                         Id = game.Id,
@@ -98,7 +108,7 @@ namespace Domain.GamePlan
 
                 List<GameHuntPlanModel> previousGameHuntPlanModels = GetHuntPlanModel(marketingYearId - 1, game);
 
-                bigGameModel.PreviousGameHuntPlan = previousGameHuntPlanModels.FirstOrDefault(x => x.Class == currentGameHuntPlanModel.Class);
+                bigGameModel.PreviousGameHuntPlan = previousGameHuntPlanModels.FirstOrDefault(x => x.Class == currentGameHuntPlanModel.Class) ?? new GameHuntPlanModel();
 
                 bigGameModel.PreviousGamePlanExecution = GetGamePlanExecution(marketingYearId - 1, game.Id, currentGameHuntPlanModel.Class);
 
@@ -112,6 +122,17 @@ namespace Domain.GamePlan
             }
 
             return models;
+        }
+
+        private string GetClassName(int? gameClass)
+        {
+            if (gameClass == null)
+            {
+                return String.Empty;
+            }
+
+            string className = _gameClasses.FirstOrDefault(x => x.Id == gameClass).ClassName;
+            return className;
         }
 
         private GamePlanModel GetSmallGameModel(int marketingYearId, GameDto game)

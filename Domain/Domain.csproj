@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="AnnualPlan\AnnualPlanService.cs" />
     <Compile Include="AnnualPlan\Models\EmploymentPlanModel.cs" />
+    <Compile Include="GameClass\GameClassService.cs" />
     <Compile Include="GamePlan\GamePlanService.cs" />
     <Compile Include="GamePlan\IGamePlanService.cs" />
     <Compile Include="AnnualPlan\Models\GamePlan\GameCountModel.cs" />
