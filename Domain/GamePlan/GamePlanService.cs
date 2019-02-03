@@ -3,6 +3,7 @@ using System.Linq;
 using Common.Enums;
 using DataAccess.Dao.Game;
 using DataAccess.Dao.GameClass;
+using DataAccess.Dao.GameCountFor10March;
 using DataAccess.Dao.GameHuntPlan;
 using DataAccess.Dao.HuntedGame;
 using DataAccess.Dao.LossGame;
@@ -39,23 +40,28 @@ namespace Domain.GamePlan
         private IList<GameClassDto> _gameClassXRefs;
         private IList<GameClassDto> GameClassXRefs => _gameClassXRefs ?? (_gameClassXRefs = _gameClassDao.GetAll());
 
+        private IList<GameCountFor10MarchDto> _gameCountsCountFor10March;
+        private IList<GameCountFor10MarchDto> GameCountsGameCountFor10March => _gameCountsCountFor10March ?? (_gameCountsCountFor10March = _gameCountFor10MarchDao.GameCountBefore10MarchPlan(PreviousMarketingYear));
+
         private readonly IGameDao _gameDao;
         private readonly IGameHuntPlanDao _gameHuntPlanDao;
         private readonly IHuntedGameDao _huntedGameDao;
         private readonly ILossGameDao _lossGameDao;
         private readonly IGameClassDao _gameClassDao;
+        private readonly IGameCountFor10MarchDao _gameCountFor10MarchDao;
 
-        public GamePlanService() : this(new GameDao(), new GameHuntPlanDao(), new LossGameDao(), new HuntedGameDao(), new GameClassDao())
+        public GamePlanService() : this(new GameDao(), new GameHuntPlanDao(), new LossGameDao(), new HuntedGameDao(), new GameClassDao(), new GameCountFor10MarchDao())
         {
         }
 
-        public GamePlanService(IGameDao gameDao, IGameHuntPlanDao gamePlanDao, ILossGameDao lossGameDao, IHuntedGameDao huntedGameDao, IGameClassDao gameClassDao)
+        public GamePlanService(IGameDao gameDao, IGameHuntPlanDao gamePlanDao, ILossGameDao lossGameDao, IHuntedGameDao huntedGameDao, IGameClassDao gameClassDao, IGameCountFor10MarchDao countFor10MarchDao)
         {
             _gameDao = gameDao;
             _gameHuntPlanDao = gamePlanDao;
             _lossGameDao = lossGameDao;
             _huntedGameDao = huntedGameDao;
             _gameClassDao = gameClassDao;
+            _gameCountFor10MarchDao = countFor10MarchDao;
         }
 
         public AnnualPlanGameModel GetGameAnnualPlanModel(GameType gameType, int marketingYearId)
@@ -165,14 +171,19 @@ namespace Domain.GamePlan
         {
             if (gameClass.HasValue)
             {
-                model.PreviousHuntPlanExecutionCulls = HuntedGames.Count(x => gameIds.Contains(x.GameId) && x.GameClass == gameClass);
-                model.PreviousHuntPlanExecutionLosses = LossGames.Count(x => gameIds.Contains(x.GameId) && x.Class == gameClass);
-                model.PreviousHuntPlanExecutionSanitaryLosses = SanitaryLossGames.Count(x => gameIds.Contains(x.GameId) && x.Class == gameClass);
-
                 if (PreviousHuntPlans.Any(x => gameIds.Contains(x.GameId) && x.Class == gameClass))
                 {
                     model.PreviousHuntPlanCulls = (int) PreviousHuntPlans.FirstOrDefault(x => gameIds.Contains(x.GameId) && x.Class == gameClass).Cull;
                     model.PreviousHuntPlanCatches = (int) PreviousHuntPlans.FirstOrDefault(x => gameIds.Contains(x.GameId) && x.Class == gameClass).Catch;
+                }
+
+                model.PreviousHuntPlanExecutionCulls = HuntedGames.Count(x => gameIds.Contains(x.GameId) && x.GameClass == gameClass);
+                model.PreviousHuntPlanExecutionLosses = LossGames.Count(x => gameIds.Contains(x.GameId) && x.Class == gameClass);
+                model.PreviousHuntPlanExecutionSanitaryLosses = SanitaryLossGames.Count(x => gameIds.Contains(x.GameId) && x.Class == gameClass);
+
+                if (GameCountsGameCountFor10March.Any(x => gameIds.Contains(x.GameId) && x.Class == gameClass))
+                {
+                    model.GameCountBefore10March = GameCountsGameCountFor10March.Where(x => gameIds.Contains(x.GameId) && x.Class == gameClass).Sum(x => x.Count);
                 }
 
                 if (CurrentHuntPlans.Any(x => gameIds.Contains(x.GameId) && x.Class == gameClass))
@@ -183,14 +194,19 @@ namespace Domain.GamePlan
             }
             else
             {
-                model.PreviousHuntPlanExecutionCulls = HuntedGames.Count(x => gameIds.Contains(x.GameId));
-                model.PreviousHuntPlanExecutionLosses = LossGames.Count(x => gameIds.Contains(x.GameId));
-                model.PreviousHuntPlanExecutionSanitaryLosses = SanitaryLossGames.Count(x => gameIds.Contains(x.GameId));
-
                 if (PreviousHuntPlans.Any(x => gameIds.Contains(x.GameId)))
                 {
                     model.PreviousHuntPlanCulls = (int) PreviousHuntPlans.Where(x => gameIds.Contains(x.GameId)).Sum(x => x.Cull);
                     model.PreviousHuntPlanCatches = (int) PreviousHuntPlans.Where(x => gameIds.Contains(x.GameId)).Sum(x => x.Catch);
+                }
+
+                model.PreviousHuntPlanExecutionCulls = HuntedGames.Count(x => gameIds.Contains(x.GameId));
+                model.PreviousHuntPlanExecutionLosses = LossGames.Count(x => gameIds.Contains(x.GameId));
+                model.PreviousHuntPlanExecutionSanitaryLosses = SanitaryLossGames.Count(x => gameIds.Contains(x.GameId));
+
+                if (GameCountsGameCountFor10March.Any(x => gameIds.Contains(x.GameId)))
+                {
+                    model.GameCountBefore10March = GameCountsGameCountFor10March.Where(x => gameIds.Contains(x.GameId)).Sum(x => x.Count);
                 }
 
                 if (CurrentHuntPlans.Any(x => gameIds.Contains(x.GameId)))

@@ -339,7 +339,7 @@
             <td>@gameKindPlanModel.PreviousHuntPlanExecutionLosses</td>
             <td>@gameKindPlanModel.PreviousHuntPlanExecutionSanitaryLosses</td>
             <td></td>
-            <td></td>
+            <td>@gameKindPlanModel.GameCountBefore10March</td>
             <td></td>
             <td></td>
             <td>@gameKindPlanModel.CurrentHuntPlanCulls</td>
@@ -351,48 +351,48 @@
         </tr>
         foreach (AnnualPlanSubKindGameModel gameSubKindPlanModel in gameKindPlanModel.AnnualPlanSubKindGameModels)
         {
+        <tr>
+            <td>@($"- {gameSubKindPlanModel.SubKindName}")</td>
+            <td>@gameSubKindPlanModel.PreviousHuntPlanCulls</td>
+            <td>@gameSubKindPlanModel.PreviousHuntPlanCatches</td>
+            <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionTotal</td>
+            <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionCulls</td>
+            <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionCatches</td>
+            <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionLosses</td>
+            <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionSanitaryLosses</td>
+            <td></td>
+            <td>@gameSubKindPlanModel.GameCountBefore10March</td>
+            <td></td>
+            <td></td>
+            <td>@gameSubKindPlanModel.CurrentHuntPlanCulls</td>
+            <td>@gameSubKindPlanModel.CurrentHuntPlanCatches</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+            foreach (AnnualPlanClassGameModel gameClassPlanModel in gameSubKindPlanModel.AnnualPlanClassGameModels)
+            {
             <tr>
-                <td>@($"- {gameSubKindPlanModel.SubKindName}")</td>
-                <td>@gameSubKindPlanModel.PreviousHuntPlanCulls</td>
-                <td>@gameSubKindPlanModel.PreviousHuntPlanCatches</td>
-                <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionTotal</td>
-                <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionCulls</td>
-                <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionCatches</td>
-                <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionLosses</td>
-                <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionSanitaryLosses</td>
+                <td style="text-align: center">@($"- {gameClassPlanModel.ClassName}")</td>
+                <td>@gameClassPlanModel.PreviousHuntPlanCulls</td>
+                <td>@gameClassPlanModel.PreviousHuntPlanCatches</td>
+                <td>@gameClassPlanModel.PreviousHuntPlanExecutionTotal</td>
+                <td>@gameClassPlanModel.PreviousHuntPlanExecutionCulls</td>
+                <td>@gameClassPlanModel.PreviousHuntPlanExecutionCatches</td>
+                <td>@gameClassPlanModel.PreviousHuntPlanExecutionLosses</td>
+                <td>@gameClassPlanModel.PreviousHuntPlanExecutionSanitaryLosses</td>
+                <td></td>
+                <td>@gameClassPlanModel.GameCountBefore10March</td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td>@gameSubKindPlanModel.CurrentHuntPlanCulls</td>
-                <td>@gameSubKindPlanModel.CurrentHuntPlanCatches</td>
+                <td>@gameClassPlanModel.CurrentHuntPlanCulls</td>
+                <td>@gameClassPlanModel.CurrentHuntPlanCatches</td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
             </tr>
-            foreach (AnnualPlanClassGameModel gameClassPlanModel in gameSubKindPlanModel.AnnualPlanClassGameModels)
-            {
-                <tr>
-                    <td style="text-align: center">@($"- {gameClassPlanModel.ClassName}")</td>
-                    <td>@gameClassPlanModel.PreviousHuntPlanCulls</td>
-                    <td>@gameClassPlanModel.PreviousHuntPlanCatches</td>
-                    <td>@gameClassPlanModel.PreviousHuntPlanExecutionTotal</td>
-                    <td>@gameClassPlanModel.PreviousHuntPlanExecutionCulls</td>
-                    <td>@gameClassPlanModel.PreviousHuntPlanExecutionCatches</td>
-                    <td>@gameClassPlanModel.PreviousHuntPlanExecutionLosses</td>
-                    <td>@gameClassPlanModel.PreviousHuntPlanExecutionSanitaryLosses</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>@gameClassPlanModel.CurrentHuntPlanCulls</td>
-                    <td>@gameClassPlanModel.CurrentHuntPlanCatches</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
             }
         }
         kindCount++;
@@ -459,7 +459,7 @@
             <td>@gameKindPlanModel.PreviousHuntPlanExecutionCulls</td>
             <td>@gameKindPlanModel.PreviousHuntPlanExecutionCatches</td>
             <td></td>
-            <td></td>
+            <td>@gameKindPlanModel.GameCountBefore10March</td>
             <td></td>
             <td>@gameKindPlanModel.CurrentHuntPlanCulls</td>
             <td>@gameKindPlanModel.CurrentHuntPlanCatches</td>
@@ -478,7 +478,7 @@
                 <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionCulls</td>
                 <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionCatches</td>
                 <td></td>
-                <td></td>
+                <td>@gameSubKindPlanModel.GameCountBefore10March</td>
                 <td></td>
                 <td>@gameSubKindPlanModel.CurrentHuntPlanCulls</td>
                 <td>@gameSubKindPlanModel.CurrentHuntPlanCatches</td>
