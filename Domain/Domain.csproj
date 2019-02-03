@@ -54,13 +54,14 @@
   <ItemGroup>
     <Compile Include="AnnualPlan\AnnualPlanService.cs" />
     <Compile Include="AnnualPlan\Models\EmploymentPlanModel.cs" />
+    <Compile Include="AnnualPlan\Models\GamePlan\AnnualPlanClassGameModel.cs" />
+    <Compile Include="AnnualPlan\Models\GamePlan\AnnualPlanGameBaseModel.cs" />
+    <Compile Include="AnnualPlan\Models\GamePlan\AnnualPlanGameModel.cs" />
+    <Compile Include="AnnualPlan\Models\GamePlan\AnnualPlanKindGameModel.cs" />
+    <Compile Include="AnnualPlan\Models\GamePlan\AnnualPlanSubKindGameModel.cs" />
     <Compile Include="GameClass\GameClassService.cs" />
     <Compile Include="GamePlan\GamePlanService.cs" />
     <Compile Include="GamePlan\IGamePlanService.cs" />
-    <Compile Include="AnnualPlan\Models\GamePlan\GameCountModel.cs" />
-    <Compile Include="AnnualPlan\Models\GamePlan\GameExecutionModel.cs" />
-    <Compile Include="AnnualPlan\Models\GamePlan\GameHuntPlanModel.cs" />
-    <Compile Include="AnnualPlan\Models\GamePlan\GameSettlementPlanModel.cs" />
     <Compile Include="AnnualPlan\IAnnualPlanService.cs" />
     <Compile Include="AnnualPlan\Models\AnnualPlanModel.cs" />
     <Compile Include="AnnualPlan\Models\BarrierPlanModel.cs" />
@@ -68,7 +69,6 @@
     <Compile Include="AnnualPlan\Models\DamagedFieldPlanModel.cs" />
     <Compile Include="AnnualPlan\Models\FieldPlanModel.cs" />
     <Compile Include="AnnualPlan\Models\FodderPlanModel.cs" />
-    <Compile Include="AnnualPlan\Models\GamePlan\GamePlanModel.cs" />
     <Compile Include="AnnualPlan\Models\HuntEquipmentPlanModel.cs" />
     <Compile Include="AnnualPlan\Models\TrunkFoodPlanModel.cs" />
     <Compile Include="AnnualPlan\ViewModels\AnnualPlanViewModel.cs" />
@@ -95,6 +95,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{AF007440-FFDE-42AC-A678-E0B7F2503B07}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Project>{170D4773-4FEF-4337-94AF-2B8A383343A9}</Project>
       <Name>DataAccess</Name>

@@ -17,6 +17,21 @@ namespace DataAccess.Dao.HuntedGame
                 return dtos;
             }
         }
+        
+        public IList<HuntedGameDto> GetByMarketingYear(int marketingYearId)
+        {
+            using (DbContext)
+            {
+                Entities.MarketingYear marketingYear = DbContext.MarketingYear.Find(marketingYearId);
+                List<int?> huntedGameIds = DbContext.Hunt.Where(x => x.Date >= marketingYear.Start && x.Date <= marketingYear.End && x.HuntedGameId != null).Select(x => x.HuntedGameId).ToList();
+
+                List<Entities.HuntedGame> huntedGames = DbContext.HuntedGame.Where(x => huntedGameIds.Contains(x.Id)).ToList();
+
+                IList<HuntedGameDto> dtos = ToDtos(huntedGames);
+
+                return dtos;
+            }
+        }
 
         public int Insert(HuntedGameDto huntedGameDto)
         {

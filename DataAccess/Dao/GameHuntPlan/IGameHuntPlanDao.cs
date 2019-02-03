@@ -6,6 +6,6 @@ namespace DataAccess.Dao.GameHuntPlan
     public interface IGameHuntPlanDao
     {
         IList<GameHuntPlanDto> GetAll();
-        IList<GameHuntPlanDto> GetGameHuntPlan(int marketingYearId);
+        IList<GameHuntPlanDto> GetByMarketingYear(int marketingYearId);
     }
 }

@@ -26,11 +26,12 @@ namespace DataAccess.Context
         public DbSet<Game> Game { get; set; }
         public DbSet<GameCountFor10March> GameCountFor10March { get; set; }
         public DbSet<GameHuntPlan> GameHuntPlan { get; set; }
-        public DbSet<GameLoss> GameLoss { get; set; }
         public DbSet<Hunt> Hunt { get; set; }
         public DbSet<HuntedGame> HuntedGame { get; set; }
         public DbSet<HuntEquipmentPlan> HuntEquipmentPlan { get; set; }
         public DbSet<Huntsman> Huntsman { get; set; }
+        public DbSet<Loss> Loss { get; set; }
+        public DbSet<LossGame> LossGame { get; set; }
         public DbSet<MarketingYear> MarketingYear { get; set; }
         public DbSet<Region> Region { get; set; }
         public DbSet<TrunkFoodPlan> TrunkFoodPlan { get; set; }

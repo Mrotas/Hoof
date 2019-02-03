@@ -1,217 +1,206 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Common.Enums;
 using DataAccess.Dao.Game;
 using DataAccess.Dao.GameClass;
 using DataAccess.Dao.GameHuntPlan;
-using DataAccess.Dao.GameLoss;
-using DataAccess.Dao.Hunt;
 using DataAccess.Dao.HuntedGame;
+using DataAccess.Dao.LossGame;
 using DataAccess.Dto;
 using Domain.AnnualPlan.Models.GamePlan;
-using Domain.Game.Model;
-using Domain.MarketingYear;
 
 namespace Domain.GamePlan
 {
     public class GamePlanService : IGamePlanService
     {
-        private IList<GameHuntPlanDto> _gameHuntPlans;
-        private IList<HuntDto> _gameHuntExecutions;
+        private int MarketingYearId { get; set; }
+        private int PreviousMarketingYear => MarketingYearId - 1;
+        private int GameType { get; set; }
+
+        private IList<GameDto> _games;
+        private IList<GameDto> Games => _games ?? (_games = _gameDao.GetAll());
+        private IList<GameDto> GamesByType => Games.Where(x => x.Type == GameType).ToList();
+
+        private IList<GameHuntPlanDto> _currentHuntPlans;
+        private IList<GameHuntPlanDto> CurrentHuntPlans => _currentHuntPlans ?? (_currentHuntPlans = _gameHuntPlanDao.GetByMarketingYear(MarketingYearId));
+
+        private IList<GameHuntPlanDto> _previousHuntPlans;
+        private IList<GameHuntPlanDto> PreviousHuntPlans => _previousHuntPlans ?? (_previousHuntPlans = _gameHuntPlanDao.GetByMarketingYear(PreviousMarketingYear));
+        
         private IList<HuntedGameDto> _huntedGames;
-        private IList<GameLossDto> _lossGames;
-        private IList<GameClassDto> _gameClasses;
+        private IList<HuntedGameDto> HuntedGames => _huntedGames ?? (_huntedGames = _huntedGameDao.GetByMarketingYear(PreviousMarketingYear));
+
+        private IList<LossGameDto> _lossGames;
+        private IList<LossGameDto> LossGames => _lossGames ?? (_lossGames = _lossGameDao.GetByMarketingYear(PreviousMarketingYear));
+
+        private IList<LossGameDto> _sanitaryLossGames;
+        private IList<LossGameDto> SanitaryLossGames => _sanitaryLossGames ?? (_sanitaryLossGames = _lossGameDao.GetSanitaryLossesByMarketingYear(PreviousMarketingYear));
+
+        private IList<GameClassDto> _gameClassXRefs;
+        private IList<GameClassDto> GameClassXRefs => _gameClassXRefs ?? (_gameClassXRefs = _gameClassDao.GetAll());
 
         private readonly IGameDao _gameDao;
         private readonly IGameHuntPlanDao _gameHuntPlanDao;
         private readonly IHuntedGameDao _huntedGameDao;
-        private readonly IHuntDao _huntDao;
-        private readonly IGameLossDao _gameLossDao;
-        private readonly IMarketingYearService _marketingYearService;
+        private readonly ILossGameDao _lossGameDao;
         private readonly IGameClassDao _gameClassDao;
 
-        public GamePlanService() : this(new GameDao(), new GameHuntPlanDao(), new HuntDao(), new GameLossDao(), new HuntedGameDao(), new MarketingYearService(), new GameClassDao())
+        public GamePlanService() : this(new GameDao(), new GameHuntPlanDao(), new LossGameDao(), new HuntedGameDao(), new GameClassDao())
         {
-            _gameHuntPlans = new List<GameHuntPlanDto>();
-            _gameHuntExecutions = new List<HuntDto>();
-            _huntedGames = new List<HuntedGameDto>();
-            _lossGames = new List<GameLossDto>();
-            _gameClasses = new List<GameClassDto>();
         }
 
-        public GamePlanService(IGameDao gameDao, IGameHuntPlanDao gamePlanDao, IHuntDao huntDao, IGameLossDao gameLossDao, IHuntedGameDao huntedGameDao, IMarketingYearService marketingYearService, IGameClassDao gameClassDao)
+        public GamePlanService(IGameDao gameDao, IGameHuntPlanDao gamePlanDao, ILossGameDao lossGameDao, IHuntedGameDao huntedGameDao, IGameClassDao gameClassDao)
         {
             _gameDao = gameDao;
             _gameHuntPlanDao = gamePlanDao;
-            _huntDao = huntDao;
-            _gameLossDao = gameLossDao;
+            _lossGameDao = lossGameDao;
             _huntedGameDao = huntedGameDao;
-            _marketingYearService = marketingYearService;
             _gameClassDao = gameClassDao;
         }
 
-        public IList<GamePlanModel> GetGamePlanModels(int marketingYearId)
+        public AnnualPlanGameModel GetGameAnnualPlanModel(GameType gameType, int marketingYearId)
         {
-            var gamePlanModels = new List<GamePlanModel>();
+            MarketingYearId = marketingYearId;
+            GameType = (int) gameType;
 
-            IList<GameDto> allGames = _gameDao.GetAll();
-
-            _gameHuntPlans = _gameHuntPlanDao.GetAll();
-
-            _gameHuntExecutions = _huntDao.GetAll();
-
-            _huntedGames = _huntedGameDao.GetAll();
-
-            _lossGames = _gameLossDao.GetAll();
-
-            _gameClasses = _gameClassDao.GetAll();
-
-            foreach (GameDto game in allGames)
+            var bigGameAnnualPlanModel = new AnnualPlanGameModel
             {
-                if (game.Type == 1)
-                {
-                    List<GamePlanModel> models = GetBigGameModel(marketingYearId, game);
-                    gamePlanModels.AddRange(models);
-                }
-                else
-                {
-                    GamePlanModel model = GetSmallGameModel(marketingYearId, game);
-                    gamePlanModels.Add(model);
-                }
-            }
-            return gamePlanModels;
-        }
-
-        private List<GamePlanModel> GetBigGameModel(int marketingYearId, GameDto game)
-        {
-            List<GamePlanModel> models = new List<GamePlanModel>();
-
-            List<GameHuntPlanModel> currentGameHuntPlanModels = GetHuntPlanModel(marketingYearId, game);
-
-            foreach (GameHuntPlanModel currentGameHuntPlanModel in currentGameHuntPlanModels)
-            {
-                var bigGameModel = new GamePlanModel
-                {
-                    Class = currentGameHuntPlanModel.Class,
-                    ClassName = GetClassName(currentGameHuntPlanModel.Class),
-                    GameModel = new GameModel
-                    {
-                        Id = game.Id,
-                        Type = game.Type,
-                        Kind = game.Kind,
-                        KindName = game.KindName,
-                        SubKind = game.SubKind,
-                        SubKindName = game.SubKindName
-                    }
-                };
-
-
-                List<GameHuntPlanModel> previousGameHuntPlanModels = GetHuntPlanModel(marketingYearId - 1, game);
-
-                bigGameModel.PreviousGameHuntPlan = previousGameHuntPlanModels.FirstOrDefault(x => x.Class == currentGameHuntPlanModel.Class) ?? new GameHuntPlanModel();
-
-                bigGameModel.PreviousGamePlanExecution = GetGamePlanExecution(marketingYearId - 1, game.Id, currentGameHuntPlanModel.Class);
-
-                bigGameModel.CurrentGameHuntPlan = currentGameHuntPlanModel;
-
-                bigGameModel.GameSettlementPlan = GetGameSettlementPlan(marketingYearId, game.Id);
-
-                bigGameModel.GameCountModel = GetGameCountModel(marketingYearId, game.Id);
-
-                models.Add(bigGameModel);
-            }
-
-            return models;
-        }
-
-        private string GetClassName(int? gameClass)
-        {
-            if (gameClass == null)
-            {
-                return String.Empty;
-            }
-
-            string className = _gameClasses.FirstOrDefault(x => x.Id == gameClass).ClassName;
-            return className;
-        }
-
-        private GamePlanModel GetSmallGameModel(int marketingYearId, GameDto game)
-        {
-            var smallGameModel = new GamePlanModel();
-
-            smallGameModel.GameModel = new GameModel
-            {
-                Id = game.Id,
-                Type = game.Type,
-                Kind = game.Kind,
-                KindName = game.KindName,
-                SubKind = game.SubKind,
-                SubKindName = game.SubKindName
+                Type = gameType
             };
 
-            smallGameModel.PreviousGameHuntPlan = GetHuntPlanModel(marketingYearId - 1, game).FirstOrDefault();
+            var gamesByKind = GamesByType.Where(x => x.Type == (int) gameType).GroupBy(x => x.Kind);
 
-            smallGameModel.PreviousGamePlanExecution = GetGamePlanExecution(marketingYearId, game.Id, null);
-
-            smallGameModel.CurrentGameHuntPlan = GetHuntPlanModel(marketingYearId, game).FirstOrDefault();
-
-            smallGameModel.GameSettlementPlan = GetGameSettlementPlan(marketingYearId, game.Id);
-
-            smallGameModel.GameCountModel = GetGameCountModel(marketingYearId, game.Id);
-
-            return smallGameModel;
-        }
-
-        private List<GameHuntPlanModel> GetHuntPlanModel(int marketingYear, GameDto game)
-        {
-            List<GameHuntPlanModel> gameHuntPlanModels = (from gameHuntPlan in _gameHuntPlans
-                                                        where gameHuntPlan.GameId == game.Id && gameHuntPlan.MarketingYearId == marketingYear
-                                                          select new GameHuntPlanModel
-                                                        {
-                                                            GameId = game.Id,
-                                                            Cull = gameHuntPlan.Cull,
-                                                            Catch = gameHuntPlan.Catch,
-                                                            Class = gameHuntPlan.Class
-                                                        }).ToList();
-
-            return gameHuntPlanModels;
-        }
-
-        private GameExecutionModel GetGamePlanExecution(int marketingYearId, int gameId, int? gameClass)
-        {
-            //int culls = _gameHuntExecutions.Count(x => x.HuntedGameId == gameId && x.GameClass == gameClass && x.Date.Year == year);
-            int culls = (from gameHuntExecution in _gameHuntExecutions
-                        join huntedGame in _huntedGames on gameHuntExecution.HuntedGameId equals huntedGame.Id
-                        where huntedGame.GameId == gameId && 
-                              huntedGame.GameClass == gameClass && 
-                              _marketingYearService.IsDateInMarketingYear(gameHuntExecution.Date, marketingYearId)
-                        select gameHuntExecution.Id).Count();
-
-            int gameLosses = _lossGames.Count(x => x.GameId == gameId);
-
-            int sanitaryLosses = _lossGames.Count(x => x.GameId == gameId && x.SanitaryLoss);
-
-            //TODO: Fill rest properties
-            var model = new GameExecutionModel
+            var annualPlanKindGameModels = new List<AnnualPlanKindGameModel>();
+            foreach (var gameByKind in gamesByKind)
             {
-                Cull = culls,
-                Loss = gameLosses,
-                SanitaryLoss = sanitaryLosses
+                if (!CurrentHuntPlans.Any(x => x.GameId == gameByKind.FirstOrDefault().Id))
+                {
+                    continue;
+                }
+                AnnualPlanKindGameModel kindGameModel = GetKindAnnualPlanModel(gameByKind);
+
+                annualPlanKindGameModels.Add(kindGameModel);
+            }
+
+            bigGameAnnualPlanModel.AnnualPlanKindGameModels = annualPlanKindGameModels;
+            return bigGameAnnualPlanModel;
+        }
+
+        private AnnualPlanKindGameModel GetKindAnnualPlanModel(IGrouping<int, GameDto> currentHuntPlanForKind)
+        {
+            var annualPlanSubKindGameModels = new List<AnnualPlanSubKindGameModel>();
+
+            foreach (var currentHuntPlanForSubKind in currentHuntPlanForKind.GroupBy(x => x.SubKind))
+            {
+                if (currentHuntPlanForSubKind.Key.HasValue)
+                {
+                    AnnualPlanSubKindGameModel subKindGameModel = GetSubKindAnnualPlanModel(currentHuntPlanForKind.Key, currentHuntPlanForSubKind);
+
+                    annualPlanSubKindGameModels.Add(subKindGameModel);
+                }
+            }
+
+            var annualPlanKindGameModel = new AnnualPlanKindGameModel
+            {
+                Kind = currentHuntPlanForKind.Key,
+                KindName = GamesByType.FirstOrDefault(x => x.Kind == currentHuntPlanForKind.Key).KindName,
+                AnnualPlanSubKindGameModels = annualPlanSubKindGameModels
             };
+
+            List<int> gameIds = GamesByType.Where(x => x.Kind == currentHuntPlanForKind.Key).Select(x => x.Id).ToList();
+
+            annualPlanKindGameModel = SetPlans(annualPlanKindGameModel, gameIds);
+            
+            return annualPlanKindGameModel;
+        }
+
+        private AnnualPlanSubKindGameModel GetSubKindAnnualPlanModel(int? gameKind, IGrouping<int?, GameDto> currentHuntPlanForSubKind)
+        {
+            if (!currentHuntPlanForSubKind.Key.HasValue)
+            {
+                return new AnnualPlanSubKindGameModel();
+            }
+
+            List<GameHuntPlanDto> classHuntPlans = (from game in Games
+                                                    join currentHuntPlan in CurrentHuntPlans on game.Id equals currentHuntPlan.GameId
+                                                    where game.Kind == gameKind && game.SubKind == currentHuntPlanForSubKind.Key && currentHuntPlan.Class != null
+                                                    select currentHuntPlan).ToList();
+
+            var annualPlanClassGameModels = new List<AnnualPlanClassGameModel>();
+            foreach (GameHuntPlanDto classHuntPlan in classHuntPlans)
+            {
+                AnnualPlanClassGameModel annualPlanClassGameModel = GetClassAnnualPlanModel(classHuntPlan);
+
+                annualPlanClassGameModels.Add(annualPlanClassGameModel);
+            }
+
+            var annualPlanKindGameModel = new AnnualPlanSubKindGameModel
+            {
+                SubKind = currentHuntPlanForSubKind.Key,
+                SubKindName = GamesByType.FirstOrDefault(x => x.Kind == gameKind && x.SubKind == currentHuntPlanForSubKind.Key).SubKindName,
+                AnnualPlanClassGameModels = annualPlanClassGameModels
+            };
+
+            int gameId = GamesByType.FirstOrDefault(x => x.Kind == gameKind && x.SubKind == currentHuntPlanForSubKind.Key).Id;
+
+            annualPlanKindGameModel = SetPlans(annualPlanKindGameModel, new List<int> {gameId});
+            
+            return annualPlanKindGameModel;
+        }
+
+        private AnnualPlanClassGameModel GetClassAnnualPlanModel(GameHuntPlanDto gameHuntPlanDto)
+        {
+            var annualPlanClassGameModel = new AnnualPlanClassGameModel
+            {
+                Class = gameHuntPlanDto.Class,
+                ClassName = GameClassXRefs.FirstOrDefault(x => x.Id == gameHuntPlanDto.Class).ClassName
+            };
+
+            annualPlanClassGameModel = SetPlans(annualPlanClassGameModel, new List<int>{gameHuntPlanDto.GameId}, gameHuntPlanDto.Class);
+            
+            return annualPlanClassGameModel;
+        }
+
+        private T SetPlans<T>(T model, List<int> gameIds, int? gameClass = null) where T : AnnualPlanGameBaseModel
+        {
+            if (gameClass.HasValue)
+            {
+                model.PreviousHuntPlanExecutionCulls = HuntedGames.Count(x => gameIds.Contains(x.GameId) && x.GameClass == gameClass);
+                model.PreviousHuntPlanExecutionLosses = LossGames.Count(x => gameIds.Contains(x.GameId) && x.Class == gameClass);
+                model.PreviousHuntPlanExecutionSanitaryLosses = SanitaryLossGames.Count(x => gameIds.Contains(x.GameId) && x.Class == gameClass);
+
+                if (PreviousHuntPlans.Any(x => gameIds.Contains(x.GameId) && x.Class == gameClass))
+                {
+                    model.PreviousHuntPlanCulls = (int) PreviousHuntPlans.FirstOrDefault(x => gameIds.Contains(x.GameId) && x.Class == gameClass).Cull;
+                    model.PreviousHuntPlanCatches = (int) PreviousHuntPlans.FirstOrDefault(x => gameIds.Contains(x.GameId) && x.Class == gameClass).Catch;
+                }
+
+                if (CurrentHuntPlans.Any(x => gameIds.Contains(x.GameId) && x.Class == gameClass))
+                {
+                    model.CurrentHuntPlanCulls = (int) CurrentHuntPlans.FirstOrDefault(x => gameIds.Contains(x.GameId) && x.Class == gameClass).Cull;
+                    model.CurrentHuntPlanCatches = (int) CurrentHuntPlans.FirstOrDefault(x => gameIds.Contains(x.GameId) && x.Class == gameClass).Catch;
+                }
+            }
+            else
+            {
+                model.PreviousHuntPlanExecutionCulls = HuntedGames.Count(x => gameIds.Contains(x.GameId));
+                model.PreviousHuntPlanExecutionLosses = LossGames.Count(x => gameIds.Contains(x.GameId));
+                model.PreviousHuntPlanExecutionSanitaryLosses = SanitaryLossGames.Count(x => gameIds.Contains(x.GameId));
+
+                if (PreviousHuntPlans.Any(x => gameIds.Contains(x.GameId)))
+                {
+                    model.PreviousHuntPlanCulls = (int) PreviousHuntPlans.Where(x => gameIds.Contains(x.GameId)).Sum(x => x.Cull);
+                    model.PreviousHuntPlanCatches = (int) PreviousHuntPlans.Where(x => gameIds.Contains(x.GameId)).Sum(x => x.Catch);
+                }
+
+                if (CurrentHuntPlans.Any(x => gameIds.Contains(x.GameId)))
+                {
+                    model.CurrentHuntPlanCulls = (int) CurrentHuntPlans.Where(x => gameIds.Contains(x.GameId)).Sum(x => x.Cull);
+                    model.CurrentHuntPlanCatches = (int) CurrentHuntPlans.Where(x => gameIds.Contains(x.GameId)).Sum(x => x.Catch);
+                }
+            }
 
             return model;
-        }
-
-        private GameSettlementPlanModel GetGameSettlementPlan(int year, int gameId)
-        {
-            //TODO: Fill model
-            return new GameSettlementPlanModel();
-        }
-
-        private GameCountModel GetGameCountModel(int year, int gameId)
-        {
-            //TODO Fill model
-            return new GameCountModel();
         }
     }
 }

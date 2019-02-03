@@ -7,5 +7,6 @@ namespace DataAccess.Dao.HuntedGame
     {
         IList<HuntedGameDto> GetAll();
         int Insert(HuntedGameDto huntedGameDto);
+        IList<HuntedGameDto> GetByMarketingYear(int marketingYearId);
     }
 }

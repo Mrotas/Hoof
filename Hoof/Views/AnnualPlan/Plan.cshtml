@@ -1,5 +1,6 @@
 ﻿@using Common
 @using Domain.AnnualPlan.Models
+@using Domain.AnnualPlan.Models.GamePlan
 @model Domain.AnnualPlan.ViewModels.AnnualPlanViewModel
 
 @{
@@ -326,78 +327,72 @@
         <td class="column_number">18</td>
     </tr>
     @{ int kindCount = 1;}
-    @foreach (var gameKindPlanModels in Model.GamePlanModel.Where(x => x.GameModel.Type == 1).GroupBy(x => x.GameModel.Kind))
+    @foreach (AnnualPlanKindGameModel gameKindPlanModel in Model.BigGamePlanModel.AnnualPlanKindGameModels)
     {
         <tr>
-            <td style="font-weight: bold">@($"{kindCount}. {gameKindPlanModels.Select(x => x.GameModel.KindName).FirstOrDefault()} razem")</td>
-            <td>@gameKindPlanModels.Sum(x => x.PreviousGameHuntPlan.Cull)</td>
-            <td>@gameKindPlanModels.Sum(x => x.PreviousGameHuntPlan.Catch)</td>
-            <td>@(gameKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Cull) + gameKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Catch))</td>
-            <td>@gameKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Cull)</td>
-            <td>@gameKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Catch)</td>
-            <td>@(gameKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Loss))</td>
-            <td>@gameKindPlanModels.Sum(x => x.PreviousGamePlanExecution.SanitaryLoss)</td>
-            <td>@gameKindPlanModels.Sum(x => x.GameSettlementPlan.GameSettlementCountBefore10March)</td>
-            <td>@gameKindPlanModels.Sum(x => x.GameCountModel.GameCountBefore10March)</td>
-            <td>@gameKindPlanModels.Sum(x => x.GameSettlementPlan.GameSettlementPlanCount)</td>
-            <td>@gameKindPlanModels.Sum(x => x.GameCountModel.GameCountBeforeHuntingSeason)</td>
-            <td>@gameKindPlanModels.Sum(x => x.CurrentGameHuntPlan.Cull)</td>
-            <td>@gameKindPlanModels.Sum(x => x.CurrentGameHuntPlan.Catch)</td>
+            <td style="font-weight: bold">@($"{kindCount}. {gameKindPlanModel.KindName} razem")</td>
+            <td>@gameKindPlanModel.PreviousHuntPlanCulls</td>
+            <td>@gameKindPlanModel.PreviousHuntPlanCatches</td>
+            <td>@gameKindPlanModel.PreviousHuntPlanExecutionTotal</td>
+            <td>@gameKindPlanModel.PreviousHuntPlanExecutionCulls</td>
+            <td>@gameKindPlanModel.PreviousHuntPlanExecutionCatches</td>
+            <td>@gameKindPlanModel.PreviousHuntPlanExecutionLosses</td>
+            <td>@gameKindPlanModel.PreviousHuntPlanExecutionSanitaryLosses</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>@gameKindPlanModel.CurrentHuntPlanCulls</td>
+            <td>@gameKindPlanModel.CurrentHuntPlanCatches</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
         </tr>
-        foreach (var gameSubKindPlanModels in gameKindPlanModels.GroupBy(x => x.GameModel.SubKind))
+        foreach (AnnualPlanSubKindGameModel gameSubKindPlanModel in gameKindPlanModel.AnnualPlanSubKindGameModels)
         {
-            if (gameSubKindPlanModels.Key != null)
+            <tr>
+                <td>@($"- {gameSubKindPlanModel.SubKindName}")</td>
+                <td>@gameSubKindPlanModel.PreviousHuntPlanCulls</td>
+                <td>@gameSubKindPlanModel.PreviousHuntPlanCatches</td>
+                <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionTotal</td>
+                <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionCulls</td>
+                <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionCatches</td>
+                <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionLosses</td>
+                <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionSanitaryLosses</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>@gameSubKindPlanModel.CurrentHuntPlanCulls</td>
+                <td>@gameSubKindPlanModel.CurrentHuntPlanCatches</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            foreach (AnnualPlanClassGameModel gameClassPlanModel in gameSubKindPlanModel.AnnualPlanClassGameModels)
             {
                 <tr>
-                    <td>@($"- {gameSubKindPlanModels.Select(x => x.GameModel.SubKindName).FirstOrDefault()}")</td>
-                    <td>@gameSubKindPlanModels.Sum(x => x.PreviousGameHuntPlan.Cull)</td>
-                    <td>@gameSubKindPlanModels.Sum(x => x.PreviousGameHuntPlan.Catch)</td>
-                    <td>@(gameSubKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Cull) + gameSubKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Catch))</td>
-                    <td>@gameSubKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Cull)</td>
-                    <td>@gameSubKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Catch)</td>
-                    <td>@gameSubKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Loss)</td>
-                    <td>@gameSubKindPlanModels.Sum(x => x.PreviousGamePlanExecution.SanitaryLoss)</td>
-                    <td>@gameSubKindPlanModels.Sum(x => x.GameSettlementPlan.GameSettlementCountBefore10March)</td>
-                    <td>@gameSubKindPlanModels.Sum(x => x.GameCountModel.GameCountBefore10March)</td>
-                    <td>@gameSubKindPlanModels.Sum(x => x.GameSettlementPlan.GameSettlementPlanCount)</td>
-                    <td>@gameSubKindPlanModels.Sum(x => x.GameCountModel.GameCountBeforeHuntingSeason)</td>
-                    <td>@gameSubKindPlanModels.Sum(x => x.CurrentGameHuntPlan.Cull)</td>
-                    <td>@gameSubKindPlanModels.Sum(x => x.CurrentGameHuntPlan.Catch)</td>
+                    <td style="text-align: center">@($"- {gameClassPlanModel.ClassName}")</td>
+                    <td>@gameClassPlanModel.PreviousHuntPlanCulls</td>
+                    <td>@gameClassPlanModel.PreviousHuntPlanCatches</td>
+                    <td>@gameClassPlanModel.PreviousHuntPlanExecutionTotal</td>
+                    <td>@gameClassPlanModel.PreviousHuntPlanExecutionCulls</td>
+                    <td>@gameClassPlanModel.PreviousHuntPlanExecutionCatches</td>
+                    <td>@gameClassPlanModel.PreviousHuntPlanExecutionLosses</td>
+                    <td>@gameClassPlanModel.PreviousHuntPlanExecutionSanitaryLosses</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>@gameClassPlanModel.CurrentHuntPlanCulls</td>
+                    <td>@gameClassPlanModel.CurrentHuntPlanCatches</td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                 </tr>
-            }
-            foreach (var gameClassPlanModel in gameSubKindPlanModels.GroupBy(x => x.Class))
-            {
-                if (gameClassPlanModel.Key != null)
-                {
-                    <tr>
-                        <td style="text-align: center">@($"- {gameClassPlanModel.Select(x => x.ClassName).FirstOrDefault()}")</td>
-                        <td>@gameClassPlanModel.Sum(x => x.PreviousGameHuntPlan.Cull)</td>
-                        <td>@gameClassPlanModel.Sum(x => x.PreviousGameHuntPlan.Catch)</td>
-                        <td>@(gameClassPlanModel.Sum(x => x.PreviousGamePlanExecution.Cull) + gameSubKindPlanModels.Sum(x => x.PreviousGamePlanExecution.Catch))</td>
-                        <td>@gameClassPlanModel.Sum(x => x.PreviousGamePlanExecution.Cull)</td>
-                        <td>@gameClassPlanModel.Sum(x => x.PreviousGamePlanExecution.Catch)</td>
-                        <td>@gameClassPlanModel.Sum(x => x.PreviousGamePlanExecution.Loss)</td>
-                        <td>@gameClassPlanModel.Sum(x => x.PreviousGamePlanExecution.SanitaryLoss)</td>
-                        <td>@gameClassPlanModel.Sum(x => x.GameSettlementPlan.GameSettlementCountBefore10March)</td>
-                        <td>@gameClassPlanModel.Sum(x => x.GameCountModel.GameCountBefore10March)</td>
-                        <td>@gameClassPlanModel.Sum(x => x.GameSettlementPlan.GameSettlementPlanCount)</td>
-                        <td>@gameClassPlanModel.Sum(x => x.GameCountModel.GameCountBeforeHuntingSeason)</td>
-                        <td>@gameClassPlanModel.Sum(x => x.CurrentGameHuntPlan.Cull)</td>
-                        <td>@gameClassPlanModel.Sum(x => x.CurrentGameHuntPlan.Catch)</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                }
             }
         }
         kindCount++;
@@ -455,46 +450,43 @@
         <td class="column_number">14</td>
     </tr>
 
-    @foreach (var gameKindPlanModel in Model.GamePlanModel.Where(x => x.GameModel.Type == 2).GroupBy(x => x.GameModel.Kind))
+    @foreach (var gameKindPlanModel in Model.SmallGamePlanModel.AnnualPlanKindGameModels)
     {
         <tr>
-            <td style="font-weight: bold">@($"{kindCount}. {gameKindPlanModel.Select(x => x.GameModel.KindName).FirstOrDefault()}")</td>
-            <td>@gameKindPlanModel.Sum(x => x.PreviousGameHuntPlan.Cull)</td>
-            <td>@gameKindPlanModel.Sum(x => x.PreviousGameHuntPlan.Catch)</td>
-            <td>@gameKindPlanModel.Sum(x => x.PreviousGamePlanExecution.Cull)</td>
-            <td>@gameKindPlanModel.Sum(x => x.PreviousGamePlanExecution.Catch)</td>
-            <td>@gameKindPlanModel.Sum(x => x.GameSettlementPlan.GameSettlementCountBefore10March)</td>
-            <td>@gameKindPlanModel.Sum(x => x.GameCountModel.GameCountBefore10March)</td>
-            <td>@gameKindPlanModel.Sum(x => x.GameSettlementPlan.GameSettlementPlanCount)</td>
-            <td>@gameKindPlanModel.Sum(x => x.CurrentGameHuntPlan.Cull)</td>
-            <td>@gameKindPlanModel.Sum(x => x.CurrentGameHuntPlan.Catch)</td>
+            <td style="font-weight: bold">@($"{kindCount}. {gameKindPlanModel.KindName}")</td>
+            <td>@gameKindPlanModel.PreviousHuntPlanCulls</td>
+            <td>@gameKindPlanModel.PreviousHuntPlanCatches</td>
+            <td>@gameKindPlanModel.PreviousHuntPlanExecutionCulls</td>
+            <td>@gameKindPlanModel.PreviousHuntPlanExecutionCatches</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>@gameKindPlanModel.CurrentHuntPlanCulls</td>
+            <td>@gameKindPlanModel.CurrentHuntPlanCatches</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
         </tr>
 
-        foreach (var gameSubKindPlanModel in gameKindPlanModel.GroupBy(x => x.GameModel.SubKind))
+        foreach (var gameSubKindPlanModel in gameKindPlanModel.AnnualPlanSubKindGameModels)
         {
-            if (gameSubKindPlanModel.Key.HasValue)
-            {
-                <tr>
-                    <td style="text-align: center">@($"- {gameSubKindPlanModel.Select(x => x.GameModel.SubKindName).FirstOrDefault()}")</td>
-                    <td>@gameSubKindPlanModel.Sum(x => x.PreviousGameHuntPlan.Cull)</td>
-                    <td>@gameSubKindPlanModel.Sum(x => x.PreviousGameHuntPlan.Catch)</td>
-                    <td>@gameSubKindPlanModel.Sum(x => x.PreviousGamePlanExecution.Cull)</td>
-                    <td>@gameSubKindPlanModel.Sum(x => x.PreviousGamePlanExecution.Catch)</td>
-                    <td>@gameSubKindPlanModel.Sum(x => x.GameSettlementPlan.GameSettlementCountBefore10March)</td>
-                    <td>@gameSubKindPlanModel.Sum(x => x.GameCountModel.GameCountBefore10March)</td>
-                    <td>@gameSubKindPlanModel.Sum(x => x.GameSettlementPlan.GameSettlementPlanCount)</td>
-                    <td>@gameSubKindPlanModel.Sum(x => x.CurrentGameHuntPlan.Cull)</td>
-                    <td>@gameSubKindPlanModel.Sum(x => x.CurrentGameHuntPlan.Catch)</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            }
+            <tr>
+                <td style="text-align: center">@($"- {gameSubKindPlanModel.SubKindName}")</td>
+                <td>@gameSubKindPlanModel.PreviousHuntPlanCulls</td>
+                <td>@gameSubKindPlanModel.PreviousHuntPlanCatches</td>
+                <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionCulls</td>
+                <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionCatches</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>@gameSubKindPlanModel.CurrentHuntPlanCulls</td>
+                <td>@gameSubKindPlanModel.CurrentHuntPlanCatches</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
         }
 
         kindCount++;

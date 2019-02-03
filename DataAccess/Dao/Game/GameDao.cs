@@ -18,6 +18,18 @@ namespace DataAccess.Dao.Game
             }
         }
 
+        public IList<GameDto> GetByType(int gameType)
+        {
+            using (DbContext)
+            {
+                List<Entities.Game> games = DbContext.Game.Where(x => x.Type == gameType).ToList();
+
+                IList<GameDto> dtos = ToDtos(games);
+
+                return dtos;
+            }
+        }
+
         public IList<GameDto> Get(int type, int kind, int? subKind)
         {
             var games = new List<Entities.Game>();

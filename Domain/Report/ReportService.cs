@@ -4,10 +4,8 @@ using System.Linq;
 using DataAccess.Dao.Game;
 using DataAccess.Dao.GameClass;
 using DataAccess.Dao.GameHuntPlan;
-using DataAccess.Dao.GameLoss;
 using DataAccess.Dao.Hunt;
 using DataAccess.Dao.HuntedGame;
-using DataAccess.Dao.MarketingYear;
 using DataAccess.Dto;
 using Domain.MarketingYear;
 using Domain.Report.Models;
@@ -18,32 +16,28 @@ namespace Domain.Report
     {
         private IList<HuntDto> _hunts;
         private IList<HuntedGameDto> _huntedGames;
-        private IList<GameLossDto> _lossGames;
         private IList<GameDto> _games;
         private IList<GameClassDto> _gameClasses;
 
         private readonly IHuntDao _huntDao;
         private readonly IGameDao _gameDao;
-        private readonly IGameLossDao _gameLossDao;
         private readonly IGameHuntPlanDao _gameHuntPlanDao;
         private readonly IHuntedGameDao _huntedGameDao;
         private readonly IMarketingYearService _marketingYearService;
         private readonly IGameClassDao _gameClassDao;
 
-        public ReportService() : this(new HuntDao(), new GameDao(), new GameLossDao(), new GameHuntPlanDao(), new HuntedGameDao(), new MarketingYearService(), new GameClassDao())
+        public ReportService() : this(new HuntDao(), new GameDao(), new GameHuntPlanDao(), new HuntedGameDao(), new MarketingYearService(), new GameClassDao())
         {
             _hunts = new List<HuntDto>();
             _huntedGames = new List<HuntedGameDto>();
-            _lossGames = new List<GameLossDto>();
             _games = new List<GameDto>();
             _gameClasses = new List<GameClassDto>();
         }
 
-        public ReportService(IHuntDao huntDao, IGameDao gameDao, IGameLossDao gameLossDao, IGameHuntPlanDao gameHuntPlanDao, IHuntedGameDao huntedGameDao, IMarketingYearService marketingYearService, IGameClassDao gameClassDao)
+        public ReportService(IHuntDao huntDao, IGameDao gameDao, IGameHuntPlanDao gameHuntPlanDao, IHuntedGameDao huntedGameDao, IMarketingYearService marketingYearService, IGameClassDao gameClassDao)
         {
             _huntDao = huntDao;
             _gameDao = gameDao;
-            _gameLossDao = gameLossDao;
             _gameHuntPlanDao = gameHuntPlanDao;
             _huntedGameDao = huntedGameDao;
             _marketingYearService = marketingYearService;
@@ -54,13 +48,12 @@ namespace Domain.Report
         {
             _hunts = _huntDao.GetHuntsByDateRange(startDate, endDate);
             _huntedGames = _huntedGameDao.GetAll();
-            _lossGames = _gameLossDao.GetAll();
             _games = _gameDao.GetAll();
             _gameClasses = _gameClassDao.GetAll();
 
             int marketingYearId = _marketingYearService.GetMarketingYearByDate(startDate);
 
-            IList<GameHuntPlanDto> gameHuntPlans = _gameHuntPlanDao.GetGameHuntPlan(marketingYearId);
+            IList<GameHuntPlanDto> gameHuntPlans = _gameHuntPlanDao.GetByMarketingYear(marketingYearId);
 
             var monthlyReportModels = new List<MonthlyReportModel>();
             foreach (GameHuntPlanDto gameHuntPlan in gameHuntPlans)
@@ -81,7 +74,6 @@ namespace Domain.Report
                         where gameHuntPlan.GameId == huntedGame.Id
                         select hunt.Id).Count();
 
-            int losses = _lossGames.Count(x => x.GameId == gameHuntPlan.GameId);
             int planned = 0;
             string gameClassName = null;
 
@@ -93,7 +85,7 @@ namespace Domain.Report
                 gameClassName = GetClassName(gameHuntPlan.Class);
             }
             
-            //TODO: Fill Catch property
+            //TODO: Fill Catch and Loss properties
             var monthlyReportModel = new MonthlyReportModel
             {
                 GameKindName = game.KindName,
@@ -101,7 +93,7 @@ namespace Domain.Report
                 GameClass = gameClassName,
                 Cull = culls,
                 Catch = 0,
-                Loss = losses,
+                Loss = 0,
                 Planned = planned
             };
 

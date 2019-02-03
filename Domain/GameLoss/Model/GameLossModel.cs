@@ -4,9 +4,10 @@ namespace Domain.GameLoss.Model
 {
     public class GameLossModel
     {
-        public int GameType { get; set; }
-        public int GameKind { get; set; }
-        public int? GameSubKind { get; set; }
+        public int Type { get; set; }
+        public int Kind { get; set; }
+        public int? SubKind { get; set; }
+        public int? Class { get; set; }
         public bool SanitaryLoss { get; set; }
         public string City { get; set; }
         public int Circuit { get; set; }

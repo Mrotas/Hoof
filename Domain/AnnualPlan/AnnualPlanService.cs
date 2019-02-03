@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Common.Enums;
 using DataAccess.Dao.CostPlan;
 using DataAccess.Dao.EmploymentPlan;
 using DataAccess.Dao.FieldPlan;
@@ -66,7 +67,8 @@ namespace Domain.AnnualPlan
 
             annualPlanViewModel.PreviousAnnualPlanModel = GetAnnualPlanModel(previousMarketingYearId);
 
-            annualPlanViewModel.GamePlanModel = _gamePlanService.GetGamePlanModels(marketingYearId);
+            annualPlanViewModel.BigGamePlanModel = _gamePlanService.GetGameAnnualPlanModel(GameType.Big, marketingYearId);
+            annualPlanViewModel.SmallGamePlanModel = _gamePlanService.GetGameAnnualPlanModel(GameType.Small, marketingYearId);
             
             return annualPlanViewModel;
         }

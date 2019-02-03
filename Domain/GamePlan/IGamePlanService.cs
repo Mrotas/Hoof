@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Common.Enums;
 using Domain.AnnualPlan.Models.GamePlan;
 
 namespace Domain.GamePlan
 {
     public interface IGamePlanService
     {
-        IList<GamePlanModel> GetGamePlanModels(int marketingYear);
+        AnnualPlanGameModel GetGameAnnualPlanModel(GameType gameType, int marketingYearId);
     }
 }

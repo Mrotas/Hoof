@@ -19,11 +19,12 @@ namespace DataAccess.Dao.Hunt
             }
         }
 
-        public IList<HuntDto> GetHuntsByYear(int year)
+        public IList<HuntDto> GetByMarketingYear(int marketingYearId)
         {
             using (DbContext)
             {
-                List<Entities.Hunt> hunts = DbContext.Hunt.Where(x => x.Date.Year == year).ToList();
+                Entities.MarketingYear marketingYear = DbContext.MarketingYear.Find(marketingYearId);
+                List<Entities.Hunt> hunts = DbContext.Hunt.Where(x => x.Date > marketingYear.Start && x.Date < marketingYear.End).ToList();
 
                 IList<HuntDto> dtos = ToDtos(hunts);
 

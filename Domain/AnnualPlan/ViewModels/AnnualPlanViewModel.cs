@@ -8,6 +8,7 @@ namespace Domain.AnnualPlan.ViewModels
     {
         public AnnualPlanModel CurrentAnnualPlanModel { get; set; }
         public AnnualPlanModel PreviousAnnualPlanModel { get; set; }
-        public IList<GamePlanModel> GamePlanModel { get; set; }
+        public AnnualPlanGameModel BigGamePlanModel { get; set; }
+        public AnnualPlanGameModel SmallGamePlanModel { get; set; }
     }
 }

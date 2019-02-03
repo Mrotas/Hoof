@@ -19,7 +19,7 @@ namespace DataAccess.Dao.GameHuntPlan
             }
         }
 
-        public IList<GameHuntPlanDto> GetGameHuntPlan(int marketingYearId)
+        public IList<GameHuntPlanDto> GetByMarketingYear(int marketingYearId)
         {
             using (var db = new DbContext())
             {
@@ -30,7 +30,7 @@ namespace DataAccess.Dao.GameHuntPlan
                 return dtos;
             }
         }
-
+        
         private IList<GameHuntPlanDto> ToDtos(IList<Entities.GameHuntPlan> entityList)
         {
             var dtos = new List<GameHuntPlanDto>();

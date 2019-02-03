@@ -14,6 +14,9 @@ namespace Domain.GameLoss.ViewModel
         [Display(Name = "Rodzaj")]
         public string SubKindName { get; set; }
 
+        [Display(Name = "Klasa")]
+        public string ClassName { get; set; }
+
         [Display(Name = "Postrzał sanitarny")]
         public bool SanitaryLoss { get; set; }
 

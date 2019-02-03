@@ -7,7 +7,7 @@ namespace DataAccess.Dao.Hunt
     public interface IHuntDao
     {
         IList<HuntDto> GetAll();
-        IList<HuntDto> GetHuntsByYear(int year);
+        IList<HuntDto> GetByMarketingYear(int marketingYearId);
         IList<HuntDto> GetHuntsByDateRange(DateTime startDate, DateTime endDate);
         void Insert(HuntDto huntDto);
     }
