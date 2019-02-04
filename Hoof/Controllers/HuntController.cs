@@ -55,18 +55,5 @@ namespace Hoof.Controllers
 
             return Json(gameModels, JsonRequestBehavior.AllowGet);
         }
-
-        public ActionResult Loss()
-        {
-            List<GameLossViewModel> lossGames = _gameLossService.GetAllLossGames();
-            return View(lossGames);
-        }
-
-        public ActionResult ReportLoss(GameLossModel model)
-        {
-            _gameLossService.ReportLoss(model);
-
-            return Json(new {data = true}, JsonRequestBehavior.AllowGet);
-        }
     }
 }
