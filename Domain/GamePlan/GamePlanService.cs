@@ -68,12 +68,7 @@ namespace Domain.GamePlan
         {
             MarketingYearId = marketingYearId;
             GameType = (int) gameType;
-
-            var bigGameAnnualPlanModel = new AnnualPlanGameModel
-            {
-                Type = gameType
-            };
-
+            
             var gamesByKind = GamesByType.Where(x => x.Type == (int) gameType).GroupBy(x => x.Kind);
 
             var annualPlanKindGameModels = new List<AnnualPlanKindGameModel>();
@@ -88,8 +83,12 @@ namespace Domain.GamePlan
                 annualPlanKindGameModels.Add(kindGameModel);
             }
 
-            bigGameAnnualPlanModel.AnnualPlanKindGameModels = annualPlanKindGameModels;
-            return bigGameAnnualPlanModel;
+            var gameAnnualPlanModel = new AnnualPlanGameModel
+            {
+                AnnualPlanKindGameModels = annualPlanKindGameModels
+            };
+
+            return gameAnnualPlanModel;
         }
 
         private AnnualPlanKindGameModel GetKindAnnualPlanModel(IGrouping<int, GameDto> currentHuntPlanForKind)
@@ -110,6 +109,7 @@ namespace Domain.GamePlan
             {
                 Kind = currentHuntPlanForKind.Key,
                 KindName = GamesByType.FirstOrDefault(x => x.Kind == currentHuntPlanForKind.Key).KindName,
+                Type = (GameType) GameType,
                 AnnualPlanSubKindGameModels = annualPlanSubKindGameModels
             };
 
@@ -142,6 +142,7 @@ namespace Domain.GamePlan
 
             var annualPlanKindGameModel = new AnnualPlanSubKindGameModel
             {
+                Type = (GameType) GameType,
                 SubKind = currentHuntPlanForSubKind.Key,
                 SubKindName = GamesByType.FirstOrDefault(x => x.Kind == gameKind && x.SubKind == currentHuntPlanForSubKind.Key).SubKindName,
                 AnnualPlanClassGameModels = annualPlanClassGameModels

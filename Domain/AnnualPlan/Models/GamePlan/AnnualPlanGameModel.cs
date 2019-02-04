@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Common.Enums;
 
 namespace Domain.AnnualPlan.Models.GamePlan
@@ -10,7 +11,6 @@ namespace Domain.AnnualPlan.Models.GamePlan
             AnnualPlanKindGameModels = new List<AnnualPlanKindGameModel>();
         }
 
-        public GameType Type { get; set; }
         public IList<AnnualPlanKindGameModel> AnnualPlanKindGameModels { get; set; }
     }
 }
