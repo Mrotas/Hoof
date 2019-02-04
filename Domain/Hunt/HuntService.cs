@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Common.Enums;
 using DataAccess.Dao.Game;
+using DataAccess.Dao.GameClass;
 using DataAccess.Dao.Hunt;
 using DataAccess.Dao.HuntedGame;
 using DataAccess.Dao.Huntsman;
@@ -14,43 +16,59 @@ namespace Domain.Hunt
 {
     public class HuntService : IHuntService
     {
+        private IList<HuntDto> _hunts;
+        private IList<HuntDto> Hunts => _hunts ?? (_hunts = _huntDao.GetAll());
+
+        private IList<HuntedGameDto> _huntedGames;
+        private IList<HuntedGameDto> HuntedGames => _huntedGames ?? (_huntedGames = _huntedGameDao.GetAll());
+
+        private IList<GameDto> _games;
+        private IList<GameDto> Games => _games ?? (_games = _gameDao.GetAll());
+
+        private IList<HuntsmanDto> _huntsmans;
+        private IList<HuntsmanDto> Huntsmans => _huntsmans ?? (_huntsmans = _huntsmanDao.GetAll());
+
+        private IList<RegionDto> _regions;
+        private IList<RegionDto> Regions => _regions ?? (_regions = _regionDao.GetAll());
+
+        private IList<GameClassDto> _gameClassXRefs;
+        private IList<GameClassDto> GameClassXRefs => _gameClassXRefs ?? (_gameClassXRefs = _gameClassDao.GetAll());
+
         private readonly IHuntDao _huntDao;
         private readonly IGameDao _gameDao;
         private readonly IHuntsmanDao _huntsmanDao;
         private readonly IRegionDao _regionDao;
         private readonly IHuntedGameDao _huntedGameDao;
+        private readonly IGameClassDao _gameClassDao;
 
-        public HuntService() : this (new HuntDao(), new GameDao(), new HuntsmanDao(), new RegionDao(), new HuntedGameDao())
+        public HuntService() : this (new HuntDao(), new GameDao(), new HuntsmanDao(), new RegionDao(), new HuntedGameDao(), new GameClassDao())
         {
         }
 
-        public HuntService(IHuntDao huntDao, IGameDao gameDao, IHuntsmanDao huntsmanDao, IRegionDao regionDao, IHuntedGameDao huntedGameDao)
+        public HuntService(IHuntDao huntDao, IGameDao gameDao, IHuntsmanDao huntsmanDao, IRegionDao regionDao, IHuntedGameDao huntedGameDao, IGameClassDao gameClassDao)
         {
             _huntDao = huntDao;
             _gameDao = gameDao;
             _huntsmanDao = huntsmanDao;
             _regionDao = regionDao;
             _huntedGameDao = huntedGameDao;
+            _gameClassDao = gameClassDao;
         }
 
-        public IList<HuntViewModel> GetAllHuntModels()
+        public IList<HuntViewModel> GetAllHunts()
         {
-            IList<HuntDto> hunts = _huntDao.GetAll();
-            IList<GameDto> games = _gameDao.GetAll();
-            IList<HuntsmanDto> huntsmans = _huntsmanDao.GetAll();
-            IList<RegionDto> regions = _regionDao.GetAll();
-            IList<HuntedGameDto> huntedGames = _huntedGameDao.GetAll();
-
-            List<HuntViewModel> huntViewModels = (from hunt in hunts
-                join huntsman in huntsmans on hunt.HuntsmanId equals huntsman.Id
-                join huntedGame in huntedGames on hunt.HuntedGameId equals huntedGame.Id
-                join game in games on huntedGame.GameId equals game.Id
-                join region in regions on hunt.RegionId equals region.Id
+            List<HuntViewModel> huntViewModels = 
+            (
+                from hunt in Hunts
+                join huntsman in Huntsmans on hunt.HuntsmanId equals huntsman.Id
+                join huntedGame in HuntedGames on hunt.HuntedGameId equals huntedGame.Id
+                join game in Games on huntedGame.GameId equals game.Id
+                join region in Regions on hunt.RegionId equals region.Id
+                where game.Type == (int) GameType.Big
                 select new HuntViewModel
                 {
                     HuntsmanName = huntsman.Name,
                     HuntsmanLastName = huntsman.LastName,
-                    GameType = GetGameType(game?.Type),
                     GameKindName = game.KindName,
                     GameSubKindName = GetSubKindName(game.SubKindName),
                     GameClass = GetGameClass(huntedGame.GameClass),
@@ -60,28 +78,24 @@ namespace Domain.Hunt
                     District = region.District,
                     Shots = hunt.Shots,
                     Date = hunt.Date
-                }).ToList();
+                }
+            ).ToList();
 
             return huntViewModels;
         }
 
-        public IList<HuntViewModel> GetHuntViewModels(int huntsmanId)
+        public IList<HuntViewModel> GetHuntsByHuntsmanId(int huntsmanId)
         {
-            IList<HuntDto> hunts = _huntDao.GetAll();
-            IList<GameDto> games = _gameDao.GetAll();
-            IList<HuntsmanDto> huntsmans = _huntsmanDao.GetAll();
-            IList<RegionDto> regions = _regionDao.GetAll();
-            IList<HuntedGameDto> huntedGames = _huntedGameDao.GetAll();
-
-            List<HuntViewModel> huntViewModels = (from hunt in hunts
-                join huntsman in huntsmans on hunt.HuntsmanId equals huntsman.Id
-                join huntedGame in huntedGames on hunt.HuntedGameId equals huntedGame.Id
-                join game in games on huntedGame.GameId equals game.Id
-                join region in regions on hunt.RegionId equals region.Id
-                where huntsman.Id == huntsmanId
+            List<HuntViewModel> huntViewModels = 
+            (
+                from hunt in Hunts
+                join huntsman in Huntsmans on hunt.HuntsmanId equals huntsman.Id
+                join huntedGame in HuntedGames on hunt.HuntedGameId equals huntedGame.Id
+                join game in Games on huntedGame.GameId equals game.Id
+                join region in Regions on hunt.RegionId equals region.Id
+                where huntsman.Id == huntsmanId && game.Type == (int) GameType.Big
                 select new HuntViewModel
                 {
-                    GameType = GetGameType(game?.Type),
                     GameKindName = game.KindName,
                     GameSubKindName = GetSubKindName(game.SubKindName),
                     GameClass = GetGameClass(huntedGame.GameClass),
@@ -91,7 +105,62 @@ namespace Domain.Hunt
                     District = region.District,
                     Shots = hunt.Shots,
                     Date = hunt.Date
-                }).ToList();
+                }
+            ).ToList();
+
+            return huntViewModels;
+        }
+
+        public IList<HuntViewModel> GetAllCaughts()
+        {
+            List<HuntViewModel> huntViewModels =
+            (
+                from hunt in Hunts
+                join huntsman in Huntsmans on hunt.HuntsmanId equals huntsman.Id
+                join huntedGame in HuntedGames on hunt.HuntedGameId equals huntedGame.Id
+                join game in Games on huntedGame.GameId equals game.Id
+                join region in Regions on hunt.RegionId equals region.Id
+                where game.Type == (int) GameType.Small
+                select new HuntViewModel
+                {
+                    HuntsmanName = huntsman.Name,
+                    HuntsmanLastName = huntsman.LastName,
+                    GameKindName = game.KindName,
+                    GameSubKindName = GetSubKindName(game.SubKindName),
+                    GameWeight = GetGameWeight(huntedGame.GameWeight),
+                    City = region.City,
+                    Circuit = region.Circuit,
+                    District = region.District,
+                    Shots = hunt.Shots,
+                    Date = hunt.Date
+                }
+            ).ToList();
+
+            return huntViewModels;
+        }
+
+        public IList<HuntViewModel> GetCaughtsByHuntsmanId(int huntsmanId)
+        {
+            List<HuntViewModel> huntViewModels = 
+            (
+                from hunt in Hunts
+                join huntsman in Huntsmans on hunt.HuntsmanId equals huntsman.Id
+                join huntedGame in HuntedGames on hunt.HuntedGameId equals huntedGame.Id
+                join game in Games on huntedGame.GameId equals game.Id
+                join region in Regions on hunt.RegionId equals region.Id
+                where huntsman.Id == huntsmanId && game.Type == (int)GameType.Small
+                select new HuntViewModel
+                {
+                    GameKindName = game.KindName,
+                    GameSubKindName = GetSubKindName(game.SubKindName),
+                    GameWeight = GetGameWeight(huntedGame.GameWeight),
+                    City = region.City,
+                    Circuit = region.Circuit,
+                    District = region.District,
+                    Shots = hunt.Shots,
+                    Date = hunt.Date
+                }
+            ).ToList();
 
             return huntViewModels;
         }
@@ -127,25 +196,10 @@ namespace Domain.Hunt
 
             _huntDao.Insert(huntDto);
         }
-        
-        private string GetGameType(int? gameType)
-        {
-            if (gameType == null)
-            {
-                throw new Exception("Nie można znaleźć typu zwierzyny!");
-            }
-            
-            return gameType == 1 ? "Gruba" : "Drobna";
-        }
 
         private string GetSubKindName(string subKindName)
         {
-            if (String.IsNullOrEmpty(subKindName))
-            {
-                return "-";
-            }
-
-            return subKindName;
+            return String.IsNullOrEmpty(subKindName) ? "-" : subKindName;
         }
 
         private string GetGameClass(int? gameClass)
@@ -155,23 +209,14 @@ namespace Domain.Hunt
                 return "-";
             }
 
-            switch (gameClass)
-            {
-                case 1: return "I";
-                case 2: return "II";
-                case 3: return "III";
-                default: return "-";
-            }
+            GameClassDto gameClassDto = GameClassXRefs.FirstOrDefault(x => x.Id == gameClass);
+
+            return gameClassDto.ClassName;
         }
 
         private string GetGameWeight(double? weight)
         {
-            if (weight == null)
-            {
-                return "-";
-            }
-
-            return weight.ToString();
+            return weight == null ? "-" : $"{weight} kg";
         }
     }
 }

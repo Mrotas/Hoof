@@ -6,8 +6,10 @@ namespace Domain.Hunt
 {
     public interface IHuntService
     {
-        IList<HuntViewModel> GetAllHuntModels();
-        IList<HuntViewModel> GetHuntViewModels(int huntsmanId);
+        IList<HuntViewModel> GetAllHunts();
+        IList<HuntViewModel> GetHuntsByHuntsmanId(int huntsmanId);
+        IList<HuntViewModel> GetAllCaughts();
+        IList<HuntViewModel> GetCaughtsByHuntsmanId(int huntsmanId);
         void Create(HuntCreateModel model, int huntsmanId);
     }
 }

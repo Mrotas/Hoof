@@ -43,6 +43,16 @@
                             <li>@Html.ActionLink("Moje polowania", "MyHunts", "Hunt")</li>
                         </ul>
                     </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Odłowy
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Wszystkie odłowy", "Index", "Caught")</li>
+                            <li>@Html.ActionLink("Moje odłowy", "MyCaughts", "Caught")</li>
+                        </ul>
+                    </li>
                     <li>@Html.ActionLink("Ubytki", "Index", "Loss")</li>
                 </ul>
             </div>

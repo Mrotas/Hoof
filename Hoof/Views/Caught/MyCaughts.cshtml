@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Domain.Hunt.ViewModels.HuntViewModel>
 
 @{
-    ViewBag.Title = "MyHunts";
+    ViewBag.Title = "MyCaughts";
 }
 
-<h2>Moje polowania</h2>
+<h2>Moje odłowy</h2>
 
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addHuntModal">
-    Dodaj polowanie
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addCatchModal">
+    Dodaj odłów
 </button>
 
 <table class="table">
@@ -31,12 +31,14 @@
             @Html.DisplayNameFor(model => model.GameSubKindName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GameClass)
+            @Html.DisplayNameFor(model => model.GameWeight)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Shots)
         </th>
-        <th></th>
+        <th>
+
+        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -61,101 +63,102 @@
                 @Html.DisplayFor(modelItem => item.GameSubKindName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GameClass)
+                @Html.DisplayFor(modelItem => item.GameWeight)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Shots)
             </td>
             <td>
-                @Html.ActionLink("Edytuj", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Usuń", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
     }
 
 </table>
 
-<div class="modal" id="addHuntModal">
-<div class="modal-dialog" style="width: 500px;">
-    <div class="modal-content">
+<div class="modal" id="addCatchModal">
+    <div class="modal-dialog" style="width: 500px;">
+        <div class="modal-content">
 
-        <div class="modal-header" style="text-align: center; background-color: rgba(92, 184, 92, 0.6)">
-            <button type="button" class="close" data-dismiss="modal" id="closeModalXButton">
-                <span aria-hidden="true">&times;</span>
-                <span class="sr-only">Close</span>
-            </button>
-            <h4 class="modal-title" id="myModalLabel">
-                Dodaj polowanie
-            </h4>
-        </div>
+            <div class="modal-header" style="text-align: center; background-color: rgba(92, 184, 92, 0.6)">
+                <button type="button" class="close" data-dismiss="modal" id="closeModalXButton">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Dodaj odłów
+                </h4>
+            </div>
 
-        <div class="modal-body">
-            <div class="form-horizontal">
-                <div class="form-group">
-                    <div class="col-md-6 col-md-offset-2" style="width: 75%">
-                        Data: <input type="date" class="form-control" id="huntDatepicker">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-6 col-md-offset-2" style="width: 75%">
-                        Obwód: @Html.DropDownList("Wybierz Obwód", new List<SelectListItem>
-                               {
-                                   new SelectListItem {Text = "Płytnica", Value = "20"}
-                               }, "", new { @class = "form-control", id="circuit"})
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-6 col-md-offset-2" style="width: 75%">
-                        Rewir: @Html.DropDownList("Wybierz Rewir", new List<SelectListItem>
-                                {
-                                    new SelectListItem {Text = "1", Value = "1"},
-                                    new SelectListItem {Text = "2", Value = "2"},
-                                    new SelectListItem {Text = "3", Value = "3"},
-                                    new SelectListItem {Text = "4", Value = "4"},
-                                    new SelectListItem {Text = "5", Value = "5"},
-                                    new SelectListItem {Text = "6", Value = "6"},
-                                    new SelectListItem {Text = "7", Value = "7"},
-                                    new SelectListItem {Text = "8", Value = "8"},
-                                    new SelectListItem {Text = "9", Value = "9"},
-                                    new SelectListItem {Text = "10", Value = "10"},
-                                    new SelectListItem {Text = "11", Value = "11"},
-                                    new SelectListItem {Text = "12", Value = "12"},
-                                    new SelectListItem {Text = "13", Value = "13"},
-                                    new SelectListItem {Text = "14", Value = "14"},
-                                    new SelectListItem {Text = "15", Value = "15"},
-                                    new SelectListItem {Text = "16", Value = "16"}
-                                }, "", new { @class = "form-control", id= "district" })
-                    </div>
-                </div>
-                    
-                <div id="gameSection">
-                    <div class="form-group" id="gameTypeSection">
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
                         <div class="col-md-6 col-md-offset-2" style="width: 75%">
-                            Rodzaj zwierzyny: @Html.DropDownList("Wybierz rodzaj zwierzyny", new List<SelectListItem>
-                                              {
-                                                  new SelectListItem {Text = "", Value = "-1"},
-                                                  new SelectListItem {Text = "Gruba", Value = "1"}
-                                              }, new { @class = "form-control" , id = "gameTypeSelect"})
+                            Data: <input type="date" class="form-control" id="huntDatepicker">
                         </div>
                     </div>
-                        
-                    <div class="form-group" id="shotsSection">
+
+                    <div class="form-group">
                         <div class="col-md-6 col-md-offset-2" style="width: 75%">
-                            Oddane strzały: <input type="number" class="form-control" id="shots"/>
+                            Obwód: @Html.DropDownList("Wybierz Obwód", new List<SelectListItem>
+                     {
+                         new SelectListItem {Text = "Płytnica", Value = "20"}
+                     }, "", new { @class = "form-control", id="circuit"})
                         </div>
                     </div>
-                </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" id="closeModalButton">Zamknij</button>
-                    <button type="button" class="btn btn-success" data-dismiss="modal" id="saveButton">Zapisz</button>
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-2" style="width: 75%">
+                            Rewir: @Html.DropDownList("Wybierz Rewir", new List<SelectListItem>
+                      {
+                          new SelectListItem {Text = "1", Value = "1"},
+                          new SelectListItem {Text = "2", Value = "2"},
+                          new SelectListItem {Text = "3", Value = "3"},
+                          new SelectListItem {Text = "4", Value = "4"},
+                          new SelectListItem {Text = "5", Value = "5"},
+                          new SelectListItem {Text = "6", Value = "6"},
+                          new SelectListItem {Text = "7", Value = "7"},
+                          new SelectListItem {Text = "8", Value = "8"},
+                          new SelectListItem {Text = "9", Value = "9"},
+                          new SelectListItem {Text = "10", Value = "10"},
+                          new SelectListItem {Text = "11", Value = "11"},
+                          new SelectListItem {Text = "12", Value = "12"},
+                          new SelectListItem {Text = "13", Value = "13"},
+                          new SelectListItem {Text = "14", Value = "14"},
+                          new SelectListItem {Text = "15", Value = "15"},
+                          new SelectListItem {Text = "16", Value = "16"}
+                      }, "", new { @class = "form-control", id= "district" })
+                        </div>
+                    </div>
+
+                    <div id="gameSection">
+                        <div class="form-group" id="gameTypeSection">
+                            <div class="col-md-6 col-md-offset-2" style="width: 75%">
+                                Rodzaj zwierzyny: @Html.DropDownList("Wybierz rodzaj zwierzyny", new List<SelectListItem>
+              {
+                  new SelectListItem {Text = "", Value = "-1"},
+                  new SelectListItem {Text = "Drobna", Value = "2"}
+              }, new { @class = "form-control" , id = "gameTypeSelect"})
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="shotsSection">
+                            <div class="col-md-6 col-md-offset-2" style="width: 75%">
+                                Oddane strzały: <input type="number" class="form-control" id="shots" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="closeModalButton">Zamknij</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal" id="saveButton">Zapisz</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 @section Scripts {

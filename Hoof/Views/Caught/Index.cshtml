@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Domain.Hunt.ViewModels.HuntViewModel>
+
+@{
+    ViewBag.Title = "Caughts";
+}
+
+<h2>Odłowy</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HuntsmanName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HuntsmanLastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Circuit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.District)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GameKindName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GameSubKindName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GameWeight)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Shots)
+        </th>
+        <th>
+
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HuntsmanName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HuntsmanLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Circuit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.District)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GameKindName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GameSubKindName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GameWeight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Shots)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+</table>

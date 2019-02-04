@@ -6,39 +6,39 @@ using Domain.Hunt.ViewModels;
 
 namespace Hoof.Controllers
 {
-    public class HuntController : Controller
+    public class CaughtController : Controller
     {
         private readonly IHuntService _huntService;
 
-        public HuntController() : this(new HuntService())
+        public CaughtController() : this(new HuntService())
         {
         }
 
-        public HuntController(IHuntService huntService)
+        public CaughtController(IHuntService huntService)
         {
             _huntService = huntService;
         }
 
         public ActionResult Index()
         {
-            IList<HuntViewModel> huntModels = _huntService.GetAllHunts();
-            return View(huntModels);
+            IList<HuntViewModel> caughtModels = _huntService.GetAllCaughts();
+            return View(caughtModels);
         }
 
-        public ActionResult MyHunts()
+        public ActionResult MyCaughts()
         {
             //TODO get huntsmanId
-            IList<HuntViewModel> myHunts = _huntService.GetHuntsByHuntsmanId(1);
+            IList<HuntViewModel> myHunts = _huntService.GetCaughtsByHuntsmanId(1);
             return View(myHunts);
         }
-        
+
         [HttpPost]
         public JsonResult Create(HuntCreateModel model)
         {
             //TODO get huntsmanId
             int huntsmanId = 1;
             _huntService.Create(model, huntsmanId);
-            return Json(new {data = true}, JsonRequestBehavior.AllowGet);
+            return Json(new { data = true }, JsonRequestBehavior.AllowGet);
         }
     }
 }
