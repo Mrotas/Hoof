@@ -2,8 +2,7 @@
 {
     public class BarrierPlanModel
     {
-        public double? Count { get; set; }
-        public int Unit { get; set; }
-        public int Year { get; set; }
+        public double Length { get; set; }
+        public int Count { get; set; }
     }
 }

@@ -2,7 +2,6 @@
 {
     public class FieldPlanModel
     {
-        public double? Hectare { get; set; }
-        public int MarketingYearId { get; set; }
+        public double Hectare { get; set; }
     }
 }

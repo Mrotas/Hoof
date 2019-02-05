@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DataAccess.Dao.MarketingYear;
 using DataAccess.Dto;
+using Domain.MarketingYear.Models;
 
 namespace Domain.MarketingYear
 {
@@ -40,6 +41,18 @@ namespace Domain.MarketingYear
             MarketingYearDto marketingYearDto = MarketingYearList.FirstOrDefault(x => x.Start <= date && x.End >= date);
 
             return marketingYearDto.Id;
+        }
+
+        public MarketingYearModel GetMarketingYearModel(int marketingYearId)
+        {
+            MarketingYearDto marketingYearDto = MarketingYearList.Single(x => x.Id == marketingYearId);
+
+            return new MarketingYearModel
+            {
+                Id = marketingYearDto.Id,
+                Start = marketingYearDto.Start,
+                End = marketingYearDto.End
+            };
         }
 
         public bool IsDateInMarketingYear(DateTime date, int marketingYearId)

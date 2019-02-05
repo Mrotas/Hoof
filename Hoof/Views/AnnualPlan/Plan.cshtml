@@ -43,8 +43,8 @@
 }
 
 <h2 style="text-align: center; font-weight: bold">ROCZNY PLAN ŁOWIECKI</h2>
-<h3 style="text-align: center; font-weight: bold">@($"na rok gospodarczy {DateTime.Now.Year} / {DateTime.Now.Year + 1}")</h3>
-<h3 style="text-align: center; font-weight: bold">@($"oraz sprawozdanie z wykonania planu roku gospodarczego {DateTime.Now.Year - 1} / {DateTime.Now.Year}")</h3>
+<h3 style="text-align: center; font-weight: bold">@($"na rok gospodarczy {Model.CurrentMarketingYearModel}")</h3>
+<h3 style="text-align: center; font-weight: bold">@($"oraz sprawozdanie z wykonania planu roku gospodarczego {Model.PreviousMarketingYearModel}")</h3>
 
 <br />
 
@@ -63,10 +63,10 @@
     <tr>
         <th>@AnnualPlan.Specification</th>
         <th class="unit">@AnnualPlan.Unit</th>
-        <th class="long-header">@String.Format(AnnualPlan.PreviousEconomyPlan, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
-        <th class="long-header">@String.Format(AnnualPlan.PreviousPlanExecution, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
-        <th class="long-header">@String.Format(AnnualPlan.March10Condition, DateTime.Now.Year)</th>
-        <th class="long-header">@String.Format(AnnualPlan.CurrentYearPlan, DateTime.Now.Year, DateTime.Now.Year + 1)</th>
+        <th class="long-header">@String.Format(AnnualPlan.PreviousEconomyPlan, Model.PreviousMarketingYearModel)</th>
+        <th class="long-header">@String.Format(AnnualPlan.PreviousPlanExecution, Model.PreviousMarketingYearModel)</th>
+        <th class="long-header">@String.Format(AnnualPlan.March10Condition, Model.CurrentMarketingYearModel.Start.Year)</th>
+        <th class="long-header">@String.Format(AnnualPlan.CurrentYearPlan, Model.CurrentMarketingYearModel)</th>
     </tr>
     <tr>
         <td class="column_number" style="text-align: center">1</td>
@@ -79,74 +79,74 @@
     <tr>
         <td class="paragraph">1. @AnnualPlan.ContractEmployees</td>
         <td>@AnnualPlan.UnitPersonPartTime</td>
-        <td>@Model.PreviousAnnualPlanModel.EmployeePlanModels.FirstOrDefault(x => x.EmploymentType == (int)EmploymentType.FullTime).Count</td>
+        <td>@Model.PreviousAnnualPlanModel.EmployeePlanModel.FullTimeEmployees</td>
         <td></td>
         <td></td>
-        <td>@Model.CurrentAnnualPlanModel.EmployeePlanModels.FirstOrDefault(x => x.EmploymentType == (int)EmploymentType.FullTime).Count</td>
+        <td>@Model.CurrentAnnualPlanModel.EmployeePlanModel.FullTimeEmployees</td>
     </tr>
     <tr>
         <td class="paragraph">2. @AnnualPlan.NonContractEmployees</td>
         <td>@AnnualPlan.UnitPerson</td>
-        <td>@Model.PreviousAnnualPlanModel.EmployeePlanModels.FirstOrDefault(x => x.EmploymentType == (int)EmploymentType.PartTime).Count</td>
+        <td>@Model.PreviousAnnualPlanModel.EmployeePlanModel.PartTimeEmployees</td>
         <td></td>
         <td></td>
-        <td>@Model.CurrentAnnualPlanModel.EmployeePlanModels.FirstOrDefault(x => x.EmploymentType == (int)EmploymentType.PartTime).Count</td>
+        <td>@Model.CurrentAnnualPlanModel.EmployeePlanModel.PartTimeEmployees</td>
     </tr>
     <tr>
         <td class="paragraph">3. @AnnualPlan.HuntingEquipment</td>
-        <td>@AnnualPlan.X</td>
-        <td>@AnnualPlan.X</td>
-        <td>@AnnualPlan.X</td>
-        <td>@AnnualPlan.X</td>
-        <td>@AnnualPlan.X</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
     <tr>
         <td>a) @AnnualPlan.Pastures</td>
         <td>@AnnualPlan.UnitPiece</td>
-        <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModels.FirstOrDefault(x => x.Type == (int)HuntEquipment.Pastures).Count</td>
+        <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModel.Pastures</td>
         <td></td>
         <td></td>
-        <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModels.FirstOrDefault(x => x.Type == (int)HuntEquipment.Pastures).Count</td>
+        <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModel.Pastures</td>
     </tr>
     <tr>
         <td>b) @AnnualPlan.DeerLickers</td>
         <td>@AnnualPlan.UnitPiece</td>
-        <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModels.FirstOrDefault(x => x.Type == (int)HuntEquipment.DeerLickers).Count</td>
+        <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModel.DeerLickers</td>
         <td></td>
         <td></td>
-        <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModels.FirstOrDefault(x => x.Type == (int)HuntEquipment.DeerLickers).Count</td>
+        <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModel.DeerLickers</td>
     </tr>
     <tr>
         <td>c) @AnnualPlan.Pulpits</td>
         <td>@AnnualPlan.UnitPiece</td>
-        <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModels.FirstOrDefault(x => x.Type == (int)HuntEquipment.Pulpits).Count</td>
+        <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModel.Pulpits</td>
         <td></td>
         <td></td>
-        <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModels.FirstOrDefault(x => x.Type == (int)HuntEquipment.Pulpits).Count</td>
+        <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModel.Pulpits</td>
     </tr>
     <tr>
         <td>d) @AnnualPlan.Aviaries</td>
         <td>@AnnualPlan.UnitPiece</td>
-        <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModels.FirstOrDefault(x => x.Type == (int)HuntEquipment.Aviaries).Count</td>
+        <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModel.Aviaries</td>
         <td></td>
         <td></td>
-        <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModels.FirstOrDefault(x => x.Type == (int)HuntEquipment.Aviaries).Count</td>
+        <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModel.Aviaries</td>
     </tr>
     <tr>
         <td>e) @AnnualPlan.Farms</td>
         <td>@AnnualPlan.UnitPiece</td>
-        <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModels.FirstOrDefault(x => x.Type == (int)HuntEquipment.Farms).Count</td>
+        <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModel.Farms</td>
         <td></td>
         <td></td>
-        <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModels.FirstOrDefault(x => x.Type == (int)HuntEquipment.Farms).Count</td>
+        <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModel.Farms</td>
     </tr>
     <tr>
         <td>f) @AnnualPlan.WateringPlaces</td>
         <td>@AnnualPlan.UnitPiece</td>
-        <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModels.FirstOrDefault(x => x.Type == (int)HuntEquipment.WateringPlaces).Count</td>
+        <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModel.WateringPlaces</td>
         <td></td>
         <td></td>
-        <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModels.FirstOrDefault(x => x.Type == (int)HuntEquipment.WateringPlaces).Count</td>
+        <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModel.WateringPlaces</td>
     </tr>
     <tr>
         <td class="paragraph">4. @AnnualPlan.TrunkFood</td>
@@ -174,51 +174,51 @@
     </tr>
     <tr>
         <td class="paragraph">7. @AnnualPlan.FoodAndSalt</td>
-        <td>@AnnualPlan.X</td>
-        <td>@AnnualPlan.X</td>
-        <td>@AnnualPlan.X</td>
-        <td>@AnnualPlan.X</td>
-        <td>@AnnualPlan.X</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
     <tr>
         <td>a) @AnnualPlan.Dry</td>
         <td>@AnnualPlan.UnitTon</td>
-        <td>@Model.PreviousAnnualPlanModel.FodderPlanModels.FirstOrDefault(x => x.Type == (int)Fodder.Dry).Ton</td>
+        <td>@Model.PreviousAnnualPlanModel.FodderPlanModel.Dry</td>
         <td></td>
         <td></td>
-        <td>@Model.CurrentAnnualPlanModel.FodderPlanModels.FirstOrDefault(x => x.Type == (int)Fodder.Dry).Ton</td>
+        <td>@Model.CurrentAnnualPlanModel.FodderPlanModel.Dry</td>
     </tr>
     <tr>
         <td>b) @AnnualPlan.Juicy</td>
         <td>@AnnualPlan.UnitTon</td>
-        <td>@Model.PreviousAnnualPlanModel.FodderPlanModels.FirstOrDefault(x => x.Type == (int)Fodder.Juicy).Ton</td>
+        <td>@Model.PreviousAnnualPlanModel.FodderPlanModel.Juicy</td>
         <td></td>
         <td></td>
-        <td>@Model.CurrentAnnualPlanModel.FodderPlanModels.FirstOrDefault(x => x.Type == (int)Fodder.Juicy).Ton</td>
+        <td>@Model.CurrentAnnualPlanModel.FodderPlanModel.Juicy</td>
     </tr>
     <tr>
         <td>c) @AnnualPlan.Pithy</td>
         <td>@AnnualPlan.UnitTon</td>
-        <td>@Model.PreviousAnnualPlanModel.FodderPlanModels.FirstOrDefault(x => x.Type == (int)Fodder.Pithy).Ton</td>
+        <td>@Model.PreviousAnnualPlanModel.FodderPlanModel.Pithy</td>
         <td></td>
         <td></td>
-        <td>@Model.CurrentAnnualPlanModel.FodderPlanModels.FirstOrDefault(x => x.Type == (int)Fodder.Pithy).Ton</td>
+        <td>@Model.CurrentAnnualPlanModel.FodderPlanModel.Pithy</td>
     </tr>
     <tr>
         <td>d) @AnnualPlan.Salt</td>
         <td>@AnnualPlan.UnitTon</td>
-        <td>@Model.PreviousAnnualPlanModel.FodderPlanModels.FirstOrDefault(x => x.Type == (int)Fodder.Salt).Ton</td>
+        <td>@Model.PreviousAnnualPlanModel.FodderPlanModel.Salt</td>
         <td></td>
         <td></td>
-        <td>@Model.CurrentAnnualPlanModel.FodderPlanModels.FirstOrDefault(x => x.Type == (int)Fodder.Salt).Ton</td>
+        <td>@Model.CurrentAnnualPlanModel.FodderPlanModel.Salt</td>
     </tr>
     <tr>
         <td class="paragraph">8. @AnnualPlan.DamagedArea</td>
         <td>@AnnualPlan.UnitHectare</td>
-        <td>@Model.PreviousAnnualPlanModel.DamagedFieldPlanModel.Count</td>
+        <td>@Model.PreviousAnnualPlanModel.DamagedFieldPlanModel.Hectare</td>
         <td></td>
         <td></td>
-        <td>@Model.CurrentAnnualPlanModel.DamagedFieldPlanModel.Count</td>
+        <td>@Model.CurrentAnnualPlanModel.DamagedFieldPlanModel.Hectare</td>
     </tr>
     <tr>
         <td colspan="6">&nbsp;</td>
@@ -237,10 +237,10 @@
     <tr>
         <td class="paragraph">1. @AnnualPlan.Costs</td>
         <td>@AnnualPlan.UnitThousandZlotych</td>
-        <td>@Model.PreviousAnnualPlanModel.CostPlanModels.FirstOrDefault(x => x.Type == (int)CostType.Cost).Cost</td>
+        <td>@Model.PreviousAnnualPlanModel.CostPlanModel.Cost</td>
         <td></td>
         <td></td>
-        <td>@Model.CurrentAnnualPlanModel.CostPlanModels.FirstOrDefault(x => x.Type == (int)CostType.Cost).Cost</td>
+        <td>@Model.CurrentAnnualPlanModel.CostPlanModel.Cost</td>
     </tr>
     <tr>
         <td>@AnnualPlan.Compensation</td>
@@ -253,10 +253,10 @@
     <tr>
         <td class="paragraph">2. @AnnualPlan.CarcassesRevenues</td>
         <td>@AnnualPlan.UnitThousandZlotych</td>
-        <td>@Model.PreviousAnnualPlanModel.CostPlanModels.FirstOrDefault(x => x.Type == (int)CostType.Revenue).Cost</td>
+        <td>@Model.PreviousAnnualPlanModel.CostPlanModel.Revenue</td>
         <td></td>
         <td></td>
-        <td>@Model.CurrentAnnualPlanModel.CostPlanModels.FirstOrDefault(x => x.Type == (int)CostType.Revenue).Cost</td>
+        <td>@Model.CurrentAnnualPlanModel.CostPlanModel.Revenue</td>
     </tr>
 </table>
 
@@ -297,10 +297,10 @@
         <td class="game-unit" rowspan="2">odstrzał</td>
         <td class="game-unit" rowspan="2">odłów</td>
         <td class="game-unit" colspan="2">ubytki</td>
-        <td class="game-unit" rowspan="2">min</td>
-        <td class="game-unit" rowspan="2">max</td>
-        <td class="game-unit" rowspan="2">min</td>
-        <td class="game-unit" rowspan="2">max</td>
+        <td class="game-unit" rowspan="2">@AnnualPlan.Min</td>
+        <td class="game-unit" rowspan="2">@AnnualPlan.Max</td>
+        <td class="game-unit" rowspan="2">@AnnualPlan.Min</td>
+        <td class="game-unit" rowspan="2">@AnnualPlan.Max</td>
     </tr>
     <tr>
         <td class="game-unit">ogółem</td>
@@ -428,10 +428,10 @@
         <td colspan="2">odłów szt.</td>
     </tr>
     <tr>
-        <td>min</td>
-        <td>max</td>
-        <td>min</td>
-        <td>max</td>
+        <td>@AnnualPlan.Min</td>
+        <td>@AnnualPlan.Max</td>
+        <td>@AnnualPlan.Min</td>
+        <td>@AnnualPlan.Max</td>
     </tr>
     <tr>
         <td class="column_number" style="text-align: center">1</td>

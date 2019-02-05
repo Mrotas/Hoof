@@ -178,7 +178,7 @@
     <value>odstrzał szt.</value>
   </data>
   <data name="CurrentYearPlan" xml:space="preserve">
-    <value>Stan planowany do osiągnięcia w bieżącym roku gospodarczym {0} / {1}</value>
+    <value>Stan planowany do osiągnięcia w bieżącym roku gospodarczym {0}</value>
   </data>
   <data name="DamagedArea" xml:space="preserve">
     <value>Powierzchnia zredukowana upraw rolnych uszkodzonych przez zwierzęta łowne</value>
@@ -350,10 +350,10 @@ gospodarczym</value>
     <value>treściwa</value>
   </data>
   <data name="PreviousEconomyPlan" xml:space="preserve">
-    <value>Plan poprzedniego roku gospodarczego {0} / {1}</value>
+    <value>Plan poprzedniego roku gospodarczego {0}</value>
   </data>
   <data name="PreviousPlanExecution" xml:space="preserve">
-    <value>Wykonanie planu poprzedniego roku gospodarczego {0} / {1}</value>
+    <value>Wykonanie planu poprzedniego roku gospodarczego {0}</value>
   </data>
   <data name="PreviousYearExecution" xml:space="preserve">
     <value>Wykonanie planu pozyskania roku poprzed niego {0} / {1}</value>
@@ -425,7 +425,7 @@ gospodarczym</value>
     <value>szt.</value>
   </data>
   <data name="UnitThousandZlotych" xml:space="preserve">
-    <value>tys. Zł</value>
+    <value>tys. zł</value>
   </data>
   <data name="UnitTon" xml:space="preserve">
     <value>tona</value>

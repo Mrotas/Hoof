@@ -69,8 +69,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\CostType.cs" />
+    <Compile Include="Enums\EmploymentType.cs" />
+    <Compile Include="Enums\Fodder.cs" />
     <Compile Include="Enums\GameClass.cs" />
+    <Compile Include="Enums\GameKind.cs" />
     <Compile Include="Enums\GameType.cs" />
+    <Compile Include="Enums\HuntEquipment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\AnnualPlan.Designer.cs">
       <AutoGen>True</AutoGen>

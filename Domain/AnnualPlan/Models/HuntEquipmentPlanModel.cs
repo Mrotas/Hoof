@@ -1,32 +1,12 @@
-﻿using System.ComponentModel;
-
-namespace Domain.AnnualPlan.Models
+﻿namespace Domain.AnnualPlan.Models
 {
     public class HuntEquipmentPlanModel
     {
-        public int? Type { get; set; }
-        public int? Count { get; set; }
-        public int Unit { get; set; }
-        public int MarketingYearId { get; set; }
-    }
-    public enum HuntEquipment
-    {
-        [Description("Paśniki")]
-        Pastures = 1,
-
-        [Description("Lizawki")]
-        DeerLickers = 2,
-
-        [Description("Ambony")]
-        Pulpits = 3,
-
-        [Description("Woliery")]
-        Aviaries = 4,
-
-        [Description("Zagrody")]
-        Farms = 5,
-
-        [Description("Wodopoje")]
-        WateringPlaces = 6
+        public int Pastures { get; set; }
+        public int DeerLickers { get; set; }
+        public int Pulpits { get; set; }
+        public int Aviaries { get; set; }
+        public int Farms { get; set; }
+        public int WateringPlaces { get; set; }
     }
 }

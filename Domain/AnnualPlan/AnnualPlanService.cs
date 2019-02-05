@@ -13,12 +13,13 @@ using DataAccess.Dto;
 using Domain.AnnualPlan.Models;
 using Domain.AnnualPlan.ViewModels;
 using Domain.GamePlan;
+using Domain.MarketingYear;
 
 namespace Domain.AnnualPlan
 {
     public class AnnualPlanService : IAnnualPlanService
     {
-        private readonly IMarketingYearDao _marketingYearDao;
+        private readonly IMarketingYearService _marketingYearService;
         private readonly IEmploymentPlanDao _employeePlanDao;
         private readonly IHuntEquipmentPlanDao _huntEquipmentPlanDao;
         private readonly ITrunkFoodPlanDao _trunkFoodPlanDao;
@@ -34,7 +35,7 @@ namespace Domain.AnnualPlan
             new FodderPlanDao(), 
             new CostPlanDao(), 
             new GamePlanService(), 
-            new MarketingYearDao())
+            new MarketingYearService())
         {
         }
 
@@ -45,7 +46,7 @@ namespace Domain.AnnualPlan
             IFodderPlanDao fodderPlanDao, 
             ICostPlanDao costPlanDao, 
             IGamePlanService gamePlanService,
-            IMarketingYearDao marketingYearDao)
+            IMarketingYearService marketingYearService)
         {
             _employeePlanDao = employeePlanDao;
             _huntEquipmentPlanDao = huntEquipmentPlanDao;
@@ -54,7 +55,7 @@ namespace Domain.AnnualPlan
             _fodderPlanDao = fodderPlanDao;
             _costPlanDao = costPlanDao;
             _gamePlanService = gamePlanService;
-            _marketingYearDao = marketingYearDao;
+            _marketingYearService = marketingYearService;
         }
 
         public AnnualPlanViewModel GetAnnualPlanViewModel(int marketingYearId)
@@ -63,8 +64,10 @@ namespace Domain.AnnualPlan
 
             var annualPlanViewModel = new AnnualPlanViewModel();
 
-            annualPlanViewModel.CurrentAnnualPlanModel = GetAnnualPlanModel(marketingYearId);
+            annualPlanViewModel.CurrentMarketingYearModel = _marketingYearService.GetMarketingYearModel(marketingYearId);
+            annualPlanViewModel.PreviousMarketingYearModel = _marketingYearService.GetMarketingYearModel(previousMarketingYearId);
 
+            annualPlanViewModel.CurrentAnnualPlanModel = GetAnnualPlanModel(marketingYearId);
             annualPlanViewModel.PreviousAnnualPlanModel = GetAnnualPlanModel(previousMarketingYearId);
 
             annualPlanViewModel.BigGamePlanModel = _gamePlanService.GetGameAnnualPlanModel(GameType.Big, marketingYearId);
@@ -77,9 +80,9 @@ namespace Domain.AnnualPlan
         {
             var annualPlanModel = new AnnualPlanModel();
 
-            annualPlanModel.EmployeePlanModels = GetEmploymentPlanModels(marketingYearId);
+            annualPlanModel.EmployeePlanModel = GetEmploymentPlanModel(marketingYearId);
 
-            annualPlanModel.HuntEquipmentPlanModels = GetHuntEquipmentPlanModels(marketingYearId);
+            annualPlanModel.HuntEquipmentPlanModel = GetHuntEquipmentPlanModel(marketingYearId);
 
             annualPlanModel.TrunkFoodPlanModel = GetTrunkFoodPlanModel(marketingYearId);
 
@@ -87,51 +90,52 @@ namespace Domain.AnnualPlan
 
             annualPlanModel.FieldPlanModel = GetFieldPlanModel(marketingYearId);
 
-            annualPlanModel.FodderPlanModels = GetFodderPlanModels(marketingYearId);
+            annualPlanModel.FodderPlanModel = GetFodderPlanModel(marketingYearId);
 
             annualPlanModel.DamagedFieldPlanModel = GetDamagedFieldPlanModel(marketingYearId);
 
-            annualPlanModel.CostPlanModels = GetCostPlanModels(marketingYearId);
+            annualPlanModel.CostPlanModel = GetCostPlanModel(marketingYearId);
 
             return annualPlanModel;
         }
 
-        private List<EmploymentPlanModel> GetEmploymentPlanModels(int marketingYearId)
+        private EmploymentPlanModel GetEmploymentPlanModel(int marketingYearId)
         {
-            IList<EmploymentPlanDto> employeePlan = _employeePlanDao.GetEmploymentPlan(marketingYearId);
+            IList<EmploymentPlanDto> employeePlans = _employeePlanDao.GetEmploymentPlan(marketingYearId);
 
-            List<EmploymentPlanModel> employeePlanModels = employeePlan.Select(x => new EmploymentPlanModel
+            var employmentPlanModel = new EmploymentPlanModel
             {
-                EmploymentType = x.EmploymentType,
-                Count = x.Count,
-                MarketingYearId = x.MarketingYearId
-            }).ToList();
+                FullTimeEmployees = employeePlans.Single(x => x.EmploymentType == (int) EmploymentType.FullTime).Count,
+                PartTimeEmployees = employeePlans.Single(x => x.EmploymentType == (int) EmploymentType.PartTime).Count
+            };
             
-            return employeePlanModels;
+            return employmentPlanModel;
         }
 
-        private List<HuntEquipmentPlanModel> GetHuntEquipmentPlanModels(int marketingYearId)
+        private HuntEquipmentPlanModel GetHuntEquipmentPlanModel(int marketingYearId)
         {
-            IList<HuntEquipmentPlanDto> huntEquipmentPlan = _huntEquipmentPlanDao.GetHuntEquipmentPlan(marketingYearId);
+            IList<HuntEquipmentPlanDto> huntEquipmentPlans = _huntEquipmentPlanDao.GetHuntEquipmentPlan(marketingYearId);
 
-            var huntEquipmentPlanModels = huntEquipmentPlan.Select(x => new HuntEquipmentPlanModel
-            {
-                Type = x.Type,
-                Count = x.Count,
-                MarketingYearId = x.MarketingYearId
-            }).ToList();
+           var huntEquipmentPlanModel = new HuntEquipmentPlanModel
+           {
+               Aviaries = huntEquipmentPlans.Single(x => x.Type == (int) HuntEquipment.Aviary).Count,
+               DeerLickers = huntEquipmentPlans.Single(x => x.Type == (int) HuntEquipment.DeerLicker).Count,
+               Farms = huntEquipmentPlans.Single(x => x.Type == (int) HuntEquipment.Farm).Count,
+               Pastures = huntEquipmentPlans.Single(x => x.Type == (int) HuntEquipment.Pasture).Count,
+               Pulpits = huntEquipmentPlans.Single(x => x.Type == (int) HuntEquipment.Pulpit).Count,
+               WateringPlaces = huntEquipmentPlans.Single(x => x.Type == (int) HuntEquipment.WateringPlace).Count
+           };
 
-            return huntEquipmentPlanModels;
+            return huntEquipmentPlanModel;
         }
 
         private TrunkFoodPlanModel GetTrunkFoodPlanModel(int marketingYearId)
         {
-            IList<TrunkFoodPlanDto> trunkFoodPlan = _trunkFoodPlanDao.GetTrunkFoodPlan(marketingYearId);
+            IList<TrunkFoodPlanDto> trunkFoodPlans = _trunkFoodPlanDao.GetTrunkFoodPlan(marketingYearId);
 
-            TrunkFoodPlanModel trunkFoodPlanModel = trunkFoodPlan.Select(x => new TrunkFoodPlanModel
+            TrunkFoodPlanModel trunkFoodPlanModel = trunkFoodPlans.Select(x => new TrunkFoodPlanModel
             {
-                Hectare = x.Hectare,
-                MarketingYearId = x.MarketingYearId
+                Hectare = x.Hectare
             }).Single();
 
             return trunkFoodPlanModel;
@@ -148,25 +152,25 @@ namespace Domain.AnnualPlan
 
             FieldPlanModel fieldPlanModel = fieldPlan.Select(x => new FieldPlanModel
             {
-                Hectare = x.Hectare,
-                MarketingYearId = x.MarketingYearId
+                Hectare = x.Hectare
             }).Single();
 
             return fieldPlanModel;
         }
 
-        private List<FodderPlanModel> GetFodderPlanModels(int marketingYearId)
+        private FodderPlanModel GetFodderPlanModel(int marketingYearId)
         {
-            IList<FodderPlanDto> fodderPlan = _fodderPlanDao.GetFodderPlan(marketingYearId);
+            IList<FodderPlanDto> fodderPlans = _fodderPlanDao.GetFodderPlan(marketingYearId);
 
-            List<FodderPlanModel> fodderPlanModels = fodderPlan.Select(x => new FodderPlanModel
+            var fodderPlanModel = new FodderPlanModel
             {
-                Type = x.Type,
-                Ton = x.Ton,
-                MarketingYearId = x.MarketingYearId
-            }).ToList();
+                Dry = fodderPlans.Single(x => x.Type == (int) Fodder.Dry).Ton,
+                Juicy = fodderPlans.Single(x => x.Type == (int) Fodder.Juicy).Ton,
+                Pithy = fodderPlans.Single(x => x.Type == (int) Fodder.Pithy).Ton,
+                Salt = fodderPlans.Single(x => x.Type == (int) Fodder.Salt).Ton
+            };
 
-            return fodderPlanModels;
+            return fodderPlanModel;
         }
 
         private DamagedFieldPlanModel GetDamagedFieldPlanModel(int marketingYearId)
@@ -174,18 +178,17 @@ namespace Domain.AnnualPlan
             return new DamagedFieldPlanModel();
         }
 
-        private List<CostPlanModel> GetCostPlanModels(int marketingYearId)
+        private CostPlanModel GetCostPlanModel(int marketingYearId)
         {
-            IList<CostPlanDto> costPlan = _costPlanDao.GetCostPlan(marketingYearId);
+            IList<CostPlanDto> costPlans = _costPlanDao.GetCostPlan(marketingYearId);
 
-            List<CostPlanModel> costPlanModels = costPlan.Select(x => new CostPlanModel
+            var costPlanModel = new CostPlanModel
             {
-                Type = x.Type,
-                Cost = x.Cost,
-                MarketingYearId = x.MarketingYearId
-            }).ToList();
+                Cost = costPlans.Single(x => x.Type == (int) CostType.Cost).Cost,
+                Revenue = costPlans.Single(x => x.Type == (int) CostType.Revenue).Cost
+            };
 
-            return costPlanModels;
+            return costPlanModel;
         }
     }
 }

@@ -169,7 +169,7 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stan planowany do osiągnięcia w bieżącym roku gospodarczym {0} / {1}.
+        ///   Looks up a localized string similar to Stan planowany do osiągnięcia w bieżącym roku gospodarczym {0}.
         /// </summary>
         public static string CurrentYearPlan {
             get {
@@ -764,7 +764,7 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Plan poprzedniego roku gospodarczego {0} / {1}.
+        ///   Looks up a localized string similar to Plan poprzedniego roku gospodarczego {0}.
         /// </summary>
         public static string PreviousEconomyPlan {
             get {
@@ -773,7 +773,7 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wykonanie planu poprzedniego roku gospodarczego {0} / {1}.
+        ///   Looks up a localized string similar to Wykonanie planu poprzedniego roku gospodarczego {0}.
         /// </summary>
         public static string PreviousPlanExecution {
             get {
@@ -1016,7 +1016,7 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to tys. Zł.
+        ///   Looks up a localized string similar to tys. zł.
         /// </summary>
         public static string UnitThousandZlotych {
             get {
