@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Domain.Hunt.ViewModels.HuntViewModel>
+﻿@model IEnumerable<Domain.Catch.ViewModels.CatchViewModel>
 
 @{
     ViewBag.Title = "Caughts";
@@ -33,10 +33,7 @@
             @Html.DisplayNameFor(model => model.GameSubKindName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GameWeight)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Shots)
+            @Html.DisplayNameFor(model => model.Count)
         </th>
         <th>
 
@@ -71,10 +68,7 @@
                 @Html.DisplayFor(modelItem => item.GameSubKindName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GameWeight)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Shots)
+                @Html.DisplayFor(modelItem => item.Count)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

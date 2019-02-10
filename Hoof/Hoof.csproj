@@ -158,7 +158,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AnnualPlanController.cs" />
-    <Compile Include="Controllers\CaughtController.cs" />
+    <Compile Include="Controllers\CatchController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HuntController.cs" />
@@ -215,8 +215,8 @@
     <Content Include="Views\Report\Index.cshtml" />
     <Content Include="Views\AnnualPlan\Index.cshtml" />
     <Content Include="Views\Loss\Index.cshtml" />
-    <Content Include="Views\Caught\Index.cshtml" />
-    <Content Include="Views\Caught\MyCaughts.cshtml" />
+    <Content Include="Views\Catch\Index.cshtml" />
+    <Content Include="Views\Catch\MyCaughts.cshtml" />
     <Content Include="Views\Report\MonthlyReport.cshtml" />
   </ItemGroup>
   <ItemGroup>

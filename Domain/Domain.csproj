@@ -59,6 +59,10 @@
     <Compile Include="AnnualPlan\Models\GamePlan\AnnualPlanGameModel.cs" />
     <Compile Include="AnnualPlan\Models\GamePlan\AnnualPlanKindGameModel.cs" />
     <Compile Include="AnnualPlan\Models\GamePlan\AnnualPlanSubKindGameModel.cs" />
+    <Compile Include="Catch\CatchService.cs" />
+    <Compile Include="Catch\ICatchService.cs" />
+    <Compile Include="Catch\Models\CatchCreateModel.cs" />
+    <Compile Include="Catch\ViewModels\CatchViewModel.cs" />
     <Compile Include="GameClass\GameClassService.cs" />
     <Compile Include="GamePlan\GamePlanService.cs" />
     <Compile Include="GamePlan\IGamePlanService.cs" />

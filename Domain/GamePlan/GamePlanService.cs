@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Common.Enums;
+using DataAccess.Dao.Catch;
 using DataAccess.Dao.Game;
 using DataAccess.Dao.GameClass;
 using DataAccess.Dao.GameCountFor10March;
@@ -31,6 +32,9 @@ namespace Domain.GamePlan
         private IList<HuntedGameDto> _huntedGames;
         private IList<HuntedGameDto> HuntedGames => _huntedGames ?? (_huntedGames = _huntedGameDao.GetByMarketingYear(PreviousMarketingYear));
 
+        private IList<CatchDto> _caughtGames;
+        private IList<CatchDto> CaughtGames => _caughtGames ?? (_caughtGames = _catchDao.GetByMarketingYear(PreviousMarketingYear));
+
         private IList<LossGameDto> _lossGames;
         private IList<LossGameDto> LossGames => _lossGames ?? (_lossGames = _lossGameDao.GetByMarketingYear(PreviousMarketingYear));
 
@@ -46,15 +50,16 @@ namespace Domain.GamePlan
         private readonly IGameDao _gameDao;
         private readonly IGameHuntPlanDao _gameHuntPlanDao;
         private readonly IHuntedGameDao _huntedGameDao;
+        private readonly ICatchDao _catchDao;
         private readonly ILossGameDao _lossGameDao;
         private readonly IGameClassDao _gameClassDao;
         private readonly IGameCountFor10MarchDao _gameCountFor10MarchDao;
 
-        public GamePlanService() : this(new GameDao(), new GameHuntPlanDao(), new LossGameDao(), new HuntedGameDao(), new GameClassDao(), new GameCountFor10MarchDao())
+        public GamePlanService() : this(new GameDao(), new GameHuntPlanDao(), new LossGameDao(), new HuntedGameDao(), new GameClassDao(), new GameCountFor10MarchDao(), new CatchDao())
         {
         }
 
-        public GamePlanService(IGameDao gameDao, IGameHuntPlanDao gamePlanDao, ILossGameDao lossGameDao, IHuntedGameDao huntedGameDao, IGameClassDao gameClassDao, IGameCountFor10MarchDao countFor10MarchDao)
+        public GamePlanService(IGameDao gameDao, IGameHuntPlanDao gamePlanDao, ILossGameDao lossGameDao, IHuntedGameDao huntedGameDao, IGameClassDao gameClassDao, IGameCountFor10MarchDao countFor10MarchDao, ICatchDao catchDao)
         {
             _gameDao = gameDao;
             _gameHuntPlanDao = gamePlanDao;
@@ -62,6 +67,7 @@ namespace Domain.GamePlan
             _huntedGameDao = huntedGameDao;
             _gameClassDao = gameClassDao;
             _gameCountFor10MarchDao = countFor10MarchDao;
+            _catchDao = catchDao;
         }
 
         public AnnualPlanGameModel GetGameAnnualPlanModel(GameType gameType, int marketingYearId)
@@ -202,6 +208,7 @@ namespace Domain.GamePlan
                 }
 
                 model.PreviousHuntPlanExecutionCulls = HuntedGames.Count(x => gameIds.Contains(x.GameId));
+                model.PreviousHuntPlanExecutionCatches = CaughtGames.Where(x => gameIds.Contains(x.GameId)).Sum(x => x.Count);
                 model.PreviousHuntPlanExecutionLosses = LossGames.Count(x => gameIds.Contains(x.GameId));
                 model.PreviousHuntPlanExecutionSanitaryLosses = SanitaryLossGames.Count(x => gameIds.Contains(x.GameId));
 

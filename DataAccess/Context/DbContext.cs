@@ -18,12 +18,13 @@ namespace DataAccess.Context
             base.OnModelCreating(modelBuilder);
         }
         
-        public DbSet<GameClass> GameClass { get; set; }
+        public DbSet<Catch> Catch { get; set; }
         public DbSet<CostPlan> CostPlan { get; set; }
         public DbSet<EmploymentPlan> EmploymentPlan { get; set; }
         public DbSet<FieldPlan> FieldPlan { get; set; }
         public DbSet<FodderPlan> FodderPlan { get; set; }
         public DbSet<Game> Game { get; set; }
+        public DbSet<GameClass> GameClass { get; set; }
         public DbSet<GameCountFor10March> GameCountFor10March { get; set; }
         public DbSet<GameHuntPlan> GameHuntPlan { get; set; }
         public DbSet<Hunt> Hunt { get; set; }

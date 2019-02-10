@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Common.Enums;
 using Common.Extensions;
+using DataAccess.Dao.Catch;
 using DataAccess.Dao.Game;
 using DataAccess.Dao.GameClass;
 using DataAccess.Dao.GameHuntPlan;
@@ -27,6 +28,9 @@ namespace Domain.Report
         private IList<HuntedGameDto> _huntedGames;
         private IList<HuntedGameDto> HuntedGames => _huntedGames ?? (_huntedGames = _huntedGameDao.GetByDateRange(ReportDateFrom, ReportDateTo));
 
+        private IList<CatchDto> _caughtGames;
+        private IList<CatchDto> CaughtGames => _caughtGames ?? (_caughtGames = _catchDao.GetByMarketingYear(MarketingYearId));
+
         private IList<GameDto> _games;
         private IList<GameDto> Games => _games ?? (_games = _gameDao.GetAll());
         private IList<GameDto> GamesByType => Games.Where(x => x.Type == ReportGameType).ToList();
@@ -43,12 +47,19 @@ namespace Domain.Report
         private readonly IMarketingYearService _marketingYearService;
         private readonly IGameClassDao _gameClassDao;
         private readonly ILossGameDao _lossGameDao;
+        private readonly ICatchDao _catchDao;
 
-        public ReportService() : this(new GameDao(), new GameHuntPlanDao(), new HuntedGameDao(), new MarketingYearService(), new GameClassDao(), new LossGameDao())
+        public ReportService() : this(new GameDao(), new GameHuntPlanDao(), new HuntedGameDao(), new MarketingYearService(), new GameClassDao(), new LossGameDao(), new CatchDao())
         {
         }
 
-        public ReportService(IGameDao gameDao, IGameHuntPlanDao gameHuntPlanDao, IHuntedGameDao huntedGameDao, IMarketingYearService marketingYearService, IGameClassDao gameClassDao, ILossGameDao lossGameDao)
+        public ReportService(IGameDao gameDao, 
+            IGameHuntPlanDao gameHuntPlanDao, 
+            IHuntedGameDao huntedGameDao, 
+            IMarketingYearService marketingYearService, 
+            IGameClassDao gameClassDao, 
+            ILossGameDao lossGameDao, 
+            ICatchDao catchDao)
         {
             _gameDao = gameDao;
             _gameHuntPlanDao = gameHuntPlanDao;
@@ -56,6 +67,7 @@ namespace Domain.Report
             _marketingYearService = marketingYearService;
             _gameClassDao = gameClassDao;
             _lossGameDao = lossGameDao;
+            _catchDao = catchDao;
         }
 
         public MonthlyReportModel GetMonthlyReportData(DateTime startDate, DateTime endDate)
@@ -199,6 +211,7 @@ namespace Domain.Report
                 }
 
                 model.Culls = HuntedGames.Count(x => gameIds.Contains(x.GameId));
+                model.Catches = CaughtGames.Where(x => gameIds.Contains(x.GameId)).Sum(x=> x.Count);
                 model.Losses = LossGames.Count(x => gameIds.Contains(x.GameId));
             }
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Common.Enums;
 using DataAccess.Dao.CostPlan;
@@ -7,7 +6,6 @@ using DataAccess.Dao.EmploymentPlan;
 using DataAccess.Dao.FieldPlan;
 using DataAccess.Dao.FodderPlan;
 using DataAccess.Dao.HuntEquipmentPlan;
-using DataAccess.Dao.MarketingYear;
 using DataAccess.Dao.TrunkFoodPlan;
 using DataAccess.Dto;
 using Domain.AnnualPlan.Models;
