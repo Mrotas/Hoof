@@ -454,4 +454,10 @@ gospodarczym</value>
   <data name="SanitaryLoss" xml:space="preserve">
     <value>Odstrzał sanitarny w poprzednim roku gospodarczym</value>
   </data>
+  <data name="GameAnnualPlanAccomplished" xml:space="preserve">
+    <value>Wykonanie planu zostało osiągnięte</value>
+  </data>
+  <data name="GameAnnualPlanExceeded" xml:space="preserve">
+    <value>Przekroczono plan pozyskania zwierzyny</value>
+  </data>
 </root>

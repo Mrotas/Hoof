@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Web.Mvc;
 using Domain.Report;
 using Domain.Report.Models;
@@ -25,11 +24,14 @@ namespace Hoof.Controllers
             return View();
         }
 
-        public JsonResult GetMonthlyReportData(DateTime startDate, DateTime endDate)
+        public ActionResult MonthlyReport(DateTime dateFrom, DateTime dateTo)
         {
-            List<MonthlyReportModel> monthlyReportsModels = _reportService.GetMonthlyReportData(startDate, endDate);
+            MonthlyReportModel monthlyReportsModel = _reportService.GetMonthlyReportData(dateFrom, dateTo);
 
-            return Json(monthlyReportsModels, JsonRequestBehavior.AllowGet);
+            monthlyReportsModel.ReportDateFrom = dateFrom;
+            monthlyReportsModel.ReportDateTo = dateTo;
+
+            return View(monthlyReportsModel);
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Common.Enums;
+﻿using System.Collections.Generic;
 
 namespace Domain.AnnualPlan.Models.GamePlan
 {

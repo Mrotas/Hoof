@@ -1,0 +1,132 @@
+﻿@using Common.Enums
+@using Common.Extensions
+@using Domain.Report.Models
+@model MonthlyReportModel
+
+@{
+    ViewBag.Title = "Report";
+}
+
+<br />
+<h3 style="font-weight: bold; text-align: center">Informacja o pozyskaniu zwierzyny w obwodzie łowieckim nr 20</h3>
+<h4 style="font-weight: bold; text-align: center">w sezonie łow. .../... za okres od @Model.ReportDateFrom.ToString("dd.MM.yyyy") roku do @Model.ReportDateTo.ToString("dd.MM.yyyy") roku</h4>
+
+<br />
+
+<table class="table-bordered" style="text-align: center" id="monthlyReportTable">
+    <tr>
+        <th colspan="2" style="padding: 10px">Gatunek zwierzyny</th>
+        <th style="padding: 10px">Odstrzelono</th>
+        <th style="padding: 10px">Sztuki padłe i skłusowane</th>
+        <th style="padding: 10px">Razem</th>
+        <th style="padding: 10px">Plan odstrzału w roku gospodarczym</th>
+        <th style="padding: 10px">Pozostaje do pozyskania</th>
+        <th style="padding: 10px">Uwagi</th>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center; font-size: smaller">1</td>
+        <td style="text-align: center; font-size: smaller">2</td>
+        <td style="text-align: center; font-size: smaller">3</td>
+        <td style="text-align: center; font-size: smaller">4</td>
+        <td style="text-align: center; font-size: smaller">5</td>
+        <td style="text-align: center; font-size: smaller">6</td>
+        <td style="text-align: center; font-size: smaller">7</td>
+    </tr>
+    @{ var bigGameKindsWithPortraitColumn = new List<GameKind> { GameKind.Deer, GameKind.FallowDeer, GameKind.Mouflon, GameKind.Roe };}
+    @foreach (MonthlyReportKindGameModel bigKindGameModel in Model.MonthlyReportBigGameModel.MonthlyReportKindGameModels)
+    {
+        if (bigKindGameModel.Kind.IsIn(bigGameKindsWithPortraitColumn))
+        {
+            if (bigKindGameModel.Kind == (int)GameKind.Mouflon)
+            {
+                <tr>
+                    <td rowspan="@(bigKindGameModel.MonthlyReportSubKindGameModels.FirstOrDefault().MonthlyReportClassGameModels.Count + 5)" style="text-orientation: mixed">@bigKindGameModel.KindName</td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td rowspan="@(bigKindGameModel.MonthlyReportSubKindGameModels.FirstOrDefault().MonthlyReportClassGameModels.Count + 5)" style="text-orientation: mixed">@bigKindGameModel.KindName</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="2" rowspan="2">@bigKindGameModel.KindName</td>
+            </tr>
+        }
+
+        foreach (MonthlyReportSubKindGameModel bigSubKindGameModel in bigKindGameModel.MonthlyReportSubKindGameModels)
+        {
+            foreach (MonthlyReportClassGameModel bigClassGameModel in bigSubKindGameModel.MonthlyReportClassGameModels)
+            {
+                <tr>
+                    <td>@bigClassGameModel.ClassName</td>
+                    <td>@bigClassGameModel.Culls</td>
+                    <td>@bigClassGameModel.LossesWithCatches</td>
+                    <td>@bigClassGameModel.ExecutionTotal</td>
+                    <td>@bigClassGameModel.HuntPlanCulls</td>
+                    <td>@bigClassGameModel.ExecutionLeft</td>
+                    <td>@bigClassGameModel.Note</td>
+                </tr>
+            }
+
+            <tr>
+                <td>@bigSubKindGameModel.SubKindName</td>
+                <td>@bigSubKindGameModel.Culls</td>
+                <td>@bigSubKindGameModel.LossesWithCatches</td>
+                <td>@bigSubKindGameModel.ExecutionTotal</td>
+                <td>@bigSubKindGameModel.HuntPlanCulls</td>
+                <td>@bigSubKindGameModel.ExecutionLeft</td>
+                <td>@bigSubKindGameModel.Note</td>
+            </tr>
+        }
+
+        <tr>
+            @if (bigKindGameModel.Kind.IsIn(bigGameKindsWithPortraitColumn))
+            {
+                <td>ogółem:</td>
+            }
+            <td>@bigKindGameModel.Culls</td>
+            <td>@bigKindGameModel.LossesWithCatches</td>
+            <td>@bigKindGameModel.ExecutionTotal</td>
+            <td>@bigKindGameModel.HuntPlanCulls</td>
+            <td>@bigKindGameModel.ExecutionLeft</td>
+            <td>@bigKindGameModel.Note</td>
+        </tr>
+    }
+    @foreach (MonthlyReportKindGameModel smallKindGameModel in Model.MonthlyReportSmallGameModel.MonthlyReportKindGameModels)
+    {
+        <tr>
+            <td colspan="2">@smallKindGameModel.KindName</td>
+            <td>@smallKindGameModel.Culls</td>
+            <td>@smallKindGameModel.LossesWithCatches</td>
+            <td>@smallKindGameModel.ExecutionTotal</td>
+            <td>@smallKindGameModel.HuntPlanCulls</td>
+            <td>@smallKindGameModel.ExecutionLeft</td>
+            <td>@smallKindGameModel.Note</td>
+        </tr>
+    }
+    <tr>
+        <td rowspan="4" colspan="3">W obwodzie wyłożono następujące ilośći karmy:</td>
+        <td colspan="3" style="text-align: left">objętościowej suchej</td>
+        <td colspan="1"></td>
+        <td colspan="1">kg</td>
+    </tr>
+    <tr>
+        <td colspan="3" style="text-align: left">objętościowej soczystej</td>
+        <td colspan="1"></td>
+        <td colspan="1">kg</td>
+    </tr>
+    <tr>
+        <td colspan="3" style="text-align: left">treściwej</td>
+        <td colspan="1"></td>
+        <td colspan="1">kg</td>
+    </tr>
+    <tr>
+        <td colspan="3" style="text-align: left">soli</td>
+        <td colspan="1"></td>
+        <td colspan="1">kg</td>
+    </tr>
+</table>

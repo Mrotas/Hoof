@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DataAccess.Dto;
 
@@ -24,6 +25,20 @@ namespace DataAccess.Dao.HuntedGame
             {
                 Entities.MarketingYear marketingYear = DbContext.MarketingYear.Find(marketingYearId);
                 List<int?> huntedGameIds = DbContext.Hunt.Where(x => x.Date >= marketingYear.Start && x.Date <= marketingYear.End && x.HuntedGameId != null).Select(x => x.HuntedGameId).ToList();
+
+                List<Entities.HuntedGame> huntedGames = DbContext.HuntedGame.Where(x => huntedGameIds.Contains(x.Id)).ToList();
+
+                IList<HuntedGameDto> dtos = ToDtos(huntedGames);
+
+                return dtos;
+            }
+        }
+
+        public IList<HuntedGameDto> GetByDateRange(DateTime dateFrom, DateTime dateTo)
+        {
+            using (DbContext)
+            {
+                List<int?> huntedGameIds = DbContext.Hunt.Where(x => x.Date >= dateFrom && x.Date <= dateTo && x.HuntedGameId != null).Select(x => x.HuntedGameId).ToList();
 
                 List<Entities.HuntedGame> huntedGames = DbContext.HuntedGame.Where(x => huntedGameIds.Contains(x.Id)).ToList();
 

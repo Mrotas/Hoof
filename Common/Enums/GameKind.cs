@@ -70,13 +70,16 @@ namespace Common.Enums
         [Description("Gęś")]
         Goose = 22,
 
+        [Description("Kaczka")]
+        Duck = 23,
+
         [Description("Gołąb grzywacz")]
-        Dove = 23,
+        Dove = 24,
 
         [Description("Słonka")]
-        Woodcock = 24,
+        Woodcock = 25,
 
         [Description("Łyska")]
-        Coot = 25
+        Coot = 26
     }
 }

@@ -1,5 +1,4 @@
 ﻿@using Common
-@using Domain.AnnualPlan.Models
 @using Domain.AnnualPlan.Models.GamePlan
 @model Domain.AnnualPlan.ViewModels.AnnualPlanViewModel
 
@@ -61,12 +60,12 @@
 <h3 style="font-weight: bold">II. Zagospodarowanie obwodu łowieckiego, szkody łowieckie</h3>
 <table class="table-bordered annualPlanTable" id="annualPlanTable">
     <tr>
-        <th>@AnnualPlan.Specification</th>
-        <th class="unit">@AnnualPlan.Unit</th>
-        <th class="long-header">@String.Format(AnnualPlan.PreviousEconomyPlan, Model.PreviousMarketingYearModel)</th>
-        <th class="long-header">@String.Format(AnnualPlan.PreviousPlanExecution, Model.PreviousMarketingYearModel)</th>
-        <th class="long-header">@String.Format(AnnualPlan.March10Condition, Model.CurrentMarketingYearModel.Start.Year)</th>
-        <th class="long-header">@String.Format(AnnualPlan.CurrentYearPlan, Model.CurrentMarketingYearModel)</th>
+        <th>@Text.Specification</th>
+        <th class="unit">@Text.Unit</th>
+        <th class="long-header">@String.Format(Text.PreviousEconomyPlan, Model.PreviousMarketingYearModel)</th>
+        <th class="long-header">@String.Format(Text.PreviousPlanExecution, Model.PreviousMarketingYearModel)</th>
+        <th class="long-header">@String.Format(Text.March10Condition, Model.CurrentMarketingYearModel.Start.Year)</th>
+        <th class="long-header">@String.Format(Text.CurrentYearPlan, Model.CurrentMarketingYearModel)</th>
     </tr>
     <tr>
         <td class="column_number" style="text-align: center">1</td>
@@ -77,23 +76,23 @@
         <td class="column_number">6</td>
     </tr>
     <tr>
-        <td class="paragraph">1. @AnnualPlan.ContractEmployees</td>
-        <td>@AnnualPlan.UnitPersonPartTime</td>
+        <td class="paragraph">1. @Text.ContractEmployees</td>
+        <td>@Text.UnitPersonPartTime</td>
         <td>@Model.PreviousAnnualPlanModel.EmployeePlanModel.FullTimeEmployees</td>
         <td></td>
         <td></td>
         <td>@Model.CurrentAnnualPlanModel.EmployeePlanModel.FullTimeEmployees</td>
     </tr>
     <tr>
-        <td class="paragraph">2. @AnnualPlan.NonContractEmployees</td>
-        <td>@AnnualPlan.UnitPerson</td>
+        <td class="paragraph">2. @Text.NonContractEmployees</td>
+        <td>@Text.UnitPerson</td>
         <td>@Model.PreviousAnnualPlanModel.EmployeePlanModel.PartTimeEmployees</td>
         <td></td>
         <td></td>
         <td>@Model.CurrentAnnualPlanModel.EmployeePlanModel.PartTimeEmployees</td>
     </tr>
     <tr>
-        <td class="paragraph">3. @AnnualPlan.HuntingEquipment</td>
+        <td class="paragraph">3. @Text.HuntingEquipment</td>
         <td></td>
         <td></td>
         <td></td>
@@ -101,79 +100,79 @@
         <td></td>
     </tr>
     <tr>
-        <td>a) @AnnualPlan.Pastures</td>
-        <td>@AnnualPlan.UnitPiece</td>
+        <td>a) @Text.Pastures</td>
+        <td>@Text.UnitPiece</td>
         <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModel.Pastures</td>
         <td></td>
         <td></td>
         <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModel.Pastures</td>
     </tr>
     <tr>
-        <td>b) @AnnualPlan.DeerLickers</td>
-        <td>@AnnualPlan.UnitPiece</td>
+        <td>b) @Text.DeerLickers</td>
+        <td>@Text.UnitPiece</td>
         <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModel.DeerLickers</td>
         <td></td>
         <td></td>
         <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModel.DeerLickers</td>
     </tr>
     <tr>
-        <td>c) @AnnualPlan.Pulpits</td>
-        <td>@AnnualPlan.UnitPiece</td>
+        <td>c) @Text.Pulpits</td>
+        <td>@Text.UnitPiece</td>
         <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModel.Pulpits</td>
         <td></td>
         <td></td>
         <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModel.Pulpits</td>
     </tr>
     <tr>
-        <td>d) @AnnualPlan.Aviaries</td>
-        <td>@AnnualPlan.UnitPiece</td>
+        <td>d) @Text.Aviaries</td>
+        <td>@Text.UnitPiece</td>
         <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModel.Aviaries</td>
         <td></td>
         <td></td>
         <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModel.Aviaries</td>
     </tr>
     <tr>
-        <td>e) @AnnualPlan.Farms</td>
-        <td>@AnnualPlan.UnitPiece</td>
+        <td>e) @Text.Farms</td>
+        <td>@Text.UnitPiece</td>
         <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModel.Farms</td>
         <td></td>
         <td></td>
         <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModel.Farms</td>
     </tr>
     <tr>
-        <td>f) @AnnualPlan.WateringPlaces</td>
-        <td>@AnnualPlan.UnitPiece</td>
+        <td>f) @Text.WateringPlaces</td>
+        <td>@Text.UnitPiece</td>
         <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModel.WateringPlaces</td>
         <td></td>
         <td></td>
         <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModel.WateringPlaces</td>
     </tr>
     <tr>
-        <td class="paragraph">4. @AnnualPlan.TrunkFood</td>
-        <td>@AnnualPlan.UnitHectare</td>
+        <td class="paragraph">4. @Text.TrunkFood</td>
+        <td>@Text.UnitHectare</td>
         <td>@Model.PreviousAnnualPlanModel.TrunkFoodPlanModel.Hectare</td>
         <td></td>
         <td></td>
         <td>@Model.CurrentAnnualPlanModel.TrunkFoodPlanModel.Hectare</td>
     </tr>
     <tr>
-        <td class="paragraph">5. @AnnualPlan.Barriers</td>
-        <td>@AnnualPlan.UnitKilometers</td>
+        <td class="paragraph">5. @Text.Barriers</td>
+        <td>@Text.UnitKilometers</td>
         <td>@Model.PreviousAnnualPlanModel.BarrierPlanModel.Count</td>
         <td></td>
         <td></td>
         <td>@Model.CurrentAnnualPlanModel.BarrierPlanModel.Count</td>
     </tr>
     <tr>
-        <td class="paragraph">6. @AnnualPlan.Fields</td>
-        <td>@AnnualPlan.UnitHectare</td>
+        <td class="paragraph">6. @Text.Fields</td>
+        <td>@Text.UnitHectare</td>
         <td>@Model.PreviousAnnualPlanModel.FieldPlanModel.Hectare</td>
         <td></td>
         <td></td>
         <td>@Model.CurrentAnnualPlanModel.FieldPlanModel.Hectare</td>
     </tr>
     <tr>
-        <td class="paragraph">7. @AnnualPlan.FoodAndSalt</td>
+        <td class="paragraph">7. @Text.FoodAndSalt</td>
         <td></td>
         <td></td>
         <td></td>
@@ -181,40 +180,40 @@
         <td></td>
     </tr>
     <tr>
-        <td>a) @AnnualPlan.Dry</td>
-        <td>@AnnualPlan.UnitTon</td>
+        <td>a) @Text.Dry</td>
+        <td>@Text.UnitTon</td>
         <td>@Model.PreviousAnnualPlanModel.FodderPlanModel.Dry</td>
         <td></td>
         <td></td>
         <td>@Model.CurrentAnnualPlanModel.FodderPlanModel.Dry</td>
     </tr>
     <tr>
-        <td>b) @AnnualPlan.Juicy</td>
-        <td>@AnnualPlan.UnitTon</td>
+        <td>b) @Text.Juicy</td>
+        <td>@Text.UnitTon</td>
         <td>@Model.PreviousAnnualPlanModel.FodderPlanModel.Juicy</td>
         <td></td>
         <td></td>
         <td>@Model.CurrentAnnualPlanModel.FodderPlanModel.Juicy</td>
     </tr>
     <tr>
-        <td>c) @AnnualPlan.Pithy</td>
-        <td>@AnnualPlan.UnitTon</td>
+        <td>c) @Text.Pithy</td>
+        <td>@Text.UnitTon</td>
         <td>@Model.PreviousAnnualPlanModel.FodderPlanModel.Pithy</td>
         <td></td>
         <td></td>
         <td>@Model.CurrentAnnualPlanModel.FodderPlanModel.Pithy</td>
     </tr>
     <tr>
-        <td>d) @AnnualPlan.Salt</td>
-        <td>@AnnualPlan.UnitTon</td>
+        <td>d) @Text.Salt</td>
+        <td>@Text.UnitTon</td>
         <td>@Model.PreviousAnnualPlanModel.FodderPlanModel.Salt</td>
         <td></td>
         <td></td>
         <td>@Model.CurrentAnnualPlanModel.FodderPlanModel.Salt</td>
     </tr>
     <tr>
-        <td class="paragraph">8. @AnnualPlan.DamagedArea</td>
-        <td>@AnnualPlan.UnitHectare</td>
+        <td class="paragraph">8. @Text.DamagedArea</td>
+        <td>@Text.UnitHectare</td>
         <td>@Model.PreviousAnnualPlanModel.DamagedFieldPlanModel.Hectare</td>
         <td></td>
         <td></td>
@@ -235,24 +234,24 @@
         <td class="column_number">6</td>
     </tr>
     <tr>
-        <td class="paragraph">1. @AnnualPlan.Costs</td>
-        <td>@AnnualPlan.UnitThousandZlotych</td>
+        <td class="paragraph">1. @Text.Costs</td>
+        <td>@Text.UnitThousandZlotych</td>
         <td>@Model.PreviousAnnualPlanModel.CostPlanModel.Cost</td>
         <td></td>
         <td></td>
         <td>@Model.CurrentAnnualPlanModel.CostPlanModel.Cost</td>
     </tr>
     <tr>
-        <td>@AnnualPlan.Compensation</td>
-        <td>@AnnualPlan.UnitThousandZlotych</td>
+        <td>@Text.Compensation</td>
+        <td>@Text.UnitThousandZlotych</td>
         <td></td>
         <td></td>
         <td></td>
         <td></td>
     </tr>
     <tr>
-        <td class="paragraph">2. @AnnualPlan.CarcassesRevenues</td>
-        <td>@AnnualPlan.UnitThousandZlotych</td>
+        <td class="paragraph">2. @Text.CarcassesRevenues</td>
+        <td>@Text.UnitThousandZlotych</td>
         <td>@Model.PreviousAnnualPlanModel.CostPlanModel.Revenue</td>
         <td></td>
         <td></td>
@@ -267,16 +266,16 @@
 <h4 style="font-weight: bold">a) zwierzyna gruba</h4>
 <table class="table-bordered annualPlanTable" style="text-align: center" id="bigGameTable">
     <tr>
-        <th class="short-header" rowspan="4">@AnnualPlan.GameTypes</th>
-        <th colspan="2">@String.Format(AnnualPlan.PreviousYearGainPlan, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
-        <th colspan="4">@String.Format(AnnualPlan.PreviousYearExecution, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
-        <th>@AnnualPlan.SanitaryLoss</th>
-        <th>@AnnualPlan.GamesColonized10March</th>
-        <th>@String.Format(AnnualPlan.EstimatedNumberGamesColonized10March, DateTime.Now.Year - 1)</th>
-        <th>@String.Format(AnnualPlan.GamesColonizedPlan, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
-        <th>@AnnualPlan.BigGamePlanBeforeHuntSeason</th>
-        <th colspan="2">@String.Format(AnnualPlan.GamesGainPlan, DateTime.Now.Year, DateTime.Now.Year + 1)</th>
-        <th colspan="4">@String.Format(AnnualPlan.MinMaxGameGainPlan, DateTime.Now.Year, DateTime.Now.Year + 1)</th>
+        <th class="short-header" rowspan="4">@Text.GameTypes</th>
+        <th colspan="2">@String.Format(Text.PreviousYearGainPlan, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
+        <th colspan="4">@String.Format(Text.PreviousYearExecution, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
+        <th>@Text.SanitaryLoss</th>
+        <th>@Text.GamesColonized10March</th>
+        <th>@String.Format(Text.EstimatedNumberGamesColonized10March, DateTime.Now.Year - 1)</th>
+        <th>@String.Format(Text.GamesColonizedPlan, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
+        <th>@Text.BigGamePlanBeforeHuntSeason</th>
+        <th colspan="2">@String.Format(Text.GamesGainPlan, DateTime.Now.Year, DateTime.Now.Year + 1)</th>
+        <th colspan="4">@String.Format(Text.MinMaxGameGainPlan, DateTime.Now.Year, DateTime.Now.Year + 1)</th>
     </tr>
     <tr>
         <td class="game-unit" style="text-align: center" rowspan="3">odstrzał szt.</td>
@@ -297,10 +296,10 @@
         <td class="game-unit" rowspan="2">odstrzał</td>
         <td class="game-unit" rowspan="2">odłów</td>
         <td class="game-unit" colspan="2">ubytki</td>
-        <td class="game-unit" rowspan="2">@AnnualPlan.Min</td>
-        <td class="game-unit" rowspan="2">@AnnualPlan.Max</td>
-        <td class="game-unit" rowspan="2">@AnnualPlan.Min</td>
-        <td class="game-unit" rowspan="2">@AnnualPlan.Max</td>
+        <td class="game-unit" rowspan="2">@Text.Min</td>
+        <td class="game-unit" rowspan="2">@Text.Max</td>
+        <td class="game-unit" rowspan="2">@Text.Min</td>
+        <td class="game-unit" rowspan="2">@Text.Max</td>
     </tr>
     <tr>
         <td class="game-unit">ogółem</td>
@@ -405,14 +404,14 @@
 <h4 style="font-weight: bold">b) zwierzyna drobna.</h4>
 <table class="table-bordered annualPlanTable" style="text-align: center" id="smallGameTable">
     <tr>
-        <th class="medium-header" rowspan="3">@AnnualPlan.GameTypes</th>
-        <th colspan="2">@String.Format(AnnualPlan.PreviousYearGainPlan, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
-        <th colspan="2">@String.Format(AnnualPlan.PreviousYearExecution, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
-        <th>@AnnualPlan.GamesColonized10March</th>
-        <th>@String.Format(AnnualPlan.EstimatedNumberGamesColonized10March, DateTime.Now.Year - 1)</th>
-        <th>@String.Format(AnnualPlan.GamesColonizedPlan, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
-        <th colspan="2">@String.Format(AnnualPlan.GamesGainPlan, DateTime.Now.Year, DateTime.Now.Year + 1)</th>
-        <th colspan="4">@String.Format(AnnualPlan.MinMaxGameGainPlan, DateTime.Now.Year, DateTime.Now.Year + 1)</th>
+        <th class="medium-header" rowspan="3">@Text.GameTypes</th>
+        <th colspan="2">@String.Format(Text.PreviousYearGainPlan, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
+        <th colspan="2">@String.Format(Text.PreviousYearExecution, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
+        <th>@Text.GamesColonized10March</th>
+        <th>@String.Format(Text.EstimatedNumberGamesColonized10March, DateTime.Now.Year - 1)</th>
+        <th>@String.Format(Text.GamesColonizedPlan, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
+        <th colspan="2">@String.Format(Text.GamesGainPlan, DateTime.Now.Year, DateTime.Now.Year + 1)</th>
+        <th colspan="4">@String.Format(Text.MinMaxGameGainPlan, DateTime.Now.Year, DateTime.Now.Year + 1)</th>
     </tr>
     <tr>
         <td style="text-align: center" rowspan="2">odstrzał szt.</td>
@@ -428,10 +427,10 @@
         <td colspan="2">odłów szt.</td>
     </tr>
     <tr>
-        <td>@AnnualPlan.Min</td>
-        <td>@AnnualPlan.Max</td>
-        <td>@AnnualPlan.Min</td>
-        <td>@AnnualPlan.Max</td>
+        <td>@Text.Min</td>
+        <td>@Text.Max</td>
+        <td>@Text.Min</td>
+        <td>@Text.Max</td>
     </tr>
     <tr>
         <td class="column_number" style="text-align: center">1</td>

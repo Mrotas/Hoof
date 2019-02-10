@@ -69,7 +69,7 @@ namespace Domain.GamePlan
             MarketingYearId = marketingYearId;
             GameType = (int) gameType;
             
-            var gamesByKind = GamesByType.Where(x => x.Type == (int) gameType).GroupBy(x => x.Kind);
+            var gamesByKind = GamesByType.GroupBy(x => x.Kind);
 
             var annualPlanKindGameModels = new List<AnnualPlanKindGameModel>();
             foreach (var gameByKind in gamesByKind)
@@ -91,15 +91,15 @@ namespace Domain.GamePlan
             return gameAnnualPlanModel;
         }
 
-        private AnnualPlanKindGameModel GetKindAnnualPlanModel(IGrouping<int, GameDto> currentHuntPlanForKind)
+        private AnnualPlanKindGameModel GetKindAnnualPlanModel(IGrouping<int, GameDto> gameByKind)
         {
             var annualPlanSubKindGameModels = new List<AnnualPlanSubKindGameModel>();
 
-            foreach (var currentHuntPlanForSubKind in currentHuntPlanForKind.GroupBy(x => x.SubKind))
+            foreach (var gameBySubKind in gameByKind.GroupBy(x => x.SubKind))
             {
-                if (currentHuntPlanForSubKind.Key.HasValue)
+                if (gameBySubKind.Key.HasValue)
                 {
-                    AnnualPlanSubKindGameModel subKindGameModel = GetSubKindAnnualPlanModel(currentHuntPlanForKind.Key, currentHuntPlanForSubKind);
+                    AnnualPlanSubKindGameModel subKindGameModel = GetSubKindAnnualPlanModel(gameByKind.Key, gameBySubKind);
 
                     annualPlanSubKindGameModels.Add(subKindGameModel);
                 }
@@ -107,29 +107,29 @@ namespace Domain.GamePlan
 
             var annualPlanKindGameModel = new AnnualPlanKindGameModel
             {
-                Kind = currentHuntPlanForKind.Key,
-                KindName = GamesByType.FirstOrDefault(x => x.Kind == currentHuntPlanForKind.Key).KindName,
+                Kind = gameByKind.Key,
+                KindName = GamesByType.FirstOrDefault(x => x.Kind == gameByKind.Key).KindName,
                 Type = (GameType) GameType,
                 AnnualPlanSubKindGameModels = annualPlanSubKindGameModels
             };
 
-            List<int> gameIds = GamesByType.Where(x => x.Kind == currentHuntPlanForKind.Key).Select(x => x.Id).ToList();
+            List<int> gameIds = GamesByType.Where(x => x.Kind == gameByKind.Key).Select(x => x.Id).ToList();
 
             annualPlanKindGameModel = SetPlans(annualPlanKindGameModel, gameIds);
             
             return annualPlanKindGameModel;
         }
 
-        private AnnualPlanSubKindGameModel GetSubKindAnnualPlanModel(int? gameKind, IGrouping<int?, GameDto> currentHuntPlanForSubKind)
+        private AnnualPlanSubKindGameModel GetSubKindAnnualPlanModel(int? gameKind, IGrouping<int?, GameDto> gameBySubKind)
         {
-            if (!currentHuntPlanForSubKind.Key.HasValue)
+            if (!gameBySubKind.Key.HasValue)
             {
                 return new AnnualPlanSubKindGameModel();
             }
 
             List<GameHuntPlanDto> classHuntPlans = (from game in Games
                                                     join currentHuntPlan in CurrentHuntPlans on game.Id equals currentHuntPlan.GameId
-                                                    where game.Kind == gameKind && game.SubKind == currentHuntPlanForSubKind.Key && currentHuntPlan.Class != null
+                                                    where game.Kind == gameKind && game.SubKind == gameBySubKind.Key && currentHuntPlan.Class != null
                                                     select currentHuntPlan).ToList();
 
             var annualPlanClassGameModels = new List<AnnualPlanClassGameModel>();
@@ -143,27 +143,27 @@ namespace Domain.GamePlan
             var annualPlanKindGameModel = new AnnualPlanSubKindGameModel
             {
                 Type = (GameType) GameType,
-                SubKind = currentHuntPlanForSubKind.Key,
-                SubKindName = GamesByType.FirstOrDefault(x => x.Kind == gameKind && x.SubKind == currentHuntPlanForSubKind.Key).SubKindName,
+                SubKind = gameBySubKind.Key,
+                SubKindName = GamesByType.FirstOrDefault(x => x.Kind == gameKind && x.SubKind == gameBySubKind.Key).SubKindName,
                 AnnualPlanClassGameModels = annualPlanClassGameModels
             };
 
-            int gameId = GamesByType.FirstOrDefault(x => x.Kind == gameKind && x.SubKind == currentHuntPlanForSubKind.Key).Id;
+            int gameId = GamesByType.FirstOrDefault(x => x.Kind == gameKind && x.SubKind == gameBySubKind.Key).Id;
 
             annualPlanKindGameModel = SetPlans(annualPlanKindGameModel, new List<int> {gameId});
             
             return annualPlanKindGameModel;
         }
 
-        private AnnualPlanClassGameModel GetClassAnnualPlanModel(GameHuntPlanDto gameHuntPlanDto)
+        private AnnualPlanClassGameModel GetClassAnnualPlanModel(GameHuntPlanDto classHuntPlanDto)
         {
             var annualPlanClassGameModel = new AnnualPlanClassGameModel
             {
-                Class = gameHuntPlanDto.Class,
-                ClassName = GameClassXRefs.FirstOrDefault(x => x.Id == gameHuntPlanDto.Class).ClassName
+                Class = classHuntPlanDto.Class,
+                ClassName = GameClassXRefs.FirstOrDefault(x => x.Id == classHuntPlanDto.Class).ClassName
             };
 
-            annualPlanClassGameModel = SetPlans(annualPlanClassGameModel, new List<int>{gameHuntPlanDto.GameId}, gameHuntPlanDto.Class);
+            annualPlanClassGameModel = SetPlans(annualPlanClassGameModel, new List<int>{classHuntPlanDto.GameId}, classHuntPlanDto.Class);
             
             return annualPlanClassGameModel;
         }

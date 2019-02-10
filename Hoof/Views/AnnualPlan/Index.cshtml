@@ -11,11 +11,10 @@
 
     <script type="text/javascript">
 
-        $('#generateButton').on('click',
-            function() {
-                var marketingYearId = $('#marketingYear :selected').val();
-                window.location.href = "AnnualPlan/Plan?marketingYearId=" + marketingYearId;
-            })
+        $('#generateButton').on('click',function () {
+            var marketingYearId = $('#marketingYear :selected').val();
+            window.location.href = "AnnualPlan/Plan?marketingYearId=" + marketingYearId;
+        });
 
     </script>
 }

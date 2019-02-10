@@ -22,14 +22,14 @@ namespace Common {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class AnnualPlan {
+    public class Text {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AnnualPlan() {
+        internal Text() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Common {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Common.Resources.AnnualPlan", typeof(AnnualPlan).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Common.Resources.Text", typeof(Text).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -390,6 +390,24 @@ namespace Common {
         public static string Foxes {
             get {
                 return ResourceManager.GetString("Foxes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wykonanie planu zostało osiągnięte.
+        /// </summary>
+        public static string GameAnnualPlanAccomplished {
+            get {
+                return ResourceManager.GetString("GameAnnualPlanAccomplished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Przekroczono plan pozyskania zwierzyny.
+        /// </summary>
+        public static string GameAnnualPlanExceeded {
+            get {
+                return ResourceManager.GetString("GameAnnualPlanExceeded", resourceCulture);
             }
         }
         

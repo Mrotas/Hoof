@@ -217,6 +217,7 @@
     <Content Include="Views\Loss\Index.cshtml" />
     <Content Include="Views\Caught\Index.cshtml" />
     <Content Include="Views\Caught\MyCaughts.cshtml" />
+    <Content Include="Views\Report\MonthlyReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DataAccess.Dto;
 
 namespace DataAccess.Dao.HuntedGame
@@ -8,5 +9,6 @@ namespace DataAccess.Dao.HuntedGame
         IList<HuntedGameDto> GetAll();
         int Insert(HuntedGameDto huntedGameDto);
         IList<HuntedGameDto> GetByMarketingYear(int marketingYearId);
+        IList<HuntedGameDto> GetByDateRange(DateTime dateFrom, DateTime dateTo);
     }
 }
