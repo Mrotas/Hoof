@@ -9,7 +9,6 @@ using NUnit.Framework;
 namespace DataAccess.Test.Dao
 {
     [TestFixture]
-    [Explicit("Integration tests")]
     public class HuntDaoTest
     {
         private IHuntDao _huntDao;
@@ -21,16 +20,36 @@ namespace DataAccess.Test.Dao
         }
 
         [Test]
-        [Explicit("This test will impact on real Data")]
-        public void GetData()
+        public void GetAllTest()
         {
-            IList<HuntDto> result = _huntDao.GetAll();
+            IList<HuntDto> results = _huntDao.GetAll();
 
-            Assert.That(result, Is.Not.Empty);
+            Assert.That(results, Is.Not.Empty);
         }
 
         [Test]
-        [Explicit("This test will impact on real Data")]
+        public void GetByMarketingYearTest()
+        {
+            int marketingYearId = 2;
+
+            IList<HuntDto> results = _huntDao.GetByMarketingYear(marketingYearId);
+
+            Assert.That(results, Is.Not.Empty);
+        }
+
+        [Test]
+        public void GetHuntsByDateRangeTest()
+        {
+            DateTime from = DateTime.Now.AddYears(-2);
+            DateTime to = DateTime.Now;
+
+            IList<HuntDto> results = _huntDao.GetHuntsByDateRange(from, to);
+
+            Assert.That(results, Is.Not.Empty);
+        }
+
+        [Test]
+        [Explicit("Integration test")]
         public void InsertData()
         {
             var hunt = new Hunt

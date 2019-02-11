@@ -61,8 +61,6 @@
     <Compile Include="Dao\GameDaoTest.cs" />
     <Compile Include="Dao\HuntDaoTest.cs" />
     <Compile Include="Dao\RegionDaoTest.cs" />
-    <Compile Include="Entities\GameHuntPlanTest.cs" />
-    <Compile Include="Entities\HuntsmanTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +68,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{AF007440-FFDE-42AC-A678-E0B7F2503B07}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Project>{170D4773-4FEF-4337-94AF-2B8A383343A9}</Project>
       <Name>DataAccess</Name>

@@ -15,9 +15,13 @@ namespace DataAccess.Test.Dao
         }
 
         [Test]
-        public void GetTest()
+        public void GetRegionIdTest()
         {
-            int id = _regionDao.GetRegionId("Płytnica", 20, 10);
+            string city = "Płytnica";
+            int circuit = 20;
+            int district = 10;
+
+            int id = _regionDao.GetRegionId(city, circuit, district);
             
 			Assert.That(id, Is.EqualTo(10));
         }
