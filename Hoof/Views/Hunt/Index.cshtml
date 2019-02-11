@@ -6,13 +6,10 @@
 
 <h2>Polowania</h2>
 
-<table class="table">
+<table class="table table-bordered table-hover">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.HuntsmanName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HuntsmanLastName)
+            @Html.DisplayNameFor(model => model.Huntsman)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.City)
@@ -33,24 +30,20 @@
             @Html.DisplayNameFor(model => model.GameClass)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GameWeight)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Shots)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Date)
         </th>
-        <th></th>
+        <th>
+            Zarządzaj
+        </th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.HuntsmanName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HuntsmanLastName)
+            @Html.DisplayFor(modelItem => item.Huntsman)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.City)
@@ -68,9 +61,6 @@
             @Html.DisplayFor(modelItem => item.GameSubKindName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.GameWeight)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.GameClass)
         </td>
         <td>
@@ -79,11 +69,11 @@
         <td>
             @Html.DisplayFor(modelItem => item.Date)
         </td>
-        @*<td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>*@
+        <td>
+            @Html.ActionLink("Edytuj", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Szczegóły", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Usuń", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
     </tr>
 }
 

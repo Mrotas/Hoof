@@ -10,11 +10,10 @@
     Zgłoś ubytek
 </button>
 
-<table class="table">
+<br/>
+
+<table class="table table-bordered table-hover">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TypeName)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.KindName)
         </th>
@@ -39,15 +38,14 @@
         <th>
             @Html.DisplayNameFor(model => model.Date)
         </th>
-        <th></th>
+        <th>
+            Zarządzaj
+        </th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TypeName)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.KindName)
             </td>
@@ -73,9 +71,9 @@
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edytuj", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Szczegóły", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Usuń", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
     }

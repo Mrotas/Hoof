@@ -11,6 +11,9 @@ namespace Domain.Hunt.ViewModels
         [Display(Name = "Nazwisko")]
         public string HuntsmanLastName { get; set; }
 
+        [Display(Name = "Myśliwy")]
+        public string Huntsman => $"{HuntsmanName} {HuntsmanLastName}";
+
         [Display(Name = "Data")]
         public DateTime Date { get; set; }
 

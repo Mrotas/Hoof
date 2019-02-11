@@ -7,7 +7,7 @@
         $(document).ready(function () {
             $("#dateTo").datepicker($.datepicker.regional["pl"]);
         });
-        
+
         $('#showReport').on('click', function () {
             var dateTo = $('#dateTo').val();
             window.location.href = "Report/MonthlyReport?dateFrom=04/01/2018" + "&dateTo=" + dateTo;
@@ -18,4 +18,9 @@
 
 <br />
 
-<p>Pobierz meldunek za okres od 01/04/@(DateTime.Today.Year - 1) do <input id="dateTo" value="@DateTime.Today.ToString("dd/MM/yyyy")"> <button class="btn btn-default" id="showReport">Pokaż</button></p>
+<div style="text-align: center">
+    <p>Pobierz meldunek za okres od 01/04/@(DateTime.Today.Year - 1) do 
+        <input id="dateTo" value="@DateTime.Today.ToString("dd/MM/yyyy")"> 
+        <button class="btn btn-default" id="showReport">Pokaż</button>
+    </p>
+</div>

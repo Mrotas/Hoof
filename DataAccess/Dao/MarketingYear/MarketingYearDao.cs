@@ -19,6 +19,16 @@ namespace DataAccess.Dao.MarketingYear
             }
         }
 
+        public Entities.MarketingYear GetById(int marketingYearId)
+        {
+            using (DbContext)
+            {
+                Entities.MarketingYear marketingYear = DbContext.MarketingYear.Find(marketingYearId);
+
+                return marketingYear;
+            }
+        }
+
         public int GetMarketingYearId(DateTime marketingYearStart, DateTime marketingYearEnd)
         {
             using (DbContext)
@@ -28,6 +38,7 @@ namespace DataAccess.Dao.MarketingYear
                 return marketingYear.Id;
             }
         }
+
         private IList<MarketingYearDto> ToDtos(IList<Entities.MarketingYear> entityList)
         {
             var dtos = new List<MarketingYearDto>();

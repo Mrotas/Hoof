@@ -3,6 +3,8 @@
     ViewBag.Title = "Index";
 }
 
+<h2>Plan pozyskania zwierzyny łownej</h2>
+
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
@@ -11,9 +13,9 @@
 
     <script type="text/javascript">
 
-        $('#generateButton').on('click', function () {
+        $('#generateButton').on('click',function () {
             var marketingYearId = $('#marketingYear :selected').val();
-            window.location.href = "AnnualPlan/Plan?marketingYearId=" + marketingYearId;
+            window.location.href = "GameHuntPlan/Plan?marketingYearId=" + marketingYearId;
         });
 
     </script>
@@ -26,7 +28,8 @@
     <select id="marketingYear">
         <option value="3">2018/04/01 - 2019/03/31</option>
         <option value="2">2017/04/01 - 2018/03/31</option>
+        <option value="1">2016/04/01 - 2017/03/31</option>
     </select>
 
-    <button class="btn btn-primary" id="generateButton">Generuj</button>
+    <button class="btn btn-primary" id="generateButton">Pokaż</button>
 </div>

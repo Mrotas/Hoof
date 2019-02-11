@@ -1,0 +1,66 @@
+﻿@model Domain.GameHuntPlan.ViewModels.HuntPlanViewModel
+
+@{
+    ViewBag.Title = "Plan";
+}
+
+<br />
+
+<h4 style="text-align: center">Plan pozyskania zwierzyny łownej na rok gospodarczy @Model.MarketingYear</h4>
+
+<br />
+
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>
+            Lp.
+        </th>
+        <th>
+            Zwierzyna
+        </th>
+        <th>
+            Rodzaj
+        </th>
+        <th>
+            Klasa
+        </th>
+        <th>
+            Odstrzał
+        </th>
+        <th>
+            Odłów
+        </th>
+        <th>
+            Zarządzaj
+        </th>
+    </tr>
+
+    @foreach (var item in Model.GameHuntPlanViewModels)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GameKindName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GameSubKindName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GameClassName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cull)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Catch)
+            </td>
+            <td>
+                @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

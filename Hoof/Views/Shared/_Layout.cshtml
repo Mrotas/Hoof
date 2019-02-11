@@ -20,18 +20,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            Roczny plan
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink("Dokument", "Index", "AnnualPlan")</li>
-                            <li>@Html.ActionLink("Gospodarka łowiecka", "Index", "AnnualPlan")</li>
-                            <li>@Html.ActionLink("Przychody/Koszty", "Index", "AnnualPlan")</li>
-                            <li>@Html.ActionLink("Pozyskanie zwierzyny", "Index", "AnnualPlan")</li>
-                        </ul>
-                    </li>
+                    <li>@Html.ActionLink("Roczny plan", "Index", "AnnualPlan")</li>
                     <li>@Html.ActionLink("Meldunek", "Index", "Report")</li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -54,6 +43,31 @@
                         </ul>
                     </li>
                     <li>@Html.ActionLink("Ubytki", "Index", "Loss")</li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Gospodarka
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Koszty", "Index", "AnnualPlan")</li>
+                            <li>@Html.ActionLink("Urządzenia łowieckie", "Index", "AnnualPlan")</li>
+                            <li>@Html.ActionLink("Karma", "Index", "AnnualPlan")</li>
+                            <li>@Html.ActionLink("Obwód", "Index", "AnnualPlan")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Plan
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Pozyskanie zwierzyny", "Index", "GameHuntPlan")</li>
+                            <li>@Html.ActionLink("Urządzenia łowieckie", "Index", "AnnualPlan")</li>
+                            <li>@Html.ActionLink("Koszty", "Index", "AnnualPlan")</li>
+                            <li>@Html.ActionLink("Karma", "Index", "AnnualPlan")</li>
+                            <li>@Html.ActionLink("Obwód", "Index", "AnnualPlan")</li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
