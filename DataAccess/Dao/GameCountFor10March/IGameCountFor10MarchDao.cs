@@ -5,6 +5,6 @@ namespace DataAccess.Dao.GameCountFor10March
 {
     public interface IGameCountFor10MarchDao
     {
-        IList<GameCountFor10MarchDto> GameCountBefore10MarchPlan(int marketingYearId);
+        IList<GameCountFor10MarchDto> GetByMarketingYear(int marketingYearId);
     }
 }

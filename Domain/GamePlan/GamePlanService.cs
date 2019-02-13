@@ -45,7 +45,7 @@ namespace Domain.GamePlan
         private IList<GameClassDto> GameClassXRefs => _gameClassXRefs ?? (_gameClassXRefs = _gameClassDao.GetAll());
 
         private IList<GameCountFor10MarchDto> _gameCountsCountFor10March;
-        private IList<GameCountFor10MarchDto> GameCountsGameCountFor10March => _gameCountsCountFor10March ?? (_gameCountsCountFor10March = _gameCountFor10MarchDao.GameCountBefore10MarchPlan(PreviousMarketingYear));
+        private IList<GameCountFor10MarchDto> GameCountsGameCountFor10March => _gameCountsCountFor10March ?? (_gameCountsCountFor10March = _gameCountFor10MarchDao.GetByMarketingYear(PreviousMarketingYear));
 
         private readonly IGameDao _gameDao;
         private readonly IGameHuntPlanDao _gameHuntPlanDao;

@@ -7,7 +7,7 @@ namespace DataAccess.Dao.FieldPlan
 {
     public class FieldPlanDao : DaoBase, IFieldPlanDao
     {
-        public IList<FieldPlanDto> GetFieldPlan(int marketingYearId)
+        public IList<FieldPlanDto> GetByMarketingYear(int marketingYearId)
         {
             using (var db = new DbContext())
             {

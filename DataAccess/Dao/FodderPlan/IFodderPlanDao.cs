@@ -5,6 +5,6 @@ namespace DataAccess.Dao.FodderPlan
 {
     public interface IFodderPlanDao
     {
-        IList<FodderPlanDto> GetFodderPlan(int marketingYearId);
+        IList<FodderPlanDto> GetByMarketingYear(int marketingYearId);
     }
 }

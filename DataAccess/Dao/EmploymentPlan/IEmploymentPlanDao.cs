@@ -5,6 +5,6 @@ namespace DataAccess.Dao.EmploymentPlan
 {
     public interface IEmploymentPlanDao
     {
-        IList<EmploymentPlanDto> GetEmploymentPlan(int marketingYearId);
+        IList<EmploymentPlanDto> GetByMarketingYear(int marketingYearId);
     }
 }

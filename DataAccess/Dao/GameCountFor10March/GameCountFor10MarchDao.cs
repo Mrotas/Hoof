@@ -6,7 +6,7 @@ namespace DataAccess.Dao.GameCountFor10March
 {
     public class GameCountFor10MarchDao : DaoBase, IGameCountFor10MarchDao
     {
-        public IList<GameCountFor10MarchDto> GameCountBefore10MarchPlan(int marketingYearId)
+        public IList<GameCountFor10MarchDto> GetByMarketingYear(int marketingYearId)
         {
             using (DbContext)
             {

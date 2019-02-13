@@ -7,7 +7,7 @@ namespace DataAccess.Dao.FodderPlan
 {
     public class FodderPlanDao : DaoBase, IFodderPlanDao
     {
-        public IList<FodderPlanDto> GetFodderPlan(int marketingYearId)
+        public IList<FodderPlanDto> GetByMarketingYear(int marketingYearId)
         {
             using (var db = new DbContext())
             {

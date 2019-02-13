@@ -7,7 +7,7 @@ namespace DataAccess.Dao.CostPlan
 {
     public class CostPlanDao : DaoBase, ICostPlanDao
     {
-        public IList<CostPlanDto> GetCostPlan(int marketingYearId)
+        public IList<CostPlanDto> GetByMarketingYear(int marketingYearId)
         {
             using (var db = new DbContext())
             {

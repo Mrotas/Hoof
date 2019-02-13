@@ -5,6 +5,6 @@ namespace DataAccess.Dao.FieldPlan
 {
     public interface IFieldPlanDao
     {
-        IList<FieldPlanDto> GetFieldPlan(int marketingYearId);
+        IList<FieldPlanDto> GetByMarketingYear(int marketingYearId);
     }
 }

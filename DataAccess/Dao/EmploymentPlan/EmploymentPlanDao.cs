@@ -7,7 +7,7 @@ namespace DataAccess.Dao.EmploymentPlan
 {
     public class EmploymentPlanDao : DaoBase, IEmploymentPlanDao
     {
-        public IList<EmploymentPlanDto> GetEmploymentPlan(int marketingYearId)
+        public IList<EmploymentPlanDto> GetByMarketingYear(int marketingYearId)
         {
             using (var db = new DbContext())
             {

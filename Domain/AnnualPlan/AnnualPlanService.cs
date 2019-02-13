@@ -99,7 +99,7 @@ namespace Domain.AnnualPlan
 
         private EmploymentPlanModel GetEmploymentPlanModel(int marketingYearId)
         {
-            IList<EmploymentPlanDto> employeePlans = _employeePlanDao.GetEmploymentPlan(marketingYearId);
+            IList<EmploymentPlanDto> employeePlans = _employeePlanDao.GetByMarketingYear(marketingYearId);
 
             var employmentPlanModel = new EmploymentPlanModel
             {
@@ -146,7 +146,7 @@ namespace Domain.AnnualPlan
 
         private FieldPlanModel GetFieldPlanModel(int marketingYearId)
         {
-            IList<FieldPlanDto> fieldPlan = _fieldPlanDao.GetFieldPlan(marketingYearId);
+            IList<FieldPlanDto> fieldPlan = _fieldPlanDao.GetByMarketingYear(marketingYearId);
 
             FieldPlanModel fieldPlanModel = fieldPlan.Select(x => new FieldPlanModel
             {
@@ -158,7 +158,7 @@ namespace Domain.AnnualPlan
 
         private FodderPlanModel GetFodderPlanModel(int marketingYearId)
         {
-            IList<FodderPlanDto> fodderPlans = _fodderPlanDao.GetFodderPlan(marketingYearId);
+            IList<FodderPlanDto> fodderPlans = _fodderPlanDao.GetByMarketingYear(marketingYearId);
 
             var fodderPlanModel = new FodderPlanModel
             {
@@ -178,7 +178,7 @@ namespace Domain.AnnualPlan
 
         private CostPlanModel GetCostPlanModel(int marketingYearId)
         {
-            IList<CostPlanDto> costPlans = _costPlanDao.GetCostPlan(marketingYearId);
+            IList<CostPlanDto> costPlans = _costPlanDao.GetByMarketingYear(marketingYearId);
 
             var costPlanModel = new CostPlanModel
             {

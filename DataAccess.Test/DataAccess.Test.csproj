@@ -58,7 +58,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dao\CatchDaoTest.cs" />
+    <Compile Include="Dao\CostPlanDaoTest.cs" />
+    <Compile Include="Dao\EmploymentPlanDaoTest.cs" />
+    <Compile Include="Dao\FieldPlanDaoTest.cs" />
+    <Compile Include="Dao\FodderPlanDaoTest.cs" />
+    <Compile Include="Dao\GameClassDaoTest.cs" />
+    <Compile Include="Dao\GameCountFor10MarchDaoTest.cs" />
     <Compile Include="Dao\GameDaoTest.cs" />
+    <Compile Include="Dao\GameHuntPlanDaoTest.cs" />
     <Compile Include="Dao\HuntDaoTest.cs" />
     <Compile Include="Dao\RegionDaoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

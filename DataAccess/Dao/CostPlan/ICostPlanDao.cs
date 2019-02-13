@@ -5,6 +5,6 @@ namespace DataAccess.Dao.CostPlan
 {
     public interface ICostPlanDao
     {
-        IList<CostPlanDto> GetCostPlan(int marketingYearId);
+        IList<CostPlanDto> GetByMarketingYear(int marketingYearId);
     }
 }
