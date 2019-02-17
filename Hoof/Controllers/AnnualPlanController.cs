@@ -27,5 +27,11 @@ namespace Hoof.Controllers
             AnnualPlanViewModel annualPlanViewModel = _annualPlanService.GetAnnualPlanViewModel(marketingYearId);
             return View(annualPlanViewModel);
         }
+
+        public JsonResult GetAnnualPlanJsonData(int marketingYearId)
+        {
+            AnnualPlanViewModel annualPlanViewModel = _annualPlanService.GetAnnualPlanViewModel(marketingYearId);
+            return Json(annualPlanViewModel, JsonRequestBehavior.AllowGet);
+        }
     }
 }

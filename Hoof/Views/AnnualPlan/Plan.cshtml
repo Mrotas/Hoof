@@ -10,37 +10,48 @@
 {
     @Scripts.Render("~/bundles/jqueryval")
 
-    <link rel="stylesheet" href="~/Content/AnnualPlan/AnnualPlanStyles.css" />
-
+    <link rel="stylesheet" href="~/Content/AnnualPlan/AnnualPlanStyles.css"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.51/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.51/vfs_fonts.js"></script>
+    <script type="text/javascript" src="~/Scripts/AnnualPlan/AnnualPlanPdfGenerator.js"></script>
     <script type="text/javascript">
 
         $('#bodyContainer').css('width', '75%');
 
-        $(document).ready(function () {
-            $('#bigGameTable tr').each(function () {
-                $.each(this.cells, function (i, item) {
-                    var text = item.innerText;
-                    if (text === "0") {
-                        item.innerText = "";
-                    }
-                });
+        $(document).ready(function() {
+            $('#bigGameTable tr').each(function() {
+                $.each(this.cells,
+                    function(i, item) {
+                        var text = item.innerText;
+                        if (text === "0") {
+                            item.innerText = "";
+                        }
+                    });
             });
         });
 
-        $(document).ready(function () {
-            $('#smallGameTable tr').each(function () {
-                $.each(this.cells, function (i, item) {
-                    var text = item.innerText;
-                    if (text === "0") {
-                        item.innerText = "";
-                    }
-                });
+        $(document).ready(function() {
+            $('#smallGameTable tr').each(function() {
+                $.each(this.cells,
+                    function(i, item) {
+                        var text = item.innerText;
+                        if (text === "0") {
+                            item.innerText = "";
+                        }
+                    });
             });
         });
-        
+
+        $(document).ready(function() {
+            var config = {};
+            config.marketingYearId = 3;
+            var annualPlanGenerator = new AnnualPlanGenerator(config);
+        });
+
     </script>
 }
 
+<button class="btn btn-danger" id="generateAnnualPlanPdf">Pobierz PDF</button>
 <h2 style="text-align: center; font-weight: bold">ROCZNY PLAN ŁOWIECKI</h2>
 <h3 style="text-align: center; font-weight: bold">@($"na rok gospodarczy {Model.CurrentMarketingYearModel}")</h3>
 <h3 style="text-align: center; font-weight: bold">@($"oraz sprawozdanie z wykonania planu roku gospodarczego {Model.PreviousMarketingYearModel}")</h3>

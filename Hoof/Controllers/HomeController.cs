@@ -6,7 +6,7 @@ namespace Hoof.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("Index", "AnnualPlan");
+            return View();
         }
 
         public ActionResult About()
