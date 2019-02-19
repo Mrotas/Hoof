@@ -1,6 +1,7 @@
 ﻿var AnnualPlanGenerator = function (config) {
 
     var marketingYearId = config.marketingYearId;
+    var kindCount;
 
     var writeRotatedText = function (text) {
         var ctx, canvas = document.createElement('canvas');
@@ -298,6 +299,192 @@
         return headers;
     }
 
+    var getBigGameTableBody = function (bigGamePlanModel) {
+        var bigGameTableBody = [];
+
+        kindCount = 1;
+        $.each(bigGamePlanModel.AnnualPlanKindGameModels, function(key, value) {
+            
+            bigGameTableBody.push([
+                { text: kindCount + '. ' + value.KindName, bold: true, style: 'point'},
+                { text: value.PreviousHuntPlanCulls, style: 'cell'},
+                { text: value.PreviousHuntPlanCatches, style: 'cell'},
+                { text: value.PreviousHuntPlanExecutionTotal, style: 'cell'},
+                { text: value.PreviousHuntPlanExecutionCulls, style: 'cell'},
+                { text: value.PreviousHuntPlanExecutionCatches, style: 'cell'},
+                { text: value.PreviousHuntPlanExecutionLosses, style: 'cell'},
+                { text: value.PreviousHuntPlanExecutionSanitaryLosses, style: 'cell'},
+                { text: '' },
+                { text: value.GameCountBefore10March, style: 'cell'},
+                { text: '' },
+                { text: '' },
+                { text: value.CurrentHuntPlanCulls, style: 'cell' },
+                { text: value.CurrentHuntPlanCatches, style: 'cell'},
+                { text: value.CurrentHuntPlanCullsMin, style: 'cell'},
+                { text: value.CurrentHuntPlanCullsMax, style: 'cell'},
+                { text: value.CurrentHuntPlanCatchesMin, style: 'cell'},
+                { text: value.CurrentHuntPlanCatchesMax, style: 'cell' }
+            ]);
+
+            $.each(value.AnnualPlanSubKindGameModels, function (index, value) {
+
+                bigGameTableBody.push([
+                    { text: '-' + value.SubKindName, style: 'point'},
+                    { text: value.PreviousHuntPlanCulls, style: 'cell'},
+                    { text: value.PreviousHuntPlanCatches, style: 'cell'},
+                    { text: value.PreviousHuntPlanExecutionTotal, style: 'cell'},
+                    { text: value.PreviousHuntPlanExecutionCulls, style: 'cell'},
+                    { text: value.PreviousHuntPlanExecutionCatches, style: 'cell'},
+                    { text: value.PreviousHuntPlanExecutionLosses, style: 'cell'},
+                    { text: value.PreviousHuntPlanExecutionSanitaryLosses, style: 'cell'},
+                    { text: '' },
+                    { text: value.GameCountBefore10March, style: 'cell'},
+                    { text: '' },
+                    { text: '' },
+                    { text: value.CurrentHuntPlanCulls, style: 'cell'},
+                    { text: value.CurrentHuntPlanCatches, style: 'cell'},
+                    { text: value.CurrentHuntPlanCullsMin, style: 'cell'},
+                    { text: value.CurrentHuntPlanCullsMax, style: 'cell'},
+                    { text: value.CurrentHuntPlanCatchesMin, style: 'cell'},
+                    { text: value.CurrentHuntPlanCatchesMax, style: 'cell' }
+                ]);
+
+                $.each(value.AnnualPlanClassGameModels, function (index, value) {
+
+                    bigGameTableBody.push([
+                        { text: '-' + value.ClassName, style: 'cell'},
+                        { text: value.PreviousHuntPlanCulls, style: 'cell'},
+                        { text: value.PreviousHuntPlanCatches, style: 'cell'},
+                        { text: value.PreviousHuntPlanExecutionTotal, style: 'cell'},
+                        { text: value.PreviousHuntPlanExecutionCulls, style: 'cell'},
+                        { text: value.PreviousHuntPlanExecutionCatches, style: 'cell'},
+                        { text: value.PreviousHuntPlanExecutionLosses, style: 'cell'},
+                        { text: value.PreviousHuntPlanExecutionSanitaryLosses, style: 'cell'},
+                        { text: '' },
+                        { text: value.GameCountBefore10March, style: 'cell'},
+                        { text: '' },
+                        { text: '' },
+                        { text: value.CurrentHuntPlanCulls, style: 'cell'},
+                        { text: value.CurrentHuntPlanCatches, style: 'cell'},
+                        { text: value.CurrentHuntPlanCullsMin, style: 'cell'},
+                        { text: value.CurrentHuntPlanCullsMax, style: 'cell'},
+                        { text: value.CurrentHuntPlanCatchesMin, style: 'cell'},
+                        { text: value.CurrentHuntPlanCatchesMax, style: 'cell'}
+                    ]);
+                });
+            });
+            kindCount++;
+        });
+
+        return bigGameTableBody;
+    }
+
+    var getSmallGameTableHeaders = function() {
+        var headers = [];
+
+        headers.push([
+            { text: 'Gatunki zwierząt łownych', rowSpan: 3, style: 'numberHeader' },
+            { text: 'Plan pozyskania roku poprzedniego .……/…….', colSpan: 2, alignment: 'center', style: 'numberHeader' },
+            { text: '' },
+            { text: 'Wykonanie planu pozyskania roku poprzedniego ……/…….', colSpan: 2, alignment: 'center', style: 'numberHeader' },
+            { text: '' },
+            { text: 'Liczba zasiedlonych zwierząt do 10.03 poprzedniego roku gosp.', alignment: 'center', style: 'numberHeader' },
+            { text: 'Szacowana liczebność zwierząt na 10.03 ………r *', alignment: 'center', style: 'numberHeader' },
+            { text: 'Plan zasiedleń w roku gosp.……/…..', alignment: 'center', style: 'numberHeader' },
+            { text: 'Optymalna liczba zwierząt zaplanowanych do pozyskania w …….. /……. roku gospodarczym', colSpan: 2, alignment: 'center', style: 'numberHeader' },
+            { text: '' },
+            { text: 'Minimalna i maksymalna liczba zwierząt zaplanowana do pozyskania w roku gospodarczym ..……./………', colSpan: 4, alignment: 'center', style: 'numberHeader' },
+            { text: '' },
+            { text: '' },
+            { text: '' }
+        ]);
+
+        headers.push([
+            { text: '' },
+            { text: 'odstrzał szt.', rowSpan: 2, alignment: 'center', style: 'numberHeader' },
+            { text: 'odłów szt.', rowSpan: 2, alignment: 'center', style: 'numberHeader' },
+            { text: 'odstrzał szt.', rowSpan: 2, alignment: 'center', style: 'numberHeader' },
+            { text: 'odłów szt.', rowSpan: 2, alignment: 'center', style: 'numberHeader' },
+            { text: 'szt.', rowSpan: 2, alignment: 'center', style: 'numberHeader' },
+            { text: 'szt.', rowSpan: 2, alignment: 'center', style: 'numberHeader' },
+            { text: 'szt.', rowSpan: 2, alignment: 'center', style: 'numberHeader' },
+            { text: 'odstrzał szt.', rowSpan: 2, alignment: 'center', style: 'numberHeader' },
+            { text: 'odłów szt.', rowSpan: 2, alignment: 'center', style: 'numberHeader' },
+            { text: 'odstrzał szt.', colSpan: 2, alignment: 'center', style: 'numberHeader' },
+            { text: '' },
+            { text: 'odłów szt.', colSpan: 2, alignment: 'center', style: 'numberHeader' },
+            { text: '' }
+        ]);
+
+        headers.push([
+            { text: '' },
+            { text: '' },
+            { text: '' },
+            { text: '' },
+            { text: '' },
+            { text: '' },
+            { text: '' },
+            { text: '' },
+            { text: '' },
+            { text: '' },
+            { text: 'min', alignment: 'center', style: 'numberHeader' },
+            { text: 'max', alignment: 'center', style: 'numberHeader' },
+            { text: 'min', alignment: 'center', style: 'numberHeader' },
+            { text: 'max', alignment: 'center', style: 'numberHeader' }
+        ]);
+
+        headers.push(getNumbersRow(14));
+
+        return headers;
+    }
+
+    var getSmallGameTableBody = function (smallGamePlanModel) {
+        var smallGameTableBody = [];
+        
+        $.each(smallGamePlanModel.AnnualPlanKindGameModels, function (key, value) {
+
+            smallGameTableBody.push([
+                { text: kindCount + '. ' + value.KindName, bold: true, style: 'point' },
+                { text: value.PreviousHuntPlanCulls, style: 'cell' },
+                { text: value.PreviousHuntPlanCatches, style: 'cell' },
+                { text: value.PreviousHuntPlanExecutionCulls, style: 'cell' },
+                { text: value.PreviousHuntPlanExecutionCatches, style: 'cell' },
+                { text: '' },
+                { text: value.GameCountBefore10March, style: 'cell' },
+                { text: '' },
+                { text: value.CurrentHuntPlanCulls, style: 'cell' },
+                { text: value.CurrentHuntPlanCatches, style: 'cell' },
+                { text: value.CurrentHuntPlanCullsMin, style: 'cell' },
+                { text: value.CurrentHuntPlanCullsMax, style: 'cell' },
+                { text: value.CurrentHuntPlanCatchesMin, style: 'cell' },
+                { text: value.CurrentHuntPlanCatchesMax, style: 'cell' }
+            ]);
+
+            $.each(value.AnnualPlanSubKindGameModels, function (index, value) {
+
+                smallGameTableBody.push([
+                    { text: '-' + value.SubKindName, style: 'cell' },
+                    { text: value.PreviousHuntPlanCulls, style: 'cell' },
+                    { text: value.PreviousHuntPlanCatches, style: 'cell' },
+                    { text: value.PreviousHuntPlanExecutionCulls, style: 'cell' },
+                    { text: value.PreviousHuntPlanExecutionCatches, style: 'cell' },
+                    { text: '' },
+                    { text: value.GameCountBefore10March, style: 'cell' },
+                    { text: '' },
+                    { text: value.CurrentHuntPlanCulls, style: 'cell' },
+                    { text: value.CurrentHuntPlanCatches, style: 'cell' },
+                    { text: value.CurrentHuntPlanCullsMin, style: 'cell' },
+                    { text: value.CurrentHuntPlanCullsMax, style: 'cell' },
+                    { text: value.CurrentHuntPlanCatchesMin, style: 'cell' },
+                    { text: value.CurrentHuntPlanCatchesMax, style: 'cell' }
+                ]);
+            });
+            kindCount++;
+        });
+
+        return smallGameTableBody;
+    }
+
     var getEconomyTable = function (data) {
         var economyTableHeaders = getEconomyTableHeaders();
         var economyTableNumberColumns = getNumbersRow(economyTableHeaders.length);
@@ -328,23 +515,55 @@
 
     var getBigGameTable = function (data) {
         var bigGameTableHeaders = getBigGameTableHeaders();
+        var bigGameTableBody = getBigGameTableBody(data.BigGamePlanModel);
 
         var bigGameTable = [];
-        for (var i = 0; i < bigGameTableHeaders.length; i++) {
+        for (let i = 0; i < bigGameTableHeaders.length; i++) {
             bigGameTable.push(bigGameTableHeaders[i]);
+        }
+        for (let i = 0; i < bigGameTableBody.length; i++) {
+            bigGameTable.push(bigGameTableBody[i]);
         }
 
         return bigGameTable;
     };
 
-    var getSmallGameTable = function () {
-        var headers = [];
+    var getSmallGameTable = function (data) {
+        var smallGameTableHeaders = getSmallGameTableHeaders();
+        var smallGameTableBody = getSmallGameTableBody(data.SmallGamePlanModel);
 
-        headers.push({ text: 'This is small game table 1' });
-        headers.push({ text: 'This is small game table 2' });
+        var smallGameTable = [];
+        for (let i = 0; i < smallGameTableHeaders.length; i++) {
+            smallGameTable.push(smallGameTableHeaders[i]);
+        }
+        for (let i = 0; i < smallGameTableBody.length; i++) {
+            smallGameTable.push(smallGameTableBody[i]);
+        }
 
-        return headers;
+        return smallGameTable;
     };
+
+    var getSignsAndApprovalsSection = function() {
+        var signsAndApprovalsContent = [];
+
+        signsAndApprovalsContent.push({ text: 'Data sporządzenia planu:', fontSize: 8, bold: true, margin:[0, 5, 0, 0]});
+        signsAndApprovalsContent.push({ text: 'Plan sporządził:                                                           Podpis ...............................................', fontSize: 8, bold: true, margin: [0, 5, 0, 0]});
+        signsAndApprovalsContent.push({ text: 'Opinia Wójta, Burmistrza lub Prezydenta miasta....................................................................................................................................................................', fontSize: 8, bold: true, margin: [0, 5, 0, 0]});
+        signsAndApprovalsContent.push({ text: '................................................................................................................................................................................................................................................................', fontSize: 8, margin: [0, 5, 0, 0]});
+        signsAndApprovalsContent.push({ text: '................................', alignment: 'right', fontSize: 8, margin: [0, 5, 0, 0]});
+        signsAndApprovalsContent.push({ text: '(data, podpis)', alignment: 'right', fontSize: 8});
+        signsAndApprovalsContent.push({ text: 'Inne opinie, o których mowa w art.8 ust. 3c', fontSize: 8});
+        signsAndApprovalsContent.push({ text: 'ustawy z dnia 13 października 1995 r.– Prawo łowieckie', fontSize: 8});
+        signsAndApprovalsContent.push({ text: '................................................................................................................................................................................................................................................................', fontSize: 8, margin: [0, 5, 0, 0]});
+        signsAndApprovalsContent.push({ text: '................................................................................................................................................................................................................................................................', fontSize: 8, margin: [0, 5, 0, 0]});
+        signsAndApprovalsContent.push({ text: '................................', alignment: 'right', fontSize: 8, margin: [0, 5, 0, 0]});
+        signsAndApprovalsContent.push({ text: '(data, podpis)', alignment: 'right', fontSize: 8});
+        signsAndApprovalsContent.push({ text: 'Plan uzgodnił:                                                                                                                                                                                                                     Plan zatwierdził:', fontSize: 8, bold: true, margin: [0, 10, 0, 0]});
+        signsAndApprovalsContent.push({ text: '...................................................                                                                                                                                                                   ...................................................', fontSize: 8, margin: [0, 5, 0, 0] });
+        signsAndApprovalsContent.push({ text: '(data, podpis, pieczęć)                                                                                                                                                                                               (data, podpis, pieczęć)', fontSize: 8 });
+        
+        return signsAndApprovalsContent;
+    }
 
     var downloadPdf = function (data) {
 
@@ -353,6 +572,8 @@
         var economyTable = getEconomyTable(data);
         var costTable = getCostTable(data);
         var bigGameTable = getBigGameTable(data);
+        var smallGameTable = getSmallGameTable(data);
+        var signsAndApprovalsSection = getSignsAndApprovalsSection();
         
         var docDefinition = {
             pageOrientation: 'portrait',
@@ -406,7 +627,25 @@
                         pageBreak: 'before',
                         dontBreakRows: true
                     }
-                }
+                },
+                {
+                    text: '*- dane niezbędne do prowadzenia gospodarki łowieckiej.',
+                    fontSize: 7
+                },
+                {
+                    text: 'b) zwierzyna drobna',
+                    fontSize: 11, bold: true, pageBreak: 'before'
+                },
+                {
+                    table: {
+                        widths: ['24%', '7%', '7%', '7%', '7%', '6%', '7%', '6%', '7%', '7%', '4%', '4%', '4%', '4%'],
+                        body: smallGameTable,
+                        pageBreak: 'before',
+                        dontBreakRows: true
+                    }
+                },
+                signsAndApprovalsSection
+                
             ],
             styles: {
                 filledHeader: {
