@@ -19,6 +19,14 @@
         return canvas.toDataURL();
     };
 
+    var getNumbersRow = function (columnsNumber) {
+        var numbersRow = [];
+        for (var i = 1; i <= columnsNumber; i++) {
+            numbersRow.push({ text: i, style: 'numberHeader' });
+        }
+        return numbersRow;
+    }
+
     var getPlanHeader = function () {
         var header = [];
 
@@ -89,14 +97,6 @@
         return huntClubInformation;
     }
     
-    var getNumbersRow = function(columnsNumber) {
-        var numbersRow = [];
-        for (var i = 1; i <= columnsNumber; i++) {
-            numbersRow.push({ text: i, style: 'numberHeader' });
-        }
-        return numbersRow;
-    }
-
     var getEconomyTableHeaders = function() {
         var headers = [];
 

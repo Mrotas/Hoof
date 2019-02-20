@@ -6,7 +6,26 @@
 @{
     ViewBag.Title = "Report";
 }
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.51/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.51/vfs_fonts.js"></script>
+    <script type="text/javascript" src="~/Scripts/Report/ReportPdfGenerator.js"></script>
+    <script type="text/javascript">
 
+        $(document).ready(function () {
+            var config = {};
+            config.marketingYearId = 3;
+            config.reportFromDate = '@Model.ReportDateFrom.ToString("MM/dd/yyyy")';
+            config.reportDateTo = '@Model.ReportDateTo.ToString("MM/dd/yyyy")';
+            var reportPdfGenerator = new ReportPdfGenerator(config);
+        });
+
+    </script>
+
+}
+<button class="btn btn-danger" id="generateReportPdf">Pobierz PDF</button>
 <br />
 <h3 style="font-weight: bold; text-align: center">Informacja o pozyskaniu zwierzyny w obwodzie łowieckim nr 20</h3>
 <h4 style="font-weight: bold; text-align: center">w sezonie łow. .../... za okres od @Model.ReportDateFrom.ToString("dd.MM.yyyy") roku do @Model.ReportDateTo.ToString("dd.MM.yyyy") roku</h4>
