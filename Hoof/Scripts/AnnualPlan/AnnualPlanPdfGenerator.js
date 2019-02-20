@@ -34,17 +34,57 @@
     var getHuntClubInformation = function () {
         var huntClubInformation = [];
 
-        huntClubInformation.push({ text: '1. Obwód łowiecki nr 20 powierzchnia 4777 ha, w tym powierzchnia gruntów leśnych 4394 ha powierzchnia po wyłączeniach, o których mowa w art. 26 ustawy z 13.X.1995r.Prawo Łowieckie 4502 ha', fontSize: 10, margin: [0, 10, 0, 0] });
+        huntClubInformation.push({
+            text: [
+                { text: '1. Obwód łowiecki nr ', fontSize: 10 },
+                { text: '20 ', fontSize: 10, bold: true },
+                { text: 'powierzchnia ', fontSize: 10 },
+                { text: '4777 ', fontSize: 10, bold: true},
+                { text: 'ha, w tym powierzchnia gruntów leśnych ', fontSize: 10 },
+                { text: '4394 ', fontSize: 10, bold: true},
+                { text: 'ha powierzchnia po wyłączeniach, o których mowa w art. 26 ustawy z 13.X.1995r.Prawo Łowieckie ', fontSize: 10 },
+                { text: '4502 ', fontSize: 10, bold: true },
+                { text: 'ha', fontSize: 10 }
+            ], margin: [0, 5, 0, 0]
+        });
 
-        huntClubInformation.push({ text: '2. Województwo wielkopolskie, Powiat złotowski', fontSize: 10, margin: [0, 5, 0, 0] });
+        huntClubInformation.push({
+            text: [
+                { text: '2. Województwo ', fontSize: 10 },
+                { text: 'wielkopolskie, ', fontSize: 10, bold: true},
+                { text: 'Powiat ', fontSize: 10},
+                { text: 'złotowski', fontSize: 10, bold: true }
+            ], margin: [0, 5, 0, 0]
+            
+        });
 
-        huntClubInformation.push({ text: '3. Nadleśnictwo (nazwa i adres siedziby) Płytnica z siedzibą w Nowej Szwecji, Nowa Szwecja 6, 78-600 Wałcz', fontSize: 10, margin: [0, 5, 0, 0] });
+        huntClubInformation.push({
+            text: [
+                { text: '3. Nadleśnictwo (nazwa i adres siedziby) ', fontSize: 10 },
+                { text: 'Płytnica z siedzibą w Nowej Szwecji, Nowa Szwecja 6, 78-600 Wałcz', fontSize: 10, bold: true }
+            ], margin: [0, 5, 0, 0]
+        });
 
-        huntClubInformation.push({ text: '4. Regionalna Dyrekcja Lasów Państwowych (nazwa i adres siedziby) w Pile, 64-920 Piła - Kalina', fontSize: 10, margin: [0, 5, 0, 0] });
+        huntClubInformation.push({
+            text: [
+                { text: '4. Regionalna Dyrekcja Lasów Państwowych (nazwa i adres siedziby) ', fontSize: 10 },
+                { text: 'Piła, 64-920 Piła-Kalina', fontSize: 10, bold: true}
+            ], margin: [0, 5, 0, 0]
+        });
 
-        huntClubInformation.push({ text: '5. Zarząd Okręgowy PZŁ (nazwa i adres siedziby) Piła, Al. Powstańców Wielkopolskich 190, 64-920 Piła', fontSize: 10, margin: [0, 5, 0, 0] });
+        huntClubInformation.push({
+            text: [
+                { text: '5. Zarząd Okręgowy PZŁ (nazwa i adres siedziby) ', fontSize: 10},
+                { text: 'Piła, Al. Powstańców Wielkopolskich 190, 64-920 Piła', fontSize: 10, bold: true }
+            ], margin: [0, 5, 0, 0]
+        });
 
-        huntClubInformation.push({ text: '6. Dzierżawca/lub zarządca (nazwa i adres siedziby) Koło Łowieckie nr 39 Literatów Polskich „Pióro” ul. Rostworowskiego 6/2, 01-496 Warszawa', fontSize: 10, margin: [0, 5, 0, 10] });
+        huntClubInformation.push({
+            text: [
+                { text: '6. Dzierżawca/lub zarządca (nazwa i adres siedziby) ', fontSize: 10},
+                { text: 'Koło Łowieckie nr 39 Literatów Polskich „Pióro” ul. Rostworowskiego 6/2, 01-496 Warszawa', fontSize: 10, bold: true }
+            ], margin: [0, 5, 0, 10] 
+        });
 
         return huntClubInformation;
     }
