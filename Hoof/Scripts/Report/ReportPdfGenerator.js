@@ -15,8 +15,8 @@
     var getReportHeaders = function() {
         var headers = [];
 
-        headers.push( { text: 'Informacja o pozyskaniu zwierzyny w obwodzie łowieckim nr 20', style: 'header' } );
-        headers.push({ text: 'w sezonie łow.  ........   za okres  od .......... roku   do .......... roku', style: 'header' } );
+        headers.push({ text: 'Informacja o pozyskaniu zwierzyny w obwodzie łowieckim nr 20', style: 'header', margin: [0, 0, 0, 5]} );
+        headers.push({ text: 'w sezonie łow.  ........   za okres  od .......... roku   do .......... roku', style: 'header', margin: [0, 0, 0, 5]} );
 
         return headers;
     }
@@ -117,16 +117,78 @@
     var getSmallGameReportTableBody = function(data) {
         var body = [];
 
-
+        $.each(data.MonthlyReportKindGameModels, function(index, value) {
+            body.push([
+                { text: value.KindName, colSpan: 2, bold: true, style: 'point' },
+                { text: '' },
+                { text: value.Culls, style: 'cell' },
+                { text: value.LossesWithCatches, style: 'cell' },
+                { text: value.ExecutionTotal, style: 'cell' },
+                { text: value.HuntPlanCulls, style: 'cell' },
+                { text: value.ExecutionLeft, style: 'cell' },
+                { text: value.Note, style: 'cell' }
+            ]);
+        });
 
         return body;
+    };
+
+    var getFodderRow = function (data) {
+        var fodderRow = [];
+
+        fodderRow.push([
+            { text: 'W obwodzie wyłożono następujące ilości karmy :', colSpan: 2, rowSpan: 4, style: 'columnHeader', border: [false, false, false, false] },
+            { text: '', style: 'cell', border: [false, false, false, false]},
+            { text: 'objętościowej suchej', colSpan: 2, style: 'cell', border: [false, false, false, false]},
+            { text: '', style: 'cell', border: [false, false, false, false]},
+            { text: '', colSpan: 3, style: 'cell', border: [false, false, false, false]},
+            { text: '', style: 'cell', border: [false, false, false, false] },
+            { text: '', style: 'cell', border: [false, false, false, false] },
+            { text: 'kg', style: 'cell', border: [false, false, false, false]}
+        ]);
+
+        fodderRow.push([
+            { text: '', style: 'cell', border: [false, false, false, false]},
+            { text: '', style: 'cell', border: [false, false, false, false]},
+            { text: 'objętościowej soczystej', colSpan: 2, style: 'cell', border: [false, false, false, false]},
+            { text: '', style: 'cell', border: [false, false, false, false]},
+            { text: '', colSpan: 3, style: 'cell', border: [false, false, false, false]},
+            { text: '', style: 'cell', border: [false, false, false, false]},
+            { text: '', style: 'cell', border: [false, false, false, false]},
+            { text: 'kg', style: 'cell', border: [false, false, false, false]}
+        ]);
+
+        fodderRow.push([
+            { text: '', style: 'cell', border: [false, false, false, false]},
+            { text: '', style: 'cell', border: [false, false, false, false]},
+            { text: 'treściwej', colSpan: 2, style: 'cell', border: [false, false, false, false]},
+            { text: '', style: 'cell', border: [false, false, false, false]},
+            { text: '', colSpan: 3, style: 'cell', border: [false, false, false, false]},
+            { text: '', style: 'cell', border: [false, false, false, false]},
+            { text: '', style: 'cell', border: [false, false, false, false]},
+            { text: 'kg', style: 'cell', border: [false, false, false, false]}
+        ]);
+
+        fodderRow.push([
+            { text: '', style: 'cell', border: [false, false, false, false]},
+            { text: '', style: 'cell', border: [false, false, false, false]},
+            { text: 'soli', colSpan: 2, style: 'cell', border: [false, false, false, false]},
+            { text: '', style: 'cell', border: [false, false, false, false]},
+            { text: '', colSpan: 3, style: 'cell', border: [false, false, false, false]},
+            { text: '', style: 'cell', border: [false, false, false, false]},
+            { text: '', style: 'cell', border: [false, false, false, false]},
+            { text: 'kg', style: 'cell', border: [false, false, false, false]}
+        ]);
+
+        return fodderRow;
     };
 
     var getReportTable = function (data) {
         var reportTableHeaders = getReportTableHeaders();
         var columnNumberHeaders = getNumbersRow(8);
         var bigGameReportTableBody = getBigGameReportTableBody(data.MonthlyReportBigGameModel);
-        //var smallGameReportTableBody = getSmallGameReportTableBody(data.MonthlyReportBigGameModel);
+        var smallGameReportTableBody = getSmallGameReportTableBody(data.MonthlyReportSmallGameModel);
+        var fodderRow = getFodderRow(data);
 
         var reportTable = [];
         reportTable.push(reportTableHeaders);
@@ -134,32 +196,58 @@
         for (let i = 0; i < bigGameReportTableBody.length; i++) {
             reportTable.push(bigGameReportTableBody[i]);
         }
-        //for (let i = 0; i < smallGameReportTableBody.length; i++) {
-        //    reportTable.push(smallGameReportTableBody[i]);
-        //}
+        for (let i = 0; i < smallGameReportTableBody.length; i++) {
+            reportTable.push(smallGameReportTableBody[i]);
+        }
+        for (let i = 0; i < fodderRow.length; i++) {
+            reportTable.push(fodderRow[i]);
+        }
 
         return reportTable;
+    };
+
+    var getAdministrationInformationRow = function(data) {
+        var administrationRow = [];
+
+        administrationRow.push([
+            { text:'Informacja o wykonanej poprawie naturalnych warunków bytowania zwierzyny:', style: 'header', pageBreak: 'before', margin: [0, 0, 0, 30]}
+        ]);
+
+        $.each(data, function() {
+            //TODO: push administration info here
+        });
+
+        administrationRow.push({
+            text: [
+                { text: 'Miejscowość ...........................................................', style: 'paragraph', margin:[0, 30, 0, 0]},
+                { text: '(pieczęć, podpis)', alignment: 'right', style: 'cell' }
+            ]
+        });
+
+        return administrationRow;
     };
 
     var downloadPdf = function (data) {
 
         var reportHeaders = getReportHeaders();
         var reportTable = getReportTable(data);
+        var administrationInformation = getAdministrationInformationRow(data);
 
         var docDefinition = {
             pageOrientation: 'portrait',
-            pageMargins: [28, 28, 28, 28],
+            pageMargins: [28, 10, 28, 0],
             pageSize: 'A4',
             content: [
                 reportHeaders,
                 {
                     table: {
-                        widths: ['8%', '20%', '12%', '12%', '12%', '12%', '12%', '12%'],
+                        widths: ['8%', '17%', '11%', '11%', '11%', '13%', '11%', '18%'],
                         body: reportTable,
                         pageBreak: 'before',
                         dontBreakRows: true
                     }
-                }
+                },
+                administrationInformation
             ],
             styles: {
                 header: {
@@ -169,7 +257,7 @@
                 },
                 columnHeader: {
                     alignment: 'center',
-                    fontSize: 10,
+                    fontSize: 9,
                     bold: true
                 },
                 numberHeader: {
