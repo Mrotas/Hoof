@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Domain.FodderPlan.ViewModels
+namespace Domain.CostPlan.ViewModels
 {
-    public class FodderPlanViewBaseModel
+    public class CostPlanBaseViewModel
     {
         public int MarketingYearId { get; set; }
         public DateTime MarketingYearStart { get; set; }
@@ -13,6 +13,6 @@ namespace Domain.FodderPlan.ViewModels
         [Display(Name = "Rok gospodarczy")]
         public string MarketingYear => $"{MarketingYearStart:dd/MM/yyyy} - {MarketingYearEnd:dd/MM/yyyy}";
 
-        public IList<FodderPlanViewModel> FodderPlanViewModels { get; set; }
+        public IList<CostPlanViewModel> CostPlanViewModels { get; set; }
     }
 }

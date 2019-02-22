@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DataAccess.Dao.FodderPlan;
 using DataAccess.Dao.MarketingYear;
@@ -43,7 +44,7 @@ namespace Domain.FodderPlan
 
             var fodderPlanViewBaseModel = new FodderPlanViewBaseModel
             {
-                HuntEquipmentPlanViewModels = fodderPlanViewModels,
+                FodderPlanViewModels = fodderPlanViewModels,
                 MarketingYearId = marketingYearId,
                 MarketingYearStart = marketingYear.Start,
                 MarketingYearEnd = marketingYear.End
@@ -52,15 +53,15 @@ namespace Domain.FodderPlan
             return fodderPlanViewBaseModel;
         }
 
-        private string GetFodderTypeName(int fodderPlanType)
+        private string GetFodderTypeName(int fodderType)
         {
-            switch (fodderPlanType)
+            switch (fodderType)
             {
                 case 1: return "Objętościowa sucha";
                 case 2: return "Objętościowa soczysta";
                 case 3: return "Treściwa";
                 case 4: return "Sól";
-                default: throw new System.NotImplementedException();
+                default: throw new NotImplementedException();
             }
         }
     }

@@ -63,6 +63,10 @@
     <Compile Include="Catch\ICatchService.cs" />
     <Compile Include="Catch\Models\CatchCreateModel.cs" />
     <Compile Include="Catch\ViewModels\CatchViewModel.cs" />
+    <Compile Include="CostPlan\CostPlanService.cs" />
+    <Compile Include="CostPlan\ICostPlanService.cs" />
+    <Compile Include="CostPlan\ViewModels\CostPlanBaseViewModel.cs" />
+    <Compile Include="CostPlan\ViewModels\CostPlanViewModel.cs" />
     <Compile Include="FodderPlan\FodderPlanService.cs" />
     <Compile Include="FodderPlan\IFodderPlanService.cs" />
     <Compile Include="FodderPlan\ViewModels\FodderPlanViewModel.cs" />

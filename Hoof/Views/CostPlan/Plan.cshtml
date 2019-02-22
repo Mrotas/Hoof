@@ -1,4 +1,4 @@
-﻿@model Domain.FodderPlan.ViewModels.FodderPlanViewBaseModel
+﻿@model Domain.CostPlan.ViewModels.CostPlanBaseViewModel
 
 @{
     ViewBag.Title = "Plan";
@@ -6,7 +6,7 @@
 
 <br />
 
-<h4 style="text-align: center">Plan zagospodarowania karmy zwierzęcej na rok gospodarczy @Model.MarketingYear</h4>
+<h4 style="text-align: center">Plan kosztów gospodarki koła łowieckiego na rok gospodarczy @Model.MarketingYear</h4>
 
 <br />
 
@@ -19,14 +19,14 @@
             Nazwa
         </th>
         <th>
-            Tony
+            Złotych
         </th>
         <th>
             Zarządzaj
         </th>
     </tr>
 
-    @foreach (var item in Model.FodderPlanViewModels)
+    @foreach (var item in Model.CostPlanViewModels)
     {
         <tr>
             <td>
@@ -36,7 +36,7 @@
                 @Html.DisplayFor(modelItem => item.TypeName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Ton)
+                @Html.DisplayFor(modelItem => item.Cost)
             </td>
             <td>
                 @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
