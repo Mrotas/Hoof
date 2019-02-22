@@ -164,6 +164,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HuntController.cs" />
     <Compile Include="Controllers\GameHuntPlanController.cs" />
+    <Compile Include="Controllers\HuntEquipmentPlanController.cs" />
     <Compile Include="Controllers\LossController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Global.asax.cs">
@@ -226,6 +227,8 @@
     <Content Include="Views\GameHuntPlan\Plan.cshtml" />
     <Content Include="Views\GameCountPlan\Index.cshtml" />
     <Content Include="Views\GameCountPlan\Plan.cshtml" />
+    <Content Include="Views\HuntEquipmentPlan\Index.cshtml" />
+    <Content Include="Views\HuntEquipmentPlan\Plan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

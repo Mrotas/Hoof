@@ -6,7 +6,7 @@ namespace Domain.GameCountPlan.ViewModels
     {
         public int Id { get; set; }
 
-        [Display(Name = "Lp")]
+        [Display(Name = "Lp.")]
         public int GameId { get; set; }
 
         [Display(Name = "Zwierzyna")]

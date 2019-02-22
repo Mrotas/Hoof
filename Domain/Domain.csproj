@@ -91,6 +91,10 @@
     <Compile Include="GameLoss\Model\GameLossModel.cs" />
     <Compile Include="GameLoss\ViewModel\GameLossViewModel.cs" />
     <Compile Include="Game\Model\GameModel.cs" />
+    <Compile Include="HuntEquipmentPlan\HuntEquipmentPlanService.cs" />
+    <Compile Include="HuntEquipmentPlan\IHuntEquipmentPlanService.cs" />
+    <Compile Include="HuntEquipmentPlan\ViewModels\HuntEquipmentPlanBaseViewModel.cs" />
+    <Compile Include="HuntEquipmentPlan\ViewModels\HuntEquipmentPlanViewModel.cs" />
     <Compile Include="Hunt\HuntService.cs" />
     <Compile Include="Hunt\IHuntService.cs" />
     <Compile Include="Hunt\Models\HuntCreateModel.cs" />
