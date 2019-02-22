@@ -63,6 +63,10 @@
     <Compile Include="Catch\ICatchService.cs" />
     <Compile Include="Catch\Models\CatchCreateModel.cs" />
     <Compile Include="Catch\ViewModels\CatchViewModel.cs" />
+    <Compile Include="FodderPlan\FodderPlanService.cs" />
+    <Compile Include="FodderPlan\IFodderPlanService.cs" />
+    <Compile Include="FodderPlan\ViewModels\FodderPlanViewModel.cs" />
+    <Compile Include="FodderPlan\ViewModels\FodderPlanViewBaseModel.cs" />
     <Compile Include="GameClass\GameClassService.cs" />
     <Compile Include="GameCountPlan\GameCountPlanService.cs" />
     <Compile Include="GameCountPlan\IGameCountPlanService.cs" />

@@ -53,9 +53,9 @@ namespace Domain.HuntEquipmentPlan
             return huntEquipmentPlanBaseViewModel;
         }
 
-        private string GetHuntEquipmentTypeName(int type)
+        private string GetHuntEquipmentTypeName(int huntEquipmentType)
         {
-            switch (type)
+            switch (huntEquipmentType)
             {
                 case 1: return "Paśniki";
                 case 2: return "Lizawki";

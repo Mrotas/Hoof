@@ -1,0 +1,48 @@
+﻿@model Domain.FodderPlan.ViewModels.FodderPlanViewBaseModel
+
+@{
+    ViewBag.Title = "Plan";
+}
+
+<br />
+
+<h4 style="text-align: center">Plan zagospodarowania karmy zwierzęcej na rok gospodarczy @Model.MarketingYear</h4>
+
+<br />
+
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>
+            Lp.
+        </th>
+        <th>
+            Nazwa
+        </th>
+        <th>
+            Tony
+        </th>
+        <th>
+            Zarządzaj
+        </th>
+    </tr>
+
+    @foreach (var item in Model.HuntEquipmentPlanViewModels)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ton)
+            </td>
+            <td>
+                @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
