@@ -64,9 +64,12 @@
     <Compile Include="Catch\Models\CatchCreateModel.cs" />
     <Compile Include="Catch\ViewModels\CatchViewModel.cs" />
     <Compile Include="GameClass\GameClassService.cs" />
+    <Compile Include="GameCountPlan\GameCountPlanService.cs" />
+    <Compile Include="GameCountPlan\IGameCountPlanService.cs" />
+    <Compile Include="GameCountPlan\ViewModels\CountPlanViewModel.cs" />
+    <Compile Include="GameCountPlan\ViewModels\GameCountPlanViewModel.cs" />
     <Compile Include="GameHuntPlan\GameHuntPlanService.cs" />
     <Compile Include="GameHuntPlan\IGameHuntPlanService.cs" />
-    <Compile Include="GameHuntPlan\Models\GameHuntPlanModel.cs" />
     <Compile Include="GameHuntPlan\ViewModels\GameHuntPlanViewModel.cs" />
     <Compile Include="GameHuntPlan\ViewModels\HuntPlanViewModel.cs" />
     <Compile Include="GamePlan\GamePlanService.cs" />
