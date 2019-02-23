@@ -55,6 +55,11 @@ namespace Domain.HuntEquipmentPlan
 
         public void AddHuntEquipmentPlan(HuntEquipmentPlanViewModel model, int marketingYearId)
         {
+            if (model.Type == 0)
+            {
+                throw new Exception($"Nie można dodać planu urządzenia łowieckiego");
+            }
+
             IList<HuntEquipmentPlanDto> existingEquipmentPlanDtos = _huntEquipmentPlanDao.GetByMarketingYear(marketingYearId);
             if (existingEquipmentPlanDtos.Any(x => x.Type == model.Type))
             {
@@ -64,11 +69,28 @@ namespace Domain.HuntEquipmentPlan
             var dto = new HuntEquipmentPlanDto
             {
                 Type = model.Type,
-                Count = model.Type,
+                Count = model.Count,
                 MarketingYearId = marketingYearId
             };
 
             _huntEquipmentPlanDao.Insert(dto);
+        }
+
+        public void UpdateHuntEquipmentPlan(HuntEquipmentPlanViewModel model, int marketingYearId)
+        {
+            if (model.Type <= 0)
+            {
+                throw new Exception($"Nie można edytować planu urządzenia łowieckiego");
+            }
+            
+            var dto = new HuntEquipmentPlanDto
+            {
+                Type = model.Type,
+                Count = model.Count,
+                MarketingYearId = marketingYearId
+            };
+
+            _huntEquipmentPlanDao.Update(dto);
         }
 
         private string GetHuntEquipmentTypeName(int huntEquipmentType)

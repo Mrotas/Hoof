@@ -28,3 +28,14 @@ select.has-error {
     background-color: #ffdcdc;
     border-color: red
 }
+
+tr.editable,
+tr.editable:hover{
+    background-color: #e2f4e2 !important;
+}
+
+td.editable,
+td.editable:hover{
+    border: solid 2px green !important;
+    background-color: #e2f4e2 !important
+}

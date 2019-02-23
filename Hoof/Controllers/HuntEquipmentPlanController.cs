@@ -43,5 +43,20 @@ namespace Hoof.Controllers
             }
             return Json(new { message } , JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult Edit(HuntEquipmentPlanViewModel model, int marketingYearId)
+        {
+            string message = String.Empty;
+            try
+            {
+                _huntEquipmentPlanService.UpdateHuntEquipmentPlan(model, marketingYearId);
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return Json(new { message }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

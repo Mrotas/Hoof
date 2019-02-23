@@ -7,5 +7,6 @@ namespace DataAccess.Dao.HuntEquipmentPlan
     {
         IList<HuntEquipmentPlanDto> GetByMarketingYear(int marketingYearId);
         void Insert(HuntEquipmentPlanDto dto);
+        void Update(HuntEquipmentPlanDto dto);
     }
 }
