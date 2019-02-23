@@ -4,6 +4,6 @@ namespace Domain.FodderPlan
 {
     public interface IFodderPlanService
     {
-        FodderPlanViewBaseModel GetFodderPlanViewModel(int marketingYearId);
+        FodderPlanBaseViewModel GetFodderPlanViewModel(int marketingYearId);
     }
 }

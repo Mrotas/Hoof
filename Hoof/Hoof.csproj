@@ -160,6 +160,7 @@
     <Compile Include="Controllers\AnnualPlanController.cs" />
     <Compile Include="Controllers\CatchController.cs" />
     <Compile Include="Controllers\CostPlanController.cs" />
+    <Compile Include="Controllers\EmploymentPlanController.cs" />
     <Compile Include="Controllers\FodderPlanController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\GameCountPlanController.cs" />
@@ -235,6 +236,8 @@
     <Content Include="Views\FodderPlan\Plan.cshtml" />
     <Content Include="Views\CostPlan\Index.cshtml" />
     <Content Include="Views\CostPlan\Plan.cshtml" />
+    <Content Include="Views\EmploymentPlan\Index.cshtml" />
+    <Content Include="Views\EmploymentPlan\Plan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

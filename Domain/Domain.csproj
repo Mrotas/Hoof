@@ -67,10 +67,14 @@
     <Compile Include="CostPlan\ICostPlanService.cs" />
     <Compile Include="CostPlan\ViewModels\CostPlanBaseViewModel.cs" />
     <Compile Include="CostPlan\ViewModels\CostPlanViewModel.cs" />
+    <Compile Include="EmploymentPlan\EmploymentPlanService.cs" />
+    <Compile Include="EmploymentPlan\IEmploymentPlanService.cs" />
+    <Compile Include="EmploymentPlan\ViewModels\EmploymentPlanViewModel.cs" />
+    <Compile Include="EmploymentPlan\ViewModels\EmploymentPlanBaseViewModel.cs" />
     <Compile Include="FodderPlan\FodderPlanService.cs" />
     <Compile Include="FodderPlan\IFodderPlanService.cs" />
     <Compile Include="FodderPlan\ViewModels\FodderPlanViewModel.cs" />
-    <Compile Include="FodderPlan\ViewModels\FodderPlanViewBaseModel.cs" />
+    <Compile Include="FodderPlan\ViewModels\FodderPlanBaseViewModel.cs" />
     <Compile Include="GameClass\GameClassService.cs" />
     <Compile Include="GameCountPlan\GameCountPlanService.cs" />
     <Compile Include="GameCountPlan\IGameCountPlanService.cs" />

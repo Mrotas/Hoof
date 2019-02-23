@@ -23,7 +23,7 @@ namespace Domain.FodderPlan
             _marketingYearDao = marketingYearDao;
         }
 
-        public FodderPlanViewBaseModel GetFodderPlanViewModel(int marketingYearId)
+        public FodderPlanBaseViewModel GetFodderPlanViewModel(int marketingYearId)
         {
             IList<FodderPlanDto> fodderPlanDtos = _fodderPlanDao.GetByMarketingYear(marketingYearId);
 
@@ -42,7 +42,7 @@ namespace Domain.FodderPlan
 
             DataAccess.Entities.MarketingYear marketingYear = _marketingYearDao.GetById(marketingYearId);
 
-            var fodderPlanViewBaseModel = new FodderPlanViewBaseModel
+            var fodderPlanViewBaseModel = new FodderPlanBaseViewModel
             {
                 FodderPlanViewModels = fodderPlanViewModels,
                 MarketingYearId = marketingYearId,

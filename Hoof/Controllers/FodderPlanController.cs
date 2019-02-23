@@ -24,7 +24,7 @@ namespace Hoof.Controllers
 
         public ActionResult Plan(int marketingYearId)
         {
-            FodderPlanViewBaseModel fodderPlanViewBaseModel = _fodderPlanService.GetFodderPlanViewModel(marketingYearId);
+            FodderPlanBaseViewModel fodderPlanViewBaseModel = _fodderPlanService.GetFodderPlanViewModel(marketingYearId);
             return View(fodderPlanViewBaseModel);
         }
     }
