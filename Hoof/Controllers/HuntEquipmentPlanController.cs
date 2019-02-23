@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using Domain.HuntEquipmentPlan;
 using Domain.HuntEquipmentPlan.ViewModels;
 
@@ -26,6 +27,21 @@ namespace Hoof.Controllers
         {
             HuntEquipmentPlanBaseViewModel huntEquipmentPlanBaseViewModel = _huntEquipmentPlanService.GetHuntEquipmentPlanViewModel(marketingYearId);
             return View(huntEquipmentPlanBaseViewModel);
+        }
+
+        [HttpPost]
+        public JsonResult Add(HuntEquipmentPlanViewModel model, int marketingYearId)
+        {
+            string message = String.Empty;
+            try
+            {
+                _huntEquipmentPlanService.AddHuntEquipmentPlan(model, marketingYearId);
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return Json(new { message } , JsonRequestBehavior.AllowGet);
         }
     }
 }

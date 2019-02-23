@@ -5,6 +5,7 @@ namespace DataAccess.Dao.HuntEquipmentPlan
 {
     public interface IHuntEquipmentPlanDao
     {
-        IList<HuntEquipmentPlanDto> GetHuntEquipmentPlan(int marketingYearId);
+        IList<HuntEquipmentPlanDto> GetByMarketingYear(int marketingYearId);
+        void Insert(HuntEquipmentPlanDto dto);
     }
 }

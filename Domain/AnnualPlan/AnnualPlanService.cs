@@ -112,7 +112,7 @@ namespace Domain.AnnualPlan
 
         private HuntEquipmentPlanModel GetHuntEquipmentPlanModel(int marketingYearId)
         {
-            IList<HuntEquipmentPlanDto> huntEquipmentPlans = _huntEquipmentPlanDao.GetHuntEquipmentPlan(marketingYearId);
+            IList<HuntEquipmentPlanDto> huntEquipmentPlans = _huntEquipmentPlanDao.GetByMarketingYear(marketingYearId);
 
            var huntEquipmentPlanModel = new HuntEquipmentPlanModel
            {

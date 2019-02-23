@@ -7,7 +7,7 @@ namespace DataAccess.Dao.HuntEquipmentPlan
 {
     public class HuntEquipmentPlanDao : DaoBase, IHuntEquipmentPlanDao
     {
-        public IList<HuntEquipmentPlanDto> GetHuntEquipmentPlan(int marketingYearId)
+        public IList<HuntEquipmentPlanDto> GetByMarketingYear(int marketingYearId)
         {
             using (var db = new DbContext())
             {
@@ -16,6 +16,22 @@ namespace DataAccess.Dao.HuntEquipmentPlan
                 IList<HuntEquipmentPlanDto> dtos = ToDtos(huntEquipmentPlan);
 
                 return dtos;
+            }
+        }
+
+        public void Insert(HuntEquipmentPlanDto dto)
+        {
+            var huntEquipmentPlan = new Entities.HuntEquipmentPlan
+            {
+                Type = dto.Type,
+                Count = dto.Count,
+                MarketingYearId = dto.MarketingYearId
+            };
+
+            using (var db = new DbContext())
+            {
+                db.HuntEquipmentPlan.Add(huntEquipmentPlan);
+                db.SaveChanges();
             }
         }
 
