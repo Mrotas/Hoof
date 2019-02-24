@@ -47,6 +47,17 @@ namespace DataAccess.Dao.HuntEquipmentPlan
             }
         }
 
+        public void Delete(int huntEquipmentType, int marketingYearId)
+        {
+            using (var db = new DbContext())
+            {
+                Entities.HuntEquipmentPlan huntEquipmentPlan = db.HuntEquipmentPlan.Single(x => x.MarketingYearId == marketingYearId && x.Type == huntEquipmentType);
+
+                db.HuntEquipmentPlan.Remove(huntEquipmentPlan);
+                db.SaveChanges();
+            }
+        }
+
         private IList<HuntEquipmentPlanDto> ToDtos(IList<Entities.HuntEquipmentPlan> entityList)
         {
             var dtos = new List<HuntEquipmentPlanDto>();

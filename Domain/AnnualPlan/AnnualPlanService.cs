@@ -116,12 +116,12 @@ namespace Domain.AnnualPlan
 
            var huntEquipmentPlanModel = new HuntEquipmentPlanModel
            {
-               Aviaries = huntEquipmentPlans.Single(x => x.Type == (int) HuntEquipment.Aviary).Count,
-               DeerLickers = huntEquipmentPlans.Single(x => x.Type == (int) HuntEquipment.DeerLicker).Count,
-               Farms = huntEquipmentPlans.Single(x => x.Type == (int) HuntEquipment.Farm).Count,
-               Pastures = huntEquipmentPlans.Single(x => x.Type == (int) HuntEquipment.Pasture).Count,
-               Pulpits = huntEquipmentPlans.Single(x => x.Type == (int) HuntEquipment.Pulpit).Count,
-               WateringPlaces = huntEquipmentPlans.Single(x => x.Type == (int) HuntEquipment.WateringPlace).Count
+               Aviaries = huntEquipmentPlans.FirstOrDefault(x => x.Type == (int) HuntEquipment.Aviary)?.Count ?? 0,
+               DeerLickers = huntEquipmentPlans.FirstOrDefault(x => x.Type == (int) HuntEquipment.DeerLicker)?.Count ?? 0,
+               Farms = huntEquipmentPlans.FirstOrDefault(x => x.Type == (int) HuntEquipment.Farm)?.Count ?? 0,
+               Pastures = huntEquipmentPlans.FirstOrDefault(x => x.Type == (int) HuntEquipment.Pasture)?.Count ?? 0,
+               Pulpits = huntEquipmentPlans.FirstOrDefault(x => x.Type == (int) HuntEquipment.Pulpit)?.Count ?? 0,
+               WateringPlaces = huntEquipmentPlans.FirstOrDefault(x => x.Type == (int) HuntEquipment.WateringPlace)?.Count ?? 0
            };
 
             return huntEquipmentPlanModel;

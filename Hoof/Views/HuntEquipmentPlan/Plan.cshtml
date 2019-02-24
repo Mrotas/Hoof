@@ -53,10 +53,10 @@
         <th style="width: 5%">
             Lp.
         </th>
-        <th style="width: 70%">
+        <th style="width: 75%">
             Urządzenie
         </th>
-        <th style="width: 15%">
+        <th style="width: 10%">
             Sztuki
         </th>
         <th style="width: 10%">
@@ -81,11 +81,11 @@
         <td>
             <input type="number" min="0" class="form-control" style="max-width: none"/>
         </td>
-        <td>
-            <a href="#" id="addHuntEquipmentPlan">Dodaj</a>
+        <td style="text-align: center">
+            <button class="btn btn-primary" id="addHuntEquipmentPlan">Dodaj</button>
         </td>
     </tr>
-    @foreach (var item in Model.HuntEquipmentPlanViewModels)
+    @foreach (var item in Model.HuntEquipmentPlanViewModels.OrderBy(x => x.Type).ToList())
     {
         <tr>
             <td style="text-align: center">
@@ -97,15 +97,35 @@
             <td class="canEdit">
                 @Html.DisplayFor(modelItem => item.Count)
             </td>
-            <td>
-                <a href="#" class="editHuntEquipmentPlan">Edytuj</a> |
-                @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
+            <td style="text-align: center">
+                <button class="btn btn-xs btn-success editHuntEquipmentPlan">Edytuj</button>
+                <button class="btn btn-xs btn-danger deleteHuntEquipmentPlan">Usuń</button>
             </td>
         </tr>
     }
 
 </table>
 <div style="text-align: right">
+    <button class="btn btn-secondary" id="cancel" disabled>Anuluj</button>
     <button class="btn btn-success" id="save" disabled>Zapisz</button>
-    <button class="btn btn-primary" id="cancel" disabled>Anuluj</button>
+</div>
+
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Usuwanie planu urządzenia łowieckiego</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="confirmDeleteModalBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Usuń</button>
+            </div>
+        </div>
+    </div>
 </div>

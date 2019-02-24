@@ -57,7 +57,7 @@ namespace Domain.HuntEquipmentPlan
         {
             if (model.Type == 0)
             {
-                throw new Exception($"Nie można dodać planu urządzenia łowieckiego");
+                throw new Exception("Nie można dodać planu urządzenia łowieckiego");
             }
 
             IList<HuntEquipmentPlanDto> existingEquipmentPlanDtos = _huntEquipmentPlanDao.GetByMarketingYear(marketingYearId);
@@ -80,7 +80,7 @@ namespace Domain.HuntEquipmentPlan
         {
             if (model.Type <= 0)
             {
-                throw new Exception($"Nie można edytować planu urządzenia łowieckiego");
+                throw new Exception("Nie można edytować planu urządzenia łowieckiego");
             }
             
             var dto = new HuntEquipmentPlanDto
@@ -91,6 +91,16 @@ namespace Domain.HuntEquipmentPlan
             };
 
             _huntEquipmentPlanDao.Update(dto);
+        }
+
+        public void DeleteHuntEquipmentPlan(int huntEquipmentType, int marketingYearId)
+        {
+            if (huntEquipmentType <= 0)
+            {
+                throw new Exception("Nie można edytować planu urządzenia łowieckiego");
+            }
+            
+            _huntEquipmentPlanDao.Delete(huntEquipmentType, marketingYearId);
         }
 
         private string GetHuntEquipmentTypeName(int huntEquipmentType)

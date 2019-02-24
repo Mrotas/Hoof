@@ -43,17 +43,21 @@
 
     var getHuntEquipmentPlanModel = function (row, isNew) {
         var huntEquipmentType;
+        var huntEquipmentTypeName;
         var huntEquipmentCountPlan;
         if (isNew) {
             huntEquipmentType = row.find('td:nth-child(2)').find('select').val();
+            huntEquipmentTypeName = row.find('td:nth-child(2)').find('select').text();
             huntEquipmentCountPlan = row.find('td:nth-child(3)').find('input').val();
         } else {
             huntEquipmentType = row.find('td:nth-child(1)').text();
+            huntEquipmentTypeName = row.find('td:nth-child(2)').text();
             huntEquipmentCountPlan = row.find('td:nth-child(3)').text();
         }
 
         return {
             Type: huntEquipmentType,
+            TypeName: huntEquipmentTypeName,
             Count: huntEquipmentCountPlan
         };
     };
@@ -174,5 +178,40 @@
 
         $('#save').attr('disabled', false);
         $('#cancel').attr('disabled', false);
+    });
+
+    $('.deleteHuntEquipmentPlan').on('click', function () {
+
+        var row = $(this).closest('tr');
+        var model = getHuntEquipmentPlanModel(row, false);
+        $('#confirmDeleteModalBody').text('Czy na pewno chcesz usunąć plan dla urządzeń łowieckich ' + model.TypeName);
+        $('#confirmDeleteModal').data('huntEquipmentType', model.Type).modal('show');
+    });
+
+    $('#confirmDelete').on('click', function () {
+
+        var huntEquipmentType = $('#confirmDeleteModal').data('huntEquipmentType');
+
+        $.ajax({
+            type: "POST",
+            url: '/HuntEquipmentPlan/Delete',
+            data: {
+                huntEquipmentType: huntEquipmentType,
+                marketingYearId: marketingYearModel.Id
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.message !== '') {
+                    showDangerAlert(data.message);
+                } else {
+                    location.reload();
+                }
+            },
+            error: function () {
+                alert('Coś poszło nie tak, proszę odświeżyć stronę.');
+            }
+        });
+
+        $('#confirmDeleteModal').modal('hide');
     });
 }

@@ -58,5 +58,20 @@ namespace Hoof.Controllers
             }
             return Json(new { message }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult Delete(int huntEquipmentType, int marketingYearId)
+        {
+            string message = String.Empty;
+            try
+            {
+                _huntEquipmentPlanService.DeleteHuntEquipmentPlan(huntEquipmentType, marketingYearId);
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return Json(new { message }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
