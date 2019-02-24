@@ -90,6 +90,22 @@
         $('#cancel').attr('disabled', true);
     }
 
+    var enableButtons = function(isEditMode) {
+
+        $('#addHuntEquipmentPlan').attr('disabled', isEditMode);
+        var buttons = [];
+        buttons.push($('#huntEquipmentPlanTable').find('.editHuntEquipmentPlan'));
+        buttons.push($('#huntEquipmentPlanTable').find('.deleteHuntEquipmentPlan'));
+        $.each(buttons,
+            function(index, button) {
+                $(button).attr('disabled', isEditMode);
+            });
+
+        $('#save').attr('disabled', !isEditMode);
+        $('#cancel').attr('disabled', !isEditMode);
+        
+    }
+
     $('#closeDangerAlert').on('click', function() {
         $('#dangerAlert').hide();
     });
@@ -107,6 +123,7 @@
     $('#cancel').on('click', function () {
         $('#warningAlert').hide();
         clearTable(true);
+        enableButtons(false);
     });
 
     $('#save').on('click', function () {
@@ -176,8 +193,7 @@
 
         makeRowEditable(this);
 
-        $('#save').attr('disabled', false);
-        $('#cancel').attr('disabled', false);
+        enableButtons(true);
     });
 
     $('.deleteHuntEquipmentPlan').on('click', function () {
