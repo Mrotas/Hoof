@@ -8,13 +8,7 @@
         $('.alert-danger').find('.alert-body').text(message);
         $('.alert-danger').show();
     }
-
-    var showWarningAlert = function(message) {
-
-        $('.alert-warning').find('.alert-body').text(message);
-        $('.alert-warning').show();
-    }
-
+    
     var validateForm = function (row) {
         var isValid = true;
 
@@ -185,14 +179,7 @@
 
     $('.editHuntEquipmentPlan').on('click', function () {
 
-        var rowInEditProcess = $('#huntEquipmentPlanTable').find('tr.editable');
-        if (rowInEditProcess.length > 0) {
-            showWarningAlert('Aby móc edytować kolejny plan, proszę zakończyć proces edycji poprzedniego.');
-            return;
-        }
-
         makeRowEditable(this);
-
         enableButtons(true);
     });
 
