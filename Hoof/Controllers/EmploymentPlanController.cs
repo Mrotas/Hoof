@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using Domain.EmploymentPlan;
 using Domain.EmploymentPlan.ViewModels;
 
@@ -26,6 +27,51 @@ namespace Hoof.Controllers
         {
             EmploymentPlanBaseViewModel employmentPlanBaseViewModel = _employmentPlanService.GetEmploymentPlanViewModel(marketingYearId);
             return View(employmentPlanBaseViewModel);
+        }
+
+        [HttpPost]
+        public JsonResult Add(EmploymentPlanViewModel model, int marketingYearId)
+        {
+            string message = String.Empty;
+            try
+            {
+                _employmentPlanService.AddEmploymentPlan(model, marketingYearId);
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return Json(new { message }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult Edit(EmploymentPlanViewModel model, int marketingYearId)
+        {
+            string message = String.Empty;
+            try
+            {
+                _employmentPlanService.UpdateEmploymentPlan(model, marketingYearId);
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return Json(new { message }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult Delete(int employmentType, int marketingYearId)
+        {
+            string message = String.Empty;
+            try
+            {
+                _employmentPlanService.DeleteEmploymentPlan(employmentType, marketingYearId);
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return Json(new { message }, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -52,6 +52,56 @@ namespace Domain.EmploymentPlan
             return employmentPlanBaseViewModel;
         }
 
+        public void AddEmploymentPlan(EmploymentPlanViewModel model, int marketingYearId)
+        {
+            if (model.EmploymentType == 0)
+            {
+                throw new Exception("Nie można dodać planu gospodarczego zatrudnienia");
+            }
+
+            IList<EmploymentPlanDto> existingEquipmentPlanDtos = _employmentPlanDao.GetByMarketingYear(marketingYearId);
+            if (existingEquipmentPlanDtos.Any(x => x.EmploymentType == model.EmploymentType))
+            {
+                throw new Exception($"Plan zatrudnienia {GetEmploymentTypeName(model.EmploymentType)} już istnieje! Proszę użyć opcji edycji istniejącego już planu.");
+            }
+
+            var dto = new EmploymentPlanDto
+            {
+                EmploymentType = model.EmploymentType,
+                Count = model.Count,
+                MarketingYearId = marketingYearId
+            };
+
+            _employmentPlanDao.Insert(dto);
+        }
+
+        public void UpdateEmploymentPlan(EmploymentPlanViewModel model, int marketingYearId)
+        {
+            if (model.EmploymentType <= 0)
+            {
+                throw new Exception("Nie można dodać planu zatrudnienia");
+            }
+
+            var dto = new EmploymentPlanDto
+            {
+                EmploymentType = model.EmploymentType,
+                Count = model.Count,
+                MarketingYearId = marketingYearId
+            };
+
+            _employmentPlanDao.Update(dto);
+        }
+
+        public void DeleteEmploymentPlan(int employmentType, int marketingYearId)
+        {
+            if (employmentType <= 0)
+            {
+                throw new Exception("Nie można dodać planu gospodarczego karmy");
+            }
+
+            _employmentPlanDao.Delete(employmentType, marketingYearId);
+        }
+
         private string GetEmploymentTypeName(int employmentType)
         {
             switch (employmentType)

@@ -19,6 +19,45 @@ namespace DataAccess.Dao.EmploymentPlan
             }
         }
 
+        public void Insert(EmploymentPlanDto dto)
+        {
+            var entity = new Entities.EmploymentPlan
+            {
+                EmploymentType = dto.EmploymentType,
+                Count = dto.Count,
+                MarketingYearId = dto.MarketingYearId
+            };
+
+            using (var db = new DbContext())
+            {
+                db.EmploymentPlan.Add(entity);
+                db.SaveChanges();
+            }
+        }
+
+        public void Update(EmploymentPlanDto dto)
+        {
+            using (var db = new DbContext())
+            {
+                Entities.EmploymentPlan employmentPlan = db.EmploymentPlan.Single(x => x.MarketingYearId == dto.MarketingYearId && x.EmploymentType == dto.EmploymentType);
+
+                employmentPlan.Count = dto.Count;
+
+                db.SaveChanges();
+            }
+        }
+
+        public void Delete(int employmentType, int marketingYearId)
+        {
+            using (var db = new DbContext())
+            {
+                Entities.EmploymentPlan employmentPlan = db.EmploymentPlan.Single(x => x.MarketingYearId == marketingYearId && x.EmploymentType == employmentType);
+
+                db.EmploymentPlan.Remove(employmentPlan);
+                db.SaveChanges();
+            }
+        }
+
         private IList<EmploymentPlanDto> ToDtos(IList<Entities.EmploymentPlan> entityList)
         {
             var dtos = new List<EmploymentPlanDto>();

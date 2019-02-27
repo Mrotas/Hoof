@@ -13,6 +13,6 @@ namespace Domain.EmploymentPlan.ViewModels
         public string EmploymentTypeName { get; set; }
 
         [Display(Name = "Liczba")]
-        public double Count { get; set; }
+        public int Count { get; set; }
     }
 }
