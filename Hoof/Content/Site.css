@@ -39,3 +39,15 @@ td.editable:hover{
     border: solid 2px green !important;
     background-color: #e2f4e2 !important
 }
+
+td.clearSearch a {
+    display: block;
+    width: 100%;
+    text-align: center
+}
+
+td.clearSearch a > span{
+    color: #d9534f;
+    font-size: 24px;
+    padding-top: 5px;
+}

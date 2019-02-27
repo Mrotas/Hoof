@@ -21,7 +21,7 @@ namespace DataAccess.Dao.HuntEquipmentPlan
 
         public void Insert(HuntEquipmentPlanDto dto)
         {
-            var huntEquipmentPlan = new Entities.HuntEquipmentPlan
+            var entity = new Entities.HuntEquipmentPlan
             {
                 Type = dto.Type,
                 Count = dto.Count,
@@ -30,7 +30,7 @@ namespace DataAccess.Dao.HuntEquipmentPlan
 
             using (var db = new DbContext())
             {
-                db.HuntEquipmentPlan.Add(huntEquipmentPlan);
+                db.HuntEquipmentPlan.Add(entity);
                 db.SaveChanges();
             }
         }

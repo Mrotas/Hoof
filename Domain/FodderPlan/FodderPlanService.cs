@@ -53,6 +53,56 @@ namespace Domain.FodderPlan
             return fodderPlanViewBaseModel;
         }
 
+        public void AddFodderPlan(FodderPlanViewModel model, int marketingYearId)
+        {
+            if (model.Type == 0)
+            {
+                throw new Exception("Nie można dodać planu gospodarczego karmy");
+            }
+
+            IList<FodderPlanDto> existingEquipmentPlanDtos = _fodderPlanDao.GetByMarketingYear(marketingYearId);
+            if (existingEquipmentPlanDtos.Any(x => x.Type == model.Type))
+            {
+                throw new Exception($"Plan gospodarczy karmy {GetFodderTypeName(model.Type)} już istnieje! Proszę użyć opcji edycji istniejącego już planu.");
+            }
+
+            var dto = new FodderPlanDto
+            {
+                Type = model.Type,
+                Ton = model.Ton,
+                MarketingYearId = marketingYearId
+            };
+
+            _fodderPlanDao.Insert(dto);
+        }
+
+        public void UpdateFodderPlan(FodderPlanViewModel model, int marketingYearId)
+        {
+            if (model.Type <= 0)
+            {
+                throw new Exception("Nie można dodać planu gospodarczego karmy");
+            }
+
+            var dto = new FodderPlanDto
+            {
+                Type = model.Type,
+                Ton = model.Ton,
+                MarketingYearId = marketingYearId
+            };
+
+            _fodderPlanDao.Update(dto);
+        }
+
+        public void DeleteFodderPlan(int fodderType, int marketingYearId)
+        {
+            if (fodderType <= 0)
+            {
+                throw new Exception("Nie można dodać planu gospodarczego karmy");
+            }
+
+            _fodderPlanDao.Delete(fodderType, marketingYearId);
+        }
+
         private string GetFodderTypeName(int fodderType)
         {
             switch (fodderType)

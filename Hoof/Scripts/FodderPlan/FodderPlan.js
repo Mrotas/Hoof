@@ -1,4 +1,4 @@
-﻿var HuntEquipmentPlan = function(config) {
+﻿var FodderPlan = function (config) {
 
     var marketingYearId = config.MarketingYearId;
     var controller = config.Controller;
@@ -8,7 +8,7 @@
         $('.alert-danger').find('.alert-body').text(message);
         $('.alert-danger').show();
     }
-    
+
     var validateForm = function (row) {
         var isValid = true;
 
@@ -35,7 +35,7 @@
         return isValid;
     };
 
-    var getHuntEquipmentPlanModel = function (row, isNew) {
+    var getFodderPlanModel = function (row, isNew) {
         var type, typeName, plan;
         if (isNew) {
             type = row.find('td:nth-child(2)').find('select').val();
@@ -50,7 +50,7 @@
         return {
             Type: type,
             TypeName: typeName,
-            Count: plan
+            Ton: plan
         };
     };
 
@@ -67,7 +67,7 @@
         });
     }
 
-    var clearTable = function(setPreviousValue) {
+    var clearTable = function (setPreviousValue) {
         var rowInEditProcess = $('#planTable').find('tr.editable');
         rowInEditProcess.removeClass('editable');
         $.each($(rowInEditProcess).find('td.editable'), function (index, cell) {
@@ -97,29 +97,30 @@
         });
     }
 
-    var enableButtons = function(isEditMode) {
+    var enableButtons = function (isEditMode) {
         $('#addPlan').attr('disabled', isEditMode);
         var buttons = [];
         buttons.push($('#planTable').find('.editPlan'));
         buttons.push($('#planTable').find('.deletePlan'));
-        $.each(buttons, function(index, button) {
-            $(button).attr('disabled', isEditMode);
-        });
+        $.each(buttons,
+            function (index, button) {
+                $(button).attr('disabled', isEditMode);
+            });
 
         $('#save').attr('disabled', !isEditMode);
         $('#cancel').attr('disabled', !isEditMode);
-        
+
     }
 
-    $('.clearSearch').on('click', function() {
+    $('.clearSearch').on('click', function () {
         var row = $(this).closest('tr');
         clearRow(row);
     });
 
-    $('#closeDangerAlert').on('click', function() {
+    $('#closeDangerAlert').on('click', function () {
         $('#dangerAlert').hide();
     });
-    
+
     $("td.canEdit").keypress(function (e) {
         if (isNaN(String.fromCharCode(e.which))) {
             e.preventDefault();
@@ -141,7 +142,7 @@
                 type: "POST",
                 url: '/' + controller + '/Edit',
                 data: {
-                    model: getHuntEquipmentPlanModel(rowInEditProcess, false),
+                    model: getFodderPlanModel(rowInEditProcess, false),
                     marketingYearId: marketingYearId
                 },
                 dataType: 'json',
@@ -170,18 +171,18 @@
                 type: "POST",
                 url: '/' + controller + '/Add',
                 data: {
-                    model: getHuntEquipmentPlanModel(row, true),
+                    model: getFodderPlanModel(row, true),
                     marketingYearId: marketingYearId
                 },
                 dataType: 'json',
-                success: function(data) {
+                success: function (data) {
                     if (data.message !== '') {
                         showDangerAlert(data.message);
                     } else {
                         location.reload();
                     }
                 },
-                error: function() {
+                error: function () {
                     alert('Coś poszło nie tak, proszę odświeżyć stronę.');
                 }
             });
@@ -195,7 +196,7 @@
 
     $('.deletePlan').on('click', function () {
         var row = $(this).closest('tr');
-        var model = getHuntEquipmentPlanModel(row, false);
+        var model = getFodderPlanModel(row, false);
         $('#confirmDeleteModalBody').text('Czy na pewno chcesz usunąć plan ' + model.TypeName);
         $('#confirmDeleteModal').data('type', model.Type).modal('show');
     });
@@ -207,7 +208,7 @@
             type: "POST",
             url: '/' + controller + '/Delete',
             data: {
-                huntEquipmentType: type,
+                fodderType: type,
                 marketingYearId: marketingYearId
             },
             dataType: 'json',

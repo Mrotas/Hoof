@@ -10,9 +10,9 @@
     <script type="text/javascript" src="~/Scripts/HuntEquipmentPlan/HuntEquipmentPlan.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            var config = {};
-            config.MarketingYearModel = {
-                Id: @Model.MarketingYearId
+            var config = {
+                MarketingYearId: @Model.MarketingYearId,
+                Controller: "HuntEquipmentPlan"
             };
             var huntEquipmentPlan = new HuntEquipmentPlan(config);
         });
@@ -38,7 +38,7 @@
 
 <br />
 
-<table class="table table-bordered table-hover" id="huntEquipmentPlanTable">
+<table class="table table-bordered table-hover" id="planTable">
     <tr>
         <th style="width: 5%">
             Lp.
@@ -54,8 +54,8 @@
         </th>
     </tr>
     <tr>
-        <td>
-
+        <td class="clearSearch">
+            <a href="#"> <span class="glyphicon glyphicon-remove-sign"></span> </a>
         </td>
         <td>
             @Html.DropDownList("Wybierz urządzenie", new List<SelectListItem>
@@ -72,7 +72,7 @@
             <input type="number" min="0" class="form-control" style="max-width: none"/>
         </td>
         <td style="text-align: center">
-            <button class="btn btn-primary" id="addHuntEquipmentPlan">Dodaj</button>
+            <button class="btn btn-primary" id="addPlan">Dodaj</button>
         </td>
     </tr>
     @foreach (var item in Model.HuntEquipmentPlanViewModels.OrderBy(x => x.Type).ToList())
@@ -88,8 +88,8 @@
                 @Html.DisplayFor(modelItem => item.Count)
             </td>
             <td style="text-align: center">
-                <button class="btn btn-xs btn-success editHuntEquipmentPlan">Edytuj</button>
-                <button class="btn btn-xs btn-danger deleteHuntEquipmentPlan">Usuń</button>
+                <button class="btn btn-xs btn-success editPlan">Edytuj</button>
+                <button class="btn btn-xs btn-danger deletePlan">Usuń</button>
             </td>
         </tr>
     }
