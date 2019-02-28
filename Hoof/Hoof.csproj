@@ -170,6 +170,7 @@
     <Compile Include="Controllers\HuntEquipmentPlanController.cs" />
     <Compile Include="Controllers\LossController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\TrunkFoodPlanController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -207,6 +208,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\Report\ReportPdfGenerator.js" />
+    <Content Include="Scripts\TrunkFoodPlan\TrunkFoodPlan.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -242,6 +244,8 @@
     <Content Include="Views\CostPlan\Plan.cshtml" />
     <Content Include="Views\EmploymentPlan\Index.cshtml" />
     <Content Include="Views\EmploymentPlan\Plan.cshtml" />
+    <Content Include="Views\TrunkFoodPlan\Index.cshtml" />
+    <Content Include="Views\TrunkFoodPlan\Plan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

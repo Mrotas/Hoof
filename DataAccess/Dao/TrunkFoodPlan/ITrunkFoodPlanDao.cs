@@ -1,10 +1,12 @@
 ﻿using DataAccess.Dto;
-using System.Collections.Generic;
 
 namespace DataAccess.Dao.TrunkFoodPlan
 {
     public interface ITrunkFoodPlanDao
     {
-        IList<TrunkFoodPlanDto> GetTrunkFoodPlan(int marketingYearId);
+        TrunkFoodPlanDto GetByMarketingYear(int marketingYearId);
+        void Insert(TrunkFoodPlanDto dto);
+        void Update(TrunkFoodPlanDto dto);
+        void Delete(int marketingYearId);
     }
 }

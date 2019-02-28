@@ -103,8 +103,8 @@ namespace Domain.AnnualPlan
 
             var employmentPlanModel = new EmploymentPlanModel
             {
-                FullTimeEmployees = employeePlans.Single(x => x.EmploymentType == (int) EmploymentType.FullTime).Count,
-                PartTimeEmployees = employeePlans.Single(x => x.EmploymentType == (int) EmploymentType.PartTime).Count
+                FullTimeEmployees = employeePlans.FirstOrDefault(x => x.EmploymentType == (int) EmploymentType.FullTime)?.Count ?? 0,
+                PartTimeEmployees = employeePlans.FirstOrDefault(x => x.EmploymentType == (int) EmploymentType.PartTime)?.Count ?? 0
             };
             
             return employmentPlanModel;
@@ -129,12 +129,12 @@ namespace Domain.AnnualPlan
 
         private TrunkFoodPlanModel GetTrunkFoodPlanModel(int marketingYearId)
         {
-            IList<TrunkFoodPlanDto> trunkFoodPlans = _trunkFoodPlanDao.GetTrunkFoodPlan(marketingYearId);
+            TrunkFoodPlanDto trunkFoodPlanDto = _trunkFoodPlanDao.GetByMarketingYear(marketingYearId);
 
-            TrunkFoodPlanModel trunkFoodPlanModel = trunkFoodPlans.Select(x => new TrunkFoodPlanModel
+            TrunkFoodPlanModel trunkFoodPlanModel = new TrunkFoodPlanModel
             {
-                Hectare = x.Hectare
-            }).Single();
+                Hectare = trunkFoodPlanDto?.Hectare ?? 0
+            };
 
             return trunkFoodPlanModel;
         }
@@ -162,10 +162,10 @@ namespace Domain.AnnualPlan
 
             var fodderPlanModel = new FodderPlanModel
             {
-                Dry = fodderPlans.Single(x => x.Type == (int) Fodder.Dry).Ton,
-                Juicy = fodderPlans.Single(x => x.Type == (int) Fodder.Juicy).Ton,
-                Pithy = fodderPlans.Single(x => x.Type == (int) Fodder.Pithy).Ton,
-                Salt = fodderPlans.Single(x => x.Type == (int) Fodder.Salt).Ton
+                Dry = fodderPlans.FirstOrDefault(x => x.Type == (int) Fodder.Dry)?.Ton ?? 0,
+                Juicy = fodderPlans.FirstOrDefault(x => x.Type == (int) Fodder.Juicy)?.Ton ?? 0,
+                Pithy = fodderPlans.FirstOrDefault(x => x.Type == (int) Fodder.Pithy)?.Ton ?? 0,
+                Salt = fodderPlans.FirstOrDefault(x => x.Type == (int) Fodder.Salt)?.Ton ?? 0
             };
 
             return fodderPlanModel;
@@ -182,8 +182,8 @@ namespace Domain.AnnualPlan
 
             var costPlanModel = new CostPlanModel
             {
-                Cost = costPlans.Single(x => x.Type == (int) CostType.Cost).Cost,
-                Revenue = costPlans.Single(x => x.Type == (int) CostType.Revenue).Cost
+                Cost = costPlans.FirstOrDefault(x => x.Type == (int) CostType.Cost)?.Cost ?? 0,
+                Revenue = costPlans.FirstOrDefault(x => x.Type == (int) CostType.Revenue)?.Cost ?? 0
             };
 
             return costPlanModel;

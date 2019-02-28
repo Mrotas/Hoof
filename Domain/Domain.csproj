@@ -123,6 +123,10 @@
     <Compile Include="Report\Models\MonthlyReportModel.cs" />
     <Compile Include="Report\Models\MonthlyReportSubKindGameModel.cs" />
     <Compile Include="Report\ReportService.cs" />
+    <Compile Include="TrunkFoodPlan\ITrunkFoodPlanService.cs" />
+    <Compile Include="TrunkFoodPlan\Models\TrunkFoodPlanModel.cs" />
+    <Compile Include="TrunkFoodPlan\TrunkFoodPlanService.cs" />
+    <Compile Include="TrunkFoodPlan\ViewModels\TrunkFoodPlanViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
