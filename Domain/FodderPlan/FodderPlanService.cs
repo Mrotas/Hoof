@@ -80,7 +80,7 @@ namespace Domain.FodderPlan
         {
             if (model.Type <= 0)
             {
-                throw new Exception("Nie można dodać planu gospodarczego karmy");
+                throw new Exception("Nie można edytować planu gospodarczego karmy");
             }
 
             var dto = new FodderPlanDto
@@ -97,7 +97,7 @@ namespace Domain.FodderPlan
         {
             if (fodderType <= 0)
             {
-                throw new Exception("Nie można dodać planu gospodarczego karmy");
+                throw new Exception("Nie można usunąć planu gospodarczego karmy");
             }
 
             _fodderPlanDao.Delete(fodderType, marketingYearId);

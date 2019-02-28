@@ -1,4 +1,4 @@
-﻿var FodderPlan = function (config) {
+﻿var CostPlan = function (config) {
 
     var marketingYearId = config.MarketingYearId;
     var controller = config.Controller;
@@ -35,7 +35,7 @@
         return isValid;
     };
 
-    var getFodderPlanModel = function (row, isNew) {
+    var getCostPlanModel = function (row, isNew) {
         var type, typeName, plan;
         if (isNew) {
             type = row.find('td:nth-child(2)').find('select').val();
@@ -50,7 +50,7 @@
         return {
             Type: type,
             TypeName: typeName,
-            Ton: plan
+            Cost: plan
         };
     };
 
@@ -142,7 +142,7 @@
                 type: "POST",
                 url: '/' + controller + '/Edit',
                 data: {
-                    model: getFodderPlanModel(rowInEditProcess, false),
+                    model: getCostPlanModel(rowInEditProcess, false),
                     marketingYearId: marketingYearId
                 },
                 dataType: 'json',
@@ -171,7 +171,7 @@
                 type: "POST",
                 url: '/' + controller + '/Add',
                 data: {
-                    model: getFodderPlanModel(row, true),
+                    model: getCostPlanModel(row, true),
                     marketingYearId: marketingYearId
                 },
                 dataType: 'json',
@@ -196,7 +196,7 @@
 
     $('.deletePlan').on('click', function () {
         var row = $(this).closest('tr');
-        var model = getFodderPlanModel(row, false);
+        var model = getCostPlanModel(row, false);
         $('#confirmDeleteModalBody').text('Czy na pewno chcesz usunąć plan ' + model.TypeName + '?');
         $('#confirmDeleteModal').data('type', model.Type).modal('show');
     });
@@ -208,7 +208,7 @@
             type: "POST",
             url: '/' + controller + '/Delete',
             data: {
-                fodderType: type,
+                costType: type,
                 marketingYearId: marketingYearId
             },
             dataType: 'json',

@@ -196,7 +196,7 @@
     $('.deletePlan').on('click', function () {
         var row = $(this).closest('tr');
         var model = getHuntEquipmentPlanModel(row, false);
-        $('#confirmDeleteModalBody').text('Czy na pewno chcesz usunąć plan ' + model.TypeName);
+        $('#confirmDeleteModalBody').text('Czy na pewno chcesz usunąć plan ' + model.TypeName + '?');
         $('#confirmDeleteModal').data('type', model.Type).modal('show');
     });
 

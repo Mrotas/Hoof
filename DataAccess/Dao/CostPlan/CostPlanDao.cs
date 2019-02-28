@@ -19,6 +19,45 @@ namespace DataAccess.Dao.CostPlan
             }
         }
 
+        public void Insert(CostPlanDto dto)
+        {
+            var entity = new Entities.CostPlan
+            {
+                Type = dto.Type,
+                Cost = dto.Cost,
+                MarketingYearId = dto.MarketingYearId
+            };
+
+            using (var db = new DbContext())
+            {
+                db.CostPlan.Add(entity);
+                db.SaveChanges();
+            }
+        }
+
+        public void Update(CostPlanDto dto)
+        {
+            using (var db = new DbContext())
+            {
+                Entities.CostPlan costPlan = db.CostPlan.Single(x => x.MarketingYearId == dto.MarketingYearId && x.Type == dto.Type);
+
+                costPlan.Cost = dto.Cost;
+
+                db.SaveChanges();
+            }
+        }
+
+        public void Delete(int costType, int marketingYearId)
+        {
+            using (var db = new DbContext())
+            {
+                Entities.CostPlan costPlan = db.CostPlan.Single(x => x.MarketingYearId == marketingYearId && x.Type == costType);
+
+                db.CostPlan.Remove(costPlan);
+                db.SaveChanges();
+            }
+        }
+
         private IList<CostPlanDto> ToDtos(IList<Entities.CostPlan> costPlanList)
         {
             var costPlanDtos = new List<CostPlanDto>();

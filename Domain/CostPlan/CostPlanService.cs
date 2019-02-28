@@ -53,6 +53,56 @@ namespace Domain.CostPlan
             return costPlanViewBaseModel;
         }
 
+        public void AddCostPlan(CostPlanViewModel model, int marketingYearId)
+        {
+            if (model.Type == 0)
+            {
+                throw new Exception("Nie można dodać planu kosztów koła łowieckiego");
+            }
+
+            IList<CostPlanDto> existingEquipmentPlanDtos = _costPlanDao.GetByMarketingYear(marketingYearId);
+            if (existingEquipmentPlanDtos.Any(x => x.Type == model.Type))
+            {
+                throw new Exception($"Plan {GetCostTypeName(model.Type)} już istnieje! Proszę użyć opcji edycji istniejącego już planu.");
+            }
+
+            var dto = new CostPlanDto
+            {
+                Type = model.Type,
+                Cost = model.Cost,
+                MarketingYearId = marketingYearId
+            };
+
+            _costPlanDao.Insert(dto);
+        }
+
+        public void UpdateCostPlan(CostPlanViewModel model, int marketingYearId)
+        {
+            if (model.Type <= 0)
+            {
+                throw new Exception("Nie można edytować planu kosztów koła łowieckiego");
+            }
+
+            var dto = new CostPlanDto
+            {
+                Type = model.Type,
+                Cost = model.Cost,
+                MarketingYearId = marketingYearId
+            };
+
+            _costPlanDao.Update(dto);
+        }
+
+        public void DeleteCostPlan(int costType, int marketingYearId)
+        {
+            if (costType <= 0)
+            {
+                throw new Exception("Nie można usunąć planu kosztów koła łowieckiego");
+            }
+
+            _costPlanDao.Delete(costType, marketingYearId);
+        }
+
         private string GetCostTypeName(int costType)
         {
             switch (costType)

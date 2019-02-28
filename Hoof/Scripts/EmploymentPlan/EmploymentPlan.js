@@ -197,7 +197,7 @@
     $('.deletePlan').on('click', function () {
         var row = $(this).closest('tr');
         var model = getEmploymentPlanModel(row, false);
-        $('#confirmDeleteModalBody').text('Czy na pewno chcesz usunąć plan ' + model.EmploymentTypeName);
+        $('#confirmDeleteModalBody').text('Czy na pewno chcesz usunąć plan ' + model.EmploymentTypeName + '?');
         $('#confirmDeleteModal').data('type', model.EmploymentType).modal('show');
     });
 

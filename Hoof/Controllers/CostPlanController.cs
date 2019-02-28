@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using Domain.CostPlan;
 using Domain.CostPlan.ViewModels;
 
@@ -26,6 +27,51 @@ namespace Hoof.Controllers
         {
             CostPlanBaseViewModel costPlanBaseViewModel = _costPlanService.GetCostPlanViewModel(marketingYearId);
             return View(costPlanBaseViewModel);
+        }
+
+        [HttpPost]
+        public JsonResult Add(CostPlanViewModel model, int marketingYearId)
+        {
+            string message = String.Empty;
+            try
+            {
+                _costPlanService.AddCostPlan(model, marketingYearId);
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return Json(new { message }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult Edit(CostPlanViewModel model, int marketingYearId)
+        {
+            string message = String.Empty;
+            try
+            {
+                _costPlanService.UpdateCostPlan(model, marketingYearId);
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return Json(new { message }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult Delete(int costType, int marketingYearId)
+        {
+            string message = String.Empty;
+            try
+            {
+                _costPlanService.DeleteCostPlan(costType, marketingYearId);
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return Json(new { message }, JsonRequestBehavior.AllowGet);
         }
     }
 }

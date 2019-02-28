@@ -97,7 +97,7 @@ namespace Domain.HuntEquipmentPlan
         {
             if (huntEquipmentType <= 0)
             {
-                throw new Exception("Nie można edytować planu urządzenia łowieckiego");
+                throw new Exception("Nie można usunąć planu urządzenia łowieckiego");
             }
             
             _huntEquipmentPlanDao.Delete(huntEquipmentType, marketingYearId);

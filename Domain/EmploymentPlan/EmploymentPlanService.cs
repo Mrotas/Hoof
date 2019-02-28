@@ -79,7 +79,7 @@ namespace Domain.EmploymentPlan
         {
             if (model.EmploymentType <= 0)
             {
-                throw new Exception("Nie można dodać planu zatrudnienia");
+                throw new Exception("Nie można edytować planu gospodarczego zatrudnienia");
             }
 
             var dto = new EmploymentPlanDto
@@ -96,7 +96,7 @@ namespace Domain.EmploymentPlan
         {
             if (employmentType <= 0)
             {
-                throw new Exception("Nie można dodać planu gospodarczego karmy");
+                throw new Exception("Nie można usunąć planu gospodarczego zatrudnienia");
             }
 
             _employmentPlanDao.Delete(employmentType, marketingYearId);
