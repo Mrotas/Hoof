@@ -161,6 +161,7 @@
     <Compile Include="Controllers\CatchController.cs" />
     <Compile Include="Controllers\CostPlanController.cs" />
     <Compile Include="Controllers\EmploymentPlanController.cs" />
+    <Compile Include="Controllers\FieldPlanController.cs" />
     <Compile Include="Controllers\FodderPlanController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\GameCountPlanController.cs" />
@@ -195,6 +196,7 @@
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\CostPlan\CostPlan.js" />
     <Content Include="Scripts\EmploymentPlan\EmploymentPlan.js" />
+    <Content Include="Scripts\FieldPlan\FieldPlan.js" />
     <Content Include="Scripts\FodderPlan\FodderPlan.js" />
     <Content Include="Scripts\HuntEquipmentPlan\HuntEquipmentPlan.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -246,6 +248,8 @@
     <Content Include="Views\EmploymentPlan\Plan.cshtml" />
     <Content Include="Views\TrunkFoodPlan\Index.cshtml" />
     <Content Include="Views\TrunkFoodPlan\Plan.cshtml" />
+    <Content Include="Views\FieldPlan\Index.cshtml" />
+    <Content Include="Views\FieldPlan\Plan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

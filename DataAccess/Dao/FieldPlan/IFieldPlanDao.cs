@@ -1,10 +1,12 @@
 ﻿using DataAccess.Dto;
-using System.Collections.Generic;
 
 namespace DataAccess.Dao.FieldPlan
 {
     public interface IFieldPlanDao
     {
-        IList<FieldPlanDto> GetByMarketingYear(int marketingYearId);
+        FieldPlanDto GetByMarketingYear(int marketingYearId);
+        void Insert(FieldPlanDto dto);
+        void Update(FieldPlanDto dto);
+        void Delete(int marketingYearId);
     }
 }

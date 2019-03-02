@@ -21,9 +21,9 @@ namespace DataAccess.Test.Dao
         {
             int marketingYearId = 3;
 
-            IList<FieldPlanDto> results = _fieldPlanDao.GetByMarketingYear(marketingYearId);
+            FieldPlanDto results = _fieldPlanDao.GetByMarketingYear(marketingYearId);
 
-            Assert.That(results, Is.Not.Empty);
+            Assert.That(results, Is.Not.Null);
         }
 
     }

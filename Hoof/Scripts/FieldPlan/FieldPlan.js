@@ -1,4 +1,4 @@
-﻿var TrunkFoodPlan = function (config) {
+﻿var FieldPlan = function (config) {
 
     var marketingYearId = config.MarketingYearId;
     var controller = config.Controller;
@@ -35,7 +35,7 @@
         return isValid;
     };
 
-    var getTrunkFoodPlanModel = function (row, isNew) {
+    var getFieldPlanModel = function (row, isNew) {
         var plan;
         if (isNew) {
             plan = row.find('td:nth-child(3)').find('input').val();
@@ -144,7 +144,7 @@
                 type: "POST",
                 url: '/' + controller + '/Edit',
                 data: {
-                    model: getTrunkFoodPlanModel(rowInEditProcess, false),
+                    model: getFieldPlanModel(rowInEditProcess, false),
                     marketingYearId: marketingYearId
                 },
                 dataType: 'json',
@@ -173,7 +173,7 @@
                 type: "POST",
                 url: '/' + controller + '/Add',
                 data: {
-                    model: getTrunkFoodPlanModel(row, true),
+                    model: getFieldPlanModel(row, true),
                     marketingYearId: marketingYearId
                 },
                 dataType: 'json',
@@ -197,7 +197,7 @@
     });
 
     $('.deletePlan').on('click', function () {
-        $('#confirmDeleteModalBody').text('Czy na pewno chcesz usunąć plan Powierzchnia obszarów obsianych lub obsadzonych roślinami stanowiącymi żer dla zwierzyny na pniu?');
+        $('#confirmDeleteModalBody').text('Czy na pewno chcesz usunąć plan Powierzchnia zagospodarowanych przez dzierżawcę albo zarządcę obwodu łowieckiego łąk śródleśnych i przyleśnych?');
         $('#confirmDeleteModal').modal('show');
     });
 

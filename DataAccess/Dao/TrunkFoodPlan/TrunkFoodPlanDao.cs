@@ -17,7 +17,7 @@ namespace DataAccess.Dao.TrunkFoodPlan
                     return null;
                 }
 
-                var dtos = ToDto(trunkFoodPlan);
+                TrunkFoodPlanDto dtos = ToDto(trunkFoodPlan);
 
                 return dtos;
             }

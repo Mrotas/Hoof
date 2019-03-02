@@ -71,6 +71,10 @@
     <Compile Include="EmploymentPlan\IEmploymentPlanService.cs" />
     <Compile Include="EmploymentPlan\ViewModels\EmploymentPlanViewModel.cs" />
     <Compile Include="EmploymentPlan\ViewModels\EmploymentPlanBaseViewModel.cs" />
+    <Compile Include="FieldPlan\FieldPlanService.cs" />
+    <Compile Include="FieldPlan\IFieldPlanService.cs" />
+    <Compile Include="FieldPlan\Models\FiledPlanModel.cs" />
+    <Compile Include="FieldPlan\ViewModels\FieldPlanViewModel.cs" />
     <Compile Include="FodderPlan\FodderPlanService.cs" />
     <Compile Include="FodderPlan\IFodderPlanService.cs" />
     <Compile Include="FodderPlan\ViewModels\FodderPlanViewModel.cs" />

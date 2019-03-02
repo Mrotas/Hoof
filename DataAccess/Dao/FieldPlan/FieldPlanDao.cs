@@ -7,32 +7,72 @@ namespace DataAccess.Dao.FieldPlan
 {
     public class FieldPlanDao : DaoBase, IFieldPlanDao
     {
-        public IList<FieldPlanDto> GetByMarketingYear(int marketingYearId)
+        public FieldPlanDto GetByMarketingYear(int marketingYearId)
         {
             using (var db = new DbContext())
             {
-                List<Entities.FieldPlan> fieldPlan = db.FieldPlan.Where(x => x.MarketingYearId == marketingYearId).ToList();
+                Entities.FieldPlan fieldPlan = db.FieldPlan.FirstOrDefault(x => x.MarketingYearId == marketingYearId);
 
-                IList<FieldPlanDto> dtos = ToDtos(fieldPlan);
+                if (fieldPlan == null)
+                {
+                    return null;
+                }
 
-                return dtos;
-            }           
+                FieldPlanDto dto = ToDto(fieldPlan);
+
+                return dto;
+            }
         }
 
-        private IList<FieldPlanDto> ToDtos(IList<Entities.FieldPlan> entityList)
+        public void Insert(FieldPlanDto dto)
         {
-            var dtos = new List<FieldPlanDto>();
-            foreach (Entities.FieldPlan entity in entityList)
+            var entity = new Entities.FieldPlan
             {
-                var dto = new FieldPlanDto
-                {
-                    Id = entity.Id,
-                    Hectare = entity.Hectare,
-                    MarketingYearId = entity.MarketingYearId
-                };
-                dtos.Add(dto);
+                Id = dto.Id,
+                Hectare = dto.Hectare,
+                MarketingYearId = dto.MarketingYearId
+            };
+
+            using (var db = new DbContext())
+            {
+                db.FieldPlan.Add(entity);
+                db.SaveChanges();
             }
-            return dtos;
+        }
+
+        public void Update(FieldPlanDto dto)
+        {
+            using (var db = new DbContext())
+            {
+                Entities.FieldPlan fieldPlan = db.FieldPlan.Single(x => x.MarketingYearId == dto.MarketingYearId);
+
+                fieldPlan.Hectare = dto.Hectare;
+
+                db.SaveChanges();
+            }
+        }
+
+        public void Delete(int marketingYearId)
+        {
+            using (var db = new DbContext())
+            {
+                Entities.FieldPlan fieldPlan = db.FieldPlan.Single(x => x.MarketingYearId == marketingYearId);
+
+                db.FieldPlan.Remove(fieldPlan);
+                db.SaveChanges();
+            }
+        }
+
+        private FieldPlanDto ToDto(Entities.FieldPlan entity)
+        {
+            var dto = new FieldPlanDto
+            {
+                Id = entity.Id,
+                Hectare = entity.Hectare,
+                MarketingYearId = entity.MarketingYearId
+            };
+
+            return dto;
         }
     }
 }

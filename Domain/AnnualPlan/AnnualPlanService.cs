@@ -131,7 +131,7 @@ namespace Domain.AnnualPlan
         {
             TrunkFoodPlanDto trunkFoodPlanDto = _trunkFoodPlanDao.GetByMarketingYear(marketingYearId);
 
-            TrunkFoodPlanModel trunkFoodPlanModel = new TrunkFoodPlanModel
+            var trunkFoodPlanModel = new TrunkFoodPlanModel
             {
                 Hectare = trunkFoodPlanDto?.Hectare ?? 0
             };
@@ -146,12 +146,12 @@ namespace Domain.AnnualPlan
 
         private FieldPlanModel GetFieldPlanModel(int marketingYearId)
         {
-            IList<FieldPlanDto> fieldPlan = _fieldPlanDao.GetByMarketingYear(marketingYearId);
+            FieldPlanDto fieldPlan = _fieldPlanDao.GetByMarketingYear(marketingYearId);
 
-            FieldPlanModel fieldPlanModel = fieldPlan.Select(x => new FieldPlanModel
+            var fieldPlanModel = new FieldPlanModel
             {
-                Hectare = x.Hectare
-            }).Single();
+                Hectare = fieldPlan?.Hectare ?? 0
+            };
 
             return fieldPlanModel;
         }
