@@ -62,7 +62,7 @@
     };
 
     var getGameHuntPlanModel = function (row, isNew) {
-        var id, gameId, kind, kindName, subKind, subKindName, gameClass, gameClassName, cull, gameCatch;
+        var id, gameType, gameId, kind, kindName, subKind, subKindName, gameClass, gameClassName, cull, gameCatch;
         if (isNew) {
             kind = row.find('td:nth-child(2)').find('select').val();
             kindName = row.find('td:nth-child(2)').find('select option:selected').text();
@@ -74,16 +74,18 @@
             gameCatch = row.find('td:nth-child(6)').find('input').val();
         } else {
             id = row.find('td:nth-child(1)').text();
-            gameId = row.find('td:nth-child(2)').text();
-            kindName = row.find('td:nth-child(3)').text();
-            subKindName = row.find('td:nth-child(4)').text();
-            gameClassName = row.find('td:nth-child(5)').text();
-            cull = row.find('td:nth-child(6)').text();
-            gameCatch = row.find('td:nth-child(7)').text();
+            gameType = row.find('td:nth-child(2)').text();
+            gameId = row.find('td:nth-child(3)').text();
+            kindName = row.find('td:nth-child(4)').text();
+            subKindName = row.find('td:nth-child(5)').text();
+            gameClassName = row.find('td:nth-child(6)').text();
+            cull = row.find('td:nth-child(7)').text();
+            gameCatch = row.find('td:nth-child(8)').text();
         }
 
         return {
             Id: id,
+            GameType: gameType,
             GameId: gameId,
             GameKind: kind,
             GameKindName: kindName,
@@ -190,8 +192,31 @@
         enableButtons(false);
     });
 
+    $("input[name='gameType']").on('change', function() {
+        var gameType = $(this).val();
+        sessionStorage.setItem("FilteredGameType", $(this).attr('id'));
+        var rows = $('#planTableBody').find('tr');
+        if (gameType === '0') {
+            $.each(rows, function(index, row) {
+                $(row).attr('hidden', false);
+            });
+        } else {
+            $.each(rows, function (index, row) {
+                var filteredGameType = $(row).find('td:nth-child(2)').text();
+                filteredGameType = filteredGameType.replace(/\s/g, '');
+                $(row).attr('hidden', !(gameType === filteredGameType));
+            });
+        }
+    });
+
+    $("#planTableBody").ready(function () {
+        var checkedGameTypeFilterName = sessionStorage.getItem("FilteredGameType");
+        $('#' + checkedGameTypeFilterName).prop('checked', true).change();
+    });
+
     $('#gameKind').on('change', function () {
         $('#gameSubKind').empty().append("<option></option>");
+        $('#gameClass').empty().append("<option></option>");
         var gameKindName = $(this).find(":selected").text();
         if (gameKindName !== '') {
             $.ajax({

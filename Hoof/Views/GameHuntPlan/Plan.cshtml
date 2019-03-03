@@ -38,15 +38,33 @@
 
 <br />
 
+<div style="text-align: center">
+    <label style="padding-right: 10px;">Pokaż zwierzynę: </label>
+
+    <input type="radio" id="all" name="gameType" value="0" checked>
+    <label style="padding-right: 10px;" for="all">Wszystkie</label>
+
+    <input type="radio" id="bigGame" name="gameType" value="1">
+    <label style="padding-right: 10px;" for="bigGame">Gruba</label>
+
+    <input type="radio" id="smallGame" name="gameType" value="2">
+    <label style="padding-right: 10px;" for="smallGame">Drobna</label>
+</div>
+
+<br/>
+
 <table class="table table-bordered table-hover" id="planTable">
     <tr>
         <th hidden>
             Id
         </th>
+        <th hidden>
+            Typ
+        </th>
         <th style="width: 5%">
             Lp.
         </th>
-        <th  style="width: 25%">
+        <th style="width: 25%">
             Zwierzyna
         </th>
         <th style="width: 20%">
@@ -120,37 +138,41 @@
             <button class="btn btn-primary" id="addPlan">Dodaj</button>
         </td>
     </tr>
-    @foreach (var item in Model.GameHuntPlanViewModels.OrderBy(x => x.GameType).ThenBy(x => x.GameKind).ThenBy(x => x.GameSubKind).ThenBy(x => x.Class).ToList())
-    {
-        <tr>
-            <td hidden>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td style="text-align: center">
-                @Html.DisplayFor(modelItem => item.GameId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GameKindName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GameSubKindName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClassName)
-            </td>
-            <td class="canEdit">
-                @Html.DisplayFor(modelItem => item.Cull)
-            </td>
-            <td class="canEdit">
-                @Html.DisplayFor(modelItem => item.Catch)
-            </td>
-            <td style="text-align: center">
-                <button class="btn btn-xs btn-success editPlan">Edytuj</button>
-                <button class="btn btn-xs btn-danger deletePlan">Usuń</button>
-            </td>
-        </tr>
-    }
-
+    <tbody id="planTableBody">
+        @foreach (var item in Model.GameHuntPlanViewModels.OrderBy(x => x.GameType).ThenBy(x => x.GameKind).ThenBy(x => x.GameSubKind).ThenBy(x => x.Class).ToList())
+        {
+            <tr>
+                <td hidden>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td hidden>
+                    @Html.DisplayFor(modelItem => item.GameType)
+                </td>
+                <td style="text-align: center">
+                    @Html.DisplayFor(modelItem => item.GameId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GameKindName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GameSubKindName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClassName)
+                </td>
+                <td class="canEdit">
+                    @Html.DisplayFor(modelItem => item.Cull)
+                </td>
+                <td class="canEdit">
+                    @Html.DisplayFor(modelItem => item.Catch)
+                </td>
+                <td style="text-align: center">
+                    <button class="btn btn-xs btn-success editPlan">Edytuj</button>
+                    <button class="btn btn-xs btn-danger deletePlan">Usuń</button>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 <div style="text-align: right">
     <button class="btn btn-secondary" id="cancel" disabled>Anuluj</button>
