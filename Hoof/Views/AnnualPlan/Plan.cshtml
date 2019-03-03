@@ -10,7 +10,7 @@
 {
     @Scripts.Render("~/bundles/jqueryval")
 
-    <link rel="stylesheet" href="~/Content/AnnualPlan/AnnualPlanStyles.css"/>
+    <link rel="stylesheet" href="~/Content/AnnualPlan/AnnualPlanStyles.css" />
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.51/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.51/vfs_fonts.js"></script>
     <script type="text/javascript" src="~/Scripts/AnnualPlan/AnnualPlanPdfGenerator.js"></script>
@@ -62,17 +62,33 @@
 <button class="btn btn-danger" id="generateAnnualPlanPdf">Pobierz PDF</button>
 <h2 style="text-align: center; font-weight: bold">ROCZNY PLAN ŁOWIECKI</h2>
 <h3 style="text-align: center; font-weight: bold">@($"na rok gospodarczy {Model.CurrentMarketingYearModel}")</h3>
-<h3 style="text-align: center; font-weight: bold">@($"oraz sprawozdanie z wykonania planu roku gospodarczego {Model.PreviousMarketingYearModel}")</h3>
 
 <br />
 
 <h3 style="font-weight: bold">I. Dane ogólne</h3>
-<h4>1. Obwód łowiecki nr <span style="font-weight: bold">20</span> powierzchnia <span style="font-weight: bold">4777</span> ha, w tym powierzchnia gruntów leśnych <span style="font-weight: bold">4394</span> ha powierzchnia po wyłączeniach, o których mowa w art. 26 ustawy z 13.X.1995r. Prawo Łowieckie <span style="font-weight: bold">4502</span> ha</h4>
-<h4>2. Wojewódzctwo <span style="font-weight: bold">wielkopolskie</span>, Powiat <span style="font-weight: bold">złotowski</span></h4>
-<h4>3. Nadleśnictwo (nazwa i adres siedziby) <span style="font-weight: bold">Płytnica z siedzibą w Nowej Szwecji, Szwecja 6 78-600 Wałcz</span></h4>
-<h4>4. Regionalna Dyrekcja Lasów Państwowych (nazwa i adres siedziby) <span style="font-weight: bold">Piła, 64-920 Piła-Kalina</span></h4>
-<h4>5. Zarząd Okręgowy PZŁ (nazwa i adres siedziby) <span style="font-weight: bold">Piła, al.Powstańców Wlkp. 190 64-920 Piła</span></h4>
-<h4>6. Dzierżawca/lub zarządca (nazwa i adres siedziby) <span style="font-weight: bold">Koło Łowieckie nr 39 Literatów Polskich „Pióro” ul.Rostworowskego 6/2, 01-496 Warszawa</span></h4>
+<h4>1. Obwód łowiecki nr <b>20</b> powierzchnia <b>4777</b> ha, w tym powierzchnia gruntów leśnych <b>4394</b> ha powierzchnia po wyłączeniach, o których mowa w art. 26 ustawy z 13.X.1995r. Prawo Łowieckie <b>4502</b> ha</h4>
+<h4>2. Wojewódzctwo <b>wielkopolskie</b>, Powiat <b>złotowski</b></h4>
+<h4>3. Nadleśnictwo (nazwa i adres siedziby) <b>Płytnica z siedzibą w Nowej Szwecji, Szwecja 6 78-600 Wałcz</b></h4>
+<h4>4. Regionalna Dyrekcja Lasów Państwowych (nazwa i adres siedziby) <b>Piła, 64-920 Piła-Kalina</b></h4>
+<h4>5. Zarząd Okręgowy PZŁ (nazwa i adres siedziby) <b>Piła, al.Powstańców Wlkp. 190 64-920 Piła</b></h4>
+<h4>6. Dzierżawca/lub zarządca (nazwa i adres siedziby) <b>Koło Łowieckie nr 39 Literatów Polskich „Pióro” ul.Rostworowskego 6/2, 01-496 Warszawa</b></h4>
+<h4>7. Data sporządzenia rocznego planu łowieckiego: <b>@DateTime.Today.ToString("dd/MM/yyyy")</b></h4>
+<h4>8. Osoba uprawniona do reprezentowania dzierżawcy albo zarządcy obwodu łowieckiego (imię, nazwisko) Filip Mrotek</h4>
+<h4 style="margin-bottom: 0; margin-top: 20px">9. .............................................................................................................................................................................................................................</h4>
+<div style="text-align: center"><h7><sup>(podpis osoby uprawnionej do reprezentacji dzierżawcy albo zarządcy obwodu łowieckiego)</sup></h7></div>
+
+<br />
+<br />
+
+<div style="text-align: right; padding-right: 25%">
+    <h4>Plan zatwierdził</h4>
+</div>
+<div style="text-align: right; padding-right: 18%">
+    <h4 style="margin-bottom: 0; margin-top: 20px">..........................................................</h4>
+</div>
+<div style="text-align: right; padding-right: 28%">
+    <div><h7><sup>(data, podpis)</sup></h7></div>
+</div>
 
 <br />
 
@@ -378,48 +394,48 @@
         </tr>
         foreach (AnnualPlanSubKindGameModel gameSubKindPlanModel in gameKindPlanModel.AnnualPlanSubKindGameModels)
         {
-        <tr>
-            <td>@($"- {gameSubKindPlanModel.SubKindName}")</td>
-            <td>@gameSubKindPlanModel.PreviousHuntPlanCulls</td>
-            <td>@gameSubKindPlanModel.PreviousHuntPlanCatches</td>
-            <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionTotal</td>
-            <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionCulls</td>
-            <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionCatches</td>
-            <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionLosses</td>
-            <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionSanitaryLosses</td>
-            <td></td>
-            <td>@gameSubKindPlanModel.GameCountBefore10March</td>
-            <td></td>
-            <td></td>
-            <td>@gameSubKindPlanModel.CurrentHuntPlanCulls</td>
-            <td>@gameSubKindPlanModel.CurrentHuntPlanCatches</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-            foreach (AnnualPlanClassGameModel gameClassPlanModel in gameSubKindPlanModel.AnnualPlanClassGameModels)
-            {
             <tr>
-                <td style="text-align: center">@($"- {gameClassPlanModel.ClassName}")</td>
-                <td>@gameClassPlanModel.PreviousHuntPlanCulls</td>
-                <td>@gameClassPlanModel.PreviousHuntPlanCatches</td>
-                <td>@gameClassPlanModel.PreviousHuntPlanExecutionTotal</td>
-                <td>@gameClassPlanModel.PreviousHuntPlanExecutionCulls</td>
-                <td>@gameClassPlanModel.PreviousHuntPlanExecutionCatches</td>
-                <td>@gameClassPlanModel.PreviousHuntPlanExecutionLosses</td>
-                <td>@gameClassPlanModel.PreviousHuntPlanExecutionSanitaryLosses</td>
+                <td>@($"- {gameSubKindPlanModel.SubKindName}")</td>
+                <td>@gameSubKindPlanModel.PreviousHuntPlanCulls</td>
+                <td>@gameSubKindPlanModel.PreviousHuntPlanCatches</td>
+                <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionTotal</td>
+                <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionCulls</td>
+                <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionCatches</td>
+                <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionLosses</td>
+                <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionSanitaryLosses</td>
                 <td></td>
-                <td>@gameClassPlanModel.GameCountBefore10March</td>
+                <td>@gameSubKindPlanModel.GameCountBefore10March</td>
                 <td></td>
                 <td></td>
-                <td>@gameClassPlanModel.CurrentHuntPlanCulls</td>
-                <td>@gameClassPlanModel.CurrentHuntPlanCatches</td>
+                <td>@gameSubKindPlanModel.CurrentHuntPlanCulls</td>
+                <td>@gameSubKindPlanModel.CurrentHuntPlanCatches</td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
             </tr>
+            foreach (AnnualPlanClassGameModel gameClassPlanModel in gameSubKindPlanModel.AnnualPlanClassGameModels)
+            {
+                <tr>
+                    <td style="text-align: center">@($"- {gameClassPlanModel.ClassName}")</td>
+                    <td>@gameClassPlanModel.PreviousHuntPlanCulls</td>
+                    <td>@gameClassPlanModel.PreviousHuntPlanCatches</td>
+                    <td>@gameClassPlanModel.PreviousHuntPlanExecutionTotal</td>
+                    <td>@gameClassPlanModel.PreviousHuntPlanExecutionCulls</td>
+                    <td>@gameClassPlanModel.PreviousHuntPlanExecutionCatches</td>
+                    <td>@gameClassPlanModel.PreviousHuntPlanExecutionLosses</td>
+                    <td>@gameClassPlanModel.PreviousHuntPlanExecutionSanitaryLosses</td>
+                    <td></td>
+                    <td>@gameClassPlanModel.GameCountBefore10March</td>
+                    <td></td>
+                    <td></td>
+                    <td>@gameClassPlanModel.CurrentHuntPlanCulls</td>
+                    <td>@gameClassPlanModel.CurrentHuntPlanCatches</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
             }
         }
     }
@@ -481,21 +497,21 @@
         if (gameKindPlanModel.AnnualPlanSubKindGameModels.Count == 0)
         {
             <tr>
-             <td style="font-weight: bold">@($"{gameKindPlanModel.KindName}")</td>
-             <td>@gameKindPlanModel.PreviousHuntPlanCulls</td>
-             <td>@gameKindPlanModel.PreviousHuntPlanCatches</td>
-             <td>@gameKindPlanModel.PreviousHuntPlanExecutionCulls</td>
-             <td>@gameKindPlanModel.PreviousHuntPlanExecutionCatches</td>
-             <td></td>
-             <td>@gameKindPlanModel.GameCountBefore10March</td>
-             <td></td>
-             <td>@gameKindPlanModel.CurrentHuntPlanCulls</td>
-             <td>@gameKindPlanModel.CurrentHuntPlanCatches</td>
-             <td>@gameKindPlanModel.CurrentHuntPlanCullsMin</td>
-             <td>@gameKindPlanModel.CurrentHuntPlanCullsMax</td>
-             <td>@gameKindPlanModel.CurrentHuntPlanCatchesMin</td>
-             <td>@gameKindPlanModel.CurrentHuntPlanCatchesMax</td>
-         </tr>
+                <td style="font-weight: bold">@($"{gameKindPlanModel.KindName}")</td>
+                <td>@gameKindPlanModel.PreviousHuntPlanCulls</td>
+                <td>@gameKindPlanModel.PreviousHuntPlanCatches</td>
+                <td>@gameKindPlanModel.PreviousHuntPlanExecutionCulls</td>
+                <td>@gameKindPlanModel.PreviousHuntPlanExecutionCatches</td>
+                <td></td>
+                <td>@gameKindPlanModel.GameCountBefore10March</td>
+                <td></td>
+                <td>@gameKindPlanModel.CurrentHuntPlanCulls</td>
+                <td>@gameKindPlanModel.CurrentHuntPlanCatches</td>
+                <td>@gameKindPlanModel.CurrentHuntPlanCullsMin</td>
+                <td>@gameKindPlanModel.CurrentHuntPlanCullsMax</td>
+                <td>@gameKindPlanModel.CurrentHuntPlanCatchesMin</td>
+                <td>@gameKindPlanModel.CurrentHuntPlanCatchesMax</td>
+            </tr>
         }
         foreach (var gameSubKindPlanModel in gameKindPlanModel.AnnualPlanSubKindGameModels)
         {
