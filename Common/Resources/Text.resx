@@ -151,10 +151,10 @@
     <value>Borsuki</value>
   </data>
   <data name="Barriers" xml:space="preserve">
-    <value>Pasy zaporowe</value>
+    <value>Liczba i łączna długość pasów zaporowych</value>
   </data>
   <data name="BigGamePlanBeforeHuntSeason" xml:space="preserve">
-    <value>Planowana liczebność zwierzyny grubej przed okresem polowań</value>
+    <value>Planowana liczebność zwierzyny grubej w dniu poprzedzającym dzień rozpoczęcia okresu polowań</value>
   </data>
   <data name="Boars" xml:space="preserve">
     <value>Dziki</value>
@@ -166,7 +166,7 @@
     <value>w tym : kwota wypłaconych odszkodowań łowieckich</value>
   </data>
   <data name="ContractEmployees" xml:space="preserve">
-    <value>Liczba osób zatrudnionych w oparciu o umowę o pracę w celu  wykonywania zadań z zakresu gospodarki łowieckiej</value>
+    <value>Liczba osób zatrudnionych na podstawie umowy o pracę</value>
   </data>
   <data name="Coots" xml:space="preserve">
     <value>Łyski</value>
@@ -181,7 +181,7 @@
     <value>Stan planowany do osiągnięcia w bieżącym roku gospodarczym {0}</value>
   </data>
   <data name="DamagedArea" xml:space="preserve">
-    <value>Powierzchnia zredukowana upraw rolnych uszkodzonych przez zwierzęta łowne</value>
+    <value>Wielkość szkód wyrządzonych w uprawach i płodach rolnych przez dziki, łosie, jelenie, daniele i sarny.</value>
   </data>
   <data name="DeerBulls" xml:space="preserve">
     <value>byki razem</value>
@@ -228,8 +228,8 @@
   <data name="EconomyDetriment" xml:space="preserve">
     <value>Zagospodarowanie obwodu łowieckiego, szkody łowieckie.</value>
   </data>
-  <data name="EstimatedNumberGamesColonized10March" xml:space="preserve">
-    <value>Szacowana liczebność zwierząt na 10.03 {0}</value>
+  <data name="EstimatedGamesCount10March" xml:space="preserve">
+    <value>Szacowana liczebność zwierząt łownych na dzień 10 marca {0} r.</value>
   </data>
   <data name="Farms" xml:space="preserve">
     <value>zagrody</value>
@@ -238,26 +238,25 @@
     <value>Tchórze zwyczajne</value>
   </data>
   <data name="Fields" xml:space="preserve">
-    <value>Zagospodarowane przez dzierżawcę lub zarządcę łąki śródleśne i przyleśne</value>
+    <value>Powierzchnia zagospodarowanych przez dzierżawcę albo zarządcę obwodu łowieckiego łąk śródleśnych i przyleśnych</value>
   </data>
   <data name="FallowDeersTogether" xml:space="preserve">
     <value>Daniele razem</value>
   </data>
   <data name="FoodAndSalt" xml:space="preserve">
-    <value>Karma i sól</value>
+    <value>Masa i rodzaj karmy</value>
   </data>
   <data name="Foxes" xml:space="preserve">
     <value>Lisy</value>
   </data>
-  <data name="GamesColonized10March" xml:space="preserve">
-    <value>Liczba zasiedlonych zwierząt do 10.03 poprzedniego roku gospodarczego</value>
+  <data name="GamesSettlemented10March" xml:space="preserve">
+    <value>Liczba zw. łow. zasiedl. w łow. r. gosp. poprz. łow. r. gosp. na który sporządzono rpl.</value>
   </data>
-  <data name="GamesColonizedPlan" xml:space="preserve">
-    <value>Plan zasiedleń w roku gospodarczym {0} / {1}</value>
+  <data name="GamesSettlementPlan" xml:space="preserve">
+    <value>Planowana do zasiedleń liczba zw. łownych</value>
   </data>
-  <data name="GamesGainPlan" xml:space="preserve">
-    <value>Optymalna liczba zwierząt zaplanowanych do pozyskania w {0} / {1} roku
-gospodarczym</value>
+  <data name="GamesHuntPlan" xml:space="preserve">
+    <value>Optymalna liczba zwierząt zaplanowanych do pozyskania w łow. roku gosp. na który sporządzono rpl.</value>
   </data>
   <data name="GameTypes" xml:space="preserve">
     <value>Gatunki zwierząt łownych</value>
@@ -304,8 +303,8 @@ gospodarczym</value>
   <data name="Min" xml:space="preserve">
     <value>min</value>
   </data>
-  <data name="MinMaxGameGainPlan" xml:space="preserve">
-    <value>Minimalna i maksymalna liczba zwierząt zaplanowana do pozyskania w roku gospodarczym {0} /{1}</value>
+  <data name="MinMaxGameHuntPlan" xml:space="preserve">
+    <value>Minimalna i maksymalna liczba zwierząt zaplanowana do pozyskania w łow. roku gospodarczym, na który sporządzono rpl.</value>
   </data>
   <data name="MooseBulls" xml:space="preserve">
     <value>byki</value>
@@ -335,7 +334,7 @@ gospodarczym</value>
     <value>Piżmaki</value>
   </data>
   <data name="NonContractEmployees" xml:space="preserve">
-    <value>Liczba osób zatrudnionych na innej podstawie niż umowa o pracę, lub powołanych, w celu wykonywania zadań z zakresu gospodarki łowieckiej</value>
+    <value>Liczba osób zatrudnionych na innej podstawie niż umowa o pracę lub wskazanych do wykonywania zadań z zakresu gospodarki łowieckiej</value>
   </data>
   <data name="Partridges" xml:space="preserve">
     <value>Kuropatwy</value>
@@ -356,10 +355,10 @@ gospodarczym</value>
     <value>Wykonanie planu poprzedniego roku gospodarczego {0}</value>
   </data>
   <data name="PreviousYearExecution" xml:space="preserve">
-    <value>Wykonanie planu pozyskania roku poprzed niego {0} / {1}</value>
+    <value>Liczba zw. łow. pozyskanych w łow. roku gosp. poprz. łow. rok. gosp. na który sporządzony jest rpl.</value>
   </data>
   <data name="PreviousYearGainPlan" xml:space="preserve">
-    <value>Plan pozyskania roku poprzedniego {0} / {1}</value>
+    <value>Liczba zw. łow. planow. do poz. w łow. roku gosp. poprz. rok gosp. na który sporządzono rpl.</value>
   </data>
   <data name="Pulpits" xml:space="preserve">
     <value>ambony</value>
@@ -386,7 +385,7 @@ gospodarczym</value>
     <value>Sarny razem</value>
   </data>
   <data name="SalesRevenuesAndCosts" xml:space="preserve">
-    <value>Informacja o przychodach ze sprzedaży tusz zwierzyny płowej i kosztach zagospodarowania obwodu.</value>
+    <value>Przychody ze sprzedaży tusz zwierzyny płowej w obwodzie łowieckim</value>
   </data>
   <data name="Salt" xml:space="preserve">
     <value>sól</value>
@@ -398,10 +397,10 @@ gospodarczym</value>
     <value>Wyszczególnienie</value>
   </data>
   <data name="TrunkFood" xml:space="preserve">
-    <value>Poletka łowieckie(obszary obsiane lub obsadzone roślinami stanowiącymi żer dla zwierzyny na pniu)</value>
+    <value>Powierzchnia obszarów obsianych lub obsadzonych roślinami stanowiącymi żer dla zwierzyny na pniu</value>
   </data>
   <data name="Unit" xml:space="preserve">
-    <value>Jednostka miary</value>
+    <value>jedn. miary</value>
   </data>
   <data name="UnitAltogetherPieces" xml:space="preserve">
     <value>ogółem szt.</value>
@@ -433,8 +432,8 @@ gospodarczym</value>
   <data name="UnitWastagesPieces" xml:space="preserve">
     <value>ubytki szt.</value>
   </data>
-  <data name="WateringPlaces" xml:space="preserve">
-    <value>inne - wodopoje</value>
+  <data name="Other" xml:space="preserve">
+    <value>inne</value>
   </data>
   <data name="Woodcocks" xml:space="preserve">
     <value>Słonki</value>
@@ -452,12 +451,18 @@ gospodarczym</value>
     <value>III kl. wieku</value>
   </data>
   <data name="SanitaryLoss" xml:space="preserve">
-    <value>Odstrzał sanitarny w poprzednim roku gospodarczym</value>
+    <value>Liczba ubytków zw. grubej powstałych w łow. roku gosp. poprz. łow. rok. gosp. na który sporządzono rpl. w szt.</value>
   </data>
   <data name="GameAnnualPlanAccomplished" xml:space="preserve">
     <value>Wykonanie planu zostało osiągnięte</value>
   </data>
   <data name="GameAnnualPlanExceeded" xml:space="preserve">
     <value>Przekroczono plan pozyskania zwierzyny</value>
+  </data>
+  <data name="PaidCompensations" xml:space="preserve">
+    <value>kwota wypłaconych odszkodowań łowieckich</value>
+  </data>
+  <data name="ReducedArea" xml:space="preserve">
+    <value>powierzchnia zredukowana</value>
   </data>
 </root>

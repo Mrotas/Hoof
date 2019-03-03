@@ -16,7 +16,7 @@
     <script type="text/javascript" src="~/Scripts/AnnualPlan/AnnualPlanPdfGenerator.js"></script>
     <script type="text/javascript">
 
-        $('#bodyContainer').css('width', '75%');
+        //$('#bodyContainer').css('width', '75%');
 
         $(document).ready(function() {
             $('#bigGameTable tr').each(function() {
@@ -79,12 +79,12 @@
 <h3 style="font-weight: bold">II. Zagospodarowanie obwodu łowieckiego, szkody łowieckie</h3>
 <table class="table-bordered table-hover annualPlanTable" id="annualPlanTable">
     <tr>
-        <th>@Text.Specification</th>
-        <th class="unit">@Text.Unit</th>
-        <th class="long-header">@String.Format(Text.PreviousEconomyPlan, Model.PreviousMarketingYearModel)</th>
-        <th class="long-header">@String.Format(Text.PreviousPlanExecution, Model.PreviousMarketingYearModel)</th>
-        <th class="long-header">@String.Format(Text.March10Condition, Model.CurrentMarketingYearModel.Start.Year)</th>
-        <th class="long-header">@String.Format(Text.CurrentYearPlan, Model.CurrentMarketingYearModel)</th>
+        <th style="width: 35%">@Text.Specification</th>
+        <th style="width: 5%" class="unit">@Text.Unit</th>
+        <th style="width: 15%" class="long-header">@String.Format(Text.PreviousEconomyPlan, Model.PreviousMarketingYearModel)</th>
+        <th style="width: 15%" class="long-header">@String.Format(Text.PreviousPlanExecution, Model.PreviousMarketingYearModel)</th>
+        <th style="width: 15%" class="long-header">@String.Format(Text.March10Condition, Model.CurrentMarketingYearModel.Start.Year)</th>
+        <th style="width: 15%" class="long-header">@String.Format(Text.CurrentYearPlan, Model.CurrentMarketingYearModel)</th>
     </tr>
     <tr>
         <td class="column_number" style="text-align: center">1</td>
@@ -112,11 +112,11 @@
     </tr>
     <tr>
         <td class="paragraph">3. @Text.HuntingEquipment</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>@Text.X</td>
+        <td>@Text.X</td>
+        <td>@Text.X</td>
+        <td>@Text.X</td>
+        <td>@Text.X</td>
     </tr>
     <tr>
         <td>a) @Text.Pastures</td>
@@ -159,7 +159,7 @@
         <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModel.Farms</td>
     </tr>
     <tr>
-        <td>f) @Text.WateringPlaces</td>
+        <td>f) @Text.Other</td>
         <td>@Text.UnitPiece</td>
         <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModel.WateringPlaces</td>
         <td></td>
@@ -167,20 +167,27 @@
         <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModel.WateringPlaces</td>
     </tr>
     <tr>
-        <td class="paragraph">4. @Text.TrunkFood</td>
+        <td class="paragraph" rowspan="2">4. @Text.Barriers</td>
+        <td>@Text.UnitPiece</td>
+        <td>@Model.PreviousAnnualPlanModel.BarrierPlanModel.Count</td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.BarrierPlanModel.Count</td>
+    </tr>
+    <tr>
+        <td style="text-align: center">@Text.UnitKilometers</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="paragraph">5. @Text.TrunkFood</td>
         <td>@Text.UnitHectare</td>
         <td>@Model.PreviousAnnualPlanModel.TrunkFoodPlanModel.Hectare</td>
         <td></td>
         <td></td>
         <td>@Model.CurrentAnnualPlanModel.TrunkFoodPlanModel.Hectare</td>
-    </tr>
-    <tr>
-        <td class="paragraph">5. @Text.Barriers</td>
-        <td>@Text.UnitKilometers</td>
-        <td>@Model.PreviousAnnualPlanModel.BarrierPlanModel.Count</td>
-        <td></td>
-        <td></td>
-        <td>@Model.CurrentAnnualPlanModel.BarrierPlanModel.Count</td>
     </tr>
     <tr>
         <td class="paragraph">6. @Text.Fields</td>
@@ -192,11 +199,11 @@
     </tr>
     <tr>
         <td class="paragraph">7. @Text.FoodAndSalt</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>@Text.X</td>
+        <td>@Text.X</td>
+        <td>@Text.X</td>
+        <td>@Text.X</td>
+        <td>@Text.X</td>
     </tr>
     <tr>
         <td>a) @Text.Dry</td>
@@ -232,6 +239,14 @@
     </tr>
     <tr>
         <td class="paragraph">8. @Text.DamagedArea</td>
+        <td>@Text.X</td>
+        <td>@Text.X</td>
+        <td>@Text.X</td>
+        <td>@Text.X</td>
+        <td>@Text.X</td>
+    </tr>
+    <tr>
+        <td>- @Text.ReducedArea</td>
         <td>@Text.UnitHectare</td>
         <td>@Model.PreviousAnnualPlanModel.DamagedFieldPlanModel.Hectare</td>
         <td></td>
@@ -239,10 +254,26 @@
         <td>@Model.CurrentAnnualPlanModel.DamagedFieldPlanModel.Hectare</td>
     </tr>
     <tr>
+        <td>- @Text.PaidCompensations</td>
+        <td>@Text.UnitThousandZlotych</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="paragraph">9. @Text.Costs</td>
+        <td>@Text.UnitThousandZlotych</td>
+        <td>@Model.PreviousAnnualPlanModel.CostPlanModel.Cost</td>
+        <td></td>
+        <td></td>
+        <td>@Model.CurrentAnnualPlanModel.CostPlanModel.Cost</td>
+    </tr>
+    <tr>
         <td colspan="6">&nbsp;</td>
     </tr>
     <tr style="border: 0">
-        <td colspan="6" style="font-size: x-large; font-weight: bold"> III. Informacja o przychodach ze sprzedaży tusz zwierzyny płowej i kosztach zagospodarowania obwodu.</td>
+        <td colspan="6" style="font-size: x-large; font-weight: bold"> III. Informacja o przychodach ze sprzedaży tusz zwierzyny płowej.</td>
     </tr>
     <tr>
         <td class="column_number" style="text-align: center">1</td>
@@ -253,23 +284,7 @@
         <td class="column_number">6</td>
     </tr>
     <tr>
-        <td class="paragraph">1. @Text.Costs</td>
-        <td>@Text.UnitThousandZlotych</td>
-        <td>@Model.PreviousAnnualPlanModel.CostPlanModel.Cost</td>
-        <td></td>
-        <td></td>
-        <td>@Model.CurrentAnnualPlanModel.CostPlanModel.Cost</td>
-    </tr>
-    <tr>
-        <td>@Text.Compensation</td>
-        <td>@Text.UnitThousandZlotych</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td class="paragraph">2. @Text.CarcassesRevenues</td>
+        <td class="paragraph">1. @Text.CarcassesRevenues</td>
         <td>@Text.UnitThousandZlotych</td>
         <td>@Model.PreviousAnnualPlanModel.CostPlanModel.Revenue</td>
         <td></td>
@@ -281,48 +296,43 @@
 <br />
 <br />
 
-<h3 style="font-weight: bold">IV. Dane dotyczące zwierząt łownych.</h3>
+<h3 style="font-weight: bold">IV. Dane dotyczące zwierząt łownych w obwodzie łowieckim.</h3>
 <h4 style="font-weight: bold">a) zwierzyna gruba</h4>
 <table class="table-bordered table-hover annualPlanTable" style="text-align: center" id="bigGameTable">
     <tr>
-        <th class="short-header" rowspan="4">@Text.GameTypes</th>
-        <th colspan="2">@String.Format(Text.PreviousYearGainPlan, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
-        <th colspan="4">@String.Format(Text.PreviousYearExecution, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
-        <th>@Text.SanitaryLoss</th>
-        <th>@Text.GamesColonized10March</th>
-        <th>@String.Format(Text.EstimatedNumberGamesColonized10March, DateTime.Now.Year - 1)</th>
-        <th>@String.Format(Text.GamesColonizedPlan, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
+        <th style="width: 12%" class="short-header" rowspan="3">@Text.GameTypes</th>
+        <th colspan="2">@Text.PreviousYearGainPlan</th>
+        <th colspan="3">@Text.PreviousYearExecution</th>
+        <th colspan="2">@Text.SanitaryLoss</th>
+        <th>@Text.GamesSettlemented10March</th>
+        <th>@String.Format(Text.EstimatedGamesCount10March, DateTime.Now.Year - 1)</th>
+        <th>@String.Format(Text.GamesSettlementPlan, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
         <th>@Text.BigGamePlanBeforeHuntSeason</th>
-        <th colspan="2">@String.Format(Text.GamesGainPlan, DateTime.Now.Year, DateTime.Now.Year + 1)</th>
-        <th colspan="4">@String.Format(Text.MinMaxGameGainPlan, DateTime.Now.Year, DateTime.Now.Year + 1)</th>
+        <th colspan="2">@Text.GamesHuntPlan</th>
+        <th colspan="4">@Text.MinMaxGameHuntPlan</th>
     </tr>
     <tr>
-        <td class="game-unit" style="text-align: center" rowspan="3">odstrzał szt.</td>
-        <td class="game-unit" rowspan="3">odłów szt.</td>
-        <td class="game-unit" rowspan="3">ogółem szt.</td>
-        <td class="game-unit" colspan="3">w tym szt.</td>
-        <td></td>
-        <td class="game-unit" rowspan="3">szt.</td>
-        <td class="game-unit" rowspan="3">szt.</td>
-        <td class="game-unit" rowspan="3">szt.</td>
-        <td class="game-unit" rowspan="3">szt.</td>
-        <td class="game-unit" rowspan="3">odstrzał szt.</td>
-        <td class="game-unit" rowspan="3">odłów szt.</td>
+        <td class="game-unit" style="text-align: center" rowspan="2">odstrzał szt.</td>
+        <td class="game-unit" rowspan="2">odłów szt.</td>
+        <td class="game-unit" rowspan="2">ogółem szt.</td>
+        <td class="game-unit" rowspan="2">odstrzał szt.</td>
+        <td class="game-unit" rowspan="2">odłów szt.</td>
+        <td class="game-unit" rowspan="2">ogółem.</td>
+        <td class="game-unit" rowspan="2">w tym odstrzał sanitarny.</td>
+        <td class="game-unit" rowspan="2">szt.</td>
+        <td class="game-unit" rowspan="2">szt.</td>
+        <td class="game-unit" rowspan="2">szt.</td>
+        <td class="game-unit" rowspan="2">szt.</td>
+        <td class="game-unit" rowspan="2">odstrzał szt.</td>
+        <td class="game-unit" rowspan="2">odłów szt.</td>
         <td class="game-unit" colspan="2">odstrzał szt.</td>
         <td class="game-unit" colspan="2">odłów szt.</td>
     </tr>
     <tr>
-        <td class="game-unit" rowspan="2">odstrzał</td>
-        <td class="game-unit" rowspan="2">odłów</td>
-        <td class="game-unit" colspan="2">ubytki</td>
-        <td class="game-unit" rowspan="2">@Text.Min</td>
-        <td class="game-unit" rowspan="2">@Text.Max</td>
-        <td class="game-unit" rowspan="2">@Text.Min</td>
-        <td class="game-unit" rowspan="2">@Text.Max</td>
-    </tr>
-    <tr>
-        <td class="game-unit">ogółem</td>
-        <td class="game-unit">W tym odstrzał sanitarny</td>
+        <td class="game-unit">@Text.Min</td>
+        <td class="game-unit">@Text.Max</td>
+        <td class="game-unit">@Text.Min</td>
+        <td class="game-unit">@Text.Max</td>
     </tr>
     <tr>
         <td class="column_number" style="text-align: center">1</td>
@@ -344,11 +354,10 @@
         <td class="column_number">17</td>
         <td class="column_number">18</td>
     </tr>
-    @{ int kindCount = 1;}
     @foreach (AnnualPlanKindGameModel gameKindPlanModel in Model.BigGamePlanModel.AnnualPlanKindGameModels)
     {
         <tr>
-            <td style="font-weight: bold">@($"{kindCount}. {gameKindPlanModel.KindName} razem")</td>
+            <td style="font-weight: bold">@($"{gameKindPlanModel.KindName} razem")</td>
             <td>@gameKindPlanModel.PreviousHuntPlanCulls</td>
             <td>@gameKindPlanModel.PreviousHuntPlanCatches</td>
             <td>@gameKindPlanModel.PreviousHuntPlanExecutionTotal</td>
@@ -413,7 +422,6 @@
             </tr>
             }
         }
-        kindCount++;
     }
 </table>
 
@@ -426,11 +434,11 @@
         <th class="medium-header" rowspan="3">@Text.GameTypes</th>
         <th colspan="2">@String.Format(Text.PreviousYearGainPlan, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
         <th colspan="2">@String.Format(Text.PreviousYearExecution, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
-        <th>@Text.GamesColonized10March</th>
-        <th>@String.Format(Text.EstimatedNumberGamesColonized10March, DateTime.Now.Year - 1)</th>
-        <th>@String.Format(Text.GamesColonizedPlan, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
-        <th colspan="2">@String.Format(Text.GamesGainPlan, DateTime.Now.Year, DateTime.Now.Year + 1)</th>
-        <th colspan="4">@String.Format(Text.MinMaxGameGainPlan, DateTime.Now.Year, DateTime.Now.Year + 1)</th>
+        <th>@Text.GamesSettlemented10March</th>
+        <th>@String.Format(Text.EstimatedGamesCount10March, DateTime.Now.Year - 1)</th>
+        <th>@String.Format(Text.GamesSettlementPlan, DateTime.Now.Year - 1, DateTime.Now.Year)</th>
+        <th colspan="2">@String.Format(Text.GamesHuntPlan, DateTime.Now.Year, DateTime.Now.Year + 1)</th>
+        <th colspan="4">@String.Format(Text.MinMaxGameHuntPlan, DateTime.Now.Year, DateTime.Now.Year + 1)</th>
     </tr>
     <tr>
         <td style="text-align: center" rowspan="2">odstrzał szt.</td>
@@ -470,27 +478,29 @@
 
     @foreach (var gameKindPlanModel in Model.SmallGamePlanModel.AnnualPlanKindGameModels)
     {
-        <tr>
-            <td style="font-weight: bold">@($"{kindCount}. {gameKindPlanModel.KindName}")</td>
-            <td>@gameKindPlanModel.PreviousHuntPlanCulls</td>
-            <td>@gameKindPlanModel.PreviousHuntPlanCatches</td>
-            <td>@gameKindPlanModel.PreviousHuntPlanExecutionCulls</td>
-            <td>@gameKindPlanModel.PreviousHuntPlanExecutionCatches</td>
-            <td></td>
-            <td>@gameKindPlanModel.GameCountBefore10March</td>
-            <td></td>
-            <td>@gameKindPlanModel.CurrentHuntPlanCulls</td>
-            <td>@gameKindPlanModel.CurrentHuntPlanCatches</td>
-            <td>@gameKindPlanModel.CurrentHuntPlanCullsMin</td>
-            <td>@gameKindPlanModel.CurrentHuntPlanCullsMax</td>
-            <td>@gameKindPlanModel.CurrentHuntPlanCatchesMin</td>
-            <td>@gameKindPlanModel.CurrentHuntPlanCatchesMax</td>
-        </tr>
-
+        if (gameKindPlanModel.AnnualPlanSubKindGameModels.Count == 0)
+        {
+            <tr>
+             <td style="font-weight: bold">@($"{gameKindPlanModel.KindName}")</td>
+             <td>@gameKindPlanModel.PreviousHuntPlanCulls</td>
+             <td>@gameKindPlanModel.PreviousHuntPlanCatches</td>
+             <td>@gameKindPlanModel.PreviousHuntPlanExecutionCulls</td>
+             <td>@gameKindPlanModel.PreviousHuntPlanExecutionCatches</td>
+             <td></td>
+             <td>@gameKindPlanModel.GameCountBefore10March</td>
+             <td></td>
+             <td>@gameKindPlanModel.CurrentHuntPlanCulls</td>
+             <td>@gameKindPlanModel.CurrentHuntPlanCatches</td>
+             <td>@gameKindPlanModel.CurrentHuntPlanCullsMin</td>
+             <td>@gameKindPlanModel.CurrentHuntPlanCullsMax</td>
+             <td>@gameKindPlanModel.CurrentHuntPlanCatchesMin</td>
+             <td>@gameKindPlanModel.CurrentHuntPlanCatchesMax</td>
+         </tr>
+        }
         foreach (var gameSubKindPlanModel in gameKindPlanModel.AnnualPlanSubKindGameModels)
         {
             <tr>
-                <td style="text-align: center">@($"- {gameSubKindPlanModel.SubKindName}")</td>
+                <td style="font-weight: bold">@($"{gameKindPlanModel.KindName} {gameSubKindPlanModel.SubKindName}")</td>
                 <td>@gameSubKindPlanModel.PreviousHuntPlanCulls</td>
                 <td>@gameSubKindPlanModel.PreviousHuntPlanCatches</td>
                 <td>@gameSubKindPlanModel.PreviousHuntPlanExecutionCulls</td>
@@ -506,7 +516,5 @@
                 <td>@gameSubKindPlanModel.CurrentHuntPlanCatchesMax</td>
             </tr>
         }
-
-        kindCount++;
     }
 </table>

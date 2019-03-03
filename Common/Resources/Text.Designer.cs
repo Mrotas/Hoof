@@ -88,7 +88,7 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pasy zaporowe.
+        ///   Looks up a localized string similar to Liczba i łączna długość pasów zaporowych.
         /// </summary>
         public static string Barriers {
             get {
@@ -97,7 +97,7 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Planowana liczebność zwierzyny grubej przed okresem polowań.
+        ///   Looks up a localized string similar to Planowana liczebność zwierzyny grubej w dniu poprzedzającym dzień rozpoczęcia okresu polowań.
         /// </summary>
         public static string BigGamePlanBeforeHuntSeason {
             get {
@@ -133,7 +133,7 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Liczba osób zatrudnionych w oparciu o umowę o pracę w celu  wykonywania zadań z zakresu gospodarki łowieckiej.
+        ///   Looks up a localized string similar to Liczba osób zatrudnionych na podstawie umowy o pracę.
         /// </summary>
         public static string ContractEmployees {
             get {
@@ -178,7 +178,7 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Powierzchnia zredukowana upraw rolnych uszkodzonych przez zwierzęta łowne.
+        ///   Looks up a localized string similar to Wielkość szkód wyrządzonych w uprawach i płodach rolnych przez dziki, łosie, jelenie, daniele i sarny..
         /// </summary>
         public static string DamagedArea {
             get {
@@ -322,11 +322,11 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Szacowana liczebność zwierząt na 10.03 {0}.
+        ///   Looks up a localized string similar to Szacowana liczebność zwierząt łownych na dzień 10 marca {0} r..
         /// </summary>
-        public static string EstimatedNumberGamesColonized10March {
+        public static string EstimatedGamesCount10March {
             get {
-                return ResourceManager.GetString("EstimatedNumberGamesColonized10March", resourceCulture);
+                return ResourceManager.GetString("EstimatedGamesCount10March", resourceCulture);
             }
         }
         
@@ -358,7 +358,7 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zagospodarowane przez dzierżawcę lub zarządcę łąki śródleśne i przyleśne.
+        ///   Looks up a localized string similar to Powierzchnia zagospodarowanych przez dzierżawcę albo zarządcę obwodu łowieckiego łąk śródleśnych i przyleśnych.
         /// </summary>
         public static string Fields {
             get {
@@ -376,7 +376,7 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Karma i sól.
+        ///   Looks up a localized string similar to Masa i rodzaj karmy.
         /// </summary>
         public static string FoodAndSalt {
             get {
@@ -412,30 +412,29 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Liczba zasiedlonych zwierząt do 10.03 poprzedniego roku gospodarczego.
+        ///   Looks up a localized string similar to Optymalna liczba zwierząt zaplanowanych do pozyskania w łow. roku gosp. na który sporządzono rpl..
         /// </summary>
-        public static string GamesColonized10March {
+        public static string GamesHuntPlan {
             get {
-                return ResourceManager.GetString("GamesColonized10March", resourceCulture);
+                return ResourceManager.GetString("GamesHuntPlan", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Plan zasiedleń w roku gospodarczym {0} / {1}.
+        ///   Looks up a localized string similar to Liczba zw. łow. zasiedl. w łow. r. gosp. poprz. łow. r. gosp. na który sporządzono rpl..
         /// </summary>
-        public static string GamesColonizedPlan {
+        public static string GamesSettlemented10March {
             get {
-                return ResourceManager.GetString("GamesColonizedPlan", resourceCulture);
+                return ResourceManager.GetString("GamesSettlemented10March", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Optymalna liczba zwierząt zaplanowanych do pozyskania w {0} / {1} roku
-        ///gospodarczym.
+        ///   Looks up a localized string similar to Planowana do zasiedleń liczba zw. łownych.
         /// </summary>
-        public static string GamesGainPlan {
+        public static string GamesSettlementPlan {
             get {
-                return ResourceManager.GetString("GamesGainPlan", resourceCulture);
+                return ResourceManager.GetString("GamesSettlementPlan", resourceCulture);
             }
         }
         
@@ -584,11 +583,11 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Minimalna i maksymalna liczba zwierząt zaplanowana do pozyskania w roku gospodarczym {0} /{1}.
+        ///   Looks up a localized string similar to Minimalna i maksymalna liczba zwierząt zaplanowana do pozyskania w łow. roku gospodarczym, na który sporządzono rpl..
         /// </summary>
-        public static string MinMaxGameGainPlan {
+        public static string MinMaxGameHuntPlan {
             get {
-                return ResourceManager.GetString("MinMaxGameGainPlan", resourceCulture);
+                return ResourceManager.GetString("MinMaxGameHuntPlan", resourceCulture);
             }
         }
         
@@ -674,11 +673,29 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Liczba osób zatrudnionych na innej podstawie niż umowa o pracę, lub powołanych, w celu wykonywania zadań z zakresu gospodarki łowieckiej.
+        ///   Looks up a localized string similar to Liczba osób zatrudnionych na innej podstawie niż umowa o pracę lub wskazanych do wykonywania zadań z zakresu gospodarki łowieckiej.
         /// </summary>
         public static string NonContractEmployees {
             get {
                 return ResourceManager.GetString("NonContractEmployees", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to inne.
+        /// </summary>
+        public static string Other {
+            get {
+                return ResourceManager.GetString("Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to kwota wypłaconych odszkodowań łowieckich.
+        /// </summary>
+        public static string PaidCompensations {
+            get {
+                return ResourceManager.GetString("PaidCompensations", resourceCulture);
             }
         }
         
@@ -800,7 +817,7 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wykonanie planu pozyskania roku poprzed niego {0} / {1}.
+        ///   Looks up a localized string similar to Liczba zw. łow. pozyskanych w łow. roku gosp. poprz. łow. rok. gosp. na który sporządzony jest rpl..
         /// </summary>
         public static string PreviousYearExecution {
             get {
@@ -809,7 +826,7 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Plan pozyskania roku poprzedniego {0} / {1}.
+        ///   Looks up a localized string similar to Liczba zw. łow. planow. do poz. w łow. roku gosp. poprz. rok gosp. na który sporządzono rpl..
         /// </summary>
         public static string PreviousYearGainPlan {
             get {
@@ -854,6 +871,15 @@ namespace Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to powierzchnia zredukowana.
+        /// </summary>
+        public static string ReducedArea {
+            get {
+                return ResourceManager.GetString("ReducedArea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to kozy.
         /// </summary>
         public static string RoeGoat {
@@ -890,7 +916,7 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Informacja o przychodach ze sprzedaży tusz zwierzyny płowej i kosztach zagospodarowania obwodu..
+        ///   Looks up a localized string similar to Przychody ze sprzedaży tusz zwierzyny płowej w obwodzie łowieckim.
         /// </summary>
         public static string SalesRevenuesAndCosts {
             get {
@@ -908,7 +934,7 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Odstrzał sanitarny w poprzednim roku gospodarczym.
+        ///   Looks up a localized string similar to Liczba ubytków zw. grubej powstałych w łow. roku gosp. poprz. łow. rok. gosp. na który sporządzono rpl. w szt..
         /// </summary>
         public static string SanitaryLoss {
             get {
@@ -953,7 +979,7 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Poletka łowieckie(obszary obsiane lub obsadzone roślinami stanowiącymi żer dla zwierzyny na pniu).
+        ///   Looks up a localized string similar to Powierzchnia obszarów obsianych lub obsadzonych roślinami stanowiącymi żer dla zwierzyny na pniu.
         /// </summary>
         public static string TrunkFood {
             get {
@@ -962,7 +988,7 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Jednostka miary.
+        ///   Looks up a localized string similar to jedn. miary.
         /// </summary>
         public static string Unit {
             get {
@@ -1057,15 +1083,6 @@ namespace Common {
         public static string UnitWastagesPieces {
             get {
                 return ResourceManager.GetString("UnitWastagesPieces", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to inne - wodopoje.
-        /// </summary>
-        public static string WateringPlaces {
-            get {
-                return ResourceManager.GetString("WateringPlaces", resourceCulture);
             }
         }
         
