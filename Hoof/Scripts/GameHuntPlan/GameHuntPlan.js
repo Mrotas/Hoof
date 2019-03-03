@@ -10,51 +10,55 @@
     }
 
     var validateForm = function (row) {
-        return true;
-        //var isValid = true;
+        var isValid = true;
 
-        //var kind = row.find('td:nth-child(2)').find('select');
-        //if (kind.val() === '') {
-        //    kind.addClass('has-error');
-        //    isValid = false;
-        //}
+        var kind = row.find('td:nth-child(2)').find('select');
+        if (kind.val() === '') {
+            kind.addClass('has-error');
+            isValid = false;
+        } else {
+            kind.removeClass('has-error');
+        }
 
-        //var subKind = row.find('td:nth-child(3)').find('select');
-        //if (subKind.val() === '') {
-        //    subKind.addClass('has-error');
-        //    isValid = false;
-        //}
+        var subKind = row.find('td:nth-child(3)').find('select');
+        if (subKind.children('option').length > 1 && subKind.val() === '') {
+            subKind.addClass('has-error');
+            isValid = false;
+        } else {
+            subKind.removeClass('has-error');
+        }
 
-        //var gameClass = row.find('td:nth-child(4)').find('select');
-        //if (gameClass.val() === '') {
-        //    gameClass.addClass('has-error');
-        //    isValid = false;
-        //}
+        var gameClass = row.find('td:nth-child(4)').find('select');
+        if (gameClass.children('option').length > 1 && gameClass.val() === '') {
+            gameClass.addClass('has-error');
+            isValid = false;
+        } else {
+            gameClass.removeClass('has-error');
+        }
 
-        //var cull = row.find('td:nth-child(5)').find('input');
-        //if (cull.val() === '') {
-        //    cull.addClass('has-error');
-        //    isValid = false;
-        //}
+        var cull = row.find('td:nth-child(5)').find('input');
+        if (cull.val() === '') {
+            cull.addClass('has-error');
+            isValid = false;
+        } else {
+            cull.removeClass('has-error');
+        }
 
-        //var gameCatch = row.find('td:nth-child(6)').find('input');
-        //if (gameCatch.val() === '') {
-        //    gameCatch.addClass('has-error');
-        //    isValid = false;
-        //}
+        var gameCatch = row.find('td:nth-child(6)').find('input');
+        if (gameCatch.val() === '') {
+            gameCatch.addClass('has-error');
+            isValid = false;
+        } else {
+            gameCatch.removeClass('has-error');
+        }
 
-        //if (isValid) {
-        //    kind.removeClass('has-error');
-        //    subKind.removeClass('has-error');
-        //    gameClass.removeClass('has-error');
-        //    cull.removeClass('has-error');
-        //    gameCatch.removeClass('has-error');
-        //    $('#alert').hide();
-        //} else {
-        //    showDangerAlert('Proszę wypełnić wymagane pola !');
-        //}
+        if (isValid) {
+            $('#alert').hide();
+        } else {
+            showDangerAlert('Proszę wypełnić wymagane pola !');
+        }
 
-        //return isValid;
+        return isValid;
     };
 
     var getGameHuntPlanModel = function (row, isNew) {
@@ -126,7 +130,11 @@
         $.each(tdsToClear, function (index, td) {
             var select = $(td).find('select');
             if (select.length > 0) {
-                select.val(null);
+                if (index === 1) {
+                    select.val(null);
+                } else {
+                    select.empty().append("<option></option>");
+                }
                 return true; // continue
             }
             var input = $(td).find('input');
@@ -150,6 +158,17 @@
 
     }
 
+    var fillGameSubKindSelect = function(data) {
+        $.each(data, function (index, game) {
+            if (game.SubKind !== null) {
+                $('#gameSubKind')
+                    .append($("<option></option>")
+                        .attr("value", game.SubKind)
+                        .text(game.SubKindName)); 
+            }
+        });
+    };
+    
     $('.clearSearch').on('click', function () {
         var row = $(this).closest('tr');
         clearRow(row);
@@ -169,6 +188,45 @@
         $('#warningAlert').hide();
         clearTable(true);
         enableButtons(false);
+    });
+
+    $('#gameKind').on('change', function () {
+        $('#gameSubKind').empty().append("<option></option>");
+        var gameKindName = $(this).find(":selected").text();
+        if (gameKindName !== '') {
+            $.ajax({
+                type: "GET",
+                url: '/Game/GetGameModelsByGameKindName',
+                data: {
+                    gameKindname: gameKindName
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (typeof (data) === 'undefined') {
+                        showDangerAlert(data.message);
+                    } else {
+                        fillGameSubKindSelect(data);
+                    }
+                },
+                error: function () {
+                    alert('Coś poszło nie tak, proszę odświeżyć stronę.');
+                }
+            });
+        }
+    });
+
+    $('#gameSubKind').on('change', function () {
+        $('#gameClass').empty().append("<option></option>");
+        var gameSubKindName = $(this).find(":selected").text();
+        if (gameSubKindName === 'Byk' || gameSubKindName === 'Kozioł') {
+            $('#gameClass')
+                .append($("<option></option>")
+                    .attr("value", 4)
+                    .text('Selekcyjne'))
+                .append($("<option></option>")
+                    .attr("value", 5)
+                    .text('Łowne'));;
+        }
     });
 
     $('#save').on('click', function () {

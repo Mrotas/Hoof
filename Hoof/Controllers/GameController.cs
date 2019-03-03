@@ -24,5 +24,12 @@ namespace Hoof.Controllers
 
             return Json(gameModels, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetGameModelsByGameKindName(string gameKindName)
+        {
+            List<GameModel> gameModels = _gameService.GetByKindName(gameKindName);
+
+            return Json(gameModels, JsonRequestBehavior.AllowGet);
+        }
     }
 }

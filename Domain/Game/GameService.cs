@@ -36,5 +36,22 @@ namespace Domain.Game
 
             return gameModels;
         }
+
+        public List<GameModel> GetByKindName(string kindName)
+        {
+            IList<GameDto> games = _gameDao.GetByKindName(kindName);
+
+            var gameModels = games.Select(x => new GameModel
+            {
+                Id = x.Id,
+                Type = x.Type,
+                Kind = x.Kind,
+                KindName = x.KindName,
+                SubKind = x.SubKind,
+                SubKindName = x.SubKindName
+            }).ToList();
+
+            return gameModels;
+        }
     }
 }

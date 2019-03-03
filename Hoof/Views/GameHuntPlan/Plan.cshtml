@@ -43,25 +43,25 @@
         <th hidden>
             Id
         </th>
-        <th>
+        <th style="width: 5%">
             Lp.
         </th>
-        <th>
+        <th  style="width: 25%">
             Zwierzyna
         </th>
-        <th>
+        <th style="width: 20%">
             Rodzaj
         </th>
-        <th>
+        <th style="width: 20%">
             Klasa
         </th>
-        <th>
+        <th style="width: 10%">
             Odstrzał
         </th>
-        <th>
+        <th style="width: 10%">
             Odłów
         </th>
-        <th>
+        <th style="width: 10%">
             Zarządzaj
         </th>
     </tr>
@@ -72,23 +72,43 @@
         <td>
             @Html.DropDownList("Wybierz zwierzynę", new List<SelectListItem>
             {
-                new SelectListItem {Text = "Jeleń", Value = "2"}
-            }, "", new { Name = String.Empty, @class = "form-control", id= "district", style="max-width: none"})
+                new SelectListItem {Text = "Łoś", Value = "1"},
+                new SelectListItem {Text = "Jeleń", Value = "2"},
+                new SelectListItem {Text = "Jeleń Sika", Value = "3"},
+                new SelectListItem {Text = "Daniel", Value = "4"},
+                new SelectListItem {Text = "Sarna", Value = "5"},
+                new SelectListItem {Text = "Muflon", Value = "6"},
+                new SelectListItem {Text = "Dzik", Value = "7"},
+                new SelectListItem {Text = "Lis", Value = "1"},
+                new SelectListItem {Text = "Jenot", Value = "2"},
+                new SelectListItem {Text = "Borsuk", Value = "3"},
+                new SelectListItem {Text = "Szakal złocisty", Value = "4"},
+                new SelectListItem {Text = "Kuna", Value = "5"},
+                new SelectListItem {Text = "Norka amerykańska", Value = "6"},
+                new SelectListItem {Text = "Tchórz zwyczajny", Value = "7"},
+                new SelectListItem {Text = "Szpo pracz", Value = "8"},
+                new SelectListItem {Text = "Piżmak", Value = "9"},
+                new SelectListItem {Text = "Zając szarak", Value = "10"},
+                new SelectListItem {Text = "Dziki królik", Value = "11"},
+                new SelectListItem {Text = "Jarząbek", Value = "12"},
+                new SelectListItem {Text = "Bażant", Value = "13"},
+                new SelectListItem {Text = "Kuropatwa", Value = "14"},
+                new SelectListItem {Text = "Gęś", Value = "15"},
+                new SelectListItem {Text = "Kaczka", Value = "16"},
+                new SelectListItem {Text = "Gołąb grzywacz", Value = "17"},
+                new SelectListItem {Text = "Słonka", Value = "18"},
+                new SelectListItem {Text = "Łyska", Value = "19"},
+            }, "", new { Name = String.Empty, @class = "form-control", id= "gameKind", style="max-width: none"})
         </td>
         <td>
             @Html.DropDownList("Wybierz rodzaj", new List<SelectListItem>
             {
-                new SelectListItem {Text = "Byk", Value = "1"},
-                new SelectListItem {Text = "Łania", Value = "2"},
-                new SelectListItem {Text = "Cielę", Value = "3"}
-            }, "", new { Name = String.Empty, @class = "form-control", id= "district", style="max-width: none"})
+            }, "", new { Name = String.Empty, @class = "form-control", id= "gameSubKind", style="max-width: none"})
         </td>
         <td>
             @Html.DropDownList("Wybierz klasę", new List<SelectListItem>
             {
-                new SelectListItem {Text = "Selekcyjne", Value = "4"},
-                new SelectListItem {Text = "Łowne", Value = "5"}
-            }, "", new { Name = String.Empty, @class = "form-control", id= "district", style="max-width: none"})
+            }, "", new { Name = String.Empty, @class = "form-control", id= "gameClass", style="max-width: none"})
         </td>
         <td>
             <input type="number" min="0" class="form-control" style="max-width: none" id="cull"/>
