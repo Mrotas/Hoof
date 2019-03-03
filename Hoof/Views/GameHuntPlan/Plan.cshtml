@@ -4,14 +4,45 @@
     ViewBag.Title = "Plan";
 }
 
+@section Scripts{
+
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="~/Scripts/GameHuntPlan/GameHuntPlan.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var config = {
+                MarketingYearId: @Model.MarketingYearId,
+                Controller: "GameHuntPlan"
+            };
+            var gameHuntPlan = new GameHuntPlan(config);
+        });
+    </script>
+
+}
+
+<div class="alert alert-danger" id="dangerAlert" role="alert" style="display: none">
+    <h4 class="alert-heading">
+        Uwaga !
+        <button type="button" class="close" id="closeDangerAlert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </h4>
+    <p class="alert-body"></p>
+    <hr>
+    <p class="mb-0 alert-footer" style="font-size: 9pt">Jeżeli to coś poważniejszego, proszę skontaktować się z administratorem.</p>
+</div>
+
 <br />
 
-<h4 style="text-align: center">Plan pozyskania zwierzyny łownej na rok gospodarczy @Model.MarketingYear</h4>
+<h4 style="text-align: center">Plan pozyskania zwierzyny na rok gospodarczy @Model.MarketingYear</h4>
 
 <br />
 
-<table class="table table-bordered table-hover">
+<table class="table table-bordered table-hover" id="planTable">
     <tr>
+        <th hidden>
+            Id
+        </th>
         <th>
             Lp.
         </th>
@@ -34,12 +65,49 @@
             Zarządzaj
         </th>
     </tr>
-
-    @foreach (var item in Model.GameHuntPlanViewModels)
+    <tr>
+        <td class="clearSearch">
+            <a href="#"> <span class="glyphicon glyphicon-ban-circle"></span> </a>
+        </td>
+        <td>
+            @Html.DropDownList("Wybierz zwierzynę", new List<SelectListItem>
+            {
+                new SelectListItem {Text = "Jeleń", Value = "2"}
+            }, "", new { Name = String.Empty, @class = "form-control", id= "district", style="max-width: none"})
+        </td>
+        <td>
+            @Html.DropDownList("Wybierz rodzaj", new List<SelectListItem>
+            {
+                new SelectListItem {Text = "Byk", Value = "1"},
+                new SelectListItem {Text = "Łania", Value = "2"},
+                new SelectListItem {Text = "Cielę", Value = "3"}
+            }, "", new { Name = String.Empty, @class = "form-control", id= "district", style="max-width: none"})
+        </td>
+        <td>
+            @Html.DropDownList("Wybierz klasę", new List<SelectListItem>
+            {
+                new SelectListItem {Text = "Selekcyjne", Value = "4"},
+                new SelectListItem {Text = "Łowne", Value = "5"}
+            }, "", new { Name = String.Empty, @class = "form-control", id= "district", style="max-width: none"})
+        </td>
+        <td>
+            <input type="number" min="0" class="form-control" style="max-width: none" id="cull"/>
+        </td>
+        <td>
+            <input type="number" min="0" class="form-control" style="max-width: none" id="catch"/>
+        </td>
+        <td style="text-align: center">
+            <button class="btn btn-primary" id="addPlan">Dodaj</button>
+        </td>
+    </tr>
+    @foreach (var item in Model.GameHuntPlanViewModels.OrderBy(x => x.GameType).ThenBy(x => x.GameKind).ThenBy(x => x.GameSubKind).ThenBy(x => x.Class).ToList())
     {
         <tr>
-            <td>
+            <td hidden>
                 @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td style="text-align: center">
+                @Html.DisplayFor(modelItem => item.GameId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.GameKindName)
@@ -48,19 +116,43 @@
                 @Html.DisplayFor(modelItem => item.GameSubKindName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GameClassName)
+                @Html.DisplayFor(modelItem => item.ClassName)
             </td>
-            <td>
+            <td class="canEdit">
                 @Html.DisplayFor(modelItem => item.Cull)
             </td>
-            <td>
+            <td class="canEdit">
                 @Html.DisplayFor(modelItem => item.Catch)
             </td>
-            <td>
-                @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
+            <td style="text-align: center">
+                <button class="btn btn-xs btn-success editPlan">Edytuj</button>
+                <button class="btn btn-xs btn-danger deletePlan">Usuń</button>
             </td>
         </tr>
     }
 
 </table>
+<div style="text-align: right">
+    <button class="btn btn-secondary" id="cancel" disabled>Anuluj</button>
+    <button class="btn btn-success" id="save" disabled>Zapisz</button>
+</div>
+
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Usuwanie planu pozyskania zwierzyny</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="confirmDeleteModalBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Usuń</button>
+            </div>
+        </div>
+    </div>
+</div>

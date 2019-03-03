@@ -7,5 +7,8 @@ namespace DataAccess.Dao.GameHuntPlan
     {
         IList<GameHuntPlanDto> GetAll();
         IList<GameHuntPlanDto> GetByMarketingYear(int marketingYearId);
+        void Insert(GameHuntPlanDto dto);
+        void Update(GameHuntPlanDto dto);
+        void Delete(int id);
     }
 }

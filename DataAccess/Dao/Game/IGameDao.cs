@@ -7,6 +7,7 @@ namespace DataAccess.Dao.Game
     {
         IList<GameDto> GetAll();
         IList<GameDto> GetByType(int gameType);
+        IList<GameDto> GetByKindName(string kindName);
         IList<GameDto> Get(int type, int kind, int? subKind);
     }
 }
