@@ -121,7 +121,7 @@
     <value>Roczny Plan</value>
   </data>
   <data name="March10Condition" xml:space="preserve">
-    <value>Stan na 10 marca roku, na który sporządza się plan {0} r.</value>
+    <value>Stan na dzień 10 marca roku, w którym jest sporządzany roczny plan łowiecki</value>
   </data>
   <data name="Paragraph1st" xml:space="preserve">
     <value>Obwód łowiecki nr 20, powierzchnia 4777 ha, w tym powierzchnia gruntów leśnych 4394 ha.</value>
@@ -178,7 +178,7 @@
     <value>odstrzał szt.</value>
   </data>
   <data name="CurrentYearPlan" xml:space="preserve">
-    <value>Stan planowany do osiągnięcia w bieżącym roku gospodarczym {0}</value>
+    <value>Stan planowany do realizacji w łowieckim roku gospodarczym, na który jest sporządzany roczny plan łowiecki</value>
   </data>
   <data name="DamagedArea" xml:space="preserve">
     <value>Wielkość szkód wyrządzonych w uprawach i płodach rolnych przez dziki, łosie, jelenie, daniele i sarny.</value>
@@ -349,10 +349,10 @@
     <value>treściwa</value>
   </data>
   <data name="PreviousEconomyPlan" xml:space="preserve">
-    <value>Plan poprzedniego roku gospodarczego {0}</value>
+    <value>Stan planowany do realizacji w łowieckim roku gospodarczym poprzedzającym łowiecki rok gospodarczy, na który sporządzono rpł.</value>
   </data>
   <data name="PreviousPlanExecution" xml:space="preserve">
-    <value>Wykonanie planu poprzedniego roku gospodarczego {0}</value>
+    <value>Stan wynikający z realizacji rpł. obowiązującego łowieckiego roku gospodarczego poprzedzającego łowiecki rok gospodarczy, na który sporządzono rpł.</value>
   </data>
   <data name="PreviousYearExecution" xml:space="preserve">
     <value>Liczba zw. łow. pozyskanych w łow. roku gosp. poprz. łow. rok. gosp. na który sporządzony jest rpl.</value>

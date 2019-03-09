@@ -169,7 +169,7 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stan planowany do osiągnięcia w bieżącym roku gospodarczym {0}.
+        ///   Looks up a localized string similar to Stan planowany do realizacji w łowieckim roku gospodarczym, na który jest sporządzany roczny plan łowiecki.
         /// </summary>
         public static string CurrentYearPlan {
             get {
@@ -529,7 +529,7 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stan na 10 marca roku, na który sporządza się plan {0} r..
+        ///   Looks up a localized string similar to Stan na dzień 10 marca roku, w którym jest sporządzany roczny plan łowiecki.
         /// </summary>
         public static string March10Condition {
             get {
@@ -799,7 +799,7 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Plan poprzedniego roku gospodarczego {0}.
+        ///   Looks up a localized string similar to Stan planowany do realizacji w łowieckim roku gospodarczym poprzedzającym łowiecki rok gospodarczy, na który sporządzono rpł..
         /// </summary>
         public static string PreviousEconomyPlan {
             get {
@@ -808,7 +808,7 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wykonanie planu poprzedniego roku gospodarczego {0}.
+        ///   Looks up a localized string similar to Stan wynikający z realizacji rpł. obowiązującego łowieckiego roku gospodarczego poprzedzającego łowiecki rok gospodarczy, na który sporządzono rpł..
         /// </summary>
         public static string PreviousPlanExecution {
             get {

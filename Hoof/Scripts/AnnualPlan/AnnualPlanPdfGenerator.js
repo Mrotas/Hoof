@@ -1,43 +1,75 @@
 ﻿var AnnualPlanGenerator = function (config) {
 
     var currentMarketingYearModel = config.CurrentMarketingYearModel;
-    var previousMarketingYearModel = config.PreviousMarketingYearModel;
 
     var paragraphPoints = ['a)', 'b)', 'c)', 'd)', 'e)', 'f)'];
-    var kindCount;
 
-    var writeRotatedText = function (text) {
+    var getLineStartXPosition = function (lines, currentLine) {
+        var currentLineLength = currentLine.length;
+        var longestLineLength = 0;
+        for (let i = 0; i < lines.length; i++) {
+            if (longestLineLength < lines[i].length) {
+                longestLineLength = lines[i].length;
+            }
+        }
+
+        if (longestLineLength === 0) {
+            return longestLineLength;
+        }
+
+        var startPosition = ((longestLineLength - currentLineLength) / 2) * 6;
+        return startPosition;
+    }
+
+    function drawString(text, fontSize, width, height, translateX, translateY, bold) {
         var ctx, canvas = document.createElement('canvas');
-        // I am using predefined dimensions so either make this part of the arguments or change at will 
-        canvas.width = 50;
-        canvas.height = 130;
+        canvas.width = width;
+        canvas.height = height;
         ctx = canvas.getContext('2d');
-        ctx.font = '9pt Times New Roman';
         ctx.save();
-        ctx.translate(36, 270);
+        var font = fontSize + "pt Times New Roman";;
+        if (bold) {
+            font = "bold " + font;
+        }
+        ctx.font = font;
+        ctx.fillStyle = '#000000';
+        ctx.translate(translateX, translateY);
         ctx.rotate(-0.5 * Math.PI);
-        ctx.fillStyle = '#000';
-        ctx.fillText(text, 0, 0);
+        var lines = text.split("\n");
+        for (let i = 0; i < lines.length; i++) {
+            var startPositionX = getLineStartXPosition(lines, lines[i]);
+            ctx.fillText(lines[i], startPositionX, i * (fontSize + 5));
+        }
         ctx.restore();
         return canvas.toDataURL();
-    };
+    }
 
     var getNumbersRow = function (columnsNumber) {
         var numbersRow = [];
         for (var i = 1; i <= columnsNumber; i++) {
-            numbersRow.push({ text: i, style: 'numberHeader' });
+            numbersRow.push({ text: i, fontSize: 8, alignment: 'center', margin: [0, -2, 0, -2] });
         }
         return numbersRow;
+    }
+
+    var getDottedRows = function (array, rowsNumber) {
+        var dottedLine = '....................................................................................................................................................................................................';
+
+        for (var i = 1; i <= rowsNumber; i++) {
+            array.push({ text: dottedLine, fontSize: 11, margin: [0, 10, 0, 0] });
+        }
+    }
+
+    var getApprovalsSectionSignRows = function(array) {
+        array.push({ text: '.............................................................', alignment: 'right', fontSize: 11, margin: [0, 30, 0, 0] });
+        array.push({ text: '(data, podpis)', alignment: 'right', fontSize: 8, margin: [0, 0, 60, 0] });
     }
 
     var getPlanHeader = function () {
         var header = [];
 
-        header.push({ text: 'ROCZNY PLAN ŁOWIECKI', alignment: 'center', fontSize: 14, bold: true });
-
-        header.push({ text: 'na rok gospodarczy ' + currentMarketingYearModel.MarketingYear, alignment: 'center', fontSize: 9, bold: true, margin: [0, 10, 0, 0] });
-
-        header.push({ text: 'oraz sprawozdanie z wykonania planu roku gospodarczego ' + previousMarketingYearModel.MarketingYear, alignment: 'center', fontSize: 9, bold: true, margin: [0, 5, 0, 10] });
+        header.push({ text: 'ROCZNY  PLAN  ŁOWIECKI', alignment: 'center', fontSize: 12, bold: true });
+        header.push({ text: 'na rok gospodarczy ' + currentMarketingYearModel.MarketingYear, alignment: 'center', fontSize: 10, bold: true, margin: [0, 10, 0, 50] });
 
         return header;
     }
@@ -48,15 +80,21 @@
         huntClubInformation.push({
             text: [
                 { text: '1. Obwód łowiecki nr ', fontSize: 10 },
-                { text: '20 ', fontSize: 10, bold: true },
-                { text: 'powierzchnia ', fontSize: 10 },
-                { text: '4777 ', fontSize: 10, bold: true},
-                { text: 'ha, w tym powierzchnia gruntów leśnych ', fontSize: 10 },
-                { text: '4394 ', fontSize: 10, bold: true},
-                { text: 'ha powierzchnia po wyłączeniach, o których mowa w art. 26 ustawy z 13.X.1995r.Prawo Łowieckie ', fontSize: 10 },
-                { text: '4502 ', fontSize: 10, bold: true },
-                { text: 'ha', fontSize: 10 }
-            ], margin: [0, 5, 0, 0]
+                { text: ' 20 ', fontSize: 10, bold: true },
+                { text: ' powierzchnia ', fontSize: 10 },
+                { text: ' 4777 ', fontSize: 10, bold: true},
+                { text: ' ha, w tym powierzchnia gruntów leśnych ', fontSize: 10 },
+                { text: ' 4394 ', fontSize: 10, bold: true},
+                { text: ' ha', fontSize: 10 }
+            ], margin: [0, 20, 0, 0]
+        });
+
+        huntClubInformation.push({
+            text: [
+                { text: 'powierzchnia po wyłączeniach, o których mowa w art. 26 ustawy z 13.X.1995r.Prawo Łowieckie ', fontSize: 10 },
+                { text: ' 4502 ', fontSize: 10, bold: true },
+                { text: ' ha.', fontSize: 10 }
+            ], margin: [0, 10, 0, 0]
         });
 
         huntClubInformation.push({
@@ -64,38 +102,58 @@
                 { text: '2. Województwo ', fontSize: 10 },
                 { text: 'wielkopolskie, ', fontSize: 10, bold: true},
                 { text: 'Powiat ', fontSize: 10},
-                { text: 'złotowski', fontSize: 10, bold: true }
-            ], margin: [0, 5, 0, 0]
-            
+                { text: 'złotowski.', fontSize: 10, bold: true }
+            ], margin: [0, 15, 0, 0]
         });
 
         huntClubInformation.push({
             text: [
                 { text: '3. Nadleśnictwo (nazwa i adres siedziby) ', fontSize: 10 },
-                { text: 'Płytnica z siedzibą w Nowej Szwecji, Nowa Szwecja 6, 78-600 Wałcz', fontSize: 10, bold: true }
-            ], margin: [0, 5, 0, 0]
+                { text: 'Płytnica z siedzibą w Nowej Szwecji, Nowa Szwecja 6, 78-600 Wałcz.', fontSize: 10, bold: true }
+            ], margin: [0, 15, 0, 0]
         });
 
         huntClubInformation.push({
             text: [
                 { text: '4. Regionalna Dyrekcja Lasów Państwowych (nazwa i adres siedziby) ', fontSize: 10 },
-                { text: 'Piła, 64-920 Piła-Kalina', fontSize: 10, bold: true}
-            ], margin: [0, 5, 0, 0]
+                { text: 'Piła, 64-920 Piła-Kalina.', fontSize: 10, bold: true}
+            ], margin: [0, 15, 0, 0]
         });
 
         huntClubInformation.push({
             text: [
                 { text: '5. Zarząd Okręgowy PZŁ (nazwa i adres siedziby) ', fontSize: 10},
-                { text: 'Piła, Al. Powstańców Wielkopolskich 190, 64-920 Piła', fontSize: 10, bold: true }
-            ], margin: [0, 5, 0, 0]
+                { text: 'Piła, Al. Powstańców Wielkopolskich 190, 64-920 Piła.', fontSize: 10, bold: true }
+            ], margin: [0, 15, 0, 0]
         });
 
         huntClubInformation.push({
             text: [
-                { text: '6. Dzierżawca/lub zarządca (nazwa i adres siedziby) ', fontSize: 10},
-                { text: 'Koło Łowieckie nr 39 Literatów Polskich „Pióro” ul. Rostworowskiego 6/2, 01-496 Warszawa', fontSize: 10, bold: true }
-            ], margin: [0, 5, 0, 10] 
+                { text: '6. Dzierżawca lub zarządca (nazwa i adres siedziby) ', fontSize: 10},
+                { text: 'Koło Łowieckie nr 39 Literatów Polskich „Pióro” ul. Rostworowskiego 6/2,', fontSize: 10, bold: true }
+            ], margin: [0, 15, 0, 0] 
         });
+
+        huntClubInformation.push({
+            text: [
+                { text: '01-496 Warszawa.', fontSize: 10, bold: true }
+            ], margin: [0, 10, 0, 0]
+        });
+
+        huntClubInformation.push({
+            text: [
+                { text: '7. Data sporządzenia rocznego planu łowieckiego: ', fontSize: 10 },
+                { text: '03/03/2019', fontSize: 10, bold: true }
+            ], margin: [0, 15, 0, 0]
+        });
+        
+        huntClubInformation.push({ text: '8. Osoba uprawniona do reprezentowania dzierżawcy albo zarządcy obwodu łowieckiego (imię, nazwisko) ', fontSize: 10, margin: [0, 15, 0, 10]});
+        huntClubInformation.push({ text: '....................................................................................................................................................................................................', fontSize: 11 });
+        huntClubInformation.push({ text: '9. ................................................................................................................................................................................................', fontSize: 11, margin: [0, 50, 0, 0] });
+        huntClubInformation.push({ text: '(podpis osoby uprawnionej do reprezentacji dzierżawcy albo zarządcy obwodu łowieckiego)', alignment:'center', fontSize: 8, margin: [0, 0, 0, 30] });
+        huntClubInformation.push({ text: 'Plan zatwierdził', alignment:'right', fontSize: 10, margin: [0, 20, 130, 30] });
+        huntClubInformation.push({ text: '.................................................................................', alignment: 'right', fontSize: 11, margin: [0, 10, 50, 0] });
+        huntClubInformation.push({ text: '(data, podpis)', alignment: 'right', fontSize: 8, margin: [0, 0, 140, 0] });
 
         return huntClubInformation;
     }
@@ -103,12 +161,12 @@
     var getEconomyTableHeaders = function() {
         var headers = [];
 
-        headers.push({ text: 'Wyszczególnienie', style: 'header', margin: [0, 32, 0, 0] });
-        headers.push({ text: 'Jedn. miary', style: 'header', margin: [0, 25, 0, 0] });
-        headers.push({ text: 'Plan poprzedniego roku gospodarczego ' + previousMarketingYearModel.MarketingYear, style: 'header', margin: [0, 10, 0, 0]});
-        headers.push({ text: 'Wykonanie planu poprzedniego roku gospodarczego ' + previousMarketingYearModel.MarketingYear, style: 'header' });
-        headers.push({ text: 'Stan na 10 marca roku, na który sporządza się plan ' + config.CurrentMarketingYearModel.StartYear + ' r.', style: 'header', margin: [0, 10, 0, 0]});
-        headers.push({ text: 'Stan planowany do osiągnięcia w bieżącym roku gospodarczym ' + currentMarketingYearModel.MarketingYear, style: 'header'});
+        headers.push({ text: 'Wyszczególnienie', style: 'header', margin: [0, 40, 0, 0] });
+        headers.push({ text: 'jedn. miary', style: 'header', margin: [0, 35, 0, 0] });
+        headers.push({ text: 'Stan planowany do realizacji w łowieckim roku gospodarczym poprzedzającym łowiecki rok gospodarczy, na który sporządzono rpł.', alignment: 'center', fontSize: 8, bold: true, margin:[0, 5, 0, 0] });
+        headers.push({ text: 'Stan wynikający z realizacji rpł. obowiązującego łowieckiego roku gospodarczego poprzedzającego łowiecki rok gospodarczy, na który sporządzono rpł.', alignment: 'center', fontSize: 8, bold: true });
+        headers.push({ text: 'Stan na dzień 10 marca roku, w którym jest sporządzany roczny plan łowiecki', alignment: 'center', fontSize: 8, bold: true, margin: [0, 20, 0, 0] });
+        headers.push({ text: 'Stan planowany do realizacji w łowieckim roku gospodarczym, na który jest sporządzany roczny plan łowiecki', alignment: 'center', fontSize: 8, bold: true, margin: [0, 15, 0, 0] });
 
         return headers;
     };
@@ -117,8 +175,8 @@
         var body = []; 
 
         body.push([
-            { text: '1. Liczba osób zatrudnionych w oparciu o umowę o pracę w celu wykonywania zadań z zakresu gospodarki łowieckiej', style: ['paragraph', ''] },
-            { text: 'osoby/etaty', margin: [0, 5, 0, 0], style: 'cell' },
+            { text: '1. Liczba osób zatrudnionych na podstawie umowy o pracę', style: 'paragraph' },
+            { text: 'osoby/etaty', margin: [0, 3, 0, 0], style: 'cell' },
             { text: previousAnnualPlanModel.EmployeePlanModel.FullTimeEmployees, style: 'cell', margin:[0, 10, 0, 0]},
             { text: '', style: 'cell'},
             { text: '', style: 'cell'},
@@ -126,7 +184,7 @@
         ]);
 
         body.push([
-            { text: '2. Liczba osób zatrudnionych na innej podstawie niż umowa o pracę, lub powołanych, w celu wykonywania zadań z zakresu gospodarki łowieckiej', style: 'paragraph' },
+            { text: '2. Liczba osób zatrudnionych na innej podstawie niż umowa o pracę lub wskazanych do wykonywania zadań z zakresu gospodarki łowieckiej', style: 'paragraph' },
             { text: 'osoby', margin: [0, 10, 0, 0], style: 'cell' },
             { text: previousAnnualPlanModel.EmployeePlanModel.PartTimeEmployees, style: 'cell', margin: [0, 10, 0, 0] },
             { text: '', style: 'cell' },
@@ -144,61 +202,79 @@
         ]);
 
         body.push([
-            { text: 'a) paśniki', style: 'point' },
-            { text: 'szt.', style: 'cell' },
-            { text: previousAnnualPlanModel.HuntEquipmentPlanModel.Pastures, style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: currentAnnualPlanModel.HuntEquipmentPlanModel.Pastures, style: 'cell' }
+            { text: 'a) paśniki', style: 'point', margin:[5, -2, 0, -1] },
+            { text: 'szt.', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: previousAnnualPlanModel.HuntEquipmentPlanModel.Pastures, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: currentAnnualPlanModel.HuntEquipmentPlanModel.Pastures, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
         body.push([
-            { text: 'b) lizawki', style: 'point' },
-            { text: 'szt.', style: 'cell' },
-            { text: previousAnnualPlanModel.HuntEquipmentPlanModel.DeerLickers, style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: currentAnnualPlanModel.HuntEquipmentPlanModel.DeerLickers, style: 'cell' }
+            { text: 'b) lizawki', style: 'point', margin: [5, -2, 0, -1] },
+            { text: 'szt.', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: previousAnnualPlanModel.HuntEquipmentPlanModel.DeerLickers, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: currentAnnualPlanModel.HuntEquipmentPlanModel.DeerLickers, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
         body.push([
-            { text: 'c) ambony', style: 'point' },
-            { text: 'szt.', style: 'cell' },
-            { text: previousAnnualPlanModel.HuntEquipmentPlanModel.Pulpits, style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: currentAnnualPlanModel.HuntEquipmentPlanModel.Pulpits, style: 'cell' }
+            { text: 'c) ambony', style: 'point', margin: [5, -2, 0, -1] },
+            { text: 'szt.', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: previousAnnualPlanModel.HuntEquipmentPlanModel.Pulpits, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: currentAnnualPlanModel.HuntEquipmentPlanModel.Pulpits, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
         body.push([
-            { text: 'd) woliery', style: 'point' },
-            { text: 'szt.', style: 'cell' },
-            { text: previousAnnualPlanModel.HuntEquipmentPlanModel.Aviaries, style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: currentAnnualPlanModel.HuntEquipmentPlanModel.Aviaries, style: 'cell' }
+            { text: 'd) woliery', style: 'point', margin: [5, -2, 0, -1] },
+            { text: 'szt.', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: previousAnnualPlanModel.HuntEquipmentPlanModel.Aviaries, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: currentAnnualPlanModel.HuntEquipmentPlanModel.Aviaries, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
         body.push([
-            { text: 'e) zagrody', style: 'point' },
-            { text: 'szt.', style: 'cell' },
-            { text: previousAnnualPlanModel.HuntEquipmentPlanModel.Farms, style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: currentAnnualPlanModel.HuntEquipmentPlanModel.Farms, style: 'cell' }
+            { text: 'e) zagrody', style: 'point', margin: [5, -2, 0, -1] },
+            { text: 'szt.', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: previousAnnualPlanModel.HuntEquipmentPlanModel.Farms, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: currentAnnualPlanModel.HuntEquipmentPlanModel.Farms, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
         body.push([
-            { text: 'f) inne - wodopoje', style: 'point' },
-            { text: 'szt.', style: 'cell' },
-            { text: previousAnnualPlanModel.HuntEquipmentPlanModel.WateringPlaces, style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: currentAnnualPlanModel.HuntEquipmentPlanModel.WateringPlaces, style: 'cell' }
+            { text: 'f) inne', style: 'point', margin: [5, -2, 0, -1] },
+            { text: 'szt.', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: previousAnnualPlanModel.HuntEquipmentPlanModel.WateringPlaces, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: currentAnnualPlanModel.HuntEquipmentPlanModel.WateringPlaces, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
         
         body.push([
-            { text: '4. Poletka łowieckie(obszary obsiane lub obsadzone roślinami stanowiącymi żer dla zwierzyny na pniu)', style: 'paragraph' },
+            { text: '4. Liczba i łączna długość pasów zaporowych', rowSpan: 2, style: 'paragraph', margin: [0, -2, 0, -1] },
+            { text: 'szt.', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] }
+        ]);
+
+        body.push([
+            { text: '', margin: [0, -2, 0, -1] },
+            { text: 'km', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: previousAnnualPlanModel.BarrierPlanModel.Length, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: currentAnnualPlanModel.BarrierPlanModel.Length, style: 'cell', margin: [0, -2, 0, -1] }
+        ]);
+
+        body.push([
+            { text: '5. Powierzchnia obszarów obsianych lub obsadzonych roślinami stanowiącymi żer dla zwierzyny na pniu', style: 'paragraph' },
             { text: 'ha', margin: [0, 5, 0, 0], style: 'cell' },
             { text: previousAnnualPlanModel.TrunkFoodPlanModel.Hectare, style: 'cell', margin: [0, 5, 0, 0] },
             { text: '', style: 'cell' },
@@ -207,25 +283,16 @@
         ]);
 
         body.push([
-            { text: '5. Pasy zaporowe', style: 'paragraph' },
-            { text: 'km', style: 'cell' },
-            { text: previousAnnualPlanModel.BarrierPlanModel.Length, style: 'cell' },
+            { text: '6. Powierzchnia zagospodarowanych przez dzierżawcę albo zarządcę obwodu łowieckiego łąk śródleśnych i przyleśnych', style: 'paragraph' },
+            { text: 'ha', margin: [0, 10, 0, 0], style: 'cell' },
+            { text: previousAnnualPlanModel.FieldPlanModel.Hectare, style: 'cell', margin: [0, 10, 0, 0] },
             { text: '', style: 'cell' },
             { text: '', style: 'cell' },
-            { text: currentAnnualPlanModel.BarrierPlanModel.Length, style: 'cell' }
+            { text: currentAnnualPlanModel.FieldPlanModel.Hectare, style: 'cell', margin: [0, 10, 0, 0] }
         ]);
 
         body.push([
-            { text: '6. Zagospodarowane przez dzierżawcę lub zarządcę łąki śródleśne i przyleśne', style: 'paragraph' },
-            { text: 'ha', margin: [0, 5, 0, 0], style: 'cell' },
-            { text: previousAnnualPlanModel.FieldPlanModel.Hectare, style: 'cell', margin: [0, 5, 0, 0] },
-            { text: '', style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: currentAnnualPlanModel.FieldPlanModel.Hectare, style: 'cell', margin: [0, 5, 0, 0] }
-        ]);
-
-        body.push([
-            { text: '7. Karma i sól.', style: 'paragraph' },
+            { text: '7. Masa i rodzaj karmy', style: 'paragraph' },
             { text: 'X', style: 'cell' },
             { text: 'X', style: 'cell' },
             { text: 'X', style: 'cell' },
@@ -234,43 +301,43 @@
         ]);
 
         body.push([
-            { text: 'a) objętościowa sucha', style: 'point' },
-            { text: 'tona', style: 'cell' },
-            { text: previousAnnualPlanModel.FodderPlanModel.Dry, style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: currentAnnualPlanModel.FodderPlanModel.Dry, style: 'cell' }
+            { text: 'a) objętościowa sucha', style: 'point', margin: [5, -2, 0, -1] },
+            { text: 'tona', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: previousAnnualPlanModel.FodderPlanModel.Dry, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1]  },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: currentAnnualPlanModel.FodderPlanModel.Dry, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
         body.push([
-            { text: 'b) objętościowa soczysta', style: 'point' },
-            { text: 'tona', style: 'cell' },
-            { text: previousAnnualPlanModel.FodderPlanModel.Juicy, style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: currentAnnualPlanModel.FodderPlanModel.Juicy, style: 'cell' }
+            { text: 'b) objętościowa soczysta', style: 'point', margin: [5, -2, 0, -1] },
+            { text: 'tona', style: 'cell', margin: [0, -2, 0, -1]  },
+            { text: previousAnnualPlanModel.FodderPlanModel.Juicy, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: currentAnnualPlanModel.FodderPlanModel.Juicy, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
         body.push([
-            { text: 'c) treściwa', style: 'point' },
-            { text: 'tona', style: 'cell' },
-            { text: previousAnnualPlanModel.FodderPlanModel.Pithy, style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: currentAnnualPlanModel.FodderPlanModel.Pithy, style: 'cell' }
+            { text: 'c) treściwa', style: 'point', margin: [5, -2, 0, -1]  },
+            { text: 'tona', style: 'cell', margin: [0, -2, 0, -1]  },
+            { text: previousAnnualPlanModel.FodderPlanModel.Pithy, style: 'cell', margin: [0, -2, 0, -1]  },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1]  },
+            { text: currentAnnualPlanModel.FodderPlanModel.Pithy, style: 'cell', margin: [0, -2, 0, -1]  }
         ]);
 
         body.push([
-            { text: 'd) sól', style: 'point' },
-            { text: 'tona', style: 'cell' },
-            { text: previousAnnualPlanModel.FodderPlanModel.Salt, style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: currentAnnualPlanModel.FodderPlanModel.Salt, style: 'cell' }
+            { text: 'd) sól', style: 'point', margin: [5, -2, 0, -1] },
+            { text: 'tona', style: 'cell', margin: [0, -2, 0, -1]  },
+            { text: previousAnnualPlanModel.FodderPlanModel.Salt, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: currentAnnualPlanModel.FodderPlanModel.Salt, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
         body.push([
-            { text: '8. Powierzchnia zredukowana upraw rolnych uszkodzonych przez zwierzęta łowne', style: 'paragraph' },
+            { text: '8. Wielkość szkód wyrządzonych w uprawach i płodach rolnych przez dziki, łosie, jelenie, daniele i sarny', style: 'paragraph', margin: [-3, 0, -5, 0] },
             { text: 'ha', margin: [0, 5, 0, 0], style: 'cell' },
             { text: previousAnnualPlanModel.DamagedFieldPlanModel.Hectare, style: 'cell', margin: [0, 5, 0, 0] },
             { text: '', style: 'cell' },
@@ -278,14 +345,26 @@
             { text: currentAnnualPlanModel.DamagedFieldPlanModel.Hectare, style: 'cell', margin: [0, 5, 0, 0] }
         ]);
 
-        return body;
-    }
-    
-    var getCostTableBody = function (previousAnnualPlanModel, currentAnnualPlanModel) {
-        var body = [];
+        body.push([
+            { text: '- powierzchnia zredukowana', style: 'point', margin: [5, -2, 0, -1] },
+            { text: 'tyś. zł', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: previousAnnualPlanModel.DamagedFieldPlanModel.Hectare, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1]  },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1]  },
+            { text: currentAnnualPlanModel.DamagedFieldPlanModel.Hectare, style: 'cell', margin: [0, -2, 0, -1] }
+        ]);
 
         body.push([
-            { text: '1. Koszty poniesione na prowadzenie gospodarki łowieckiej', style: 'paragraph' },
+            { text: '- kwota wypłaconych odszkodowań łowieckich', style: 'point', margin: [5, -2, 0, -1] },
+            { text: 'tyś. zł', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '', style: 'cell', margin: [0, -2, 0, -1] }
+        ]);
+
+        body.push([
+            { text: '9. Koszty poniesione na prowadzenie gospodarki łowieckiej', style: 'paragraph' },
             { text: 'tyś. zł', margin: [0, 5, 0, 0], style: 'cell' },
             { text: previousAnnualPlanModel.CostPlanModel.Cost, style: 'cell', margin: [0, 5, 0, 0] },
             { text: '', style: 'cell' },
@@ -293,22 +372,19 @@
             { text: currentAnnualPlanModel.CostPlanModel.Cost, style: 'cell', margin: [0, 5, 0, 0] }
         ]);
 
-        body.push([
-            { text: 'w tym : kwota wypłaconych odszkodowań łowieckich', style: 'paragraph' },
-            { text: 'tyś. zł', style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: '', style: 'cell' }
-        ]);
+        return body;
+    }
+    
+    var getRevenueTableBody = function (previousAnnualPlanModel, currentAnnualPlanModel) {
+        var body = [];
 
         body.push([
-            { text: '2. Przychody ze sprzedaży tusz zwierzyny płowej', style: 'paragraph' },
-            { text: 'tyś. zł', style: 'cell' },
-            { text: previousAnnualPlanModel.CostPlanModel.Revenue, style: 'cell' },
+            { text: '1. Przychody ze sprzedaży tusz zwierzyny płowej w obwodzie łowieckim', style: 'paragraph' },
+            { text: 'tyś. zł', style: 'cell', margin: [0, 5, 0, 0] },
+            { text: previousAnnualPlanModel.CostPlanModel.Revenue, style: 'cell', margin: [0, 5, 0, 0]  },
             { text: '', style: 'cell' },
             { text: '', style: 'cell' },
-            { text: currentAnnualPlanModel.CostPlanModel.Revenue, style: 'cell' }
+            { text: currentAnnualPlanModel.CostPlanModel.Revenue, style: 'cell', margin: [0, 5, 0, 0]  }
         ]);
 
         return body;
@@ -318,21 +394,21 @@
         var headers = [];
 
         headers.push([
-            { text: 'Gatunki zwierząt łownych', rowSpan: 4, style: 'numberHeader' },
-            { text: 'Plan pozyskania roku poprzedniego ' + previousMarketingYearModel.MarketingYear, colSpan: 2, alignment: 'center', style: 'numberHeader' },
+            { text: 'Gatunki zwierząt\nłownych', rowSpan: 3, alignment: 'center', fontSize: 9, bold: true, margin: [0, 70, 0, -70] },
+            { image: drawString('Liczba zw. łow. planow.\ndo poz.w łow.roku gosp.\npoprz.rok gosp.na który\nsporządzono rpł.', 12, 110, 190, 15, 175, true), colSpan: 2, fit: [55, 130] },
             { text: '' },
-            { text: 'Wykonanie planu pozyskania roku poprzedniego ' + previousMarketingYearModel.MarketingYear, colSpan: 4, alignment: 'center', style: 'numberHeader' },
+            { image: drawString('Liczba zw. łow.\npozyskanych w łow. roku\ngosp. poprz. łow. rok.\ngosp. na który\nsporządzony jest rpl.', 12, 110, 190, 30, 180, true), colSpan: 3, fit: [55, 130] },
             { text: '' },
             { text: '' },
+            { image: drawString('Liczba ubytków zw.\ngrubej powstałych w łow.\nroku gosp. poprz. łow.\nrok. gosp. na który\nsporządzono rpl. w szt.', 12, 110, 190, 15, 180, true), colSpan: 2, fit: [55, 130] },
             { text: '' },
-            { text: 'Odstrzał sanitarny w poprzednim roku gospodarczym', alignment: 'center', style: 'numberHeader' },
-            { text: 'Liczba zasiedlonych zwierząt do 10.03 poprzedniego roku gosp.', alignment: 'center', style: 'numberHeader' },
-            { text: 'Szacowana liczebność zwierząt na 10.03.' + config.CurrentMarketingYearModel.StartYear + ' r.', alignment: 'center', style: 'numberHeader' },
-            { text: 'Plan zasiedleń w roku gosp. ' + currentMarketingYearModel.MarketingYear, alignment: 'center', style: 'numberHeader' },
-            { text: 'Planowana liczebność zwierzyny grubej przed okresem polowań*', alignment: 'center', style: 'numberHeader' },
-            { text: 'Optymalna liczba zwierząt zaplanowanych do pozyskania w roku gospodarczym ' + currentMarketingYearModel.MarketingYear, colSpan: 2, alignment: 'center', style: 'numberHeader' },
+            { image: drawString('Liczba zw. łow. zasiedl. w\nłow. r. gosp. poprz. łow.\nr. gosp. na który\nsporządzono rpl.', 12, 110, 190, 15, 180, true), fit: [55, 130], margin:[-3, 0, 0, 0] },
+            { image: drawString('Szacowana liczebność\nzwierząt łownych\nna dzień 10 marca ' + config.CurrentMarketingYearModel.StartYear + ' r.', 12, 110, 190, 15, 180, true), fit: [55, 130] },
+            { image: drawString('Planowana do zasiedleń\nliczba zw. łownych', 12, 110, 180, 15, 170, true), fit: [55, 130], margin: [-3, 0, 0, 0] },
+            { image: drawString('Planowana liczebność\nzwierzyny grubej w dniu\npoprzedzającym dzień\nrozpoczęcia okresu\npolowań', 12, 110, 190, 15, 175, true), fit: [55, 130], margin:[-5, 0, 0, 0] },
+            { image: drawString('Optymalna liczba\nzwierząt zaplanowanych\ndo pozyskania w łow.\nroku gosp. na który\nsporządzono rpl.', 12, 180, 190, 15, 180, true), colSpan: 2, fit: [90, 130] },
             { text: '' },
-            { text: 'Minimalna i maksymalna liczba zwierząt zaplanowana do pozyskania w roku gospodarczym ' + currentMarketingYearModel.MarketingYear, colSpan: 4, alignment: 'center', style: 'numberHeader' },
+            { image: drawString('Minimalna i maksymalna\nliczba zwierząt\nzaplanowana do\npozyskania w łow. roku\ngospodarczym, na który\nsporządzono rpl.', 12, 180, 190, 30, 180, true), colSpan: 4, fit: [90, 130] },
             { text: '' },
             { text: '' },
             { text: '' }
@@ -340,22 +416,22 @@
 
         headers.push([
             { text: '' },
-            { text: 'odstrzał szt.', rowSpan: 3, alignment: 'center', style: 'numberHeader' },
-            { text: 'odłów szt.', rowSpan: 3, alignment: 'center', style: 'numberHeader' },
-            { text: 'ogółem szt.', rowSpan: 3, alignment: 'center', style: 'numberHeader' },
-            { text: 'w tym szt.', colSpan: 3, alignment: 'center', style: 'numberHeader' },
+            { image: drawString('odstrzał szt.', 16, 50, 120, 23, 110, false), fit: [20, 50], rowSpan: 2, margin: [0, 0, 0, -15] },
+            { image: drawString('odłów szt.', 16, 50, 120, 23, 105, false), fit: [20, 50], rowSpan: 2, margin: [0, 0, 0, -15] },
+            { image: drawString('ogółem szt.', 16, 50, 120, 23, 110, false), fit: [20, 50], rowSpan: 2, margin: [0, 0, 0, -15] },
+            { image: drawString('odstrzał szt.', 16, 50, 120, 23, 110, false), fit: [20, 50], rowSpan: 2, margin: [0, 0, 0, -15] },
+            { image: drawString('odłów szt.', 16, 50, 120, 23, 105, false), fit: [20, 50], rowSpan: 2, margin: [0, 0, 0, -15] },
+            { image: drawString('ogółem', 16, 50, 120, 25, 90, false), fit: [20, 50], rowSpan: 2, margin: [0, 0, 0, -15] },
+            { image: drawString('w tym odstrzał\nsanitarny', 16, 50, 140, 23, 130, false), fit: [20, 50], rowSpan: 2, margin: [0, 0, 0, -15] },
+            { text: 'szt.', rowSpan: 2, alignment: 'center', fontSize: 8, margin: [0, 15, 0, -15] },
+            { text: 'szt.', rowSpan: 2, alignment: 'center', fontSize: 8, margin: [0, 15, 0, -15] },
+            { text: 'szt.', rowSpan: 2, alignment: 'center', fontSize: 8, margin: [0, 15, 0, -15] },
+            { text: 'szt.', rowSpan: 2, alignment: 'center', fontSize: 8, margin: [0, 15, 0, -15] },
+            { image: drawString('odstrzał szt.', 16, 50, 120, 25, 110, false), fit: [20, 50], rowSpan: 2, margin: [0, 0, 0, -15] },
+            { image: drawString('odłów szt.', 16, 50, 120, 25, 105, false), fit: [20, 50], rowSpan: 2, margin: [0, 0, 0, -15] },
+            { text: 'odstrzał szt.', colSpan: 2, alignment: 'center', fontSize: 8, margin: [-3, 0, -4, 0]  },
             { text: '' },
-            { text: '' },
-            { text: '' },
-            { text: 'szt.', rowSpan: 3, alignment: 'center', style: 'numberHeader' },
-            { text: 'szt.', rowSpan: 3, alignment: 'center', style: 'numberHeader'},
-            { text: 'szt.', rowSpan: 3, alignment: 'center', style: 'numberHeader'},
-            { text: 'szt.', rowSpan: 3, alignment: 'center', style: 'numberHeader'},
-            { text: 'odstrzał szt.', rowSpan: 3, alignment: 'center', style: 'numberHeader'},
-            { text: 'odłów szt.', rowSpan: 3, alignment: 'center', style: 'numberHeader' },
-            { text: 'odstrzał szt.', colSpan: 2, alignment: 'center', style: 'numberHeader'},
-            { text: '' },
-            { text: 'odłów szt.', colSpan: 2, alignment: 'center', style: 'numberHeader' },
+            { text: 'odłów szt.', colSpan: 2, alignment: 'center', fontSize: 8, margin: [-3, 0, -3, 0] },
             { text: '' }
         ]);
 
@@ -364,9 +440,6 @@
             { text: '' },
             { text: '' },
             { text: '' },
-            { text: 'odstrzał', rowSpan: 2, alignment: 'center', style: 'numberHeader' },
-            { text: 'odłów ', rowSpan: 2, alignment: 'center', style: 'numberHeader' },
-            { text: 'ubytki', colSpan: 2, alignment: 'center', style: 'numberHeader'},
             { text: '' },
             { text: '' },
             { text: '' },
@@ -374,33 +447,15 @@
             { text: '' },
             { text: '' },
             { text: '' },
-            { text: 'min', rowSpan: 2, alignment: 'center', style: 'numberHeader'},
-            { text: 'max', rowSpan: 2, alignment: 'center', style: 'numberHeader' },
-            { text: 'min', rowSpan: 2, alignment: 'center', style: 'numberHeader' },
-            { text: 'max', rowSpan: 2, alignment: 'center', style: 'numberHeader'}
+            { text: '' },
+            { text: '' },
+            { text: '' },
+            { image: drawString('min', 16, 20, 60, 16, 55), fit: [15, 25] },
+            { image: drawString('max', 16, 20, 60, 16, 55), fit: [15, 25] },
+            { image: drawString('min', 16, 20, 60, 16, 55), fit: [15, 25] },
+            { image: drawString('max', 16, 20, 60, 16, 55), fit: [15, 25] }
         ]);
-
-        headers.push([
-            { text: '' },
-            { text: '' },
-            { text: '' },
-            { text: '' },
-            { text: '' },
-            { text: '' },
-            { text: 'ogółem', alignment: 'center', fontSize: 5 },
-            { text: 'W tym odstrzał sanitarny', alignment: 'center', fontSize: 5 },
-            { text: '' },
-            { text: '' },
-            { text: '' },
-            { text: '' },
-            { text: '' },
-            { text: '' },
-            { text: '' },
-            { text: '' },
-            { text: '' },
-            { text: '' }
-        ]);
-
+        
         headers.push(getNumbersRow(18));
 
         return headers;
@@ -411,79 +466,79 @@
 
         var cellStyle = currentMarketingYearModel.Id >= 3 ? 'cell' : 'smallCell';
         var pointStyle = currentMarketingYearModel.Id >= 3 ? 'point' : 'smallPoint';
-
-        kindCount = 1;
+        
         $.each(bigGamePlanModel.AnnualPlanKindGameModels, function(key, value) {
             
             bigGameTableBody.push([
-                { text: kindCount + '. ' + value.KindName, bold: true, style: pointStyle },
-                { text: value.PreviousHuntPlanCulls, style: cellStyle },
-                { text: value.PreviousHuntPlanCatches, style: cellStyle },
-                { text: value.PreviousHuntPlanExecutionTotal, style: cellStyle },
-                { text: value.PreviousHuntPlanExecutionCulls, style: cellStyle },
-                { text: value.PreviousHuntPlanExecutionCatches, style: cellStyle },
-                { text: value.PreviousHuntPlanExecutionLosses, style: cellStyle },
-                { text: value.PreviousHuntPlanExecutionSanitaryLosses, style: cellStyle },
-                { text: '' },
-                { text: value.GameCountBefore10March, style: cellStyle },
-                { text: '' },
-                { text: '' },
-                { text: value.CurrentHuntPlanCulls, style: cellStyle },
-                { text: value.CurrentHuntPlanCatches, style: cellStyle} ,
-                { text: value.CurrentHuntPlanCullsMin, style: cellStyle },
-                { text: value.CurrentHuntPlanCullsMax, style: cellStyle },
-                { text: value.CurrentHuntPlanCatchesMin, style: cellStyle },
-                { text: value.CurrentHuntPlanCatchesMax, style: cellStyle }
+                { text: value.KindName + ' razem', bold: true, style: pointStyle, margin: [0, -2, 0, -1] },
+                { text: value.PreviousHuntPlanCulls, style: cellStyle, margin: [0, -2, 0, -1] },
+                { text: value.PreviousHuntPlanCatches, style: cellStyle, margin: [0, -2, 0, -1] },
+                { text: value.PreviousHuntPlanExecutionTotal, style: cellStyle, margin: [0, -2, 0, -1]  },
+                { text: value.PreviousHuntPlanExecutionCulls, style: cellStyle, margin: [0, -2, 0, -1] },
+                { text: value.PreviousHuntPlanExecutionCatches, style: cellStyle, margin: [0, -2, 0, -1]  },
+                { text: value.PreviousHuntPlanExecutionLosses, style: cellStyle, margin: [0, -2, 0, -1] },
+                { text: value.PreviousHuntPlanExecutionSanitaryLosses, style: cellStyle, margin: [0, -2, 0, -1] },
+                { text: '', margin: [0, -2, 0, -1] },
+                { text: value.GameCountBefore10March, style: cellStyle, margin: [0, -2, 0, -1] },
+                { text: '', margin: [0, -2, 0, -1] },
+                { text: '', margin: [0, -2, 0, -1] },
+                { text: value.CurrentHuntPlanCulls, style: cellStyle, margin: [0, -2, 0, -1] },
+                { text: value.CurrentHuntPlanCatches, style: cellStyle, margin: [0, -2, 0, -1] } ,
+                { text: value.CurrentHuntPlanCullsMin, style: cellStyle, margin: [0, -2, 0, -1] },
+                { text: value.CurrentHuntPlanCullsMax, style: cellStyle, margin: [0, -2, 0, -1]  },
+                { text: value.CurrentHuntPlanCatchesMin, style: cellStyle, margin: [0, -2, 0, -1]  },
+                { text: value.CurrentHuntPlanCatchesMax, style: cellStyle, margin: [0, -2, 0, -1]  }
             ]);
 
             $.each(value.AnnualPlanSubKindGameModels, function (index, value) {
 
+                var subKindName = (paragraphPoints[value.SubKind - 1] + ' ' + value.SubKindName).toLowerCase();
+                if (index === 0) subKindName += ' razem';
                 bigGameTableBody.push([
-                    { text: (paragraphPoints[value.SubKind - 1] + ' ' + value.SubKindName).toLowerCase(), style: pointStyle },
-                    { text: value.PreviousHuntPlanCulls, style: cellStyle },
-                    { text: value.PreviousHuntPlanCatches, style: cellStyle },
-                    { text: value.PreviousHuntPlanExecutionTotal, style: cellStyle },
-                    { text: value.PreviousHuntPlanExecutionCulls, style: cellStyle },
-                    { text: value.PreviousHuntPlanExecutionCatches, style: cellStyle },
-                    { text: value.PreviousHuntPlanExecutionLosses, style: cellStyle },
-                    { text: value.PreviousHuntPlanExecutionSanitaryLosses, style: cellStyle },
-                    { text: '' },
-                    { text: value.GameCountBefore10March, style: cellStyle },
-                    { text: '' },
-                    { text: '' },
-                    { text: value.CurrentHuntPlanCulls, style: cellStyle },
-                    { text: value.CurrentHuntPlanCatches, style: cellStyle },
-                    { text: value.CurrentHuntPlanCullsMin, style: cellStyle },
-                    { text: value.CurrentHuntPlanCullsMax, style: cellStyle },
-                    { text: value.CurrentHuntPlanCatchesMin, style: cellStyle },
-                    { text: value.CurrentHuntPlanCatchesMax, style: cellStyle }
+                    { text: subKindName, style: pointStyle, margin: [0, -2, 0, -1] },
+                    { text: value.PreviousHuntPlanCulls, style: cellStyle, margin: [0, -2, 0, -1] },
+                    { text: value.PreviousHuntPlanCatches, style: cellStyle, margin: [0, -2, 0, -1] },
+                    { text: value.PreviousHuntPlanExecutionTotal, style: cellStyle, margin: [0, -2, 0, -1] },
+                    { text: value.PreviousHuntPlanExecutionCulls, style: cellStyle, margin: [0, -2, 0, -1] },
+                    { text: value.PreviousHuntPlanExecutionCatches, style: cellStyle, margin: [0, -2, 0, -1] },
+                    { text: value.PreviousHuntPlanExecutionLosses, style: cellStyle, margin: [0, -2, 0, -1] },
+                    { text: value.PreviousHuntPlanExecutionSanitaryLosses, style: cellStyle, margin: [0, -2, 0, -1]  },
+                    { text: '', margin: [0, -2, 0, -1] },
+                    { text: value.GameCountBefore10March, style: cellStyle, margin: [0, -2, 0, -1] },
+                    { text: '', margin: [0, -2, 0, -1] },
+                    { text: '', margin: [0, -2, 0, -1] },
+                    { text: value.CurrentHuntPlanCulls, style: cellStyle, margin: [0, -2, 0, -1]  },
+                    { text: value.CurrentHuntPlanCatches, style: cellStyle, margin: [0, -2, 0, -1] },
+                    { text: value.CurrentHuntPlanCullsMin, style: cellStyle, margin: [0, -2, 0, -1]  },
+                    { text: value.CurrentHuntPlanCullsMax, style: cellStyle, margin: [0, -2, 0, -1] },
+                    { text: value.CurrentHuntPlanCatchesMin, style: cellStyle, margin: [0, -2, 0, -1] },
+                    { text: value.CurrentHuntPlanCatchesMax, style: cellStyle, margin: [0, -2, 0, -1]  }
                 ]);
 
                 $.each(value.AnnualPlanClassGameModels, function (index, value) {
 
                     bigGameTableBody.push([
-                        { text: '-' + value.ClassName, style: cellStyle },
-                        { text: value.PreviousHuntPlanCulls, style: cellStyle },
-                        { text: value.PreviousHuntPlanCatches, style: cellStyle },
-                        { text: value.PreviousHuntPlanExecutionTotal, style: cellStyle },
-                        { text: value.PreviousHuntPlanExecutionCulls, style: cellStyle },
-                        { text: value.PreviousHuntPlanExecutionCatches, style: cellStyle },
-                        { text: value.PreviousHuntPlanExecutionLosses, style: cellStyle },
-                        { text: value.PreviousHuntPlanExecutionSanitaryLosses, style: cellStyle },
-                        { text: '' },
-                        { text: value.GameCountBefore10March, style: cellStyle },
-                        { text: '' },
-                        { text: '' },
-                        { text: value.CurrentHuntPlanCulls, style: cellStyle },
-                        { text: value.CurrentHuntPlanCatches, style: cellStyle },
-                        { text: value.CurrentHuntPlanCullsMin, style: cellStyle },
-                        { text: value.CurrentHuntPlanCullsMax, style: cellStyle },
-                        { text: value.CurrentHuntPlanCatchesMin, style: cellStyle },
-                        { text: value.CurrentHuntPlanCatchesMax, style: cellStyle }
+                        { text: '-' + value.ClassName, style: cellStyle, margin: [0, -2, 0, -1]  },
+                        { text: value.PreviousHuntPlanCulls, style: cellStyle, margin: [0, -2, 0, -1] },
+                        { text: value.PreviousHuntPlanCatches, style: cellStyle, margin: [0, -2, 0, -1] },
+                        { text: value.PreviousHuntPlanExecutionTotal, style: cellStyle, margin: [0, -2, 0, -1] },
+                        { text: value.PreviousHuntPlanExecutionCulls, style: cellStyle, margin: [0, -2, 0, -1]  },
+                        { text: value.PreviousHuntPlanExecutionCatches, style: cellStyle, margin: [0, -2, 0, -1] },
+                        { text: value.PreviousHuntPlanExecutionLosses, style: cellStyle, margin: [0, -2, 0, -1]  },
+                        { text: value.PreviousHuntPlanExecutionSanitaryLosses, style: cellStyle, margin: [0, -2, 0, -1]  },
+                        { text: '', margin: [0, -2, 0, -1] },
+                        { text: value.GameCountBefore10March, style: cellStyle, margin: [0, -2, 0, -1] },
+                        { text: '', margin: [0, -2, 0, -1] },
+                        { text: '', margin: [0, -2, 0, -1] },
+                        { text: value.CurrentHuntPlanCulls, style: cellStyle, margin: [0, -2, 0, -1] },
+                        { text: value.CurrentHuntPlanCatches, style: cellStyle, margin: [0, -2, 0, -1] },
+                        { text: value.CurrentHuntPlanCullsMin, style: cellStyle, margin: [0, -2, 0, -1] },
+                        { text: value.CurrentHuntPlanCullsMax, style: cellStyle, margin: [0, -2, 0, -1] },
+                        { text: value.CurrentHuntPlanCatchesMin, style: cellStyle, margin: [0, -2, 0, -1]  },
+                        { text: value.CurrentHuntPlanCatchesMax, style: cellStyle, margin: [0, -2, 0, -1] }
                     ]);
                 });
             });
-            kindCount++;
         });
 
         return bigGameTableBody;
@@ -493,17 +548,17 @@
         var headers = [];
 
         headers.push([
-            { text: 'Gatunki zwierząt łownych', rowSpan: 3, style: 'numberHeader' },
-            { text: 'Plan pozyskania roku poprzedniego ' + previousMarketingYearModel.MarketingYear, colSpan: 2, alignment: 'center', style: 'numberHeader' },
+            { text: 'Gatunki zwierząt\nłownych', rowSpan: 3, alignment: 'center', fontSize: 9, bold: true, margin: [0, 50, 0, -50] },
+            { image: drawString('Liczba zw. łow.\nplanow. do poz. w\nłow. roku gosp.\npoprz. rok gosp. na\nktóry sporządzono\nrpl.', 13, 110, 160, 15, 150, true), colSpan: 2, fit:[55, 100] },
             { text: '' },
-            { text: 'Wykonanie planu pozyskania roku poprzedniego ' + previousMarketingYearModel.MarketingYear, colSpan: 2, alignment: 'center', style: 'numberHeader' },
+            { image: drawString('Liczba zw. łow.\npozyskanych w łow.\nroku gosp. poprz.\nłow. rok. gosp. na\nktóry sporządzony\njest rpl.', 13, 110, 160, 15, 150, true), colSpan: 2, fit: [55, 100] },
             { text: '' },
-            { text: 'Liczba zasiedlonych zwierząt do 10.03 poprzedniego roku gosp.', alignment: 'center', style: 'numberHeader' },
-            { text: 'Szacowana liczebność zwierząt na 10.03.' + config.CurrentMarketingYearModel.StartYear + ' r.', alignment: 'center', style: 'numberHeader' },
-            { text: 'Plan zasiedleń w roku gosp. ' + currentMarketingYearModel.MarketingYear, alignment: 'center', style: 'numberHeader' },
-            { text: 'Optymalna liczba zwierząt zaplanowanych do pozyskania w roku gospodarczym ' + currentMarketingYearModel.MarketingYear, colSpan: 2, alignment: 'center', style: 'numberHeader' },
+            { image: drawString('Liczba zw. łow.\nzasiedl. w łow. r.\ngosp. poprz. łow. r.\ngosp. na który\nsporządzono rpl.', 13, 110, 160, 15, 150, true), fit: [55, 100] },
+            { image: drawString('Szacowana\nliczebność zwierząt\nłownych\nna dzień 10 marca.', 13, 110, 160, 15, 150, true), fit: [55, 100] },
+            { image: drawString('Planow. do zasiedleń\nliczba zw. łownych', 13, 110, 160, 15, 155, true), fit: [55, 100] },
+            { image: drawString('Optymalna liczba\nzwierząt\nzaplanowanych do\npozyskania w łow.\nroku gosp. na który\nsporządzono rpl.', 13, 110, 160, 15, 150, true), colSpan: 2, fit: [55, 100] },
             { text: '' },
-            { text: 'Minimalna i maksymalna liczba zwierząt zaplanowana do pozyskania w roku gospodarczym ' + currentMarketingYearModel.MarketingYear, colSpan: 4, alignment: 'center', style: 'numberHeader' },
+            { image: drawString('Minimalna i\nmaksymalna liczba\nzwierząt\nzaplanowana do\npozyskania w łow.\nroku gospodarczym,\nna który\nsporządzono rpl.', 13, 160, 160, 15, 155, true), colSpan: 4, fit: [75, 100] },
             { text: '' },
             { text: '' },
             { text: '' }
@@ -511,18 +566,18 @@
 
         headers.push([
             { text: '' },
-            { text: 'odstrzał szt.', rowSpan: 2, alignment: 'center', style: 'numberHeader' },
-            { text: 'odłów szt.', rowSpan: 2, alignment: 'center', style: 'numberHeader' },
-            { text: 'odstrzał szt.', rowSpan: 2, alignment: 'center', style: 'numberHeader' },
-            { text: 'odłów szt.', rowSpan: 2, alignment: 'center', style: 'numberHeader' },
-            { text: 'szt.', rowSpan: 2, alignment: 'center', style: 'numberHeader' },
-            { text: 'szt.', rowSpan: 2, alignment: 'center', style: 'numberHeader' },
-            { text: 'szt.', rowSpan: 2, alignment: 'center', style: 'numberHeader' },
-            { text: 'odstrzał szt.', rowSpan: 2, alignment: 'center', style: 'numberHeader' },
-            { text: 'odłów szt.', rowSpan: 2, alignment: 'center', style: 'numberHeader' },
-            { text: 'odstrzał szt.', colSpan: 2, alignment: 'center', style: 'numberHeader' },
+            { image: drawString('odstrzał\nszt.', 16, 50, 90, 23, 80, false), fit: [25, 35], rowSpan: 2, margin: [0, 0, 0, -15] },
+            { image: drawString('odłów\nszt.', 16, 50, 90, 23, 72, false), fit: [25, 35], rowSpan: 2, margin: [0, 0, 0, -15] },
+            { image: drawString('odstrzał\nszt.', 16, 50, 90, 23, 80, false), fit: [25, 35], rowSpan: 2, margin: [0, 0, 0, -15] },
+            { image: drawString('odłów\nszt.', 16, 50, 90, 23, 72, false), fit: [25, 35], rowSpan: 2, margin: [0, 0, 0, -15] },
+            { text: 'szt.', rowSpan: 2, alignment: 'center', fontSize: 9, margin:[0, 12, 0, -15] },
+            { text: 'szt.', rowSpan: 2, alignment: 'center', fontSize: 9, margin: [0, 12, 0, -15]  },
+            { text: 'szt.', rowSpan: 2, alignment: 'center', fontSize: 9, margin: [0, 12, 0, -15]  },
+            { text: 'odstrzał szt.', rowSpan: 2, alignment: 'center', fontSize: 9, margin: [0, 10, 0, -13] },
+            { text: 'odłów szt.', rowSpan: 2, alignment: 'center', fontSize: 9, margin: [0, 10, 0, -13] },
+            { text: 'odstrzał szt.', colSpan: 2, alignment: 'center', fontSize: 8, margin: [-3, 0, -3, 0] },
             { text: '' },
-            { text: 'odłów szt.', colSpan: 2, alignment: 'center', style: 'numberHeader' },
+            { text: 'odłów szt.', colSpan: 2, alignment: 'center', fontSize: 8 },
             { text: '' }
         ]);
 
@@ -537,10 +592,10 @@
             { text: '' },
             { text: '' },
             { text: '' },
-            { text: 'min', alignment: 'center', style: 'numberHeader' },
-            { text: 'max', alignment: 'center', style: 'numberHeader' },
-            { text: 'min', alignment: 'center', style: 'numberHeader' },
-            { text: 'max', alignment: 'center', style: 'numberHeader' }
+            { image: drawString('min', 16, 20, 60, 16, 50), fit: [10, 20], alignment: 'center' },
+            { image: drawString('max', 16, 20, 60, 16, 50), fit: [10, 20], alignment: 'center' },
+            { image: drawString('min', 16, 20, 60, 16, 50), fit: [10, 20], alignment: 'center' },
+            { image: drawString('max', 16, 20, 60, 16, 50), fit: [10, 20], alignment: 'center' },
         ]);
 
         headers.push(getNumbersRow(14));
@@ -551,45 +606,46 @@
     var getSmallGameTableBody = function (smallGamePlanModel) {
         var smallGameTableBody = [];
         
-        $.each(smallGamePlanModel.AnnualPlanKindGameModels, function (key, value) {
+        $.each(smallGamePlanModel.AnnualPlanKindGameModels, function (key, gameKindModel) {
 
-            smallGameTableBody.push([
-                { text: kindCount + '. ' + value.KindName, bold: true, style: 'point' },
-                { text: value.PreviousHuntPlanCulls, style: 'cell' },
-                { text: value.PreviousHuntPlanCatches, style: 'cell' },
-                { text: value.PreviousHuntPlanExecutionCulls, style: 'cell' },
-                { text: value.PreviousHuntPlanExecutionCatches, style: 'cell' },
-                { text: '' },
-                { text: value.GameCountBefore10March, style: 'cell' },
-                { text: '' },
-                { text: value.CurrentHuntPlanCulls, style: 'cell' },
-                { text: value.CurrentHuntPlanCatches, style: 'cell' },
-                { text: value.CurrentHuntPlanCullsMin, style: 'cell' },
-                { text: value.CurrentHuntPlanCullsMax, style: 'cell' },
-                { text: value.CurrentHuntPlanCatchesMin, style: 'cell' },
-                { text: value.CurrentHuntPlanCatchesMax, style: 'cell' }
-            ]);
-
-            $.each(value.AnnualPlanSubKindGameModels, function (index, value) {
+            if (gameKindModel.AnnualPlanSubKindGameModels.length === 0) {
+                smallGameTableBody.push([
+                    { text: gameKindModel.KindName, bold: true, style: 'point', margin: [0, -2, 0, -1] },
+                    { text: gameKindModel.PreviousHuntPlanCulls, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: gameKindModel.PreviousHuntPlanCatches, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: gameKindModel.PreviousHuntPlanExecutionCulls, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: gameKindModel.PreviousHuntPlanExecutionCatches, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: '' },
+                    { text: gameKindModel.GameCountBefore10March, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: '' },
+                    { text: gameKindModel.CurrentHuntPlanCulls, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: gameKindModel.CurrentHuntPlanCatches, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: gameKindModel.CurrentHuntPlanCullsMin, style: 'cell', margin: [0, -2, 0, -1]  },
+                    { text: gameKindModel.CurrentHuntPlanCullsMax, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: gameKindModel.CurrentHuntPlanCatchesMin, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: gameKindModel.CurrentHuntPlanCatchesMax, style: 'cell', margin: [0, -2, 0, -1]  }
+                ]);
+            }
+            
+            $.each(gameKindModel.AnnualPlanSubKindGameModels, function (index, gameSubKindModel) {
 
                 smallGameTableBody.push([
-                    { text: (paragraphPoints[value.SubKind - 1] + ' ' + value.SubKindName).toLowerCase(), style: 'point' },
-                    { text: value.PreviousHuntPlanCulls, style: 'cell' },
-                    { text: value.PreviousHuntPlanCatches, style: 'cell' },
-                    { text: value.PreviousHuntPlanExecutionCulls, style: 'cell' },
-                    { text: value.PreviousHuntPlanExecutionCatches, style: 'cell' },
+                    { text: gameKindModel.KindName + ' ' + gameSubKindModel.SubKindName, bold: true, style: 'point', margin: [0, -2, 0, -1] },
+                    { text: gameSubKindModel.PreviousHuntPlanCulls, style: 'cell', margin: [0, -2, 0, -1]  },
+                    { text: gameSubKindModel.PreviousHuntPlanCatches, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: gameSubKindModel.PreviousHuntPlanExecutionCulls, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: gameSubKindModel.PreviousHuntPlanExecutionCatches, style: 'cell', margin: [0, -2, 0, -1] },
                     { text: '' },
-                    { text: value.GameCountBefore10March, style: 'cell' },
+                    { text: gameSubKindModel.GameCountBefore10March, style: 'cell', margin: [0, -2, 0, -1]  },
                     { text: '' },
-                    { text: value.CurrentHuntPlanCulls, style: 'cell' },
-                    { text: value.CurrentHuntPlanCatches, style: 'cell' },
-                    { text: value.CurrentHuntPlanCullsMin, style: 'cell' },
-                    { text: value.CurrentHuntPlanCullsMax, style: 'cell' },
-                    { text: value.CurrentHuntPlanCatchesMin, style: 'cell' },
-                    { text: value.CurrentHuntPlanCatchesMax, style: 'cell' }
+                    { text: gameSubKindModel.CurrentHuntPlanCulls, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: gameSubKindModel.CurrentHuntPlanCatches, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: gameSubKindModel.CurrentHuntPlanCullsMin, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: gameSubKindModel.CurrentHuntPlanCullsMax, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: gameSubKindModel.CurrentHuntPlanCatchesMin, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: gameSubKindModel.CurrentHuntPlanCatchesMax, style: 'cell', margin: [0, -2, 0, -1] }
                 ]);
             });
-            kindCount++;
         });
 
         return smallGameTableBody;
@@ -612,7 +668,7 @@
 
     var getCostTable = function (data) {
         var costTableNumberColumns = getNumbersRow(6);
-        var costTableBody = getCostTableBody(data.PreviousAnnualPlanModel, data.CurrentAnnualPlanModel);
+        var costTableBody = getRevenueTableBody(data.PreviousAnnualPlanModel, data.CurrentAnnualPlanModel);
 
         var costTable = [];
         costTable.push(costTableNumberColumns);
@@ -653,38 +709,60 @@
         return smallGameTable;
     };
 
-    var getSignsAndApprovalsSection = function() {
-        var signsAndApprovalsContent = [];
 
-        signsAndApprovalsContent.push({ text: 'Data sporządzenia planu:', fontSize: 8, bold: true, margin:[0, 5, 0, 0]});
-        signsAndApprovalsContent.push({ text: 'Plan sporządził:                                                           Podpis ...............................................', fontSize: 8, bold: true, margin: [0, 5, 0, 0]});
-        signsAndApprovalsContent.push({ text: 'Opinia Wójta, Burmistrza lub Prezydenta miasta....................................................................................................................................................................', fontSize: 8, bold: true, margin: [0, 5, 0, 0]});
-        signsAndApprovalsContent.push({ text: '................................................................................................................................................................................................................................................................', fontSize: 8, margin: [0, 5, 0, 0]});
-        signsAndApprovalsContent.push({ text: '................................', alignment: 'right', fontSize: 8, margin: [0, 5, 0, 0]});
-        signsAndApprovalsContent.push({ text: '(data, podpis)', alignment: 'right', fontSize: 8});
-        signsAndApprovalsContent.push({ text: 'Inne opinie, o których mowa w art.8 ust. 3c', fontSize: 8});
-        signsAndApprovalsContent.push({ text: 'ustawy z dnia 13 października 1995 r.– Prawo łowieckie', fontSize: 8});
-        signsAndApprovalsContent.push({ text: '................................................................................................................................................................................................................................................................', fontSize: 8, margin: [0, 5, 0, 0]});
-        signsAndApprovalsContent.push({ text: '................................................................................................................................................................................................................................................................', fontSize: 8, margin: [0, 5, 0, 0]});
-        signsAndApprovalsContent.push({ text: '................................', alignment: 'right', fontSize: 8, margin: [0, 5, 0, 0]});
-        signsAndApprovalsContent.push({ text: '(data, podpis)', alignment: 'right', fontSize: 8});
-        signsAndApprovalsContent.push({ text: 'Plan uzgodnił:                                                                                                                                                                                                                     Plan zatwierdził:', fontSize: 8, bold: true, margin: [0, 10, 0, 0]});
-        signsAndApprovalsContent.push({ text: '...................................................                                                                                                                                                                   ...................................................', fontSize: 8, margin: [0, 5, 0, 0] });
-        signsAndApprovalsContent.push({ text: '(data, podpis, pieczęć)                                                                                                                                                                                               (data, podpis, pieczęć)', fontSize: 8 });
+    var getApprovalsSection = function () {
+        var approvalsSection = [];
+
+        approvalsSection.push({ text: 'a) uzgodnienia', fontSize: 12, margin: [0, 20, 0, 60] });
+        approvalsSection.push({ text: '..........................................................................................................................................   .......................................', fontSize: 11, margin: [25, 0, 0, 0] });
+        approvalsSection.push({ text: 'Polski Związek Łowiecki                                                                           (data, podpis)', fontSize: 9, margin: [180, 0, 0, 0] });
+        approvalsSection.push({ text: 'b) opinie', fontSize: 12, margin: [0, 40, 0, 20] });
+
+        approvalsSection.push({ text: '1. Wójt (burmistrz, prezydent miasta)', fontSize: 12 });
+        getDottedRows(approvalsSection, 10);
+        getApprovalsSectionSignRows(approvalsSection);
+
+        approvalsSection.push({ text: '2. Izba rolnicza', fontSize: 12 });
+        getDottedRows(approvalsSection, 9);
+        getApprovalsSectionSignRows(approvalsSection);
+
+        approvalsSection.push({ text: '3. Polski Związek Łowiecki*', fontSize: 12, pageBreak: 'before'});
+        getDottedRows(approvalsSection, 3);
+        getApprovalsSectionSignRows(approvalsSection);
         
-        return signsAndApprovalsContent;
-    }
+        approvalsSection.push({ text: '4. Dyrektor parku narodowego**', fontSize: 12 });
+        getDottedRows(approvalsSection, 3);
+        getApprovalsSectionSignRows(approvalsSection);
+
+        approvalsSection.push({ text: '5. Opinia uprawnionych do rybactwa***', fontSize: 12 });
+        getDottedRows(approvalsSection, 3);
+        getApprovalsSectionSignRows(approvalsSection);
+
+        approvalsSection.push({ text: '*dla obwodów wyłączonych z wydzierżawienia', fontSize: 7 });
+        approvalsSection.push({ text: '**dla obwodów graniczących z parkiem narodowym', fontSize: 7 });
+        approvalsSection.push({ text: '***dla obwodów na terenie których znajduje się obręb hodowlany', fontSize: 7 });
+
+        return approvalsSection;
+    };
 
     var downloadPdf = function (data) {
-
         var planHeader = getPlanHeader();
         var huntClubInformation = getHuntClubInformation();
         var economyTable = getEconomyTable(data);
         var costTable = getCostTable(data);
         var bigGameTable = getBigGameTable(data);
         var smallGameTable = getSmallGameTable(data);
-        var signsAndApprovalsSection = getSignsAndApprovalsSection();
-        
+        var approvalsSection = getApprovalsSection();
+
+        pdfMake.fonts = {
+            TimesNewRoman: {
+                normal: 'times.ttf',
+                bold: 'timesbd.ttf',
+                italics: 'timesi.ttf',
+                bolditalics: 'timesbi.ttf'
+            }
+        }
+
         var docDefinition = {
             pageOrientation: 'portrait',
             pageMargins: [28, 28, 28, 28],
@@ -699,20 +777,29 @@
                     huntClubInformation
                 ,
                 {
-                    text: 'II. Zagospodarowanie obwodu łowieckiego, szkody łowieckie',
-                    style: 'planPoint'
+                    text: 'II. Dane dotyczące zagospodarowania obwodu łowieckiego oraz szkód łowieckich',
+                    style: 'planPoint', margin: [0, 0, 0, 10],
+                    pageBreak: 'before'
                 },
                 {
                     table: {
-                        widths: ['47%', '5%', '12%', '12%', '12%', '12%'],
+                        widths: ['48%', '5%', '12%', '12%', '11%', '12%'],
                         body: economyTable,
-                        pageBreak: 'before',
+                        pageBreak: 'after',
                         dontBreakRows: true
+                    },
+                    layout: {
+                        hLineWidth: function (i, node) {
+                            return (i === 0 || i === node.table.body.length) ? 3 : 1;
+                        },
+                        vLineWidth: function (i, node) {
+                            return (i === 0 || i === node.table.widths.length) ? 3 : 1;
+                        }
                     }
                 },
                 {
-                    text: 'III. Informacja o przychodach ze sprzedaży tusz zwierzyny płowej i kosztach zagospodarowania obwodu.',
-                    fontSize: 11, bold: true
+                    text: 'III. Informacja o przychodach ze sprzedaży tusz zwierzyny płowej',
+                    fontSize: 12, bold: true, margin: [0, 20, 0, 20]
                 },
                 {
                     table: {
@@ -720,43 +807,72 @@
                         body: costTable,
                         pageBreak: 'before',
                         dontBreakRows: true
+                    },
+                    layout: {
+                        hLineWidth: function (i, node) {
+                            return (i === 0 || i === node.table.body.length) ? 3 : 1;
+                        },
+                        vLineWidth: function (i, node) {
+                            return (i === 0 || i === node.table.widths.length) ? 3 : 1;
+                        }
                     }
                 },
                 {
-                    text: 'IV. Dane dotyczące zwierząt łownych.',
-                    style: 'planPoint', pageBreak: 'before'
+                    text: 'IV. Dane dotyczące zwierząt łownych w obwodzie łowieckim',
+                    style: 'planPoint', margin: [0, 0, 0, 10], pageBreak: 'before'
                 },
                 {
                     text: 'a) zwierzyna gruba',
-                    fontSize: 11, bold: true
+                    fontSize: 11, bold: true, margin: [0, 0, 0, 10]
                 },
                 {
                     table: {
-                        widths: ['14%', '7%', '5%', '6%', '7%', '5%', '6%', '6%', '4%', '4%', '4%', '4%', '7%', '5%', '4%', '4%', '4%', '4%'],
+                        widths: ['20%', '4%', '4%', '4%', '4%', '4%', '5%', '6%', '8%', '7%', '4%', '9%', '5%', '5%', '3%', '3%', '3%', '3%'],
                         body: bigGameTable,
                         pageBreak: 'before',
                         dontBreakRows: true
+                    },
+                    layout: {
+                        hLineWidth: function(i, node) {
+                            return (i === 0 || i === node.table.body.length) ? 3 : 1;
+                        },
+                        vLineWidth: function(i, node) {
+                            return (i === 0 || i === node.table.widths.length) ? 3 : 1;
+                        }
                     }
-                },
-                {
-                    text: '*- dane niezbędne do prowadzenia gospodarki łowieckiej.',
-                    fontSize: 7
                 },
                 {
                     text: 'b) zwierzyna drobna',
-                    fontSize: 11, bold: true, pageBreak: 'before'
+                    fontSize: 11, bold: true, margin: [0, 0, 0, 20], pageBreak: 'before'
                 },
                 {
                     table: {
-                        widths: ['24%', '7%', '7%', '7%', '7%', '6%', '7%', '6%', '7%', '7%', '4%', '4%', '4%', '4%'],
+                        widths: ['25%', '6%', '6%', '6%', '6%', '12%', '8%', '5%', '7%', '7%', '3%', '3%', '3%', '3%'],
                         body: smallGameTable,
                         pageBreak: 'before',
                         dontBreakRows: true
+                    },
+                    layout: {
+                        hLineWidth: function (i, node) {
+                            return (i === 0 || i === node.table.body.length) ? 3 : 1;
+                        },
+                        vLineWidth: function (i, node) {
+                            return (i === 0 || i === node.table.widths.length) ? 3 : 1;
+                        }
                     }
                 },
-                signsAndApprovalsSection
-                
+                {
+                    text: 'V. Uzgodnienia i opinie',
+                    style: 'planPoint', margin: [0, 0, 0, 10], pageBreak: 'before'
+                },
+                    approvalsSection
             ],
+            footer: function (page) {
+                return { text: page, alignment: 'center', fontSize: 10 };
+            },
+            defaultStyle: {
+                font: 'TimesNewRoman'
+            },
             styles: {
                 filledHeader: {
                     color: 'white',
@@ -776,11 +892,11 @@
                     fontSize: 7
                 },
                 paragraph: {
-                    fontSize: 9,
+                    fontSize: 10,
                     bold: true
                 },
                 point: {
-                    fontSize: 9,
+                    fontSize: 10,
                     alignment: 'left'
                 },
                 smallPoint: {
