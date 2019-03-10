@@ -28,10 +28,6 @@ namespace Hoof.Controllers
         public ActionResult MonthlyReport(DateTime dateFrom, DateTime dateTo)
         {
             MonthlyReportModel monthlyReportsModel = _reportService.GetMonthlyReportData(dateFrom, dateTo);
-
-            monthlyReportsModel.ReportDateFrom = dateFrom;
-            monthlyReportsModel.ReportDateTo = dateTo;
-
             return View(monthlyReportsModel);
         }
 

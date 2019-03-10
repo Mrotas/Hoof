@@ -11,6 +11,7 @@ using DataAccess.Dao.HuntedGame;
 using DataAccess.Dao.LossGame;
 using DataAccess.Dto;
 using Domain.MarketingYear;
+using Domain.MarketingYear.Models;
 using Domain.Report.Models;
 
 namespace Domain.Report
@@ -72,24 +73,61 @@ namespace Domain.Report
 
         public MonthlyReportModel GetMonthlyReportData(DateTime startDate, DateTime endDate)
         {
+            ReportDateFrom = startDate;
+            ReportDateTo = endDate;
+            MarketingYearId = _marketingYearService.GetMarketingYearByDate(ReportDateFrom);
+
+            MarketingYearModel marketingYearModel = _marketingYearService.GetMarketingYearModel(MarketingYearId);
+
             var monthlyReportModel = new MonthlyReportModel
             {
-                MonthlyReportBigGameModel = GetMonthlyReportData(GameType.Big, startDate, endDate),
-                MonthlyReportSmallGameModel = GetMonthlyReportData(GameType.Small, startDate, endDate)
+                MonthlyReportBigGameModel = GetMonthlyReportData(GameType.Big),
+                MonthlyReportSmallGameModel = GetMonthlyReportData(GameType.Small),
+                ReportDateFrom = ReportDateFrom,
+                ReportDateTo = ReportDateTo,
+                MarketingYearModel = marketingYearModel
             };
+
+            SetFallowDeerAndMouflonData(monthlyReportModel.MonthlyReportBigGameModel);
 
             return monthlyReportModel;
         }
 
-        public MonthlyReportGameModel GetMonthlyReportData(GameType gameType, DateTime startDate, DateTime endDate)
+        private void SetFallowDeerAndMouflonData(MonthlyReportGameModel monthlyReportBigGameModel)
         {
-            ReportDateFrom = startDate;
-            ReportDateTo = endDate;
-            MarketingYearId = _marketingYearService.GetMarketingYearByDate(startDate);
-            ReportGameType = (int) gameType;
-            
-            var gamesByKind = GamesByType.GroupBy(x => x.Kind);
+            MonthlyReportKindGameModel mouflonReportModel = monthlyReportBigGameModel.MonthlyReportKindGameModels.FirstOrDefault(x => x.Kind == (int)GameKind.Mouflon);
+            MonthlyReportKindGameModel fallowDeerReportModel = monthlyReportBigGameModel.MonthlyReportKindGameModels.FirstOrDefault(x => x.Kind == (int) GameKind.FallowDeer);
+            if (mouflonReportModel == null || fallowDeerReportModel == null)
+            {
+                return;
+            }
 
+            fallowDeerReportModel.KindName += $"/{mouflonReportModel.KindName}";
+            fallowDeerReportModel.Culls += mouflonReportModel.Culls;
+            fallowDeerReportModel.Catches += mouflonReportModel.Catches;
+            fallowDeerReportModel.Losses += mouflonReportModel.Losses;
+            fallowDeerReportModel.HuntPlanCulls += mouflonReportModel.HuntPlanCulls;
+            for (int i = 0; i < fallowDeerReportModel.MonthlyReportSubKindGameModels.Count; i++)
+            {
+                fallowDeerReportModel.MonthlyReportSubKindGameModels[i].SubKindName += $"/{mouflonReportModel.MonthlyReportSubKindGameModels[i].SubKindName}";
+                fallowDeerReportModel.MonthlyReportSubKindGameModels[i].Culls += mouflonReportModel.MonthlyReportSubKindGameModels[i].Culls;
+                fallowDeerReportModel.MonthlyReportSubKindGameModels[i].Catches += mouflonReportModel.MonthlyReportSubKindGameModels[i].Catches;
+                fallowDeerReportModel.MonthlyReportSubKindGameModels[i].Losses += mouflonReportModel.MonthlyReportSubKindGameModels[i].Losses;
+                fallowDeerReportModel.MonthlyReportSubKindGameModels[i].HuntPlanCulls += mouflonReportModel.MonthlyReportSubKindGameModels[i].HuntPlanCulls;
+            }
+
+            monthlyReportBigGameModel.MonthlyReportKindGameModels.Remove(monthlyReportBigGameModel.MonthlyReportKindGameModels.FirstOrDefault(x => x.Kind == (int)GameKind.Mouflon));
+            monthlyReportBigGameModel.MonthlyReportKindGameModels.Remove(monthlyReportBigGameModel.MonthlyReportKindGameModels.FirstOrDefault(x => x.Kind == (int)GameKind.FallowDeer));
+
+            monthlyReportBigGameModel.MonthlyReportKindGameModels.Add(fallowDeerReportModel);
+            monthlyReportBigGameModel.MonthlyReportKindGameModels = monthlyReportBigGameModel.MonthlyReportKindGameModels.OrderBy(x => x.Kind).ToList();
+        }
+
+        public MonthlyReportGameModel GetMonthlyReportData(GameType gameType)
+        {
+            ReportGameType = (int) gameType;
+
+            var gamesByKind = GamesByType.GroupBy(x => x.Kind);
             var monthlyReportKindGameModels = new List<MonthlyReportKindGameModel>();
             foreach (var gameByKind in gamesByKind)
             {

@@ -16,7 +16,7 @@
 
         $(document).ready(function () {
             var config = {};
-            config.marketingYearId = 3;
+            config.marketingYear = '@Model.MarketingYearModel';
             config.reportFromDate = '@Model.ReportDateFrom.ToString("MM/dd/yyyy")';
             config.reportDateTo = '@Model.ReportDateTo.ToString("MM/dd/yyyy")';
             var reportPdfGenerator = new ReportPdfGenerator(config);
@@ -28,7 +28,7 @@
 <button class="btn btn-danger" id="generateReportPdf">Pobierz PDF</button>
 <br />
 <h3 style="font-weight: bold; text-align: center">Informacja o pozyskaniu zwierzyny w obwodzie łowieckim nr 20</h3>
-<h4 style="font-weight: bold; text-align: center">w sezonie łow. .../... za okres od @Model.ReportDateFrom.ToString("dd.MM.yyyy") roku do @Model.ReportDateTo.ToString("dd.MM.yyyy") roku</h4>
+<h4 style="font-weight: bold; text-align: center">w sezonie łow. @Model.MarketingYearModel.Start.ToString("yyyy")/@Model.MarketingYearModel.End.ToString("yyyy") za okres od @Model.ReportDateFrom.ToString("dd.MM.yyyy") roku do @Model.ReportDateTo.ToString("dd.MM.yyyy") roku</h4>
 
 <br />
 
@@ -55,19 +55,10 @@
     @foreach (MonthlyReportKindGameModel bigKindGameModel in Model.MonthlyReportBigGameModel.MonthlyReportKindGameModels)
     {
         if (bigKindGameModel.Kind.IsIn(bigGameKindsWithPortraitColumn))
-        {
-            if (bigKindGameModel.Kind == (int)GameKind.Mouflon)
-            {
-                <tr>
-                    <td rowspan="@(bigKindGameModel.MonthlyReportSubKindGameModels.FirstOrDefault().MonthlyReportClassGameModels.Count + 5)" style="text-orientation: mixed">@bigKindGameModel.KindName</td>
-                </tr>
-            }
-            else
-            {
-                <tr>
-                    <td rowspan="@(bigKindGameModel.MonthlyReportSubKindGameModels.FirstOrDefault().MonthlyReportClassGameModels.Count + 5)" style="text-orientation: mixed">@bigKindGameModel.KindName</td>
-                </tr>
-            }
+        {            
+            <tr>
+                <td rowspan="@(bigKindGameModel.MonthlyReportSubKindGameModels.FirstOrDefault().MonthlyReportClassGameModels.Count + 5)" style="text-orientation: mixed">@bigKindGameModel.KindName</td>
+            </tr>
         }
         else
         {
@@ -80,8 +71,9 @@
         {
             foreach (MonthlyReportClassGameModel bigClassGameModel in bigSubKindGameModel.MonthlyReportClassGameModels)
             {
+                string className = bigKindGameModel.Kind == (int) GameKind.FallowDeer ? $"byk {bigClassGameModel.ClassName}" : $"{bigSubKindGameModel.SubKindName.ToLower()} {bigClassGameModel.ClassName}";
                 <tr>
-                    <td>@bigClassGameModel.ClassName</td>
+                    <td>@className</td>
                     <td>@bigClassGameModel.Culls</td>
                     <td>@bigClassGameModel.LossesWithCatches</td>
                     <td>@bigClassGameModel.ExecutionTotal</td>
@@ -91,8 +83,9 @@
                 </tr>
             }
 
+            string subKindName = bigSubKindGameModel.SubKind == 1 ? $"razem {bigSubKindGameModel.SubKindName}" : bigSubKindGameModel.SubKindName;
             <tr>
-                <td>@bigSubKindGameModel.SubKindName</td>
+                <td>@subKindName.ToLower()</td>
                 <td>@bigSubKindGameModel.Culls</td>
                 <td>@bigSubKindGameModel.LossesWithCatches</td>
                 <td>@bigSubKindGameModel.ExecutionTotal</td>

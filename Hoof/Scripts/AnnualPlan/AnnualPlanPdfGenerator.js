@@ -258,18 +258,18 @@
         body.push([
             { text: '4. Liczba i łączna długość pasów zaporowych', rowSpan: 2, style: 'paragraph', margin: [0, -2, 0, -1] },
             { text: 'szt.', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] }
+            { text: '0', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '0', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '0', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '0', style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
         body.push([
             { text: '', margin: [0, -2, 0, -1] },
             { text: 'km', style: 'cell', margin: [0, -2, 0, -1] },
             { text: previousAnnualPlanModel.BarrierPlanModel.Length, style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '0', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '0', style: 'cell', margin: [0, -2, 0, -1] },
             { text: currentAnnualPlanModel.BarrierPlanModel.Length, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
@@ -874,10 +874,6 @@
                 font: 'TimesNewRoman'
             },
             styles: {
-                filledHeader: {
-                    color: 'white',
-                    fillColor: 'black'
-                },
                 planPoint: {
                     fontSize: 12,
                     bold: true
