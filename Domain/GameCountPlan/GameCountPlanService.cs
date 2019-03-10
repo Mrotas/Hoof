@@ -53,10 +53,13 @@ namespace Domain.GameCountPlan
                 {
                     Id = countPlan.Id,
                     GameId = game.Id,
+                    GameType = game.Type,
+                    GameKind = game.Kind,
                     GameKindName = game.KindName,
+                    GameSubKind = game.SubKind,
                     GameSubKindName = game.SubKindName,
-                    GameClassName = countPlan.Class.HasValue ? GameClassXRefs.FirstOrDefault(x => x.Id == countPlan.Class).ClassName : String.Empty,
                     Class = countPlan.Class,
+                    ClassName = countPlan.Class.HasValue ? GameClassXRefs.FirstOrDefault(x => x.Id == countPlan.Class).ClassName : String.Empty,
                     Count = countPlan.Count
                 }
             ).ToList();
@@ -72,6 +75,51 @@ namespace Domain.GameCountPlan
             };
 
             return huntPlanViewModel;
+        }
+
+        public void AddGameHuntPlan(GameCountPlanViewModel model, int marketingYearId)
+        {
+            IList<GameDto> games = _gameDao.GetByKindName(model.GameKindName);
+            if (!String.IsNullOrWhiteSpace(model.GameSubKindName))
+            {
+                games = games.Where(x => x.SubKindName == model.GameSubKindName).ToList();
+            }
+
+            int gameId = games.Select(x => x.Id).FirstOrDefault();
+            IList<GameCountFor10MarchDto> existingGameCountPlanDto = _gameCountFor10MarchDao.GetByMarketingYear(marketingYearId);
+            if (existingGameCountPlanDto.Any(x => x.GameId == gameId && x.Class == model.Class))
+            {
+                throw new Exception($"Plan liczebności zwierzyny {model.GameKindName} - {model.GameSubKindName} - {model.ClassName} już istnieje! Proszę użyć opcji edycji istniejącego już planu.");
+            }
+
+            var dto = new GameCountFor10MarchDto
+            {
+                GameId = gameId,
+                Class = model.Class,
+                Count = model.Count,
+                MarketingYearId = marketingYearId
+            };
+
+            _gameCountFor10MarchDao.Insert(dto);
+        }
+
+        public void UpdateGameHuntPlan(GameCountPlanViewModel model, int marketingYearId)
+        {
+            var dto = new GameCountFor10MarchDto
+            {
+                Id = model.Id,
+                GameId = model.GameId,
+                Class = model.Class,
+                Count = model.Count,
+                MarketingYearId = marketingYearId
+            };
+
+            _gameCountFor10MarchDao.Update(dto);
+        }
+
+        public void DeleteGameHuntPlan(int id)
+        {
+            _gameCountFor10MarchDao.Delete(id);
         }
     }
 }

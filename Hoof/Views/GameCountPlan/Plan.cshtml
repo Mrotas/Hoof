@@ -4,57 +4,188 @@
     ViewBag.Title = "Plan";
 }
 
+@section Scripts{
+
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="~/Scripts/GameCountPlan/GameCountPlan.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var config = {
+                MarketingYearId: @Model.MarketingYearId,
+                Controller: "GameCountPlan"
+            };
+            var gameHuntPlan = new GameCountPlan(config);
+        });
+    </script>
+
+}
+
+<div class="alert alert-danger" id="dangerAlert" role="alert" style="display: none">
+    <h4 class="alert-heading">
+        Uwaga !
+        <button type="button" class="close" id="closeDangerAlert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </h4>
+    <p class="alert-body"></p>
+    <hr>
+    <p class="mb-0 alert-footer" style="font-size: 9pt">Jeżeli to coś poważniejszego, proszę skontaktować się z administratorem.</p>
+</div>
+
 <br />
 
-<h4 style="text-align: center">Szacowana liczebność zwierząt na 10.03.@Model.MarketingYearEnd.Year</h4>
+<h4 style="text-align: center">Plan liczebności zwierzyny na rok gospodarczy @Model.MarketingYear</h4>
 
 <br />
 
-<table class="table table-bordered table-hover">
+<div style="text-align: center">
+    <label style="padding-right: 10px;">Pokaż zwierzynę: </label>
+
+    <input type="radio" id="all" name="gameType" value="0" checked>
+    <label style="padding-right: 10px;" for="all">Wszystkie</label>
+
+    <input type="radio" id="bigGame" name="gameType" value="1">
+    <label style="padding-right: 10px;" for="bigGame">Gruba</label>
+
+    <input type="radio" id="smallGame" name="gameType" value="2">
+    <label style="padding-right: 10px;" for="smallGame">Drobna</label>
+</div>
+
+<br />
+
+<table class="table table-bordered table-hover" id="planTable">
     <tr>
-        <th>
+        <th hidden>
+            Id
+        </th>
+        <th hidden>
+            Typ
+        </th>
+        <th style="width: 5%">
             Lp.
         </th>
-        <th>
+        <th style="width: 35%">
             Zwierzyna
         </th>
-        <th>
+        <th style="width: 20%">
             Rodzaj
         </th>
-        <th>
+        <th style="width: 20%">
             Klasa
         </th>
-        <th>
+        <th style="width: 10%">
             Liczebność
         </th>
-        <th>
+        <th style="width: 10%">
             Zarządzaj
         </th>
     </tr>
-
-    @foreach (var item in Model.GameCountPlanViewModels)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GameKindName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GameSubKindName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GameClassName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Count)
-            </td>
-            <td>
-                @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-    }
-
+    <tr>
+        <td class="clearSearch">
+            <a href="#"> <span class="glyphicon glyphicon-ban-circle"></span> </a>
+        </td>
+        <td>
+            @Html.DropDownList("Wybierz zwierzynę", new List<SelectListItem>
+            {
+                new SelectListItem {Text = "Łoś", Value = "1"},
+                new SelectListItem {Text = "Jeleń Szlachetny", Value = "2"},
+                new SelectListItem {Text = "Jeleń Sika", Value = "3"},
+                new SelectListItem {Text = "Daniel", Value = "4"},
+                new SelectListItem {Text = "Sarna", Value = "5"},
+                new SelectListItem {Text = "Muflon", Value = "6"},
+                new SelectListItem {Text = "Dzik", Value = "7"},
+                new SelectListItem {Text = "Lis", Value = "1"},
+                new SelectListItem {Text = "Jenot", Value = "2"},
+                new SelectListItem {Text = "Borsuk", Value = "3"},
+                new SelectListItem {Text = "Szakal złocisty", Value = "4"},
+                new SelectListItem {Text = "Kuna", Value = "5"},
+                new SelectListItem {Text = "Norka amerykańska", Value = "6"},
+                new SelectListItem {Text = "Tchórz zwyczajny", Value = "7"},
+                new SelectListItem {Text = "Szpo pracz", Value = "8"},
+                new SelectListItem {Text = "Piżmak", Value = "9"},
+                new SelectListItem {Text = "Zając szarak", Value = "10"},
+                new SelectListItem {Text = "Dziki królik", Value = "11"},
+                new SelectListItem {Text = "Jarząbek", Value = "12"},
+                new SelectListItem {Text = "Bażant", Value = "13"},
+                new SelectListItem {Text = "Kuropatwa", Value = "14"},
+                new SelectListItem {Text = "Gęś", Value = "15"},
+                new SelectListItem {Text = "Kaczka", Value = "16"},
+                new SelectListItem {Text = "Gołąb grzywacz", Value = "17"},
+                new SelectListItem {Text = "Słonka", Value = "18"},
+                new SelectListItem {Text = "Łyska", Value = "19"},
+            }, "", new { Name = String.Empty, @class = "form-control", id= "gameKind", style="max-width: none"})
+        </td>
+        <td>
+            @Html.DropDownList("Wybierz rodzaj", new List<SelectListItem>
+            {
+            }, "", new { Name = String.Empty, @class = "form-control", id= "gameSubKind", style="max-width: none"})
+        </td>
+        <td>
+            @Html.DropDownList("Wybierz klasę", new List<SelectListItem>
+            {
+            }, "", new { Name = String.Empty, @class = "form-control", id= "gameClass", style="max-width: none"})
+        </td>
+        <td>
+            <input type="number" min="0" class="form-control" style="max-width: none" id="cull" />
+        </td>
+        <td style="text-align: center">
+            <button class="btn btn-primary" id="addPlan">Dodaj</button>
+        </td>
+    </tr>
+    <tbody id="planTableBody">
+        @foreach (var item in Model.GameCountPlanViewModels.OrderBy(x => x.GameType).ThenBy(x => x.GameKind).ThenBy(x => x.GameSubKind).ThenBy(x => x.Class).ToList())
+        {
+            <tr>
+                <td hidden>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td hidden>
+                    @Html.DisplayFor(modelItem => item.GameType)
+                </td>
+                <td style="text-align: center">
+                    @Html.DisplayFor(modelItem => item.GameId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GameKindName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GameSubKindName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClassName)
+                </td>
+                <td class="canEdit">
+                    @Html.DisplayFor(modelItem => item.Count)
+                </td>
+                <td style="text-align: center">
+                    <button class="btn btn-xs btn-success editPlan">Edytuj</button>
+                    <button class="btn btn-xs btn-danger deletePlan">Usuń</button>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+<div style="text-align: right">
+    <button class="btn btn-secondary" id="cancel" disabled>Anuluj</button>
+    <button class="btn btn-success" id="save" disabled>Zapisz</button>
+</div>
+
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Usuwanie planu liczebności zwierzyny</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="confirmDeleteModalBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Usuń</button>
+            </div>
+        </div>
+    </div>
+</div>
