@@ -195,7 +195,7 @@
             { text: '', style: 'cell', border: [false, false, false, false]},
             { text: 'objętościowej suchej', colSpan: 2, style: 'cell', border: [false, false, false, false]},
             { text: '', style: 'cell', border: [false, false, false, true]},
-            { text: '', colSpan: 3, style: 'cell', border: [false, false, false, true]},
+            { text: data.MonthlyReportFodderModel.Dry.PutOut, colSpan: 3, style: 'cell', border: [false, false, false, true]},
             { text: '', style: 'cell', border: [false, false, false, true] },
             { text: '', style: 'cell', border: [false, false, false, false] },
             { text: 'kg', alignment: 'left', style: 'cell', border: [false, false, false, false]}
@@ -206,7 +206,7 @@
             { text: '', style: 'cell', border: [false, false, false, false]},
             { text: 'objętościowej soczystej', colSpan: 2, style: 'cell', border: [false, false, false, false]},
             { text: '', style: 'cell', border: [false, false, false, true] },
-            { text: '', colSpan: 3, style: 'cell', border: [false, false, false, true] },
+            { text: data.MonthlyReportFodderModel.Juicy.PutOut, colSpan: 3, style: 'cell', border: [false, false, false, true] },
             { text: '', style: 'cell', border: [false, false, false, true] },
             { text: '', style: 'cell', border: [false, false, false, false] },
             { text: 'kg', alignment: 'left', style: 'cell', border: [false, false, false, false]}
@@ -217,7 +217,7 @@
             { text: '', style: 'cell', border: [false, false, false, false]},
             { text: 'treściwej', colSpan: 2, style: 'cell', border: [false, false, false, false]},
             { text: '', style: 'cell', border: [false, false, false, true] },
-            { text: '', colSpan: 3, style: 'cell', border: [false, false, false, true] },
+            { text: data.MonthlyReportFodderModel.Pithy.PutOut, colSpan: 3, style: 'cell', border: [false, false, false, true] },
             { text: '', style: 'cell', border: [false, false, false, true] },
             { text: '', style: 'cell', border: [false, false, false, false]},
             { text: 'kg', alignment: 'left', style: 'cell', border: [false, false, false, false]}
@@ -228,7 +228,7 @@
             { text: '', style: 'cell', border: [false, false, false, false] },
             { text: 'soli', colSpan: 2, style: 'cell', border: [false, false, false, false] },
             { text: '', style: 'cell', border: [false, false, false, false] },
-            { text: '', colSpan: 3, style: 'cell', border: [false, false, false, false] },
+            { text: data.MonthlyReportFodderModel.Salt.PutOut, colSpan: 3, style: 'cell', border: [false, false, false, false] },
             { text: '', style: 'cell', border: [false, false, false, false] },
             { text: '', style: 'cell', border: [false, false, false, false] },
             { text: 'kg', alignment: 'left', style: 'cell', border: [false, false, false, false] }

@@ -2,7 +2,7 @@
 
 namespace Common.Enums
 {
-    public enum Fodder
+    public enum FodderType
     {
         [Description("Sucha")]
         Dry = 1,

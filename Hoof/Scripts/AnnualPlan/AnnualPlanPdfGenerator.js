@@ -303,37 +303,37 @@
         body.push([
             { text: 'a) objętościowa sucha', style: 'point', margin: [5, -2, 0, -1] },
             { text: 'tona', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: previousAnnualPlanModel.FodderPlanModel.Dry, style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1]  },
+            { text: previousAnnualPlanModel.FodderPlanModel.Dry.Plan, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: previousAnnualPlanModel.FodderPlanModel.Dry.Execution, style: 'cell', margin: [0, -2, 0, -1]  },
             { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: currentAnnualPlanModel.FodderPlanModel.Dry, style: 'cell', margin: [0, -2, 0, -1] }
+            { text: currentAnnualPlanModel.FodderPlanModel.Dry.Plan, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
         body.push([
             { text: 'b) objętościowa soczysta', style: 'point', margin: [5, -2, 0, -1] },
             { text: 'tona', style: 'cell', margin: [0, -2, 0, -1]  },
-            { text: previousAnnualPlanModel.FodderPlanModel.Juicy, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: previousAnnualPlanModel.FodderPlanModel.Juicy.Plan, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: previousAnnualPlanModel.FodderPlanModel.Juicy.Execution, style: 'cell', margin: [0, -2, 0, -1] },
             { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: currentAnnualPlanModel.FodderPlanModel.Juicy, style: 'cell', margin: [0, -2, 0, -1] }
+            { text: currentAnnualPlanModel.FodderPlanModel.Juicy.Plan, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
         body.push([
             { text: 'c) treściwa', style: 'point', margin: [5, -2, 0, -1]  },
             { text: 'tona', style: 'cell', margin: [0, -2, 0, -1]  },
-            { text: previousAnnualPlanModel.FodderPlanModel.Pithy, style: 'cell', margin: [0, -2, 0, -1]  },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: previousAnnualPlanModel.FodderPlanModel.Pithy.Plan, style: 'cell', margin: [0, -2, 0, -1]  },
+            { text: previousAnnualPlanModel.FodderPlanModel.Pithy.Execution, style: 'cell', margin: [0, -2, 0, -1] },
             { text: '', style: 'cell', margin: [0, -2, 0, -1]  },
-            { text: currentAnnualPlanModel.FodderPlanModel.Pithy, style: 'cell', margin: [0, -2, 0, -1]  }
+            { text: currentAnnualPlanModel.FodderPlanModel.Pithy.Plan, style: 'cell', margin: [0, -2, 0, -1]  }
         ]);
 
         body.push([
             { text: 'd) sól', style: 'point', margin: [5, -2, 0, -1] },
             { text: 'tona', style: 'cell', margin: [0, -2, 0, -1]  },
-            { text: previousAnnualPlanModel.FodderPlanModel.Salt, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: previousAnnualPlanModel.FodderPlanModel.Salt.Plan, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: previousAnnualPlanModel.FodderPlanModel.Salt.Execution, style: 'cell', margin: [0, -2, 0, -1] },
             { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: currentAnnualPlanModel.FodderPlanModel.Salt, style: 'cell', margin: [0, -2, 0, -1] }
+            { text: currentAnnualPlanModel.FodderPlanModel.Salt.Plan, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
         body.push([

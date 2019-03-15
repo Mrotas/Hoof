@@ -1,14 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Common.Enums;
+using Common.Extensions;
 using DataAccess.Dao.CostPlan;
 using DataAccess.Dao.EmploymentPlan;
 using DataAccess.Dao.FieldPlan;
+using DataAccess.Dao.Fodder;
 using DataAccess.Dao.FodderPlan;
 using DataAccess.Dao.HuntEquipmentPlan;
 using DataAccess.Dao.TrunkFoodPlan;
 using DataAccess.Dto;
 using Domain.AnnualPlan.Models;
+using Domain.AnnualPlan.Models.Fodder;
 using Domain.AnnualPlan.ViewModels;
 using Domain.GamePlan;
 using Domain.MarketingYear;
@@ -23,6 +26,7 @@ namespace Domain.AnnualPlan
         private readonly ITrunkFoodPlanDao _trunkFoodPlanDao;
         private readonly IFieldPlanDao _fieldPlanDao;
         private readonly IFodderPlanDao _fodderPlanDao;
+        private readonly IFodderDao _fodderDao;
         private readonly ICostPlanDao _costPlanDao;
         private readonly IGamePlanService _gamePlanService;
 
@@ -30,7 +34,8 @@ namespace Domain.AnnualPlan
             new HuntEquipmentPlanDao(), 
             new TrunkFoodPlanDao(), 
             new FieldPlanDao(),
-            new FodderPlanDao(), 
+            new FodderPlanDao(),
+            new FodderDao(), 
             new CostPlanDao(), 
             new GamePlanService(), 
             new MarketingYearService())
@@ -41,7 +46,8 @@ namespace Domain.AnnualPlan
             IHuntEquipmentPlanDao huntEquipmentPlanDao, 
             ITrunkFoodPlanDao trunkFoodPlanDao, 
             IFieldPlanDao fieldPlanDao, 
-            IFodderPlanDao fodderPlanDao, 
+            IFodderPlanDao fodderPlanDao,
+            IFodderDao fodderDao,
             ICostPlanDao costPlanDao, 
             IGamePlanService gamePlanService,
             IMarketingYearService marketingYearService)
@@ -51,6 +57,7 @@ namespace Domain.AnnualPlan
             _trunkFoodPlanDao = trunkFoodPlanDao;
             _fieldPlanDao = fieldPlanDao;
             _fodderPlanDao = fodderPlanDao;
+            _fodderDao = fodderDao;
             _costPlanDao = costPlanDao;
             _gamePlanService = gamePlanService;
             _marketingYearService = marketingYearService;
@@ -156,19 +163,33 @@ namespace Domain.AnnualPlan
             return fieldPlanModel;
         }
 
-        private FodderPlanModel GetFodderPlanModel(int marketingYearId)
+        private AnnualPlanFodderModel GetFodderPlanModel(int marketingYearId)
         {
             IList<FodderPlanDto> fodderPlans = _fodderPlanDao.GetByMarketingYear(marketingYearId);
+            IList<FodderDto> fodders = _fodderDao.GetByMarketingYear(marketingYearId);
 
-            var fodderPlanModel = new FodderPlanModel
+            var annualPlanFodderModel = new AnnualPlanFodderModel
             {
-                Dry = fodderPlans.FirstOrDefault(x => x.Type == (int) Fodder.Dry)?.Ton ?? 0,
-                Juicy = fodderPlans.FirstOrDefault(x => x.Type == (int) Fodder.Juicy)?.Ton ?? 0,
-                Pithy = fodderPlans.FirstOrDefault(x => x.Type == (int) Fodder.Pithy)?.Ton ?? 0,
-                Salt = fodderPlans.FirstOrDefault(x => x.Type == (int) Fodder.Salt)?.Ton ?? 0
+                Dry = GetAnnualPlanFodderTypeModel(FodderType.Dry, fodderPlans, fodders),
+                Juicy = GetAnnualPlanFodderTypeModel(FodderType.Juicy, fodderPlans, fodders),
+                Pithy = GetAnnualPlanFodderTypeModel(FodderType.Pithy, fodderPlans, fodders),
+                Salt = GetAnnualPlanFodderTypeModel(FodderType.Salt, fodderPlans, fodders)
             };
 
-            return fodderPlanModel;
+            return annualPlanFodderModel;
+        }
+
+        private AnnualPlanFodderTypeModel GetAnnualPlanFodderTypeModel(FodderType fodderType, IList<FodderPlanDto> fodderPlans, IList<FodderDto> fodders)
+        {
+            var annualPlanFodderTypeModel = new AnnualPlanFodderTypeModel
+            {
+                FodderType = fodderType,
+                FodderTypeName = TypeName.GetFodderTypeName((int)fodderType),
+                Plan = fodderPlans.FirstOrDefault(x => x.Type == (int)fodderType)?.Ton ?? 0,
+                Execution = fodders.Where(x => x.Type == (int)fodderType).Sum(x => x.Kilograms) / 1000.0
+            };
+
+            return annualPlanFodderTypeModel;
         }
 
         private DamagedFieldPlanModel GetDamagedFieldPlanModel(int marketingYearId)

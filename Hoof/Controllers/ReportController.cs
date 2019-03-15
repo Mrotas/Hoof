@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web.Mvc;
-using Domain.AnnualPlan.ViewModels;
 using Domain.Report;
 using Domain.Report.Models;
 
@@ -34,10 +33,6 @@ namespace Hoof.Controllers
         public JsonResult GetMonthlyReportJsonData(DateTime dateFrom, DateTime dateTo)
         {
             MonthlyReportModel monthlyReportsModel = _reportService.GetMonthlyReportData(dateFrom, dateTo);
-
-            monthlyReportsModel.ReportDateFrom = dateFrom;
-            monthlyReportsModel.ReportDateTo = dateTo;
-
             return Json(monthlyReportsModel, JsonRequestBehavior.AllowGet);
         }
     }

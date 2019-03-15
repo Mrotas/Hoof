@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Common.Extensions;
 using DataAccess.Dao.FodderPlan;
 using DataAccess.Dao.MarketingYear;
 using DataAccess.Dto;
@@ -35,7 +36,7 @@ namespace Domain.FodderPlan
                 {
                     Id = fodderPlan.Id,
                     Type = fodderPlan.Type,
-                    TypeName = GetFodderTypeName(fodderPlan.Type),
+                    TypeName = TypeName.GetFodderTypeName(fodderPlan.Type),
                     Ton = fodderPlan.Ton
                 }
             ).ToList();
@@ -63,7 +64,7 @@ namespace Domain.FodderPlan
             IList<FodderPlanDto> existingEquipmentPlanDtos = _fodderPlanDao.GetByMarketingYear(marketingYearId);
             if (existingEquipmentPlanDtos.Any(x => x.Type == model.Type))
             {
-                throw new Exception($"Plan gospodarczy karmy {GetFodderTypeName(model.Type)} już istnieje! Proszę użyć opcji edycji istniejącego już planu.");
+                throw new Exception($"Plan gospodarczy karmy {TypeName.GetFodderTypeName(model.Type)} już istnieje! Proszę użyć opcji edycji istniejącego już planu.");
             }
 
             var dto = new FodderPlanDto
@@ -101,18 +102,6 @@ namespace Domain.FodderPlan
             }
 
             _fodderPlanDao.Delete(fodderType, marketingYearId);
-        }
-
-        private string GetFodderTypeName(int fodderType)
-        {
-            switch (fodderType)
-            {
-                case 1: return "Objętościowa sucha";
-                case 2: return "Objętościowa soczysta";
-                case 3: return "Treściwa";
-                case 4: return "Sól";
-                default: throw new NotImplementedException();
-            }
         }
     }
 }

@@ -162,6 +162,7 @@
     <Compile Include="Controllers\CostPlanController.cs" />
     <Compile Include="Controllers\EmploymentPlanController.cs" />
     <Compile Include="Controllers\FieldPlanController.cs" />
+    <Compile Include="Controllers\FodderController.cs" />
     <Compile Include="Controllers\FodderPlanController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\GameCountPlanController.cs" />
@@ -202,6 +203,7 @@
     <Content Include="Scripts\EmploymentPlan\EmploymentPlan.js" />
     <Content Include="Scripts\FieldPlan\FieldPlan.js" />
     <Content Include="Scripts\FodderPlan\FodderPlan.js" />
+    <Content Include="Scripts\Fodder\Fodder.js" />
     <Content Include="Scripts\GameCountPlan\GameCountPlan.js" />
     <Content Include="Scripts\GameHuntPlan\GameHuntPlan.js" />
     <Content Include="Scripts\HuntEquipmentPlan\HuntEquipmentPlan.js" />
@@ -258,6 +260,8 @@
     <Content Include="Views\TrunkFoodPlan\Plan.cshtml" />
     <Content Include="Views\FieldPlan\Index.cshtml" />
     <Content Include="Views\FieldPlan\Plan.cshtml" />
+    <Content Include="Views\Fodder\Index.cshtml" />
+    <Content Include="Views\Fodder\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -279,6 +283,10 @@
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{af007440-ffde-42ac-a678-e0b7f2503b07}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{170D4773-4FEF-4337-94AF-2B8A383343A9}</Project>
+      <Name>DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{4B1A750C-D6F1-48C5-B2FF-DFABD4D5052D}</Project>

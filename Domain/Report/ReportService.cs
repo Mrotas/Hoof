@@ -4,6 +4,7 @@ using System.Linq;
 using Common.Enums;
 using Common.Extensions;
 using DataAccess.Dao.Catch;
+using DataAccess.Dao.Fodder;
 using DataAccess.Dao.Game;
 using DataAccess.Dao.GameClass;
 using DataAccess.Dao.GameHuntPlan;
@@ -13,6 +14,7 @@ using DataAccess.Dto;
 using Domain.MarketingYear;
 using Domain.MarketingYear.Models;
 using Domain.Report.Models;
+using Domain.Report.Models.Fodder;
 
 namespace Domain.Report
 {
@@ -49,8 +51,16 @@ namespace Domain.Report
         private readonly IGameClassDao _gameClassDao;
         private readonly ILossGameDao _lossGameDao;
         private readonly ICatchDao _catchDao;
+        private readonly IFodderDao _fodderDao;
 
-        public ReportService() : this(new GameDao(), new GameHuntPlanDao(), new HuntedGameDao(), new MarketingYearService(), new GameClassDao(), new LossGameDao(), new CatchDao())
+        public ReportService() : this(new GameDao(), 
+            new GameHuntPlanDao(), 
+            new HuntedGameDao(),
+            new MarketingYearService(), 
+            new GameClassDao(), 
+            new LossGameDao(), 
+            new CatchDao(), 
+            new FodderDao())
         {
         }
 
@@ -60,7 +70,8 @@ namespace Domain.Report
             IMarketingYearService marketingYearService, 
             IGameClassDao gameClassDao, 
             ILossGameDao lossGameDao, 
-            ICatchDao catchDao)
+            ICatchDao catchDao,
+            IFodderDao fodderDao)
         {
             _gameDao = gameDao;
             _gameHuntPlanDao = gameHuntPlanDao;
@@ -69,6 +80,7 @@ namespace Domain.Report
             _gameClassDao = gameClassDao;
             _lossGameDao = lossGameDao;
             _catchDao = catchDao;
+            _fodderDao = fodderDao;
         }
 
         public MonthlyReportModel GetMonthlyReportData(DateTime startDate, DateTime endDate)
@@ -83,6 +95,7 @@ namespace Domain.Report
             {
                 MonthlyReportBigGameModel = GetMonthlyReportData(GameType.Big),
                 MonthlyReportSmallGameModel = GetMonthlyReportData(GameType.Small),
+                MonthlyReportFodderModel = GetMonthlyReportFodderModel(),
                 ReportDateFrom = ReportDateFrom,
                 ReportDateTo = ReportDateTo,
                 MarketingYearModel = marketingYearModel
@@ -93,37 +106,34 @@ namespace Domain.Report
             return monthlyReportModel;
         }
 
-        private void SetFallowDeerAndMouflonData(MonthlyReportGameModel monthlyReportBigGameModel)
+        private MonthlyReportFodderModel GetMonthlyReportFodderModel()
         {
-            MonthlyReportKindGameModel mouflonReportModel = monthlyReportBigGameModel.MonthlyReportKindGameModels.FirstOrDefault(x => x.Kind == (int)GameKind.Mouflon);
-            MonthlyReportKindGameModel fallowDeerReportModel = monthlyReportBigGameModel.MonthlyReportKindGameModels.FirstOrDefault(x => x.Kind == (int) GameKind.FallowDeer);
-            if (mouflonReportModel == null || fallowDeerReportModel == null)
+            IList<FodderDto> fodders = _fodderDao.GetByDateRange(ReportDateFrom, ReportDateTo);
+
+            var monthlyReportFodderModel = new MonthlyReportFodderModel
             {
-                return;
-            }
+                Dry = GetMonthlyReportFodderTypeModel(FodderType.Dry, fodders),
+                Juicy = GetMonthlyReportFodderTypeModel(FodderType.Juicy, fodders),
+                Pithy = GetMonthlyReportFodderTypeModel(FodderType.Pithy, fodders),
+                Salt = GetMonthlyReportFodderTypeModel(FodderType.Salt, fodders)
+            };
 
-            fallowDeerReportModel.KindName += $"/{mouflonReportModel.KindName}";
-            fallowDeerReportModel.Culls += mouflonReportModel.Culls;
-            fallowDeerReportModel.Catches += mouflonReportModel.Catches;
-            fallowDeerReportModel.Losses += mouflonReportModel.Losses;
-            fallowDeerReportModel.HuntPlanCulls += mouflonReportModel.HuntPlanCulls;
-            for (int i = 0; i < fallowDeerReportModel.MonthlyReportSubKindGameModels.Count; i++)
-            {
-                fallowDeerReportModel.MonthlyReportSubKindGameModels[i].SubKindName += $"/{mouflonReportModel.MonthlyReportSubKindGameModels[i].SubKindName}";
-                fallowDeerReportModel.MonthlyReportSubKindGameModels[i].Culls += mouflonReportModel.MonthlyReportSubKindGameModels[i].Culls;
-                fallowDeerReportModel.MonthlyReportSubKindGameModels[i].Catches += mouflonReportModel.MonthlyReportSubKindGameModels[i].Catches;
-                fallowDeerReportModel.MonthlyReportSubKindGameModels[i].Losses += mouflonReportModel.MonthlyReportSubKindGameModels[i].Losses;
-                fallowDeerReportModel.MonthlyReportSubKindGameModels[i].HuntPlanCulls += mouflonReportModel.MonthlyReportSubKindGameModels[i].HuntPlanCulls;
-            }
-
-            monthlyReportBigGameModel.MonthlyReportKindGameModels.Remove(monthlyReportBigGameModel.MonthlyReportKindGameModels.FirstOrDefault(x => x.Kind == (int)GameKind.Mouflon));
-            monthlyReportBigGameModel.MonthlyReportKindGameModels.Remove(monthlyReportBigGameModel.MonthlyReportKindGameModels.FirstOrDefault(x => x.Kind == (int)GameKind.FallowDeer));
-
-            monthlyReportBigGameModel.MonthlyReportKindGameModels.Add(fallowDeerReportModel);
-            monthlyReportBigGameModel.MonthlyReportKindGameModels = monthlyReportBigGameModel.MonthlyReportKindGameModels.OrderBy(x => x.Kind).ToList();
+            return monthlyReportFodderModel;
         }
 
-        public MonthlyReportGameModel GetMonthlyReportData(GameType gameType)
+        private MonthlyReportFodderTypeModel GetMonthlyReportFodderTypeModel(FodderType fodderType, IList<FodderDto> fodders)
+        {
+            var annualPlanFodderTypeModel = new MonthlyReportFodderTypeModel
+            {
+                FodderType = fodderType,
+                FodderTypeName = TypeName.GetFodderTypeName((int)fodderType),
+                PutOut = fodders.Where(x => x.Type == (int)fodderType).Sum(x => x.Kilograms)
+            };
+
+            return annualPlanFodderTypeModel;
+        }
+
+        private MonthlyReportGameModel GetMonthlyReportData(GameType gameType)
         {
             ReportGameType = (int) gameType;
 
@@ -254,6 +264,36 @@ namespace Domain.Report
             }
 
             return model;
+        }
+
+        private void SetFallowDeerAndMouflonData(MonthlyReportGameModel monthlyReportBigGameModel)
+        {
+            MonthlyReportKindGameModel mouflonReportModel = monthlyReportBigGameModel.MonthlyReportKindGameModels.FirstOrDefault(x => x.Kind == (int)GameKind.Mouflon);
+            MonthlyReportKindGameModel fallowDeerReportModel = monthlyReportBigGameModel.MonthlyReportKindGameModels.FirstOrDefault(x => x.Kind == (int)GameKind.FallowDeer);
+            if (mouflonReportModel == null || fallowDeerReportModel == null)
+            {
+                return;
+            }
+
+            fallowDeerReportModel.KindName += $"/{mouflonReportModel.KindName}";
+            fallowDeerReportModel.Culls += mouflonReportModel.Culls;
+            fallowDeerReportModel.Catches += mouflonReportModel.Catches;
+            fallowDeerReportModel.Losses += mouflonReportModel.Losses;
+            fallowDeerReportModel.HuntPlanCulls += mouflonReportModel.HuntPlanCulls;
+            for (int i = 0; i < fallowDeerReportModel.MonthlyReportSubKindGameModels.Count; i++)
+            {
+                fallowDeerReportModel.MonthlyReportSubKindGameModels[i].SubKindName += $"/{mouflonReportModel.MonthlyReportSubKindGameModels[i].SubKindName}";
+                fallowDeerReportModel.MonthlyReportSubKindGameModels[i].Culls += mouflonReportModel.MonthlyReportSubKindGameModels[i].Culls;
+                fallowDeerReportModel.MonthlyReportSubKindGameModels[i].Catches += mouflonReportModel.MonthlyReportSubKindGameModels[i].Catches;
+                fallowDeerReportModel.MonthlyReportSubKindGameModels[i].Losses += mouflonReportModel.MonthlyReportSubKindGameModels[i].Losses;
+                fallowDeerReportModel.MonthlyReportSubKindGameModels[i].HuntPlanCulls += mouflonReportModel.MonthlyReportSubKindGameModels[i].HuntPlanCulls;
+            }
+
+            monthlyReportBigGameModel.MonthlyReportKindGameModels.Remove(monthlyReportBigGameModel.MonthlyReportKindGameModels.FirstOrDefault(x => x.Kind == (int)GameKind.Mouflon));
+            monthlyReportBigGameModel.MonthlyReportKindGameModels.Remove(monthlyReportBigGameModel.MonthlyReportKindGameModels.FirstOrDefault(x => x.Kind == (int)GameKind.FallowDeer));
+
+            monthlyReportBigGameModel.MonthlyReportKindGameModels.Add(fallowDeerReportModel);
+            monthlyReportBigGameModel.MonthlyReportKindGameModels = monthlyReportBigGameModel.MonthlyReportKindGameModels.OrderBy(x => x.Kind).ToList();
         }
     }
 }

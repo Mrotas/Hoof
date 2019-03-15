@@ -64,6 +64,8 @@
     <Compile Include="Dao\FieldPlan\IFieldPlanDao.cs" />
     <Compile Include="Dao\FodderPlan\FodderPlanDao.cs" />
     <Compile Include="Dao\FodderPlan\IFodderPlanDao.cs" />
+    <Compile Include="Dao\Fodder\FodderDao.cs" />
+    <Compile Include="Dao\Fodder\IFodderDao.cs" />
     <Compile Include="Dao\GameClass\GameClassDao.cs" />
     <Compile Include="Dao\GameClass\IGameClassDao.cs" />
     <Compile Include="Dao\GameCountFor10March\GameCountFor10MarchDao.cs" />
@@ -95,6 +97,7 @@
     <Compile Include="Dto\CostPlanDto.cs" />
     <Compile Include="Dto\EmploymentPlanDto.cs" />
     <Compile Include="Dto\FieldPlanDto.cs" />
+    <Compile Include="Dto\FodderDto.cs" />
     <Compile Include="Dto\FodderPlanDto.cs" />
     <Compile Include="Dto\GameClassDto.cs" />
     <Compile Include="Dto\GameCountFor10MarchDto.cs" />
@@ -113,6 +116,7 @@
     <Compile Include="Entities\CostPlan.cs" />
     <Compile Include="Entities\EmploymentPlan.cs" />
     <Compile Include="Entities\FieldPlan.cs" />
+    <Compile Include="Entities\Fodder.cs" />
     <Compile Include="Entities\FodderPlan.cs" />
     <Compile Include="Entities\GameClass.cs" />
     <Compile Include="Entities\GameCountFor10March.cs" />

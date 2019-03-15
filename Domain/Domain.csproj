@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="AnnualPlan\AnnualPlanService.cs" />
     <Compile Include="AnnualPlan\Models\EmploymentPlanModel.cs" />
+    <Compile Include="AnnualPlan\Models\Fodder\AnnualPlanFodderTypeModel.cs" />
     <Compile Include="AnnualPlan\Models\GamePlan\AnnualPlanClassGameModel.cs" />
     <Compile Include="AnnualPlan\Models\GamePlan\AnnualPlanGameBaseModel.cs" />
     <Compile Include="AnnualPlan\Models\GamePlan\AnnualPlanGameModel.cs" />
@@ -79,6 +80,10 @@
     <Compile Include="FodderPlan\IFodderPlanService.cs" />
     <Compile Include="FodderPlan\ViewModels\FodderPlanViewModel.cs" />
     <Compile Include="FodderPlan\ViewModels\FodderPlanBaseViewModel.cs" />
+    <Compile Include="Fodder\FodderService.cs" />
+    <Compile Include="Fodder\IFodderService.cs" />
+    <Compile Include="Fodder\ViewModels\FodderBaseViewModel.cs" />
+    <Compile Include="Fodder\ViewModels\FodderViewModel.cs" />
     <Compile Include="GameClass\GameClassService.cs" />
     <Compile Include="GameCountPlan\GameCountPlanService.cs" />
     <Compile Include="GameCountPlan\IGameCountPlanService.cs" />
@@ -96,7 +101,7 @@
     <Compile Include="AnnualPlan\Models\CostPlanModel.cs" />
     <Compile Include="AnnualPlan\Models\DamagedFieldPlanModel.cs" />
     <Compile Include="AnnualPlan\Models\FieldPlanModel.cs" />
-    <Compile Include="AnnualPlan\Models\FodderPlanModel.cs" />
+    <Compile Include="AnnualPlan\Models\Fodder\AnnualPlanFodderModel.cs" />
     <Compile Include="AnnualPlan\Models\HuntEquipmentPlanModel.cs" />
     <Compile Include="AnnualPlan\Models\TrunkFoodPlanModel.cs" />
     <Compile Include="AnnualPlan\ViewModels\AnnualPlanViewModel.cs" />
@@ -120,6 +125,8 @@
     <Compile Include="MarketingYear\Models\MarketingYearModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report\IReportService.cs" />
+    <Compile Include="Report\Models\Fodder\MonthlyReportFodderModel.cs" />
+    <Compile Include="Report\Models\Fodder\MonthlyReportFodderTypeModel.cs" />
     <Compile Include="Report\Models\MonthlyReportClassGameModel.cs" />
     <Compile Include="Report\Models\MonthlyReportGameBaseModel.cs" />
     <Compile Include="Report\Models\MonthlyReportGameModel.cs" />
