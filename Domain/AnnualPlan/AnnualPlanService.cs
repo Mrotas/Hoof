@@ -242,7 +242,7 @@ namespace Domain.AnnualPlan
 
         private AnnualPlanFodderModel GetFodderPlanModel()
         {
-            IList<FodderPlanDto> previousMarketingYearFodderPlans = _fodderPlanDao.GetByMarketingYear(CurrentMarketingYearId);
+            IList<FodderPlanDto> previousMarketingYearFodderPlans = _fodderPlanDao.GetByMarketingYear(PreviousMarketingYearId);
             IList<FodderPlanDto> currentMarketingYearFodderPlans = _fodderPlanDao.GetByMarketingYear(CurrentMarketingYearId);
             IList<FodderDto> fodders = _fodderDao.GetByMarketingYear(PreviousMarketingYearId);
 
