@@ -18,6 +18,18 @@
         $('#bodyContainer').css('width', '75%');
 
         $(document).ready(function() {
+            $('#annualPlanTable tr').each(function() {
+                $.each(this.cells,
+                    function(i, item) {
+                        var text = item.innerText;
+                        if (text === "0") {
+                            item.innerText = "";
+                        }
+                    });
+            });
+        });
+
+        $(document).ready(function () {
             $('#bigGameTable tr').each(function() {
                 $.each(this.cells,
                     function(i, item) {
@@ -44,9 +56,9 @@
         $(document).ready(function() {
             var config = {};
             config.CurrentMarketingYearModel = {
-                Id: @Model.CurrentMarketingYearModel.Id,
-                MarketingYear: '@Model.CurrentMarketingYearModel.ToString()',
-                StartYear: @Model.CurrentMarketingYearModel.Start.Year
+                Id: @Model.MarketingYearModel.Id,
+                MarketingYear: '@Model.MarketingYearModel.ToString()',
+                StartYear: @Model.MarketingYearModel.Start.Year
             };
             var annualPlanGenerator = new AnnualPlanGenerator(config);
         });
@@ -56,7 +68,7 @@
 
 <button class="btn btn-danger" id="generateAnnualPlanPdf">Pobierz PDF</button>
 <h2 style="text-align: center; font-weight: bold">ROCZNY PLAN ŁOWIECKI</h2>
-<h3 style="text-align: center; font-weight: bold">@($"na rok gospodarczy {Model.CurrentMarketingYearModel}")</h3>
+<h3 style="text-align: center; font-weight: bold">@($"na rok gospodarczy {Model.MarketingYearModel}")</h3>
 
 <br />
 
@@ -85,18 +97,18 @@
     <tr>
         <td class="paragraph">1. @Text.ContractEmployees</td>
         <td>@Text.UnitPersonPartTime</td>
-        <td>@Model.PreviousAnnualPlanModel.EmployeePlanModel.FullTimeEmployees</td>
-        <td></td>
-        <td></td>
-        <td>@Model.CurrentAnnualPlanModel.EmployeePlanModel.FullTimeEmployees</td>
+        <td>@Model.AnnualPlanModel.EmployeePlanModel.FullTimeEmployees.PreviousPlan</td>
+        <td>@Model.AnnualPlanModel.EmployeePlanModel.FullTimeEmployees.Execution</td>
+        <td>@Model.AnnualPlanModel.EmployeePlanModel.FullTimeEmployees.CurrentState</td>
+        <td>@Model.AnnualPlanModel.EmployeePlanModel.FullTimeEmployees.FutureState</td>
     </tr>
     <tr>
         <td class="paragraph">2. @Text.NonContractEmployees</td>
         <td>@Text.UnitPerson</td>
-        <td>@Model.PreviousAnnualPlanModel.EmployeePlanModel.PartTimeEmployees</td>
-        <td></td>
-        <td></td>
-        <td>@Model.CurrentAnnualPlanModel.EmployeePlanModel.PartTimeEmployees</td>
+        <td>@Model.AnnualPlanModel.EmployeePlanModel.PartTimeEmployees.PreviousPlan</td>
+        <td>@Model.AnnualPlanModel.EmployeePlanModel.PartTimeEmployees.Execution</td>
+        <td>@Model.AnnualPlanModel.EmployeePlanModel.PartTimeEmployees.CurrentState</td>
+        <td>@Model.AnnualPlanModel.EmployeePlanModel.PartTimeEmployees.FutureState</td>
     </tr>
     <tr>
         <td class="paragraph">3. @Text.HuntingEquipment</td>
@@ -109,81 +121,81 @@
     <tr>
         <td>a) @Text.Pastures</td>
         <td>@Text.UnitPiece</td>
-        <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModel.Pastures</td>
-        <td></td>
-        <td></td>
-        <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModel.Pastures</td>
+        <td>@Model.AnnualPlanModel.HuntEquipmentPlanModel.Pastures.</td>
+        <td>@Model.AnnualPlanModel.HuntEquipmentPlanModel.Pastures.Execution</td>
+        <td>@Model.AnnualPlanModel.HuntEquipmentPlanModel.Pastures.CurrentState</td>
+        <td>@Model.AnnualPlanModel.HuntEquipmentPlanModel.Pastures.FutureState</td>
     </tr>
     <tr>
         <td>b) @Text.DeerLickers</td>
         <td>@Text.UnitPiece</td>
-        <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModel.DeerLickers</td>
-        <td></td>
-        <td></td>
-        <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModel.DeerLickers</td>
+        <td>@Model.AnnualPlanModel.HuntEquipmentPlanModel.DeerLickers.PreviousPlan</td>
+        <td>@Model.AnnualPlanModel.HuntEquipmentPlanModel.DeerLickers.Execution</td>
+        <td>@Model.AnnualPlanModel.HuntEquipmentPlanModel.DeerLickers.CurrentState</td>
+        <td>@Model.AnnualPlanModel.HuntEquipmentPlanModel.DeerLickers.FutureState</td>
     </tr>
     <tr>
         <td>c) @Text.Pulpits</td>
         <td>@Text.UnitPiece</td>
-        <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModel.Pulpits</td>
-        <td></td>
-        <td></td>
-        <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModel.Pulpits</td>
+        <td>@Model.AnnualPlanModel.HuntEquipmentPlanModel.Pulpits.PreviousPlan</td>
+        <td>@Model.AnnualPlanModel.HuntEquipmentPlanModel.Pulpits.Execution</td>
+        <td>@Model.AnnualPlanModel.HuntEquipmentPlanModel.Pulpits.CurrentState</td>
+        <td>@Model.AnnualPlanModel.HuntEquipmentPlanModel.Pulpits.FutureState</td>
     </tr>
     <tr>
         <td>d) @Text.Aviaries</td>
         <td>@Text.UnitPiece</td>
-        <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModel.Aviaries</td>
-        <td></td>
-        <td></td>
-        <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModel.Aviaries</td>
+        <td>@Model.AnnualPlanModel.HuntEquipmentPlanModel.Aviaries.PreviousPlan</td>
+        <td>@Model.AnnualPlanModel.HuntEquipmentPlanModel.Aviaries.Execution</td>
+        <td>@Model.AnnualPlanModel.HuntEquipmentPlanModel.Aviaries.CurrentState</td>
+        <td>@Model.AnnualPlanModel.HuntEquipmentPlanModel.Aviaries.FutureState</td>
     </tr>
     <tr>
         <td>e) @Text.Farms</td>
         <td>@Text.UnitPiece</td>
-        <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModel.Farms</td>
-        <td></td>
-        <td></td>
-        <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModel.Farms</td>
+        <td>@Model.AnnualPlanModel.HuntEquipmentPlanModel.Farms.PreviousPlan</td>
+        <td>@Model.AnnualPlanModel.HuntEquipmentPlanModel.Farms.Execution</td>
+        <td>@Model.AnnualPlanModel.HuntEquipmentPlanModel.Farms.CurrentState</td>
+        <td>@Model.AnnualPlanModel.HuntEquipmentPlanModel.Farms.FutureState</td>
     </tr>
     <tr>
         <td>f) @Text.Other</td>
         <td>@Text.UnitPiece</td>
-        <td>@Model.PreviousAnnualPlanModel.HuntEquipmentPlanModel.WateringPlaces</td>
-        <td></td>
-        <td></td>
-        <td>@Model.CurrentAnnualPlanModel.HuntEquipmentPlanModel.WateringPlaces</td>
+        <td>@Model.AnnualPlanModel.HuntEquipmentPlanModel.WateringPlaces.PreviousPlan</td>
+        <td>@Model.AnnualPlanModel.HuntEquipmentPlanModel.WateringPlaces.Execution</td>
+        <td>@Model.AnnualPlanModel.HuntEquipmentPlanModel.WateringPlaces.CurrentState</td>
+        <td>@Model.AnnualPlanModel.HuntEquipmentPlanModel.WateringPlaces.FutureState</td>
     </tr>
     <tr>
         <td class="paragraph" rowspan="2">4. @Text.Barriers</td>
         <td>@Text.UnitPiece</td>
-        <td>@Model.PreviousAnnualPlanModel.BarrierPlanModel.Count</td>
-        <td></td>
-        <td></td>
-        <td>@Model.CurrentAnnualPlanModel.BarrierPlanModel.Count</td>
+        <td>@Model.AnnualPlanModel.BarrierPlanModel.PreviousCountPlan</td>
+        <td>@Model.AnnualPlanModel.BarrierPlanModel.CountExecution</td>
+        <td>@Model.AnnualPlanModel.BarrierPlanModel.CurrentStateCount</td>
+        <td>@Model.AnnualPlanModel.BarrierPlanModel.FutureStateCount</td>
     </tr>
     <tr>
         <td style="text-align: center">@Text.UnitKilometers</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>@Model.AnnualPlanModel.BarrierPlanModel.PreviousLengthPlan</td>
+        <td>@Model.AnnualPlanModel.BarrierPlanModel.LengthExecution</td>
+        <td>@Model.AnnualPlanModel.BarrierPlanModel.CurrentStateLength</td>
+        <td>@Model.AnnualPlanModel.BarrierPlanModel.PreviousLengthPlan</td>
     </tr>
     <tr>
         <td class="paragraph">5. @Text.TrunkFood</td>
         <td>@Text.UnitHectare</td>
-        <td>@Model.PreviousAnnualPlanModel.TrunkFoodPlanModel.Hectare</td>
-        <td></td>
-        <td></td>
-        <td>@Model.CurrentAnnualPlanModel.TrunkFoodPlanModel.Hectare</td>
+        <td>@Model.AnnualPlanModel.TrunkFoodPlanModel.PreviousPlan</td>
+        <td>@Model.AnnualPlanModel.TrunkFoodPlanModel.Execution</td>
+        <td>@Model.AnnualPlanModel.TrunkFoodPlanModel.CurrentState</td>
+        <td>@Model.AnnualPlanModel.TrunkFoodPlanModel.FutureState</td>
     </tr>
     <tr>
         <td class="paragraph">6. @Text.Fields</td>
         <td>@Text.UnitHectare</td>
-        <td>@Model.PreviousAnnualPlanModel.FieldPlanModel.Hectare</td>
-        <td></td>
-        <td></td>
-        <td>@Model.CurrentAnnualPlanModel.FieldPlanModel.Hectare</td>
+        <td>@Model.AnnualPlanModel.FieldPlanModel.PreviousPlan</td>
+        <td>@Model.AnnualPlanModel.FieldPlanModel.Execution</td>
+        <td>@Model.AnnualPlanModel.FieldPlanModel.CurrentState</td>
+        <td>@Model.AnnualPlanModel.FieldPlanModel.FutureState</td>
     </tr>
     <tr>
         <td class="paragraph">7. @Text.FoodAndSalt</td>
@@ -196,34 +208,34 @@
     <tr>
         <td>a) @Text.Dry</td>
         <td>@Text.UnitTon</td>
-        <td>@Model.PreviousAnnualPlanModel.FodderPlanModel.Dry.Plan</td>
-        <td>@Model.PreviousAnnualPlanModel.FodderPlanModel.Dry.Execution</td>
-        <td></td>
-        <td>@Model.CurrentAnnualPlanModel.FodderPlanModel.Dry.Plan</td>
+        <td>@Model.AnnualPlanModel.FodderPlanModel.Dry.PreviousPlan</td>
+        <td>@Model.AnnualPlanModel.FodderPlanModel.Dry.Execution</td>
+        <td>@Model.AnnualPlanModel.FodderPlanModel.Dry.CurrentState</td>
+        <td>@Model.AnnualPlanModel.FodderPlanModel.Dry.FutureState</td>
     </tr>
     <tr>
         <td>b) @Text.Juicy</td>
         <td>@Text.UnitTon</td>
-        <td>@Model.PreviousAnnualPlanModel.FodderPlanModel.Juicy.Plan</td>
-        <td>@Model.PreviousAnnualPlanModel.FodderPlanModel.Juicy.Execution</td>
-        <td></td>
-        <td>@Model.CurrentAnnualPlanModel.FodderPlanModel.Juicy.Plan</td>
+        <td>@Model.AnnualPlanModel.FodderPlanModel.Juicy.PreviousPlan</td>
+        <td>@Model.AnnualPlanModel.FodderPlanModel.Juicy.Execution</td>
+        <td>@Model.AnnualPlanModel.FodderPlanModel.Juicy.CurrentState</td>
+        <td>@Model.AnnualPlanModel.FodderPlanModel.Juicy.FutureState</td>
     </tr>
     <tr>
         <td>c) @Text.Pithy</td>
         <td>@Text.UnitTon</td>
-        <td>@Model.PreviousAnnualPlanModel.FodderPlanModel.Pithy.Plan</td>
-        <td>@Model.PreviousAnnualPlanModel.FodderPlanModel.Pithy.Execution</td>
-        <td></td>
-        <td>@Model.CurrentAnnualPlanModel.FodderPlanModel.Pithy.Plan</td>
+        <td>@Model.AnnualPlanModel.FodderPlanModel.Pithy.PreviousPlan</td>
+        <td>@Model.AnnualPlanModel.FodderPlanModel.Pithy.Execution</td>
+        <td>@Model.AnnualPlanModel.FodderPlanModel.Pithy.CurrentState</td>
+        <td>@Model.AnnualPlanModel.FodderPlanModel.Pithy.FutureState</td>
     </tr>
     <tr>
         <td>d) @Text.Salt</td>
         <td>@Text.UnitTon</td>
-        <td>@Model.PreviousAnnualPlanModel.FodderPlanModel.Salt.Plan</td>
-        <td>@Model.PreviousAnnualPlanModel.FodderPlanModel.Salt.Execution</td>
-        <td></td>
-        <td>@Model.CurrentAnnualPlanModel.FodderPlanModel.Salt.Plan</td>
+        <td>@Model.AnnualPlanModel.FodderPlanModel.Salt.PreviousPlan</td>
+        <td>@Model.AnnualPlanModel.FodderPlanModel.Salt.Execution</td>
+        <td>@Model.AnnualPlanModel.FodderPlanModel.Salt.CurrentState</td>
+        <td>@Model.AnnualPlanModel.FodderPlanModel.Salt.FutureState</td>
     </tr>
     <tr>
         <td class="paragraph">8. @Text.DamagedArea</td>
@@ -236,10 +248,10 @@
     <tr>
         <td>- @Text.ReducedArea</td>
         <td>@Text.UnitHectare</td>
-        <td>@Model.PreviousAnnualPlanModel.DamagedFieldPlanModel.Hectare</td>
-        <td></td>
-        <td></td>
-        <td>@Model.CurrentAnnualPlanModel.DamagedFieldPlanModel.Hectare</td>
+        <td>@Model.AnnualPlanModel.DamagedFieldPlanModel.PreviousPlan</td>
+        <td>@Model.AnnualPlanModel.DamagedFieldPlanModel.Execution</td>
+        <td>@Model.AnnualPlanModel.DamagedFieldPlanModel.CurrentState</td>
+        <td>@Model.AnnualPlanModel.DamagedFieldPlanModel.FutureState</td>
     </tr>
     <tr>
         <td>- @Text.PaidCompensations</td>
@@ -252,10 +264,10 @@
     <tr>
         <td class="paragraph">9. @Text.Costs</td>
         <td>@Text.UnitThousandZlotych</td>
-        <td>@Model.PreviousAnnualPlanModel.CostPlanModel.Cost</td>
-        <td></td>
-        <td></td>
-        <td>@Model.CurrentAnnualPlanModel.CostPlanModel.Cost</td>
+        <td>@Model.AnnualPlanModel.CostPlanModel.Cost.PreviousPlan</td>
+        <td>@Model.AnnualPlanModel.CostPlanModel.Cost.Execution</td>
+        <td>@Model.AnnualPlanModel.CostPlanModel.Cost.CurrentState</td>
+        <td>@Model.AnnualPlanModel.CostPlanModel.Cost.FutureState</td>
     </tr>
     <tr>
         <td colspan="6">&nbsp;</td>
@@ -274,10 +286,10 @@
     <tr>
         <td class="paragraph">1. @Text.CarcassesRevenues</td>
         <td>@Text.UnitThousandZlotych</td>
-        <td>@Model.PreviousAnnualPlanModel.CostPlanModel.Revenue</td>
-        <td></td>
-        <td></td>
-        <td>@Model.CurrentAnnualPlanModel.CostPlanModel.Revenue</td>
+        <td>@Model.AnnualPlanModel.CostPlanModel.Revenue.PreviousPlan</td>
+        <td>@Model.AnnualPlanModel.CostPlanModel.Revenue.Execution</td>
+        <td>@Model.AnnualPlanModel.CostPlanModel.Revenue.CurrentState</td>
+        <td>@Model.AnnualPlanModel.CostPlanModel.Revenue.FutureState</td>
     </tr>
 </table>
 

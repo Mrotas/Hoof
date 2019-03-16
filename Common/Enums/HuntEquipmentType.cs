@@ -2,7 +2,7 @@
 
 namespace Common.Enums
 {
-    public enum HuntEquipment
+    public enum HuntEquipmentType
     {
         [Description("Paśniki")]
         Pasture = 1,

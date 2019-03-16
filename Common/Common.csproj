@@ -75,7 +75,7 @@
     <Compile Include="Enums\GameClass.cs" />
     <Compile Include="Enums\GameKind.cs" />
     <Compile Include="Enums\GameType.cs" />
-    <Compile Include="Enums\HuntEquipment.cs" />
+    <Compile Include="Enums\HuntEquipmentType.cs" />
     <Compile Include="Extensions\GameExtensions.cs" />
     <Compile Include="Extensions\TypeName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

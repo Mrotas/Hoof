@@ -53,13 +53,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnnualPlan\AnnualPlanService.cs" />
-    <Compile Include="AnnualPlan\Models\EmploymentPlanModel.cs" />
+    <Compile Include="AnnualPlan\Models\Cost\AnnualPlanCostTypeModel.cs" />
+    <Compile Include="AnnualPlan\Models\Employment\AnnualPlanEmploymentModel.cs" />
+    <Compile Include="AnnualPlan\Models\Employment\AnnualPlanEmploymentTypeModel.cs" />
     <Compile Include="AnnualPlan\Models\Fodder\AnnualPlanFodderTypeModel.cs" />
     <Compile Include="AnnualPlan\Models\GamePlan\AnnualPlanClassGameModel.cs" />
     <Compile Include="AnnualPlan\Models\GamePlan\AnnualPlanGameBaseModel.cs" />
     <Compile Include="AnnualPlan\Models\GamePlan\AnnualPlanGameModel.cs" />
     <Compile Include="AnnualPlan\Models\GamePlan\AnnualPlanKindGameModel.cs" />
     <Compile Include="AnnualPlan\Models\GamePlan\AnnualPlanSubKindGameModel.cs" />
+    <Compile Include="AnnualPlan\Models\HuntEquipment\AnnualPlanHuntEquipmentTypeModel.cs" />
     <Compile Include="Catch\CatchService.cs" />
     <Compile Include="Catch\ICatchService.cs" />
     <Compile Include="Catch\Models\CatchCreateModel.cs" />
@@ -98,11 +101,11 @@
     <Compile Include="AnnualPlan\IAnnualPlanService.cs" />
     <Compile Include="AnnualPlan\Models\AnnualPlanModel.cs" />
     <Compile Include="AnnualPlan\Models\BarrierPlanModel.cs" />
-    <Compile Include="AnnualPlan\Models\CostPlanModel.cs" />
+    <Compile Include="AnnualPlan\Models\Cost\AnnualPlanCostModel.cs" />
     <Compile Include="AnnualPlan\Models\DamagedFieldPlanModel.cs" />
     <Compile Include="AnnualPlan\Models\FieldPlanModel.cs" />
     <Compile Include="AnnualPlan\Models\Fodder\AnnualPlanFodderModel.cs" />
-    <Compile Include="AnnualPlan\Models\HuntEquipmentPlanModel.cs" />
+    <Compile Include="AnnualPlan\Models\HuntEquipment\AnnualPlanHuntEquipmentModel.cs" />
     <Compile Include="AnnualPlan\Models\TrunkFoodPlanModel.cs" />
     <Compile Include="AnnualPlan\ViewModels\AnnualPlanViewModel.cs" />
     <Compile Include="GameLoss\GameLossService.cs" />

@@ -171,25 +171,25 @@
         return headers;
     };
 
-    var getEconomyTableBody = function (previousAnnualPlanModel, currentAnnualPlanModel) {
+    var getEconomyTableBody = function (annualPlanModel) {
         var body = []; 
 
         body.push([
             { text: '1. Liczba osób zatrudnionych na podstawie umowy o pracę', style: 'paragraph' },
             { text: 'osoby/etaty', margin: [0, 3, 0, 0], style: 'cell' },
-            { text: previousAnnualPlanModel.EmployeePlanModel.FullTimeEmployees, style: 'cell', margin:[0, 10, 0, 0]},
-            { text: '', style: 'cell'},
-            { text: '', style: 'cell'},
-            { text: currentAnnualPlanModel.EmployeePlanModel.FullTimeEmployees, style: 'cell', margin: [0, 10, 0, 0]}
+            { text: annualPlanModel.EmployeePlanModel.FullTimeEmployees.PreviousPlan, style: 'cell', margin:[0, 10, 0, 0]},
+            { text: annualPlanModel.EmployeePlanModel.FullTimeEmployees.Execution, style: 'cell', margin: [0, 10, 0, 0] },
+            { text: annualPlanModel.EmployeePlanModel.FullTimeEmployees.CurrentState, style: 'cell', margin: [0, 10, 0, 0] },
+            { text: annualPlanModel.EmployeePlanModel.FullTimeEmployees.FutureState, style: 'cell', margin: [0, 10, 0, 0]}
         ]);
 
         body.push([
             { text: '2. Liczba osób zatrudnionych na innej podstawie niż umowa o pracę lub wskazanych do wykonywania zadań z zakresu gospodarki łowieckiej', style: 'paragraph' },
             { text: 'osoby', margin: [0, 10, 0, 0], style: 'cell' },
-            { text: previousAnnualPlanModel.EmployeePlanModel.PartTimeEmployees, style: 'cell', margin: [0, 10, 0, 0] },
-            { text: '', style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: currentAnnualPlanModel.EmployeePlanModel.PartTimeEmployees, style: 'cell', margin: [0, 10, 0, 0] }
+            { text: annualPlanModel.EmployeePlanModel.PartTimeEmployees.PreviousPlan, style: 'cell', margin: [0, 10, 0, 0] },
+            { text: annualPlanModel.EmployeePlanModel.PartTimeEmployees.Execution, style: 'cell', margin: [0, 10, 0, 0]  },
+            { text: annualPlanModel.EmployeePlanModel.PartTimeEmployees.CurrentState, style: 'cell', margin: [0, 10, 0, 0] },
+            { text: annualPlanModel.EmployeePlanModel.PartTimeEmployees.FutureState, style: 'cell', margin: [0, 10, 0, 0] }
         ]);
 
         body.push([
@@ -204,91 +204,91 @@
         body.push([
             { text: 'a) paśniki', style: 'point', margin:[5, -2, 0, -1] },
             { text: 'szt.', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: previousAnnualPlanModel.HuntEquipmentPlanModel.Pastures, style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: currentAnnualPlanModel.HuntEquipmentPlanModel.Pastures, style: 'cell', margin: [0, -2, 0, -1] }
+            { text: annualPlanModel.HuntEquipmentPlanModel.Pastures.PreviousPlan, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.HuntEquipmentPlanModel.Pastures.Execution, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.HuntEquipmentPlanModel.Pastures.CurrentState, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.HuntEquipmentPlanModel.Pastures.FutureState, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
         body.push([
             { text: 'b) lizawki', style: 'point', margin: [5, -2, 0, -1] },
             { text: 'szt.', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: previousAnnualPlanModel.HuntEquipmentPlanModel.DeerLickers, style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: currentAnnualPlanModel.HuntEquipmentPlanModel.DeerLickers, style: 'cell', margin: [0, -2, 0, -1] }
+            { text: annualPlanModel.HuntEquipmentPlanModel.DeerLickers.PreviousPlan, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.HuntEquipmentPlanModel.DeerLickers.Execution, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.HuntEquipmentPlanModel.DeerLickers.CurrentState, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.HuntEquipmentPlanModel.DeerLickers.FutureState, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
         body.push([
             { text: 'c) ambony', style: 'point', margin: [5, -2, 0, -1] },
             { text: 'szt.', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: previousAnnualPlanModel.HuntEquipmentPlanModel.Pulpits, style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: currentAnnualPlanModel.HuntEquipmentPlanModel.Pulpits, style: 'cell', margin: [0, -2, 0, -1] }
+            { text: annualPlanModel.HuntEquipmentPlanModel.Pulpits.PreviousPlan, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.HuntEquipmentPlanModel.Pulpits.Execution, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.HuntEquipmentPlanModel.Pulpits.CurrentState, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.HuntEquipmentPlanModel.Pulpits.FutureState, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
         body.push([
             { text: 'd) woliery', style: 'point', margin: [5, -2, 0, -1] },
             { text: 'szt.', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: previousAnnualPlanModel.HuntEquipmentPlanModel.Aviaries, style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: currentAnnualPlanModel.HuntEquipmentPlanModel.Aviaries, style: 'cell', margin: [0, -2, 0, -1] }
+            { text: annualPlanModel.HuntEquipmentPlanModel.Aviaries.PreviousPlan, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.HuntEquipmentPlanModel.Aviaries.Execution, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.HuntEquipmentPlanModel.Aviaries.CurrentState, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.HuntEquipmentPlanModel.Aviaries.FutureState, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
         body.push([
             { text: 'e) zagrody', style: 'point', margin: [5, -2, 0, -1] },
             { text: 'szt.', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: previousAnnualPlanModel.HuntEquipmentPlanModel.Farms, style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: currentAnnualPlanModel.HuntEquipmentPlanModel.Farms, style: 'cell', margin: [0, -2, 0, -1] }
+            { text: annualPlanModel.HuntEquipmentPlanModel.Farms.PreviousPlan, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.HuntEquipmentPlanModel.Farms.Execution, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.HuntEquipmentPlanModel.Farms.CurrentState, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.HuntEquipmentPlanModel.Farms.FutureState, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
         body.push([
             { text: 'f) inne', style: 'point', margin: [5, -2, 0, -1] },
             { text: 'szt.', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: previousAnnualPlanModel.HuntEquipmentPlanModel.WateringPlaces, style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: currentAnnualPlanModel.HuntEquipmentPlanModel.WateringPlaces, style: 'cell', margin: [0, -2, 0, -1] }
+            { text: annualPlanModel.HuntEquipmentPlanModel.WateringPlaces.PreviousPlan, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.HuntEquipmentPlanModel.WateringPlaces.Execution, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.HuntEquipmentPlanModel.WateringPlaces.CurrentState, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.HuntEquipmentPlanModel.WateringPlaces.FutureState, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
         
         body.push([
             { text: '4. Liczba i łączna długość pasów zaporowych', rowSpan: 2, style: 'paragraph', margin: [0, -2, 0, -1] },
             { text: 'szt.', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '0', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '0', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '0', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '0', style: 'cell', margin: [0, -2, 0, -1] }
+            { text: annualPlanModel.BarrierPlanModel.PreviousCountPlan, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.BarrierPlanModel.CountExecution, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.BarrierPlanModel.CurrentStateCount, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.BarrierPlanModel.FutureStateCount, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
         body.push([
             { text: '', margin: [0, -2, 0, -1] },
             { text: 'km', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: previousAnnualPlanModel.BarrierPlanModel.Length, style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '0', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '0', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: currentAnnualPlanModel.BarrierPlanModel.Length, style: 'cell', margin: [0, -2, 0, -1] }
+            { text: annualPlanModel.BarrierPlanModel.PreviousLengthPlan, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.BarrierPlanModel.LengthExecution, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.BarrierPlanModel.CurrentStateLength, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.BarrierPlanModel.FutureStateLength, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
         body.push([
             { text: '5. Powierzchnia obszarów obsianych lub obsadzonych roślinami stanowiącymi żer dla zwierzyny na pniu', style: 'paragraph' },
             { text: 'ha', margin: [0, 5, 0, 0], style: 'cell' },
-            { text: previousAnnualPlanModel.TrunkFoodPlanModel.Hectare, style: 'cell', margin: [0, 5, 0, 0] },
-            { text: '', style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: currentAnnualPlanModel.TrunkFoodPlanModel.Hectare, style: 'cell', margin: [0, 5, 0, 0] }
+            { text: annualPlanModel.TrunkFoodPlanModel.PreviousPlan, style: 'cell', margin: [0, 5, 0, 0] },
+            { text: annualPlanModel.TrunkFoodPlanModel.Execution, style: 'cell', margin: [0, 5, 0, 0]  },
+            { text: annualPlanModel.TrunkFoodPlanModel.CurrentState, style: 'cell', margin: [0, 5, 0, 0] },
+            { text: annualPlanModel.TrunkFoodPlanModel.FutureState, style: 'cell', margin: [0, 5, 0, 0] }
         ]);
 
         body.push([
             { text: '6. Powierzchnia zagospodarowanych przez dzierżawcę albo zarządcę obwodu łowieckiego łąk śródleśnych i przyleśnych', style: 'paragraph' },
             { text: 'ha', margin: [0, 10, 0, 0], style: 'cell' },
-            { text: previousAnnualPlanModel.FieldPlanModel.Hectare, style: 'cell', margin: [0, 10, 0, 0] },
-            { text: '', style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: currentAnnualPlanModel.FieldPlanModel.Hectare, style: 'cell', margin: [0, 10, 0, 0] }
+            { text: annualPlanModel.FieldPlanModel.PreviousPlan, style: 'cell', margin: [0, 10, 0, 0] },
+            { text: annualPlanModel.FieldPlanModel.Execution, style: 'cell', margin: [0, 10, 0, 0] },
+            { text: annualPlanModel.FieldPlanModel.CurrentState, style: 'cell', margin: [0, 10, 0, 0] },
+            { text: annualPlanModel.FieldPlanModel.FutureState, style: 'cell', margin: [0, 10, 0, 0] }
         ]);
 
         body.push([
@@ -303,88 +303,88 @@
         body.push([
             { text: 'a) objętościowa sucha', style: 'point', margin: [5, -2, 0, -1] },
             { text: 'tona', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: previousAnnualPlanModel.FodderPlanModel.Dry.Plan, style: 'cell', margin: [0, -2, 0, -1] },
-            { text: previousAnnualPlanModel.FodderPlanModel.Dry.Execution, style: 'cell', margin: [0, -2, 0, -1]  },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: currentAnnualPlanModel.FodderPlanModel.Dry.Plan, style: 'cell', margin: [0, -2, 0, -1] }
+            { text: annualPlanModel.FodderPlanModel.Dry.PreviousPlan, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.FodderPlanModel.Dry.Execution, style: 'cell', margin: [0, -2, 0, -1]  },
+            { text: annualPlanModel.FodderPlanModel.Dry.CurrentState, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.FodderPlanModel.Dry.FutureState, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
         body.push([
             { text: 'b) objętościowa soczysta', style: 'point', margin: [5, -2, 0, -1] },
             { text: 'tona', style: 'cell', margin: [0, -2, 0, -1]  },
-            { text: previousAnnualPlanModel.FodderPlanModel.Juicy.Plan, style: 'cell', margin: [0, -2, 0, -1] },
-            { text: previousAnnualPlanModel.FodderPlanModel.Juicy.Execution, style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: currentAnnualPlanModel.FodderPlanModel.Juicy.Plan, style: 'cell', margin: [0, -2, 0, -1] }
+            { text: annualPlanModel.FodderPlanModel.Juicy.PreviousPlan, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.FodderPlanModel.Juicy.Execution, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.FodderPlanModel.Juicy.CurrentState, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.FodderPlanModel.Juicy.FutureState, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
         body.push([
             { text: 'c) treściwa', style: 'point', margin: [5, -2, 0, -1]  },
             { text: 'tona', style: 'cell', margin: [0, -2, 0, -1]  },
-            { text: previousAnnualPlanModel.FodderPlanModel.Pithy.Plan, style: 'cell', margin: [0, -2, 0, -1]  },
-            { text: previousAnnualPlanModel.FodderPlanModel.Pithy.Execution, style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1]  },
-            { text: currentAnnualPlanModel.FodderPlanModel.Pithy.Plan, style: 'cell', margin: [0, -2, 0, -1]  }
+            { text: annualPlanModel.FodderPlanModel.Pithy.PreviousPlan, style: 'cell', margin: [0, -2, 0, -1]  },
+            { text: annualPlanModel.FodderPlanModel.Pithy.Execution, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.FodderPlanModel.Pithy.CurrentState, style: 'cell', margin: [0, -2, 0, -1]  },
+            { text: annualPlanModel.FodderPlanModel.Pithy.FutureState, style: 'cell', margin: [0, -2, 0, -1]  }
         ]);
 
         body.push([
             { text: 'd) sól', style: 'point', margin: [5, -2, 0, -1] },
             { text: 'tona', style: 'cell', margin: [0, -2, 0, -1]  },
-            { text: previousAnnualPlanModel.FodderPlanModel.Salt.Plan, style: 'cell', margin: [0, -2, 0, -1] },
-            { text: previousAnnualPlanModel.FodderPlanModel.Salt.Execution, style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: currentAnnualPlanModel.FodderPlanModel.Salt.Plan, style: 'cell', margin: [0, -2, 0, -1] }
+            { text: annualPlanModel.FodderPlanModel.Salt.PreviousPlan, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.FodderPlanModel.Salt.Execution, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.FodderPlanModel.Salt.CurrentState, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.FodderPlanModel.Salt.FutureState, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
         body.push([
             { text: '8. Wielkość szkód wyrządzonych w uprawach i płodach rolnych przez dziki, łosie, jelenie, daniele i sarny', style: 'paragraph', margin: [-3, 0, -5, 0] },
             { text: 'ha', margin: [0, 5, 0, 0], style: 'cell' },
-            { text: previousAnnualPlanModel.DamagedFieldPlanModel.Hectare, style: 'cell', margin: [0, 5, 0, 0] },
-            { text: '', style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: currentAnnualPlanModel.DamagedFieldPlanModel.Hectare, style: 'cell', margin: [0, 5, 0, 0] }
+            { text: 'X', style: 'cell', margin: [0, 5, 0, 0] },
+            { text: 'X', style: 'cell', margin: [0, 5, 0, 0] },
+            { text: 'X', style: 'cell', margin: [0, 5, 0, 0] },
+            { text: 'X', style: 'cell', margin: [0, 5, 0, 0] }
         ]);
 
         body.push([
             { text: '- powierzchnia zredukowana', style: 'point', margin: [5, -2, 0, -1] },
             { text: 'tyś. zł', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: previousAnnualPlanModel.DamagedFieldPlanModel.Hectare, style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1]  },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1]  },
-            { text: currentAnnualPlanModel.DamagedFieldPlanModel.Hectare, style: 'cell', margin: [0, -2, 0, -1] }
+            { text: annualPlanModel.DamagedFieldPlanModel.PreviousPlan, style: 'cell', margin: [0, -2, 0, -1] },
+            { text: annualPlanModel.DamagedFieldPlanModel.Execution, style: 'cell', margin: [0, -2, 0, -1]  },
+            { text: annualPlanModel.DamagedFieldPlanModel.CurrentState, style: 'cell', margin: [0, -2, 0, -1]  },
+            { text: annualPlanModel.DamagedFieldPlanModel.FutureState, style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
         body.push([
             { text: '- kwota wypłaconych odszkodowań łowieckich', style: 'point', margin: [5, -2, 0, -1] },
             { text: 'tyś. zł', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] },
-            { text: '', style: 'cell', margin: [0, -2, 0, -1] }
+            { text: '0', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '0', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '0', style: 'cell', margin: [0, -2, 0, -1] },
+            { text: '0', style: 'cell', margin: [0, -2, 0, -1] }
         ]);
 
         body.push([
             { text: '9. Koszty poniesione na prowadzenie gospodarki łowieckiej', style: 'paragraph' },
             { text: 'tyś. zł', margin: [0, 5, 0, 0], style: 'cell' },
-            { text: previousAnnualPlanModel.CostPlanModel.Cost, style: 'cell', margin: [0, 5, 0, 0] },
-            { text: '', style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: currentAnnualPlanModel.CostPlanModel.Cost, style: 'cell', margin: [0, 5, 0, 0] }
+            { text: annualPlanModel.CostPlanModel.Cost.PreviousPlan, style: 'cell', margin: [0, 5, 0, 0] },
+            { text: annualPlanModel.CostPlanModel.Cost.Execution, style: 'cell', margin: [0, 5, 0, 0] },
+            { text: annualPlanModel.CostPlanModel.Cost.CurrentState, style: 'cell', margin: [0, 5, 0, 0] },
+            { text: annualPlanModel.CostPlanModel.Cost.FutureState, style: 'cell', margin: [0, 5, 0, 0] }
         ]);
 
         return body;
     }
     
-    var getRevenueTableBody = function (previousAnnualPlanModel, currentAnnualPlanModel) {
+    var getRevenueTableBody = function (annualPlanModel) {
         var body = [];
 
         body.push([
             { text: '1. Przychody ze sprzedaży tusz zwierzyny płowej w obwodzie łowieckim', style: 'paragraph' },
             { text: 'tyś. zł', style: 'cell', margin: [0, 5, 0, 0] },
-            { text: previousAnnualPlanModel.CostPlanModel.Revenue, style: 'cell', margin: [0, 5, 0, 0]  },
-            { text: '', style: 'cell' },
-            { text: '', style: 'cell' },
-            { text: currentAnnualPlanModel.CostPlanModel.Revenue, style: 'cell', margin: [0, 5, 0, 0]  }
+            { text: annualPlanModel.CostPlanModel.Revenue.PreviousPlan, style: 'cell', margin: [0, 5, 0, 0] },
+            { text: annualPlanModel.CostPlanModel.Revenue.Execution, style: 'cell', margin: [0, 5, 0, 0]  },
+            { text: annualPlanModel.CostPlanModel.Revenue.CurrentState, style: 'cell', margin: [0, 5, 0, 0] },
+            { text: annualPlanModel.CostPlanModel.Revenue.FutureState, style: 'cell', margin: [0, 5, 0, 0] }
         ]);
 
         return body;
@@ -654,7 +654,7 @@
     var getEconomyTable = function (data) {
         var economyTableHeaders = getEconomyTableHeaders();
         var economyTableNumberColumns = getNumbersRow(economyTableHeaders.length);
-        var economyTableBody = getEconomyTableBody(data.PreviousAnnualPlanModel, data.CurrentAnnualPlanModel);
+        var economyTableBody = getEconomyTableBody(data.AnnualPlanModel);
 
         var economyTable = [];
         economyTable.push(economyTableHeaders);
@@ -668,7 +668,7 @@
 
     var getCostTable = function (data) {
         var costTableNumberColumns = getNumbersRow(6);
-        var costTableBody = getRevenueTableBody(data.PreviousAnnualPlanModel, data.CurrentAnnualPlanModel);
+        var costTableBody = getRevenueTableBody(data.AnnualPlanModel);
 
         var costTable = [];
         costTable.push(costTableNumberColumns);

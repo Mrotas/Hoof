@@ -82,6 +82,10 @@
     <Compile Include="Dao\Loss\LossDao.cs" />
     <Compile Include="Dao\MarketingYear\IMarketingYearDao.cs" />
     <Compile Include="Dao\MarketingYear\MarketingYearDao.cs" />
+    <Compile Include="Dao\Pasture\IPastureDao.cs" />
+    <Compile Include="Dao\Pasture\PastureDao.cs" />
+    <Compile Include="Dao\Pulpit\IPulpitDao.cs" />
+    <Compile Include="Dao\Pulpit\PulpitDao.cs" />
     <Compile Include="Dao\TrunkFoodPlan\ITrunkFoodPlanDao.cs" />
     <Compile Include="Dao\TrunkFoodPlan\TrunkFoodPlanDao.cs" />
     <Compile Include="Dao\DaoBase.cs" />
@@ -110,6 +114,8 @@
     <Compile Include="Dto\LossDto.cs" />
     <Compile Include="Dto\LossGameDto.cs" />
     <Compile Include="Dto\MarketingYearDto.cs" />
+    <Compile Include="Dto\PastureDto.cs" />
+    <Compile Include="Dto\PulpitDto.cs" />
     <Compile Include="Dto\RegionDto.cs" />
     <Compile Include="Dto\TrunkFoodPlanDto.cs" />
     <Compile Include="Entities\Catch.cs" />
@@ -126,6 +132,8 @@
     <Compile Include="Entities\Loss.cs" />
     <Compile Include="Entities\LossGame.cs" />
     <Compile Include="Entities\MarketingYear.cs" />
+    <Compile Include="Entities\Pasture.cs" />
+    <Compile Include="Entities\Pulpit.cs" />
     <Compile Include="Entities\TrunkFoodPlan.cs" />
     <Compile Include="Entities\Game.cs" />
     <Compile Include="Entities\Hunt.cs" />

@@ -5,6 +5,30 @@ namespace Common.Extensions
 {
     public class TypeName
     {
+        public static string GetEmploymentTypeName(int employmentType)
+        {
+            switch (employmentType)
+            {
+                case 1: return ToUpperCamelCase(Text.ContractEmployees);
+                case 2: return ToUpperCamelCase(Text.NonContractEmployees);
+                default: throw new NotImplementedException();
+            }
+        }
+
+        public static string GetHuntEquipmentTypeName(int huntEquipmentType)
+        {
+            switch (huntEquipmentType)
+            {
+                case 1: return ToUpperCamelCase(Text.Pastures);
+                case 2: return ToUpperCamelCase(Text.DeerLickers);
+                case 3: return ToUpperCamelCase(Text.Pulpits);
+                case 4: return ToUpperCamelCase(Text.Aviaries);
+                case 5: return ToUpperCamelCase(Text.Farms);
+                case 6: return ToUpperCamelCase(Text.Other);
+                default: throw new NotImplementedException();
+            }
+        }
+
         public static string GetFodderTypeName(int fodderType)
         {
             switch (fodderType)

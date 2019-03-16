@@ -35,6 +35,8 @@ namespace DataAccess.Context
         public DbSet<Loss> Loss { get; set; }
         public DbSet<LossGame> LossGame { get; set; }
         public DbSet<MarketingYear> MarketingYear { get; set; }
+        public DbSet<Pasture> Pasture { get; set; }
+        public DbSet<Pulpit> Pulpit { get; set; }
         public DbSet<Region> Region { get; set; }
         public DbSet<TrunkFoodPlan> TrunkFoodPlan { get; set; }
     }
