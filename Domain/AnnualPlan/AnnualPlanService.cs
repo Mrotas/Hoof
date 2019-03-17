@@ -179,8 +179,8 @@ namespace Domain.AnnualPlan
             switch (annualPlanHuntEquipmentTypeModel.HuntEquipmentType)
             {
                 case HuntEquipmentType.Pasture:
-                    IList<PastureDto> currentStatePastures = _pastureDao.GetByMarketingYear(CurrentMarketingYearId);
-                    IList<PastureDto> previousMarketingYearPasturesState = _pastureDao.GetByMarketingYear(PreviousMarketingYearId);
+                    IList<PastureDto> currentStatePastures = _pastureDao.GetActiveByMarketingYear(CurrentMarketingYearId);
+                    IList<PastureDto> previousMarketingYearPasturesState = _pastureDao.GetActiveByMarketingYear(PreviousMarketingYearId);
                     annualPlanHuntEquipmentTypeModel.CurrentState = currentStatePastures.Count;
                     annualPlanHuntEquipmentTypeModel.Execution = currentStatePastures.Count - previousMarketingYearPasturesState.Count;
                     annualPlanHuntEquipmentTypeModel.FutureState = currentStatePastures.Count + previousMarketingYearHuntEquipmentPlans.FirstOrDefault(x => x.Type == (int)huntEquipmentType)?.Count ?? 0;

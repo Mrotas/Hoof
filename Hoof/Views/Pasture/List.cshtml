@@ -1,0 +1,197 @@
+﻿@using Domain.Pasture.ViewModels
+@model Domain.Pasture.ViewModels.PastureBaseViewModel
+
+@{
+    ViewBag.Title = "List";
+}
+
+@section Scripts{
+
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="~/Scripts/Pasture/Pasture.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var config = {
+                MarketingYearId: @Model.MarketingYearModel.Id,
+                Controller: "Pasture"
+            };
+            var pasture = new Pasture(config);
+        });
+    </script>
+}
+
+<h4 style="text-align: center">Zagospodarowanie paśników w roku gospodarczym @Model.MarketingYearModel</h4>
+
+<br />
+
+<button class="btn btn-primary" id="add" data-toggle="modal" data-target="#addPastureModal">Dodaj</button>
+<table class="table table-bordered table-hover" id="pastureTable">
+    <tr>
+        <th style="width: 5%">
+            Lp.
+        </th>
+        <th style="width: 10%">
+            Oddział
+        </th>
+        <th style="width: 10%">
+            Rewir
+        </th>
+        <th style="width: 15%">
+            Leśnictwo
+        </th>
+        <th style="width: 30%">
+            Opis
+        </th>
+        <th style="width: 10%">
+            Data budowy
+        </th>
+        <th style="width: 10%">
+            Data rozbiórki
+        </th>
+        <th style="width: 10%">
+            Zarządzaj
+        </th>
+    </tr>
+    @foreach (PastureViewModel item in Model.PastureViewModels.OrderBy(x => x.CreatedDate).ToList())
+    {
+        <tr>
+            <td style="text-align: center">
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Section)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.District)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Forestry)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td style="text-align: center">
+                @item.CreatedDate.ToString("dd/MM/yyyy")
+            </td>
+            <td style="text-align: center">
+                @(item.RemovedDate?.ToString("dd/MM/yyyy") ?? "-")
+            </td>
+            <td style="text-align: center">
+                <button class="btn btn-xs btn-success editPasture">Edytuj</button>
+                <button class="btn btn-xs btn-danger deletePasture">Usuń</button>
+            </td>
+        </tr>
+    }
+</table>
+
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Usuwanie paśnika</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger" role="alert" style="display: none">
+                    <h4 class="alert-heading">
+                        <button type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </h4>
+                    <p class="alert-body"></p>
+                </div>
+                
+                <div id="confirmDeleteModalBody">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Usuń</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="addPastureModal">
+    <div class="modal-dialog" style="width: 500px;">
+        <div class="modal-content">
+
+            <div class="modal-header" style="text-align: center; background-color: rgba(92, 184, 92, 0.6)">
+                <button type="button" class="close" data-dismiss="modal" id="closeModalXButton">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Dodaj paśnik
+                </h4>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="alert alert-danger" role="alert" style="display: none">
+                    <h4 class="alert-heading">
+                        <button type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </h4>
+                    <p class="alert-body"></p>
+                </div>
+
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-2" style="width: 75%">
+                            Oddział: <input type="number" class="form-control" id="section">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-2" style="width: 75%">
+                            Rewir: <input type="number" class="form-control" id="district">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-2" style="width: 75%">
+                            Leśnictwo:
+                            @Html.DropDownList("Wybierz leśnictwo", new List<SelectListItem>
+                            {
+                                new SelectListItem {Text = "Piaski", Value = "1"},
+                                new SelectListItem {Text = "Prądy", Value = "2"},
+                                new SelectListItem {Text = "Ptusza", Value = "3"},
+                                new SelectListItem {Text = "Smolary", Value = "4"},
+                                new SelectListItem {Text = "Wrzosy", Value = "5"}
+                            }, "", new {Name = String.Empty, @class = "form-control", id = "forestry"})
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-2" style="width: 75%">
+                            Opis: <input type="text" class="form-control" id="description" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-2" style="width: 75%">
+                            Data budowy:<input type="date" class="form-control" id="createdDate" />
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="removedDateSection">
+                        <div class="col-md-6 col-md-offset-2" style="width: 75%">
+                            Data rozbiórki:<input type="date" class="form-control" id="removedDate" />
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel">Zamknij</button>
+                        <button type="button" class="btn btn-success" id="save">Zapisz</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

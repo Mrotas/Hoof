@@ -136,7 +136,7 @@
         }
     });
 
-    $('.editPlan').on('click', function () {
+    $('.editFodder').on('click', function () {
         var row = $(this).closest('tr');
         var id = row.find('td:nth-child(1)').text().trim();
         var owner = row.find('td:nth-child(2)').text().trim();
@@ -155,7 +155,7 @@
         $('#addFodderModal').data('id', id).modal('show');
     });
 
-    $('.deletePlan').on('click', function () {
+    $('.deleteFodder').on('click', function () {
         var row = $(this).closest('tr');
         var id = row.find('td:nth-child(1)').text().trim();
         var typeName = row.find('td:nth-child(4)').text().trim();
@@ -187,7 +187,5 @@
                 alert('Coś poszło nie tak, proszę odświeżyć stronę.');
             }
         });
-
-        $('#confirmDeleteModal').modal('hide');
     });
 }
