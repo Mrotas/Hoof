@@ -12,7 +12,21 @@ namespace DataAccess.Dao.Pulpit
             using (var db = new DbContext())
             {
                 Entities.MarketingYear marketingYear = db.MarketingYear.Find(marketingYearId);
-                List<Entities.Pulpit> pulpits = db.Pulpit.Where(x => !x.RemovedDate.HasValue && x.CreatedDate < marketingYear.End).ToList();
+                List<Entities.Pulpit> pulpits = db.Pulpit.Where(x => x.CreatedDate <= marketingYear.End && !x.RemovedDate.HasValue ||
+                                                                        x.RemovedDate > marketingYear.Start && x.RemovedDate < marketingYear.End).ToList();
+
+                IList<PulpitDto> dtos = ToDtos(pulpits);
+
+                return dtos;
+            }
+        }
+
+        public IList<PulpitDto> GetActiveByMarketingYear(int marketingYearId)
+        {
+            using (var db = new DbContext())
+            {
+                Entities.MarketingYear marketingYear = db.MarketingYear.Find(marketingYearId);
+                List<Entities.Pulpit> pulpits = db.Pulpit.Where(x => !x.RemovedDate.HasValue && x.CreatedDate <= marketingYear.End).ToList();
 
                 IList<PulpitDto> dtos = ToDtos(pulpits);
 

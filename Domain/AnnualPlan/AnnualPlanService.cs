@@ -186,8 +186,8 @@ namespace Domain.AnnualPlan
                     annualPlanHuntEquipmentTypeModel.FutureState = currentStatePastures.Count + previousMarketingYearHuntEquipmentPlans.FirstOrDefault(x => x.Type == (int)huntEquipmentType)?.Count ?? 0;
                     break;
                 case HuntEquipmentType.Pulpit:
-                    IList<PulpitDto> currentStatePulpits = _pulpitDao.GetByMarketingYear(CurrentMarketingYearId);
-                    IList<PulpitDto> previousMarketingYearPulpitsState = _pulpitDao.GetByMarketingYear(PreviousMarketingYearId);
+                    IList<PulpitDto> currentStatePulpits = _pulpitDao.GetActiveByMarketingYear(CurrentMarketingYearId);
+                    IList<PulpitDto> previousMarketingYearPulpitsState = _pulpitDao.GetActiveByMarketingYear(PreviousMarketingYearId);
                     annualPlanHuntEquipmentTypeModel.CurrentState = currentStatePulpits.Count;
                     annualPlanHuntEquipmentTypeModel.Execution = currentStatePulpits.Count - previousMarketingYearPulpitsState.Count;
                     annualPlanHuntEquipmentTypeModel.FutureState = currentStatePulpits.Count + previousMarketingYearHuntEquipmentPlans.FirstOrDefault(x => x.Type == (int)huntEquipmentType)?.Count ?? 0;

@@ -63,7 +63,7 @@
     };
 
     var getPulpitModel = function () {
-        var id = $('#addPastureModal').data('id');
+        var id = $('#addPulpitModal').data('id');
         var number = $('#number').val();
         var section = $('#section').val();
         var district = $('#district').val();
