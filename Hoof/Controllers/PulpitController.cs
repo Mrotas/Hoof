@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Web.Mvc;
-using Domain.Pasture;
-using Domain.Pasture.ViewModels;
+using Domain.Pulpit;
+using Domain.Pulpit.ViewModels;
 
 namespace Hoof.Controllers
 {
-    public class PastureController : Controller
+    public class PulpitController : Controller
     {
-        private readonly IPastureService _pastureService;
+        private readonly IPulpitService _pulpitService;
 
-        public PastureController() : this(new PastureService())
+        public PulpitController() : this(new PulpitService())
         {
         }
 
-        public PastureController(IPastureService pastureService)
+        public PulpitController(IPulpitService pulpitService)
         {
-            _pastureService = pastureService;
+            _pulpitService = pulpitService;
         }
 
         public ActionResult Index()
@@ -25,17 +25,17 @@ namespace Hoof.Controllers
 
         public ActionResult List(int marketingYearId)
         {
-            PastureBaseViewModel pastureBaseViewModel = _pastureService.GetPastureViewModel(marketingYearId);
-            return View(pastureBaseViewModel);
+            PulpitBaseViewModel pulpitBaseViewModel = _pulpitService.GetPulpitViewModel(marketingYearId);
+            return View(pulpitBaseViewModel);
         }
 
         [HttpPost]
-        public JsonResult Add(PastureViewModel model, int marketingYearId)
+        public JsonResult Add(PulpitViewModel model, int marketingYearId)
         {
             string message = String.Empty;
             try
             {
-                _pastureService.AddPasture(model, marketingYearId);
+                _pulpitService.AddPulpit(model, marketingYearId);
             }
             catch (Exception ex)
             {
@@ -45,12 +45,12 @@ namespace Hoof.Controllers
         }
 
         [HttpPost]
-        public JsonResult Edit(PastureViewModel model, int marketingYearId)
+        public JsonResult Edit(PulpitViewModel model, int marketingYearId)
         {
             string message = String.Empty;
             try
             {
-                _pastureService.UpdatePasture(model, marketingYearId);
+                _pulpitService.UpdatePulpit(model, marketingYearId);
             }
             catch (Exception ex)
             {
@@ -65,7 +65,7 @@ namespace Hoof.Controllers
             string message = String.Empty;
             try
             {
-                _pastureService.DeletePasture(id);
+                _pulpitService.DeletePulpit(id);
             }
             catch (Exception ex)
             {

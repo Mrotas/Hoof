@@ -131,6 +131,10 @@
     <Compile Include="Pasture\ViewModels\PastureBaseViewModel.cs" />
     <Compile Include="Pasture\ViewModels\PastureViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Pulpit\IPulpitService.cs" />
+    <Compile Include="Pulpit\PulpitService.cs" />
+    <Compile Include="Pulpit\ViewModels\PulpitBaseViewModel.cs" />
+    <Compile Include="Pulpit\ViewModels\PulpitViewModel.cs" />
     <Compile Include="Report\IReportService.cs" />
     <Compile Include="Report\Models\Fodder\MonthlyReportFodderModel.cs" />
     <Compile Include="Report\Models\Fodder\MonthlyReportFodderTypeModel.cs" />

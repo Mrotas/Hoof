@@ -74,7 +74,7 @@ namespace Domain.Pasture
         {
             if (model.Section <= 0 || model.District <= 0 || String.IsNullOrWhiteSpace(model.Forestry))
             {
-                throw new Exception("Wystąpił nieznany błąd podczas dodawania paśnika.");
+                throw new Exception("Wystąpił nieznany błąd podczas edytowania paśnika.");
             }
 
             var dto = new PastureDto
@@ -95,7 +95,7 @@ namespace Domain.Pasture
         {
             if (id <= 0)
             {
-                throw new Exception("Wystąpił nieznany błąd podczas dodawania karmy.");
+                throw new Exception("Wystąpił nieznany błąd podczas usuwania paśnika.");
             }
 
             _pastureDao.Delete(id);

@@ -20,6 +20,58 @@ namespace DataAccess.Dao.Pulpit
             }
         }
 
+        public void Insert(PulpitDto dto)
+        {
+            var entity = new Entities.Pulpit
+            {
+                Number = dto.Number,
+                Section = dto.Section,
+                District = dto.District,
+                Forestry = dto.Forestry,
+                HasRoof = dto.HasRoof,
+                Description = dto.Description,
+                CreatedDate = dto.CreatedDate,
+                RemovedDate = dto.RemovedDate
+            };
+
+            using (var db = new DbContext())
+            {
+                db.Pulpit.Add(entity);
+                db.SaveChanges();
+            }
+
+        }
+
+        public void Update(PulpitDto dto)
+        {
+            using (var db = new DbContext())
+            {
+                Entities.Pulpit pulpit = db.Pulpit.Single(x => x.Id == dto.Id);
+
+                pulpit.Number = dto.Number;
+                pulpit.Section = dto.Section;
+                pulpit.District = dto.District;
+                pulpit.Forestry = dto.Forestry;
+                pulpit.HasRoof = dto.HasRoof;
+                pulpit.Description = dto.Description;
+                pulpit.CreatedDate = dto.CreatedDate;
+                pulpit.RemovedDate = dto.RemovedDate;
+
+                db.SaveChanges();
+            }
+        }
+
+        public void Delete(int id)
+        {
+            using (var db = new DbContext())
+            {
+                Entities.Pulpit pulpit = db.Pulpit.Single(x => x.Id == id);
+
+                db.Pulpit.Remove(pulpit);
+                db.SaveChanges();
+            }
+        }
+
         private IList<PulpitDto> ToDtos(IList<Entities.Pulpit> entityList)
         {
             var dtos = new List<PulpitDto>();
@@ -28,10 +80,14 @@ namespace DataAccess.Dao.Pulpit
                 var dto = new PulpitDto
                 {
                     Id = entity.Id,
+                    Number = entity.Number,
                     Section = entity.Section,
                     District = entity.District,
                     Forestry = entity.Forestry,
-                    Description = entity.Description
+                    HasRoof = entity.HasRoof,
+                    Description = entity.Description,
+                    CreatedDate = entity.CreatedDate,
+                    RemovedDate = entity.RemovedDate
                 };
                 dtos.Add(dto);
             }
