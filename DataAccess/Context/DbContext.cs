@@ -20,6 +20,7 @@ namespace DataAccess.Context
         
         public DbSet<Catch> Catch { get; set; }
         public DbSet<CostPlan> CostPlan { get; set; }
+        public DbSet<DeerLicker> DeerLicker { get; set; }
         public DbSet<EmploymentPlan> EmploymentPlan { get; set; }
         public DbSet<FieldPlan> FieldPlan { get; set; }
         public DbSet<Fodder> Fodder { get; set; }
@@ -39,5 +40,6 @@ namespace DataAccess.Context
         public DbSet<Pulpit> Pulpit { get; set; }
         public DbSet<Region> Region { get; set; }
         public DbSet<TrunkFoodPlan> TrunkFoodPlan { get; set; }
+        public DbSet<WateringPlace> WateringPlace { get; set; }
     }
 }

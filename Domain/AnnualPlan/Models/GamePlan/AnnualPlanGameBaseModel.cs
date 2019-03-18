@@ -14,7 +14,7 @@ namespace Domain.AnnualPlan.Models.GamePlan
         public int PreviousHuntPlanExecutionSanitaryLosses { get; set; }
         public int PreviousHuntPlanExecutionTotal => PreviousHuntPlanExecutionCulls + PreviousHuntPlanExecutionCatches + PreviousHuntPlanExecutionLosses;
         public int GameCountBefore10March { get; set; }
-        public int GameCountBeforeHuntingSeason { get; set; }
+        public int GameCountBeforeHuntingSeason => (int) (GameCountBefore10March * 1.25);
         public int CurrentHuntPlanCulls { get; set; }
         public int CurrentHuntPlanCullsMin
         {

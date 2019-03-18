@@ -247,7 +247,7 @@
         ]);
 
         body.push([
-            { text: 'f) inne', style: 'point', margin: [5, -2, 0, -1] },
+            { text: 'f) inne - wodopoje', style: 'point', margin: [5, -2, 0, -1] },
             { text: 'szt.', style: 'cell', margin: [0, -2, 0, -1] },
             { text: annualPlanModel.HuntEquipmentPlanModel.WateringPlaces.PreviousPlan, style: 'cell', margin: [0, -2, 0, -1] },
             { text: annualPlanModel.HuntEquipmentPlanModel.WateringPlaces.Execution, style: 'cell', margin: [0, -2, 0, -1] },
@@ -463,31 +463,28 @@
 
     var getBigGameTableBody = function (bigGamePlanModel) {
         var bigGameTableBody = [];
-
-        var cellStyle = currentMarketingYearModel.Id >= 3 ? 'cell' : 'smallCell';
-        var pointStyle = currentMarketingYearModel.Id >= 3 ? 'point' : 'smallPoint';
         
         $.each(bigGamePlanModel.AnnualPlanKindGameModels, function(key, value) {
             
             bigGameTableBody.push([
-                { text: value.KindName + ' razem', bold: true, style: pointStyle, margin: [0, -2, 0, -1] },
-                { text: value.PreviousHuntPlanCulls, style: cellStyle, margin: [0, -2, 0, -1] },
-                { text: value.PreviousHuntPlanCatches, style: cellStyle, margin: [0, -2, 0, -1] },
-                { text: value.PreviousHuntPlanExecutionTotal, style: cellStyle, margin: [0, -2, 0, -1]  },
-                { text: value.PreviousHuntPlanExecutionCulls, style: cellStyle, margin: [0, -2, 0, -1] },
-                { text: value.PreviousHuntPlanExecutionCatches, style: cellStyle, margin: [0, -2, 0, -1]  },
-                { text: value.PreviousHuntPlanExecutionLosses, style: cellStyle, margin: [0, -2, 0, -1] },
-                { text: value.PreviousHuntPlanExecutionSanitaryLosses, style: cellStyle, margin: [0, -2, 0, -1] },
-                { text: '', margin: [0, -2, 0, -1] },
-                { text: value.GameCountBefore10March, style: cellStyle, margin: [0, -2, 0, -1] },
-                { text: '', margin: [0, -2, 0, -1] },
-                { text: '', margin: [0, -2, 0, -1] },
-                { text: value.CurrentHuntPlanCulls, style: cellStyle, margin: [0, -2, 0, -1] },
-                { text: value.CurrentHuntPlanCatches, style: cellStyle, margin: [0, -2, 0, -1] } ,
-                { text: value.CurrentHuntPlanCullsMin, style: cellStyle, margin: [0, -2, 0, -1] },
-                { text: value.CurrentHuntPlanCullsMax, style: cellStyle, margin: [0, -2, 0, -1]  },
-                { text: value.CurrentHuntPlanCatchesMin, style: cellStyle, margin: [0, -2, 0, -1]  },
-                { text: value.CurrentHuntPlanCatchesMax, style: cellStyle, margin: [0, -2, 0, -1]  }
+                { text: value.KindName + ' razem', bold: true, style: 'point', margin: [0, -2, 0, -1] },
+                { text: value.PreviousHuntPlanCulls, style: 'cell', margin: [0, -2, 0, -1] },
+                { text: value.PreviousHuntPlanCatches, style: 'cell', margin: [0, -2, 0, -1] },
+                { text: value.PreviousHuntPlanExecutionTotal, style: 'cell', margin: [0, -2, 0, -1]  },
+                { text: value.PreviousHuntPlanExecutionCulls, style: 'cell', margin: [0, -2, 0, -1] },
+                { text: value.PreviousHuntPlanExecutionCatches, style: 'cell', margin: [0, -2, 0, -1]  },
+                { text: value.PreviousHuntPlanExecutionLosses, style: 'cell', margin: [0, -2, 0, -1] },
+                { text: value.PreviousHuntPlanExecutionSanitaryLosses, style: 'cell', margin: [0, -2, 0, -1] },
+                { text: 'X', style: 'cell', margin: [0, -2, 0, -1] },
+                { text: value.GameCountBefore10March, style: 'cell', margin: [0, -2, 0, -1] },
+                { text: 'X', style: 'cell', margin: [0, -2, 0, -1] },
+                { text: value.GameCountBeforeHuntingSeason, style: 'cell', margin: [0, -2, 0, -1] },
+                { text: value.CurrentHuntPlanCulls, style: 'cell', margin: [0, -2, 0, -1] },
+                { text: value.CurrentHuntPlanCatches, style: 'cell', margin: [0, -2, 0, -1] } ,
+                { text: value.CurrentHuntPlanCullsMin, style: 'cell', margin: [0, -2, 0, -1] },
+                { text: value.CurrentHuntPlanCullsMax, style: 'cell', margin: [0, -2, 0, -1]  },
+                { text: value.CurrentHuntPlanCatchesMin, style: 'cell', margin: [0, -2, 0, -1]  },
+                { text: value.CurrentHuntPlanCatchesMax, style: 'cell', margin: [0, -2, 0, -1]  }
             ]);
 
             $.each(value.AnnualPlanSubKindGameModels, function (index, value) {
@@ -495,47 +492,47 @@
                 var subKindName = (paragraphPoints[value.SubKind - 1] + ' ' + value.SubKindName).toLowerCase();
                 if (index === 0) subKindName += ' razem';
                 bigGameTableBody.push([
-                    { text: subKindName, style: pointStyle, margin: [0, -2, 0, -1] },
-                    { text: value.PreviousHuntPlanCulls, style: cellStyle, margin: [0, -2, 0, -1] },
-                    { text: value.PreviousHuntPlanCatches, style: cellStyle, margin: [0, -2, 0, -1] },
-                    { text: value.PreviousHuntPlanExecutionTotal, style: cellStyle, margin: [0, -2, 0, -1] },
-                    { text: value.PreviousHuntPlanExecutionCulls, style: cellStyle, margin: [0, -2, 0, -1] },
-                    { text: value.PreviousHuntPlanExecutionCatches, style: cellStyle, margin: [0, -2, 0, -1] },
-                    { text: value.PreviousHuntPlanExecutionLosses, style: cellStyle, margin: [0, -2, 0, -1] },
-                    { text: value.PreviousHuntPlanExecutionSanitaryLosses, style: cellStyle, margin: [0, -2, 0, -1]  },
-                    { text: '', margin: [0, -2, 0, -1] },
-                    { text: value.GameCountBefore10March, style: cellStyle, margin: [0, -2, 0, -1] },
-                    { text: '', margin: [0, -2, 0, -1] },
-                    { text: '', margin: [0, -2, 0, -1] },
-                    { text: value.CurrentHuntPlanCulls, style: cellStyle, margin: [0, -2, 0, -1]  },
-                    { text: value.CurrentHuntPlanCatches, style: cellStyle, margin: [0, -2, 0, -1] },
-                    { text: value.CurrentHuntPlanCullsMin, style: cellStyle, margin: [0, -2, 0, -1]  },
-                    { text: value.CurrentHuntPlanCullsMax, style: cellStyle, margin: [0, -2, 0, -1] },
-                    { text: value.CurrentHuntPlanCatchesMin, style: cellStyle, margin: [0, -2, 0, -1] },
-                    { text: value.CurrentHuntPlanCatchesMax, style: cellStyle, margin: [0, -2, 0, -1]  }
+                    { text: subKindName, style: 'point', margin: [0, -2, 0, -1] },
+                    { text: value.PreviousHuntPlanCulls, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: value.PreviousHuntPlanCatches, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: value.PreviousHuntPlanExecutionTotal, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: value.PreviousHuntPlanExecutionCulls, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: value.PreviousHuntPlanExecutionCatches, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: value.PreviousHuntPlanExecutionLosses, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: value.PreviousHuntPlanExecutionSanitaryLosses, style: 'cell', margin: [0, -2, 0, -1]  },
+                    { text: 'X', style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: value.GameCountBefore10March, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: 'X', style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: 'X', style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: value.CurrentHuntPlanCulls, style: 'cell', margin: [0, -2, 0, -1]  },
+                    { text: value.CurrentHuntPlanCatches, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: value.CurrentHuntPlanCullsMin, style: 'cell', margin: [0, -2, 0, -1]  },
+                    { text: value.CurrentHuntPlanCullsMax, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: value.CurrentHuntPlanCatchesMin, style: 'cell', margin: [0, -2, 0, -1] },
+                    { text: value.CurrentHuntPlanCatchesMax, style: 'cell', margin: [0, -2, 0, -1]  }
                 ]);
 
                 $.each(value.AnnualPlanClassGameModels, function (index, value) {
 
                     bigGameTableBody.push([
-                        { text: '-' + value.ClassName, style: cellStyle, margin: [0, -2, 0, -1]  },
-                        { text: value.PreviousHuntPlanCulls, style: cellStyle, margin: [0, -2, 0, -1] },
-                        { text: value.PreviousHuntPlanCatches, style: cellStyle, margin: [0, -2, 0, -1] },
-                        { text: value.PreviousHuntPlanExecutionTotal, style: cellStyle, margin: [0, -2, 0, -1] },
-                        { text: value.PreviousHuntPlanExecutionCulls, style: cellStyle, margin: [0, -2, 0, -1]  },
-                        { text: value.PreviousHuntPlanExecutionCatches, style: cellStyle, margin: [0, -2, 0, -1] },
-                        { text: value.PreviousHuntPlanExecutionLosses, style: cellStyle, margin: [0, -2, 0, -1]  },
-                        { text: value.PreviousHuntPlanExecutionSanitaryLosses, style: cellStyle, margin: [0, -2, 0, -1]  },
-                        { text: '', margin: [0, -2, 0, -1] },
-                        { text: value.GameCountBefore10March, style: cellStyle, margin: [0, -2, 0, -1] },
-                        { text: '', margin: [0, -2, 0, -1] },
-                        { text: '', margin: [0, -2, 0, -1] },
-                        { text: value.CurrentHuntPlanCulls, style: cellStyle, margin: [0, -2, 0, -1] },
-                        { text: value.CurrentHuntPlanCatches, style: cellStyle, margin: [0, -2, 0, -1] },
-                        { text: value.CurrentHuntPlanCullsMin, style: cellStyle, margin: [0, -2, 0, -1] },
-                        { text: value.CurrentHuntPlanCullsMax, style: cellStyle, margin: [0, -2, 0, -1] },
-                        { text: value.CurrentHuntPlanCatchesMin, style: cellStyle, margin: [0, -2, 0, -1]  },
-                        { text: value.CurrentHuntPlanCatchesMax, style: cellStyle, margin: [0, -2, 0, -1] }
+                        { text: '-' + value.ClassName, style: 'cell', margin: [0, -2, 0, -1]  },
+                        { text: value.PreviousHuntPlanCulls, style: 'cell', margin: [0, -2, 0, -1] },
+                        { text: value.PreviousHuntPlanCatches, style: 'cell', margin: [0, -2, 0, -1] },
+                        { text: value.PreviousHuntPlanExecutionTotal, style: 'cell', margin: [0, -2, 0, -1] },
+                        { text: value.PreviousHuntPlanExecutionCulls, style: 'cell', margin: [0, -2, 0, -1]  },
+                        { text: value.PreviousHuntPlanExecutionCatches, style: 'cell', margin: [0, -2, 0, -1] },
+                        { text: value.PreviousHuntPlanExecutionLosses, style: 'cell', margin: [0, -2, 0, -1]  },
+                        { text: value.PreviousHuntPlanExecutionSanitaryLosses, style: 'cell', margin: [0, -2, 0, -1]  },
+                        { text: 'X', style: 'cell', margin: [0, -2, 0, -1] },
+                        { text: value.GameCountBefore10March, style: 'cell', margin: [0, -2, 0, -1] },
+                        { text: 'X', style: 'cell', margin: [0, -2, 0, -1] },
+                        { text: 'X', style: 'cell', margin: [0, -2, 0, -1] },
+                        { text: value.CurrentHuntPlanCulls, style: 'cell', margin: [0, -2, 0, -1] },
+                        { text: value.CurrentHuntPlanCatches, style: 'cell', margin: [0, -2, 0, -1] },
+                        { text: value.CurrentHuntPlanCullsMin, style: 'cell', margin: [0, -2, 0, -1] },
+                        { text: value.CurrentHuntPlanCullsMax, style: 'cell', margin: [0, -2, 0, -1] },
+                        { text: value.CurrentHuntPlanCatchesMin, style: 'cell', margin: [0, -2, 0, -1]  },
+                        { text: value.CurrentHuntPlanCatchesMax, style: 'cell', margin: [0, -2, 0, -1] }
                     ]);
                 });
             });
@@ -615,9 +612,9 @@
                     { text: gameKindModel.PreviousHuntPlanCatches, style: 'cell', margin: [0, -2, 0, -1] },
                     { text: gameKindModel.PreviousHuntPlanExecutionCulls, style: 'cell', margin: [0, -2, 0, -1] },
                     { text: gameKindModel.PreviousHuntPlanExecutionCatches, style: 'cell', margin: [0, -2, 0, -1] },
-                    { text: '' },
+                    { text: 'X', style: 'cell', margin: [0, -2, 0, -1] },
                     { text: gameKindModel.GameCountBefore10March, style: 'cell', margin: [0, -2, 0, -1] },
-                    { text: '' },
+                    { text: 'X', style: 'cell', margin: [0, -2, 0, -1] },
                     { text: gameKindModel.CurrentHuntPlanCulls, style: 'cell', margin: [0, -2, 0, -1] },
                     { text: gameKindModel.CurrentHuntPlanCatches, style: 'cell', margin: [0, -2, 0, -1] },
                     { text: gameKindModel.CurrentHuntPlanCullsMin, style: 'cell', margin: [0, -2, 0, -1]  },
@@ -635,9 +632,9 @@
                     { text: gameSubKindModel.PreviousHuntPlanCatches, style: 'cell', margin: [0, -2, 0, -1] },
                     { text: gameSubKindModel.PreviousHuntPlanExecutionCulls, style: 'cell', margin: [0, -2, 0, -1] },
                     { text: gameSubKindModel.PreviousHuntPlanExecutionCatches, style: 'cell', margin: [0, -2, 0, -1] },
-                    { text: '' },
+                    { text: 'X', style: 'cell', margin: [0, -2, 0, -1] },
                     { text: gameSubKindModel.GameCountBefore10March, style: 'cell', margin: [0, -2, 0, -1]  },
-                    { text: '' },
+                    { text: 'X', style: 'cell', margin: [0, -2, 0, -1] },
                     { text: gameSubKindModel.CurrentHuntPlanCulls, style: 'cell', margin: [0, -2, 0, -1] },
                     { text: gameSubKindModel.CurrentHuntPlanCatches, style: 'cell', margin: [0, -2, 0, -1] },
                     { text: gameSubKindModel.CurrentHuntPlanCullsMin, style: 'cell', margin: [0, -2, 0, -1] },

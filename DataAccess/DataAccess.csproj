@@ -58,6 +58,8 @@
     <Compile Include="Dao\Catch\ICatchDao.cs" />
     <Compile Include="Dao\CostPlan\CostPlanDao.cs" />
     <Compile Include="Dao\CostPlan\ICostPlanDao.cs" />
+    <Compile Include="Dao\DeerLicker\DeerLickerDao.cs" />
+    <Compile Include="Dao\DeerLicker\IDeerLickerDao.cs" />
     <Compile Include="Dao\EmploymentPlan\EmploymentPlanDao.cs" />
     <Compile Include="Dao\EmploymentPlan\IEmploymentPlanDao.cs" />
     <Compile Include="Dao\FieldPlan\FieldPlanDao.cs" />
@@ -97,8 +99,11 @@
     <Compile Include="Dao\Hunt\IHuntDao.cs" />
     <Compile Include="Dao\Region\IRegionDao.cs" />
     <Compile Include="Dao\Region\RegionDao.cs" />
+    <Compile Include="Dao\WateringPlace\IWateringPlaceDao.cs" />
+    <Compile Include="Dao\WateringPlace\WateringPlaceDao.cs" />
     <Compile Include="Dto\CatchDto.cs" />
     <Compile Include="Dto\CostPlanDto.cs" />
+    <Compile Include="Dto\DeerLickerDto.cs" />
     <Compile Include="Dto\EmploymentPlanDto.cs" />
     <Compile Include="Dto\FieldPlanDto.cs" />
     <Compile Include="Dto\FodderDto.cs" />
@@ -118,8 +123,10 @@
     <Compile Include="Dto\PulpitDto.cs" />
     <Compile Include="Dto\RegionDto.cs" />
     <Compile Include="Dto\TrunkFoodPlanDto.cs" />
+    <Compile Include="Dto\WateringPlaceDto.cs" />
     <Compile Include="Entities\Catch.cs" />
     <Compile Include="Entities\CostPlan.cs" />
+    <Compile Include="Entities\DeerLicker.cs" />
     <Compile Include="Entities\EmploymentPlan.cs" />
     <Compile Include="Entities\FieldPlan.cs" />
     <Compile Include="Entities\Fodder.cs" />
@@ -139,6 +146,7 @@
     <Compile Include="Entities\Hunt.cs" />
     <Compile Include="Entities\Huntsman.cs" />
     <Compile Include="Entities\Region.cs" />
+    <Compile Include="Entities\WateringPlace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

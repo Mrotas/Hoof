@@ -682,7 +682,7 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to inne.
+        ///   Looks up a localized string similar to inne - wodopoje.
         /// </summary>
         public static string Other {
             get {

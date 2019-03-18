@@ -3,6 +3,7 @@ using System.Linq;
 using Common.Enums;
 using Common.Extensions;
 using DataAccess.Dao.CostPlan;
+using DataAccess.Dao.DeerLicker;
 using DataAccess.Dao.EmploymentPlan;
 using DataAccess.Dao.FieldPlan;
 using DataAccess.Dao.Fodder;
@@ -11,6 +12,7 @@ using DataAccess.Dao.HuntEquipmentPlan;
 using DataAccess.Dao.Pasture;
 using DataAccess.Dao.Pulpit;
 using DataAccess.Dao.TrunkFoodPlan;
+using DataAccess.Dao.WateringPlace;
 using DataAccess.Dto;
 using Domain.AnnualPlan.Models;
 using Domain.AnnualPlan.Models.Cost;
@@ -32,7 +34,9 @@ namespace Domain.AnnualPlan
         private readonly IEmploymentPlanDao _employeePlanDao;
         private readonly IHuntEquipmentPlanDao _huntEquipmentPlanDao;
         private readonly IPastureDao _pastureDao;
+        private readonly IDeerLickerDao _deerLickerDao;
         private readonly IPulpitDao _pulpitDao;
+        private readonly IWateringPlaceDao _wateringPlaceDao;
         private readonly ITrunkFoodPlanDao _trunkFoodPlanDao;
         private readonly IFieldPlanDao _fieldPlanDao;
         private readonly IFodderPlanDao _fodderPlanDao;
@@ -43,7 +47,9 @@ namespace Domain.AnnualPlan
         public AnnualPlanService() : this(new EmploymentPlanDao(), 
             new HuntEquipmentPlanDao(),
             new PastureDao(),
+            new DeerLickerDao(),
             new PulpitDao(),
+            new WateringPlaceDao(),
             new TrunkFoodPlanDao(), 
             new FieldPlanDao(),
             new FodderPlanDao(),
@@ -57,7 +63,9 @@ namespace Domain.AnnualPlan
         public AnnualPlanService(IEmploymentPlanDao employeePlanDao, 
             IHuntEquipmentPlanDao huntEquipmentPlanDao,
             IPastureDao pastureDao,
+            IDeerLickerDao deerLickerDao,
             IPulpitDao pulpitDao,
+            IWateringPlaceDao wateringPlaceDao,
             ITrunkFoodPlanDao trunkFoodPlanDao, 
             IFieldPlanDao fieldPlanDao, 
             IFodderPlanDao fodderPlanDao,
@@ -69,7 +77,9 @@ namespace Domain.AnnualPlan
             _employeePlanDao = employeePlanDao;
             _huntEquipmentPlanDao = huntEquipmentPlanDao;
             _pastureDao = pastureDao;
+            _deerLickerDao = deerLickerDao;
             _pulpitDao = pulpitDao;
+            _wateringPlaceDao = wateringPlaceDao;
             _trunkFoodPlanDao = trunkFoodPlanDao;
             _fieldPlanDao = fieldPlanDao;
             _fodderPlanDao = fodderPlanDao;
@@ -183,19 +193,31 @@ namespace Domain.AnnualPlan
                     IList<PastureDto> previousMarketingYearPasturesState = _pastureDao.GetActiveByMarketingYear(PreviousMarketingYearId);
                     annualPlanHuntEquipmentTypeModel.CurrentState = currentStatePastures.Count;
                     annualPlanHuntEquipmentTypeModel.Execution = currentStatePastures.Count - previousMarketingYearPasturesState.Count;
-                    annualPlanHuntEquipmentTypeModel.FutureState = currentStatePastures.Count + previousMarketingYearHuntEquipmentPlans.FirstOrDefault(x => x.Type == (int)huntEquipmentType)?.Count ?? 0;
+                    annualPlanHuntEquipmentTypeModel.FutureState = currentStatePastures.Count + currentMarketingYearHuntEquipmentPlans.FirstOrDefault(x => x.Type == (int)huntEquipmentType)?.Count ?? 0;
                     break;
                 case HuntEquipmentType.Pulpit:
                     IList<PulpitDto> currentStatePulpits = _pulpitDao.GetActiveByMarketingYear(CurrentMarketingYearId);
                     IList<PulpitDto> previousMarketingYearPulpitsState = _pulpitDao.GetActiveByMarketingYear(PreviousMarketingYearId);
                     annualPlanHuntEquipmentTypeModel.CurrentState = currentStatePulpits.Count;
                     annualPlanHuntEquipmentTypeModel.Execution = currentStatePulpits.Count - previousMarketingYearPulpitsState.Count;
-                    annualPlanHuntEquipmentTypeModel.FutureState = currentStatePulpits.Count + previousMarketingYearHuntEquipmentPlans.FirstOrDefault(x => x.Type == (int)huntEquipmentType)?.Count ?? 0;
+                    annualPlanHuntEquipmentTypeModel.FutureState = currentStatePulpits.Count + currentMarketingYearHuntEquipmentPlans.FirstOrDefault(x => x.Type == (int)huntEquipmentType)?.Count ?? 0;
                     break;
                 case HuntEquipmentType.DeerLicker:
+                    IList<DeerLickerDto> currentStateDeerLickers = _deerLickerDao.GetByMarketingYear(CurrentMarketingYearId);
+                    IList<DeerLickerDto> previousMarketingYearDeerLickersState = _deerLickerDao.GetByMarketingYear(PreviousMarketingYearId);
+                    annualPlanHuntEquipmentTypeModel.CurrentState = currentStateDeerLickers.Sum(x => x.Count);
+                    annualPlanHuntEquipmentTypeModel.Execution = currentStateDeerLickers.Sum(x => x.Count) - previousMarketingYearDeerLickersState.Sum(x => x.Count);
+                    annualPlanHuntEquipmentTypeModel.FutureState = currentStateDeerLickers.Sum(x => x.Count) + currentMarketingYearHuntEquipmentPlans.FirstOrDefault(x => x.Type == (int)huntEquipmentType)?.Count ?? 0;
+                    break;
+                case HuntEquipmentType.WateringPlace:
+                    IList<WateringPlaceDto> currentStateWateringPlaces = _wateringPlaceDao.GetActiveByMarketingYear(CurrentMarketingYearId);
+                    IList<WateringPlaceDto> previousMarketingYearWateringPlacesState = _wateringPlaceDao.GetActiveByMarketingYear(PreviousMarketingYearId);
+                    annualPlanHuntEquipmentTypeModel.CurrentState = currentStateWateringPlaces.Count;
+                    annualPlanHuntEquipmentTypeModel.Execution = currentStateWateringPlaces.Count - previousMarketingYearWateringPlacesState.Count;
+                    annualPlanHuntEquipmentTypeModel.FutureState = currentStateWateringPlaces.Count + currentMarketingYearHuntEquipmentPlans.FirstOrDefault(x => x.Type == (int)huntEquipmentType)?.Count ?? 0;
+                    break;
                 case HuntEquipmentType.Aviary:
                 case HuntEquipmentType.Farm:
-                case HuntEquipmentType.WateringPlace:
                 default:
                     break;
             }
