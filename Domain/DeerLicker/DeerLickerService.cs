@@ -1,0 +1,102 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using DataAccess.Dao.DeerLicker;
+using DataAccess.Dto;
+using Domain.DeerLicker.ViewModels;
+using Domain.MarketingYear;
+using Domain.MarketingYear.Models;
+
+namespace Domain.DeerLicker
+{
+    public class DeerLickerService : IDeerLickerService
+    {
+        private readonly IDeerLickerDao _deerLickerDao;
+        private readonly IMarketingYearService _marketingYearService;
+
+        public DeerLickerService() : this(new DeerLickerDao(), new MarketingYearService())
+        {
+        }
+
+        public DeerLickerService(IDeerLickerDao deerLickerDao, IMarketingYearService marketingYearService)
+        {
+            _deerLickerDao = deerLickerDao;
+            _marketingYearService = marketingYearService;
+        }
+
+        public DeerLickerBaseViewModel GetDeerLickerViewModel(int marketingYearId)
+        {
+            IList<DeerLickerDto> deerLickerDtos = _deerLickerDao.GetByMarketingYear(marketingYearId);
+
+            List<DeerLickerViewModel> deerLickerViewModels = deerLickerDtos.Select(x => new DeerLickerViewModel
+            {
+                Id = x.Id,
+                Count = x.Count,
+                Section = x.Section,
+                District = x.District,
+                Forestry = x.Forestry,
+                Description = x.Description
+            }).ToList();
+
+            MarketingYearModel marketingYearModel = _marketingYearService.GetMarketingYearModel(marketingYearId);
+
+            var pastureBaseViewModel = new DeerLickerBaseViewModel
+            {
+                DeerLickerViewModels = deerLickerViewModels,
+                MarketingYearModel = marketingYearModel
+            };
+
+            return pastureBaseViewModel;
+        }
+
+        public void AddDeerLicker(DeerLickerViewModel model, int marketingYearId)
+        {
+            if (model.Section <= 0 || model.District <= 0 || String.IsNullOrWhiteSpace(model.Forestry))
+            {
+                throw new Exception("Wystąpił nieznany błąd podczas dodawania paśnika.");
+            }
+
+            var dto = new DeerLickerDto
+            {
+                Count = model.Count,
+                Section = model.Section,
+                District = model.District,
+                Forestry = model.Forestry,
+                Description = model.Description,
+                MarketingYearId = marketingYearId
+            };
+
+            _deerLickerDao.Insert(dto);
+        }
+
+        public void UpdateDeerLicker(DeerLickerViewModel model, int marketingYearId)
+        {
+            if (model.Section <= 0 || model.District <= 0 || String.IsNullOrWhiteSpace(model.Forestry))
+            {
+                throw new Exception("Wystąpił nieznany błąd podczas edytowania paśnika.");
+            }
+
+            var dto = new DeerLickerDto
+            {
+                Id = model.Id,
+                Count = model.Count,
+                Section = model.Section,
+                District = model.District,
+                Forestry = model.Forestry,
+                Description = model.Description
+            };
+
+            _deerLickerDao.Update(dto);
+        }
+
+        public void DeleteDeerLicker(int id)
+        {
+            if (id <= 0)
+            {
+                throw new Exception("Wystąpił nieznany błąd podczas usuwania paśnika.");
+            }
+
+            _deerLickerDao.Delete(id);
+        }
+    }
+}

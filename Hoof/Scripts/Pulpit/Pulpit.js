@@ -101,7 +101,7 @@
         $('#section').removeClass('has-error');
         $('#district').val('');
         $('#district').removeClass('has-error');
-        $("#forestry").val('');
+        $("forestry:selected").prop("selected", false);
         $("#forestry").removeClass('has-error');
         $("#hasRoof").val('');
         $("#hasRoof").removeClass('has-error');

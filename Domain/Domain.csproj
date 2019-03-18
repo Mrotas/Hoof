@@ -71,6 +71,10 @@
     <Compile Include="CostPlan\ICostPlanService.cs" />
     <Compile Include="CostPlan\ViewModels\CostPlanBaseViewModel.cs" />
     <Compile Include="CostPlan\ViewModels\CostPlanViewModel.cs" />
+    <Compile Include="DeerLicker\DeerLickerService.cs" />
+    <Compile Include="DeerLicker\IDeerLickerService.cs" />
+    <Compile Include="DeerLicker\ViewModels\DeerLickerBaseViewModel.cs" />
+    <Compile Include="DeerLicker\ViewModels\DeerLickerViewModel.cs" />
     <Compile Include="EmploymentPlan\EmploymentPlanService.cs" />
     <Compile Include="EmploymentPlan\IEmploymentPlanService.cs" />
     <Compile Include="EmploymentPlan\ViewModels\EmploymentPlanViewModel.cs" />

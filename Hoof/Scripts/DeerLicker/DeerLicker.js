@@ -1,4 +1,4 @@
-﻿var Pasture = function (config) {
+﻿var DeerLicker = function (config) {
 
     var marketingYearId = config.MarketingYearId;
     var controller = config.Controller;
@@ -28,18 +28,18 @@
             forestry.addClass('has-error');
             isValid = false;
         }
-        
-        var createdDate = $("#createdDate");
-        if (createdDate.val() === '') {
-            createdDate.addClass('has-error');
+
+        var count = $('#count');
+        if (count.val() === '') {
+            count.addClass('has-error');
             isValid = false;
         }
-        
+
         if (isValid) {
             section.removeClass('has-error');
             district.removeClass('has-error');
             forestry.removeClass('has-error');
-            createdDate.removeClass('has-error');
+            count.removeClass('has-error');
             $('#alert').hide();
         } else {
             showDangerAlert('Proszę wypełnić wymagane pola !');
@@ -48,14 +48,13 @@
         return isValid;
     };
 
-    var getPastureModel = function () {
-        var id = $('#addPastureModal').data('id');
+    var getDeerLickerModel = function () {
+        var id = $('#addDeerLickerModal').data('id');
         var section = $('#section').val();
         var district = $('#district').val();
         var forestry = $("#forestry option:selected").text();
+        var count = $('#count').val();
         var description = $('#description').val();
-        var createdDate = $('#createdDate').val();
-        var removedDate = $('#removedDate').val();
 
         return {
             Id: id,
@@ -63,19 +62,10 @@
             District: district,
             Forestry: forestry,
             Description: description,
-            CreatedDate: createdDate,
-            RemovedDate: removedDate
+            Count: count
         };
     };
-
-    var getDateFromCell = function (date) {
-        var day = date.substr(0, 2);
-        var month = date.substr(3, 2);
-        var year = date.substr(6, 4);
-
-        return year + '-' + month + '-' + day;
-    }
-
+    
     var clearModal = function () {
         $('#section').val('');
         $('#section').removeClass('has-error');
@@ -85,10 +75,8 @@
         $("#forestry").removeClass('has-error');
         $('#description').val('');
         $('#description').removeClass('has-error');
-        $('#createdDate').val('');
-        $('#createdDate').removeClass('has-error');
-        $('#removedDate').val('');
-        $('#removedDate').removeClass('has-error');
+        $('#count').val('');
+        $('#count').removeClass('has-error');
 
         $('.alert-danger').hide();
     }
@@ -105,18 +93,14 @@
         clearModal();
     });
 
-    $("#addPastureModal").on("hidden.bs.modal", function () {
+    $("#addDeerLickerModal").on("hidden.bs.modal", function () {
         clearModal();
     });
     
-    $('#add').on('click', function() {
-        $('#removedDateSection').attr('hidden', true);
-    });
-
     $('#save').on('click', function () {
         var isFormValid = validateForm();
         var url;
-        var id = $('#addPastureModal').data('id');
+        var id = $('#addDeerLickerModal').data('id');
         if (typeof (id) === 'undefined') {
             url = '/' + controller + '/Add';
         } else {
@@ -128,7 +112,7 @@
                 type: "POST",
                 url: url,
                 data: {
-                    model: getPastureModel(),
+                    model: getDeerLickerModel(),
                     marketingYearId: marketingYearId
                 },
                 dataType: 'json',
@@ -144,42 +128,36 @@
                     alert('Coś poszło nie tak, proszę odświeżyć stronę.');
                 }
             });
-            $.removeData($('#addPastureModal'), 'id');
+            $.removeData($('#addDeerLickerModal'), 'id');
         }
     });
 
-    $('.editPasture').on('click', function () {
+    $('.editDeerLicker').on('click', function () {
         var row = $(this).closest('tr');
         var id = row.find('td:nth-child(1)').text().trim();
         var section = row.find('td:nth-child(2)').text().trim();
         var district = row.find('td:nth-child(3)').text().trim();
         var forestry = row.find('td:nth-child(4)').text().trim();
-        var description = row.find('td:nth-child(5)').text().trim();
-        var createdDate = row.find('td:nth-child(6)').text().trim();
-        createdDate = getDateFromCell(createdDate);
-        var removedDate = row.find('td:nth-child(7)').text().trim();
-        removedDate = getDateFromCell(removedDate);
-
-        $('#removedDateSection').attr('hidden', false);
-
+        var count = row.find('td:nth-child(5)').text().trim();
+        var description = row.find('td:nth-child(6)').text().trim();
+        
         $('#section').val(section);
         $('#district').val(district);
         $('#forestry option:contains(' + forestry + ')').attr('selected', 'selected');
         $('#description').val(description);
-        $('#createdDate').val(createdDate);
-        $('#removedDate').val(removedDate);
+        $('#count').val(count);
 
-        $('#addPastureModal').data('id', id).modal('show');
+        $('#addDeerLickerModal').data('id', id).modal('show');
     });
 
-    $('.deletePasture').on('click', function () {
+    $('.deleteDeerLicker').on('click', function () {
         var row = $(this).closest('tr');
         var id = row.find('td:nth-child(1)').text().trim();
         var section = row.find('td:nth-child(2)').text().trim();
         var district = row.find('td:nth-child(3)').text().trim();
         var forestry = row.find('td:nth-child(4)').text().trim();
 
-        $('#confirmDeleteModalBody').text('Czy na pewno chcesz usunąć paśnik z oddziału ' + section + ', rewir ' + district + ', leśnictwo ' + forestry + '?');
+        $('#confirmDeleteModalBody').text('Czy na pewno chcesz usunąć lizawki z oddziału ' + section + ', rewir ' + district + ', leśnictwo ' + forestry + '?');
         $('#confirmDeleteModal').data('id', id).modal('show');
     });
 
