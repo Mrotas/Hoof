@@ -153,6 +153,10 @@
     <Compile Include="TrunkFoodPlan\Models\TrunkFoodPlanModel.cs" />
     <Compile Include="TrunkFoodPlan\TrunkFoodPlanService.cs" />
     <Compile Include="TrunkFoodPlan\ViewModels\TrunkFoodPlanViewModel.cs" />
+    <Compile Include="WateringPlace\IWateringPlaceService.cs" />
+    <Compile Include="WateringPlace\ViewModels\WateringPlaceBaseViewModel.cs" />
+    <Compile Include="WateringPlace\ViewModels\WateringPlaceViewModel.cs" />
+    <Compile Include="WateringPlace\WateringPlaceService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

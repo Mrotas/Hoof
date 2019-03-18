@@ -53,7 +53,7 @@ namespace Domain.DeerLicker
         {
             if (model.Section <= 0 || model.District <= 0 || String.IsNullOrWhiteSpace(model.Forestry))
             {
-                throw new Exception("Wystąpił nieznany błąd podczas dodawania paśnika.");
+                throw new Exception("Wystąpił nieznany błąd podczas dodawania lizawek.");
             }
 
             var dto = new DeerLickerDto
@@ -73,7 +73,7 @@ namespace Domain.DeerLicker
         {
             if (model.Section <= 0 || model.District <= 0 || String.IsNullOrWhiteSpace(model.Forestry))
             {
-                throw new Exception("Wystąpił nieznany błąd podczas edytowania paśnika.");
+                throw new Exception("Wystąpił nieznany błąd podczas edytowania lizawek.");
             }
 
             var dto = new DeerLickerDto
@@ -93,7 +93,7 @@ namespace Domain.DeerLicker
         {
             if (id <= 0)
             {
-                throw new Exception("Wystąpił nieznany błąd podczas usuwania paśnika.");
+                throw new Exception("Wystąpił nieznany błąd podczas usuwania lizawek.");
             }
 
             _deerLickerDao.Delete(id);
