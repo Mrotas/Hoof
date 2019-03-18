@@ -24,7 +24,7 @@ namespace DataAccess.Dao.Catch
             using (DbContext)
             {
                 Entities.MarketingYear marketingYear = DbContext.MarketingYear.Find(marketingYearId);
-                List<Entities.Catch> catches = DbContext.Catch.Where(x => x.Date > marketingYear.Start && x.Date < marketingYear.End).ToList();
+                List<Entities.Catch> catches = DbContext.Catch.Where(x => x.Date >= marketingYear.Start && x.Date <= marketingYear.End).ToList();
 
                 IList<CatchDto> dtos = ToDtos(catches);
 
@@ -36,7 +36,7 @@ namespace DataAccess.Dao.Catch
         {
             using (DbContext)
             {
-                List<Entities.Catch> catches = DbContext.Catch.Where(x => x.Date > fromDate && x.Date < toDate).ToList();
+                List<Entities.Catch> catches = DbContext.Catch.Where(x => x.Date >= fromDate && x.Date <= toDate).ToList();
 
                 var dtos = ToDtos(catches);
 

@@ -13,7 +13,7 @@ namespace DataAccess.Dao.Fodder
             using (var db = new DbContext())
             {
                 Entities.MarketingYear marketingYear = db.MarketingYear.Find(marketingYearId);
-                List<Entities.Fodder> fodder = db.Fodder.Where(x => x.Date > marketingYear.Start && x.Date < marketingYear.End).ToList();
+                List<Entities.Fodder> fodder = db.Fodder.Where(x => x.Date >= marketingYear.Start && x.Date <= marketingYear.End).ToList();
 
                 var dtos = ToDtos(fodder);
 
@@ -25,7 +25,7 @@ namespace DataAccess.Dao.Fodder
         {
             using (var db = new DbContext())
             {
-                List<Entities.Fodder> fodder = db.Fodder.Where(x => x.Date > dateFrom && x.Date < dateTo).ToList();
+                List<Entities.Fodder> fodder = db.Fodder.Where(x => x.Date >= dateFrom && x.Date <= dateTo).ToList();
 
                 var dtos = ToDtos(fodder);
 

@@ -13,7 +13,7 @@ namespace DataAccess.Dao.Pasture
             {
                 Entities.MarketingYear marketingYear = db.MarketingYear.Find(marketingYearId);
                 List<Entities.Pasture> pastures = db.Pasture.Where(x => x.CreatedDate <= marketingYear.End && !x.RemovedDate.HasValue || 
-                                                                        x.RemovedDate > marketingYear.Start && x.RemovedDate < marketingYear.End).ToList();
+                                                                        x.RemovedDate >= marketingYear.Start && x.RemovedDate <= marketingYear.End).ToList();
 
                 IList<PastureDto> dtos = ToDtos(pastures);
 

@@ -24,7 +24,7 @@ namespace DataAccess.Dao.Hunt
             using (DbContext)
             {
                 Entities.MarketingYear marketingYear = DbContext.MarketingYear.Find(marketingYearId);
-                List<Entities.Hunt> hunts = DbContext.Hunt.Where(x => x.Date > marketingYear.Start && x.Date < marketingYear.End).ToList();
+                List<Entities.Hunt> hunts = DbContext.Hunt.Where(x => x.Date >= marketingYear.Start && x.Date <= marketingYear.End).ToList();
 
                 IList<HuntDto> dtos = ToDtos(hunts);
 
@@ -36,7 +36,7 @@ namespace DataAccess.Dao.Hunt
         {
             using (DbContext)
             {
-                List<Entities.Hunt> hunts = DbContext.Hunt.Where(x => x.Date > startDate && x.Date < endDate).ToList();
+                List<Entities.Hunt> hunts = DbContext.Hunt.Where(x => x.Date >= startDate && x.Date <= endDate).ToList();
 
                 var dtos = ToDtos(hunts);
 
