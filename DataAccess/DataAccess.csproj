@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\DbContext.cs" />
+    <Compile Include="Dao\CarcassRevenue\CarcassRevenueDao.cs" />
+    <Compile Include="Dao\CarcassRevenue\ICarcassRevenueDao.cs" />
     <Compile Include="Dao\Catch\CatchDao.cs" />
     <Compile Include="Dao\Catch\ICatchDao.cs" />
     <Compile Include="Dao\CostPlan\CostPlanDao.cs" />
@@ -103,6 +105,7 @@
     <Compile Include="Dao\Region\RegionDao.cs" />
     <Compile Include="Dao\WateringPlace\IWateringPlaceDao.cs" />
     <Compile Include="Dao\WateringPlace\WateringPlaceDao.cs" />
+    <Compile Include="Dto\CarcassRevenueDto.cs" />
     <Compile Include="Dto\CatchDto.cs" />
     <Compile Include="Dto\CostPlanDto.cs" />
     <Compile Include="Dto\DeerLickerDto.cs" />
@@ -145,6 +148,7 @@
     <Compile Include="Entities\MarketingYear.cs" />
     <Compile Include="Entities\Pasture.cs" />
     <Compile Include="Entities\Pulpit.cs" />
+    <Compile Include="Entities\CarcassRevenue.cs" />
     <Compile Include="Entities\TrunkFoodPlan.cs" />
     <Compile Include="Entities\Game.cs" />
     <Compile Include="Entities\Hunt.cs" />

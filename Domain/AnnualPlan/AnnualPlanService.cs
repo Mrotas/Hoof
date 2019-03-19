@@ -2,6 +2,7 @@
 using System.Linq;
 using Common.Enums;
 using Common.Extensions;
+using DataAccess.Dao.CarcassRevenue;
 using DataAccess.Dao.CostPlan;
 using DataAccess.Dao.DeerLicker;
 using DataAccess.Dao.EmploymentPlan;
@@ -44,6 +45,7 @@ namespace Domain.AnnualPlan
         private readonly IFodderDao _fodderDao;
         private readonly ICostPlanDao _costPlanDao;
         private readonly IExpenseDao _expenseDao;
+        private readonly ICarcassRevenueDao _carcassRevenueDao;
         private readonly IGamePlanService _gamePlanService;
 
         public AnnualPlanService() : this(new EmploymentPlanDao(), 
@@ -58,6 +60,7 @@ namespace Domain.AnnualPlan
             new FodderDao(), 
             new CostPlanDao(), 
             new ExpenseDao(),
+            new CarcassRevenueDao(),
             new GamePlanService(), 
             new MarketingYearService())
         {
@@ -75,6 +78,7 @@ namespace Domain.AnnualPlan
             IFodderDao fodderDao,
             ICostPlanDao costPlanDao,
             IExpenseDao expenseDao,
+            ICarcassRevenueDao carcassRevenueDao,
             IGamePlanService gamePlanService,
             IMarketingYearService marketingYearService)
         {
@@ -90,6 +94,7 @@ namespace Domain.AnnualPlan
             _fodderDao = fodderDao;
             _costPlanDao = costPlanDao;
             _expenseDao = expenseDao;
+            _carcassRevenueDao = carcassRevenueDao;
             _gamePlanService = gamePlanService;
             _marketingYearService = marketingYearService;
         }
@@ -339,7 +344,8 @@ namespace Domain.AnnualPlan
                     annualPlanCostTypeModel.Execution = previousMarketingYearExpenses.Sum(x => x.Cost) / 1000.0;
                     break;
                 case CostType.Revenue:
-                    annualPlanCostTypeModel.Execution = 0;
+                    IList<CarcassRevenueDto> previousMarketingYearCarcassRevenues = _carcassRevenueDao.GetByMarketingYear(PreviousMarketingYearId);
+                    annualPlanCostTypeModel.Execution = previousMarketingYearCarcassRevenues.Sum(x => x.Revenue) / 1000.0;
                     break;
                 default:
                     break;

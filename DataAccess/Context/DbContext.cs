@@ -18,6 +18,7 @@ namespace DataAccess.Context
             base.OnModelCreating(modelBuilder);
         }
         
+        public DbSet<CarcassRevenue> CarcassRevenue { get; set; }
         public DbSet<Catch> Catch { get; set; }
         public DbSet<CostPlan> CostPlan { get; set; }
         public DbSet<DeerLicker> DeerLicker { get; set; }
