@@ -22,6 +22,7 @@ namespace DataAccess.Context
         public DbSet<CostPlan> CostPlan { get; set; }
         public DbSet<DeerLicker> DeerLicker { get; set; }
         public DbSet<EmploymentPlan> EmploymentPlan { get; set; }
+        public DbSet<Expense> Expense { get; set; }
         public DbSet<FieldPlan> FieldPlan { get; set; }
         public DbSet<Fodder> Fodder { get; set; }
         public DbSet<FodderPlan> FodderPlan { get; set; }

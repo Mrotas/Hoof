@@ -5,6 +5,7 @@ using Common.Extensions;
 using DataAccess.Dao.CostPlan;
 using DataAccess.Dao.DeerLicker;
 using DataAccess.Dao.EmploymentPlan;
+using DataAccess.Dao.Expense;
 using DataAccess.Dao.FieldPlan;
 using DataAccess.Dao.Fodder;
 using DataAccess.Dao.FodderPlan;
@@ -42,6 +43,7 @@ namespace Domain.AnnualPlan
         private readonly IFodderPlanDao _fodderPlanDao;
         private readonly IFodderDao _fodderDao;
         private readonly ICostPlanDao _costPlanDao;
+        private readonly IExpenseDao _expenseDao;
         private readonly IGamePlanService _gamePlanService;
 
         public AnnualPlanService() : this(new EmploymentPlanDao(), 
@@ -55,6 +57,7 @@ namespace Domain.AnnualPlan
             new FodderPlanDao(),
             new FodderDao(), 
             new CostPlanDao(), 
+            new ExpenseDao(),
             new GamePlanService(), 
             new MarketingYearService())
         {
@@ -70,7 +73,8 @@ namespace Domain.AnnualPlan
             IFieldPlanDao fieldPlanDao, 
             IFodderPlanDao fodderPlanDao,
             IFodderDao fodderDao,
-            ICostPlanDao costPlanDao, 
+            ICostPlanDao costPlanDao,
+            IExpenseDao expenseDao,
             IGamePlanService gamePlanService,
             IMarketingYearService marketingYearService)
         {
@@ -85,6 +89,7 @@ namespace Domain.AnnualPlan
             _fodderPlanDao = fodderPlanDao;
             _fodderDao = fodderDao;
             _costPlanDao = costPlanDao;
+            _expenseDao = expenseDao;
             _gamePlanService = gamePlanService;
             _marketingYearService = marketingYearService;
         }
@@ -323,10 +328,22 @@ namespace Domain.AnnualPlan
                 CostType = costType,
                 CostTypeName = TypeName.GetFodderTypeName((int)costType),
                 PreviousPlan = previousMarketingYearCostPlans.FirstOrDefault(x => x.Type == (int)costType)?.Cost / 1000.0 ?? 0,
-                Execution = 0, // TODO: Add cost utility
                 CurrentState = 0, // TODO: How to determine it?
                 FutureState = currentMarketingYearCostPlans.FirstOrDefault(x => x.Type == (int)costType)?.Cost / 1000.0 ?? 0
             };
+
+            switch (costType)
+            {
+                case CostType.Cost:
+                    IList<ExpenseDto> previousMarketingYearExpenses = _expenseDao.GetByMarketingYear(PreviousMarketingYearId);
+                    annualPlanCostTypeModel.Execution = previousMarketingYearExpenses.Sum(x => x.Cost) / 1000.0;
+                    break;
+                case CostType.Revenue:
+                    annualPlanCostTypeModel.Execution = 0;
+                    break;
+                default:
+                    break;
+            }
 
             return annualPlanCostTypeModel;
         }

@@ -79,6 +79,10 @@
     <Compile Include="EmploymentPlan\IEmploymentPlanService.cs" />
     <Compile Include="EmploymentPlan\ViewModels\EmploymentPlanViewModel.cs" />
     <Compile Include="EmploymentPlan\ViewModels\EmploymentPlanBaseViewModel.cs" />
+    <Compile Include="Expense\ExpenseService.cs" />
+    <Compile Include="Expense\IExpenseService.cs" />
+    <Compile Include="Expense\ViewModels\ExpenseBaseViewModel.cs" />
+    <Compile Include="Expense\ViewModels\ExpenseViewModel.cs" />
     <Compile Include="FieldPlan\FieldPlanService.cs" />
     <Compile Include="FieldPlan\IFieldPlanService.cs" />
     <Compile Include="FieldPlan\Models\FiledPlanModel.cs" />
