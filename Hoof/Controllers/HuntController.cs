@@ -31,7 +31,14 @@ namespace Hoof.Controllers
             IList<HuntViewModel> myHunts = _huntService.GetHuntsByHuntsmanId(1);
             return View(myHunts);
         }
-        
+
+        public JsonResult GetByMarketingYear(int marketingYearId)
+        {
+            IList<HuntViewModel> huntModels = _huntService.GetByMarketingYearId(marketingYearId);
+
+            return Json(huntModels, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public JsonResult Create(HuntCreateModel model)
         {

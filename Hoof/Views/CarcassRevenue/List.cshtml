@@ -1,0 +1,176 @@
+﻿@using Domain.CarcassRevenue.ViewModels
+@model Domain.CarcassRevenue.ViewModels.CarcassRevenueBaseViewModel
+
+@{
+    ViewBag.Title = "Przychody";
+}
+
+@section Scripts{
+
+    @Scripts.Render("~/bundles/jqueryval")
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/CarcassRevenue/CarcassRevenue.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var config = {
+                MarketingYearId: @Model.MarketingYearModel.Id,
+                Controller: "CarcassRevenue"
+            };
+            var carcassRevenue = new CarcassRevenue(config);
+        });
+    </script>
+}
+
+<h4 style="text-align: center">Przychody ze sprzedarzy tuszy zwierzyny łownej w roku gospodarczym @Model.MarketingYearModel</h4>
+
+<br />
+
+<button class="btn btn-primary" id="add">Dodaj</button>
+<table class="table table-bordered table-hover" id="expenseTable">
+    <tr>
+        <th style="width: 5%">
+            Lp.
+        </th>
+        <th style="width: 20%">
+            Zwierzyna
+        </th>
+        <th style="width: 15%">
+            Rodzaj
+        </th>
+        <th style="width: 15%">
+            Klasa
+        </th>
+        <th style="width: 10%">
+            Waga tuszy
+        </th>
+        <th style="width: 15%">
+            Data polowania
+        </th>
+        <th style="width: 10%">
+            Przychód w zł
+        </th>
+        <th style="width: 10%">
+            Zarządzaj
+        </th>
+    </tr>
+    @foreach (CarcassRevenueViewModel item in Model.CarcassRevenueViewModels.OrderBy(x => x.HuntDate).ToList())
+    {
+    <tr>
+        <td style="text-align: center">
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td hidden>
+            @Html.DisplayFor(modelItem => item.HuntedGameId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GameKindName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GameSubKindName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CarcassWeight)
+        </td>
+        <td>
+            @item.HuntDate.ToString("dd/MM/yyyy")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Revenue)
+        </td>
+        <td style="text-align: center">
+            <button class="btn btn-xs btn-success editCarcassRevenue">Edytuj</button>
+            <button class="btn btn-xs btn-danger deleteCarcassRevenue">Usuń</button>
+        </td>
+    </tr>
+    }
+</table>
+
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Usuwanie przychodu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger" role="alert" style="display: none">
+                    <h4 class="alert-heading">
+                        <button type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </h4>
+                    <p class="alert-body"></p>
+                </div>
+
+                <div id="confirmDeleteModalBody">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Usuń</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="addCarcassRevenueModal">
+    <div class="modal-dialog" style="width: 800px">
+        <div class="modal-content">
+
+            <div class="modal-header" style="text-align: center; background-color: rgba(92, 184, 92, 0.6)">
+                <button type="button" class="close" data-dismiss="modal" id="closeModalXButton">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Dodaj przychód ze sprzedaży zwierzyny łownej
+                </h4>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="alert alert-danger" id="alert" role="alert" style="display: none">
+                    <h4 class="alert-heading">
+                        <button type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </h4>
+                    <p class="alert-body"></p>
+                </div>
+
+                <div class="form-horizontal">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-3 col-md-offset-1">
+                                Waga tuszy: <input type="number" class="form-control" id="carcassWeight">
+                            </div>
+
+                            <div class="col-md-3 col-md-offset-1">
+                                Przychód ze sprzedaży: <input type="number" class="form-control" id="revenue">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <table class="table table-bordered table-stripped" id="huntedGameTable" style="height: 430px">
+
+                        </table>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel">Zamknij</button>
+                        <button type="button" class="btn btn-success" id="save">Zapisz</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -25,6 +25,8 @@ namespace Domain.Hunt.ViewModels
 
         [Display(Name = "Rewir")]
         public int District { get; set; }
+
+        public int HuntedGameId { get; set; }
         
         [Display(Name = "Zwierzyna")]
         public string GameKindName { get; set; }

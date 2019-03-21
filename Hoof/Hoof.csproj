@@ -158,6 +158,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AnnualPlanController.cs" />
+    <Compile Include="Controllers\CarcassRevenueController.cs" />
     <Compile Include="Controllers\CatchController.cs" />
     <Compile Include="Controllers\CostPlanController.cs" />
     <Compile Include="Controllers\DeerLickerController.cs" />
@@ -204,6 +205,7 @@
     <Content Include="fonts\timesbi.ttf" />
     <Content Include="fonts\timesi.ttf" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\CarcassRevenue\CarcassRevenue.js" />
     <Content Include="Scripts\CostPlan\CostPlan.js" />
     <Content Include="Scripts\DeerLicker\DeerLicker.js" />
     <Content Include="Scripts\EmploymentPlan\EmploymentPlan.js" />
@@ -282,6 +284,8 @@
     <Content Include="Views\WateringPlace\List.cshtml" />
     <Content Include="Views\Expense\Index.cshtml" />
     <Content Include="Views\Expense\List.cshtml" />
+    <Content Include="Views\CarcassRevenue\Index.cshtml" />
+    <Content Include="Views\CarcassRevenue\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

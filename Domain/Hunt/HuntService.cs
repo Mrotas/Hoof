@@ -6,6 +6,7 @@ using DataAccess.Dao.GameClass;
 using DataAccess.Dao.Hunt;
 using DataAccess.Dao.HuntedGame;
 using DataAccess.Dao.Huntsman;
+using DataAccess.Dao.MarketingYear;
 using DataAccess.Dao.Region;
 using DataAccess.Dto;
 using Domain.Hunt.Models;
@@ -39,12 +40,13 @@ namespace Domain.Hunt
         private readonly IRegionDao _regionDao;
         private readonly IHuntedGameDao _huntedGameDao;
         private readonly IGameClassDao _gameClassDao;
+        private readonly IMarketingYearDao _marketingYearDao;
 
-        public HuntService() : this (new HuntDao(), new GameDao(), new HuntsmanDao(), new RegionDao(), new HuntedGameDao(), new GameClassDao())
+        public HuntService() : this (new HuntDao(), new GameDao(), new HuntsmanDao(), new RegionDao(), new HuntedGameDao(), new GameClassDao(), new MarketingYearDao())
         {
         }
 
-        public HuntService(IHuntDao huntDao, IGameDao gameDao, IHuntsmanDao huntsmanDao, IRegionDao regionDao, IHuntedGameDao huntedGameDao, IGameClassDao gameClassDao)
+        public HuntService(IHuntDao huntDao, IGameDao gameDao, IHuntsmanDao huntsmanDao, IRegionDao regionDao, IHuntedGameDao huntedGameDao, IGameClassDao gameClassDao, IMarketingYearDao marketingYearDao)
         {
             _huntDao = huntDao;
             _gameDao = gameDao;
@@ -52,6 +54,7 @@ namespace Domain.Hunt
             _regionDao = regionDao;
             _huntedGameDao = huntedGameDao;
             _gameClassDao = gameClassDao;
+            _marketingYearDao = marketingYearDao;
         }
 
         public IList<HuntViewModel> GetAllHunts()
@@ -67,6 +70,38 @@ namespace Domain.Hunt
                 {
                     HuntsmanName = huntsman.Name,
                     HuntsmanLastName = huntsman.LastName,
+                    HuntedGameId = huntedGame.Id,
+                    GameKindName = game.KindName,
+                    GameSubKindName = GetSubKindName(game.SubKindName),
+                    GameClass = GetGameClass(huntedGame.GameClass),
+                    GameWeight = GetGameWeight(huntedGame.GameWeight),
+                    City = region.City,
+                    Circuit = region.Circuit,
+                    District = region.District,
+                    Shots = hunt.Shots,
+                    Date = hunt.Date
+                }
+            ).ToList();
+
+            return huntViewModels;
+        }
+
+        public IList<HuntViewModel> GetByMarketingYearId(int marketingYearId)
+        {
+            DataAccess.Entities.MarketingYear marketingYear = _marketingYearDao.GetById(marketingYearId);
+            List<HuntViewModel> huntViewModels =
+            (
+                from hunt in Hunts
+                join huntsman in Huntsmans on hunt.HuntsmanId equals huntsman.Id
+                join huntedGame in HuntedGames on hunt.HuntedGameId equals huntedGame.Id
+                join game in Games on huntedGame.GameId equals game.Id
+                join region in Regions on hunt.RegionId equals region.Id
+                where hunt.Date >= marketingYear.Start && hunt.Date <= marketingYear.End
+                select new HuntViewModel
+                {
+                    HuntsmanName = huntsman.Name,
+                    HuntsmanLastName = huntsman.LastName,
+                    HuntedGameId = huntedGame.Id,
                     GameKindName = game.KindName,
                     GameSubKindName = GetSubKindName(game.SubKindName),
                     GameClass = GetGameClass(huntedGame.GameClass),
@@ -94,6 +129,9 @@ namespace Domain.Hunt
                 where huntsman.Id == huntsmanId
                 select new HuntViewModel
                 {
+                    HuntsmanName = huntsman.Name,
+                    HuntsmanLastName = huntsman.LastName,
+                    HuntedGameId = huntedGame.Id,
                     GameKindName = game.KindName,
                     GameSubKindName = GetSubKindName(game.SubKindName),
                     GameClass = GetGameClass(huntedGame.GameClass),

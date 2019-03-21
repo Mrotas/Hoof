@@ -63,6 +63,8 @@
     <Compile Include="AnnualPlan\Models\GamePlan\AnnualPlanKindGameModel.cs" />
     <Compile Include="AnnualPlan\Models\GamePlan\AnnualPlanSubKindGameModel.cs" />
     <Compile Include="AnnualPlan\Models\HuntEquipment\AnnualPlanHuntEquipmentTypeModel.cs" />
+    <Compile Include="CarcassRevenue\CarcassRevenueService.cs" />
+    <Compile Include="CarcassRevenue\ICarcassRevenueService.cs" />
     <Compile Include="Catch\CatchService.cs" />
     <Compile Include="Catch\ICatchService.cs" />
     <Compile Include="Catch\Models\CatchCreateModel.cs" />
@@ -153,6 +155,8 @@
     <Compile Include="Report\Models\MonthlyReportModel.cs" />
     <Compile Include="Report\Models\MonthlyReportSubKindGameModel.cs" />
     <Compile Include="Report\ReportService.cs" />
+    <Compile Include="CarcassRevenue\ViewModels\CarcassRevenueBaseViewModel.cs" />
+    <Compile Include="CarcassRevenue\ViewModels\CarcassRevenueViewModel.cs" />
     <Compile Include="TrunkFoodPlan\ITrunkFoodPlanService.cs" />
     <Compile Include="TrunkFoodPlan\Models\TrunkFoodPlanModel.cs" />
     <Compile Include="TrunkFoodPlan\TrunkFoodPlanService.cs" />
