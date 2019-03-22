@@ -1,10 +1,10 @@
 ﻿using System;
-using Domain.Report.Models;
+using Domain.Report.ViewModels;
 
 namespace Domain.Report
 {
     public interface IReportService
     {
-        MonthlyReportModel GetMonthlyReportData(DateTime startDate, DateTime endDate);
+        MonthlyReportViewModel GetMonthlyReportViewModel(DateTime startDate, DateTime endDate);
     }
 }

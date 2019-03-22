@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Domain.Report.Models
+namespace Domain.Report.Models.Game
 {
     public class MonthlyReportGameModel
     {

@@ -11,7 +11,7 @@
         var dottedLine = '..........................................................................................................................................................................................';
 
         for (var i = 1; i <= rowsNumber; i++) {
-            array.push({ text: dottedLine, fontSize: 11, margin: [0, 10, 0, 0] });
+            array.push({ text: dottedLine, fontSize: 11, margin: [0, 15, 0, 0] });
         }
     }
 
@@ -53,6 +53,18 @@
         }
         ctx.restore();
         return canvas.toDataURL();
+    }
+
+    var dateTimeReviver = function (jsonDate) {
+        var a;
+        if (typeof jsonDate === 'string') {
+            a = /\/Date\((\d*)\)\//.exec(jsonDate);
+            if (a) {
+                var date = new Date(+a[1]);
+                return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+            }
+        }
+        return jsonDate;
     }
 
     var getKindCell = function(gameKind, gameKindName, colSpan, rowSpan) {
@@ -267,14 +279,23 @@
             { text:'Informacja o wykonanej poprawie naturalnych warunków bytowania zwierzyny:', style: 'header', pageBreak: 'before', margin: [0, 0, 0, 30]}
         ]);
 
-        $.each(data, function() {
-            //TODO: push administration info here
+        $.each(data.LaborModels, function(index, labor) {
+            administrationRow.push({
+                text: [
+                    { text: ++index + '. ', fontSize: 10 },
+                    { text: labor.Description + ', ', fontSize: 10 }
+                ], margin: [0, 10, 0, 0]
+            });
+            administrationRow.push([
+                { text: '..........................................................................................................................................................................................', fontSize: 11, margin:[0, -5, 0, 0] }
+            ]);
         });
 
-        getDottedRows(administrationRow, 30);
+        var rowsLeft = 24 - data.LaborModels.length;
+        getDottedRows(administrationRow, rowsLeft);
 
         administrationRow.push([
-            { text: 'Miejscowość ...................................................................................................................................................................', fontSize: 11, margin:[0, 30, 0, 0]}
+            { text: 'Miejscowość ...................................................................................................................................................................', fontSize: 11, margin:[0, 50, 0, 0]}
         ]);
 
         administrationRow.push([
@@ -288,7 +309,7 @@
 
         var reportHeaders = getReportHeaders();
         var reportTable = getReportTable(data);
-        var administrationInformation = getAdministrationInformationRow(data);
+        var administrationInformation = getAdministrationInformationRow(data.MonthlyReportLaborModel);
 
         var docDefinition = {
             pageOrientation: 'portrait',

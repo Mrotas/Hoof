@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using Domain.Report;
 using Domain.Report.Models;
+using Domain.Report.ViewModels;
 
 namespace Hoof.Controllers
 {
@@ -26,13 +27,13 @@ namespace Hoof.Controllers
 
         public ActionResult MonthlyReport(DateTime dateFrom, DateTime dateTo)
         {
-            MonthlyReportModel monthlyReportsModel = _reportService.GetMonthlyReportData(dateFrom, dateTo);
+            MonthlyReportViewModel monthlyReportsModel = _reportService.GetMonthlyReportViewModel(dateFrom, dateTo);
             return View(monthlyReportsModel);
         }
 
         public JsonResult GetMonthlyReportJsonData(DateTime dateFrom, DateTime dateTo)
         {
-            MonthlyReportModel monthlyReportsModel = _reportService.GetMonthlyReportData(dateFrom, dateTo);
+            MonthlyReportViewModel monthlyReportsModel = _reportService.GetMonthlyReportViewModel(dateFrom, dateTo);
             return Json(monthlyReportsModel, JsonRequestBehavior.AllowGet);
         }
     }

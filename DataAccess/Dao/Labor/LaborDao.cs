@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DataAccess.Context;
 using DataAccess.Dto;
@@ -13,6 +14,18 @@ namespace DataAccess.Dao.Labor
             {
                 Entities.MarketingYear marketingYear = DbContext.MarketingYear.Find(marketingYearId);
                 List<Entities.Labor> expenses = db.Labor.Where(x => x.Date >= marketingYear.Start && x.Date <= marketingYear.End).ToList();
+
+                IList<LaborDto> dtos = ToDtos(expenses);
+
+                return dtos;
+            }
+        }
+
+        public IList<LaborDto> GetByDateRange(DateTime fromDate, DateTime toDate)
+        {
+            using (var db = new DbContext())
+            {
+                List<Entities.Labor> expenses = db.Labor.Where(x => x.Date >= fromDate && x.Date <= toDate).ToList();
 
                 IList<LaborDto> dtos = ToDtos(expenses);
 

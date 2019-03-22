@@ -11,10 +11,15 @@ using DataAccess.Dao.GameHuntPlan;
 using DataAccess.Dao.HuntedGame;
 using DataAccess.Dao.LossGame;
 using DataAccess.Dto;
+using Domain.Labor;
+using Domain.Labor.Models;
 using Domain.MarketingYear;
 using Domain.MarketingYear.Models;
 using Domain.Report.Models;
 using Domain.Report.Models.Fodder;
+using Domain.Report.Models.Game;
+using Domain.Report.Models.Labor;
+using Domain.Report.ViewModels;
 
 namespace Domain.Report
 {
@@ -52,6 +57,7 @@ namespace Domain.Report
         private readonly ILossGameDao _lossGameDao;
         private readonly ICatchDao _catchDao;
         private readonly IFodderDao _fodderDao;
+        private readonly ILaborService _laborService;
 
         public ReportService() : this(new GameDao(), 
             new GameHuntPlanDao(), 
@@ -60,7 +66,8 @@ namespace Domain.Report
             new GameClassDao(), 
             new LossGameDao(), 
             new CatchDao(), 
-            new FodderDao())
+            new FodderDao(), 
+            new LaborService())
         {
         }
 
@@ -71,7 +78,8 @@ namespace Domain.Report
             IGameClassDao gameClassDao, 
             ILossGameDao lossGameDao, 
             ICatchDao catchDao,
-            IFodderDao fodderDao)
+            IFodderDao fodderDao, 
+            ILaborService laborService)
         {
             _gameDao = gameDao;
             _gameHuntPlanDao = gameHuntPlanDao;
@@ -81,9 +89,10 @@ namespace Domain.Report
             _lossGameDao = lossGameDao;
             _catchDao = catchDao;
             _fodderDao = fodderDao;
+            _laborService = laborService;
         }
 
-        public MonthlyReportModel GetMonthlyReportData(DateTime startDate, DateTime endDate)
+        public MonthlyReportViewModel GetMonthlyReportViewModel(DateTime startDate, DateTime endDate)
         {
             ReportDateFrom = startDate;
             ReportDateTo = endDate;
@@ -91,11 +100,12 @@ namespace Domain.Report
 
             MarketingYearModel marketingYearModel = _marketingYearService.GetMarketingYearModel(MarketingYearId);
 
-            var monthlyReportModel = new MonthlyReportModel
+            var monthlyReportModel = new MonthlyReportViewModel
             {
                 MonthlyReportBigGameModel = GetMonthlyReportData(GameType.Big),
                 MonthlyReportSmallGameModel = GetMonthlyReportData(GameType.Small),
                 MonthlyReportFodderModel = GetMonthlyReportFodderModel(),
+                MonthlyReportLaborModel = GetMonthlyReportLaborModel(),
                 ReportDateFrom = ReportDateFrom,
                 ReportDateTo = ReportDateTo,
                 MarketingYearModel = marketingYearModel
@@ -131,6 +141,18 @@ namespace Domain.Report
             };
 
             return annualPlanFodderTypeModel;
+        }
+
+        private MonthlyReportLaborModel GetMonthlyReportLaborModel()
+        {
+            IList<LaborModel> laborModels = _laborService.GetLaborModels(ReportDateFrom, ReportDateTo);
+
+            var monthlyReportLaborModel = new MonthlyReportLaborModel
+            {
+                LaborModels = laborModels
+            };
+
+            return monthlyReportLaborModel;
         }
 
         private MonthlyReportGameModel GetMonthlyReportData(GameType gameType)

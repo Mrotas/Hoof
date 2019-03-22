@@ -4,6 +4,7 @@ using System.Linq;
 using DataAccess.Dao.Huntsman;
 using DataAccess.Dao.Labor;
 using DataAccess.Dto;
+using Domain.Labor.Models;
 using Domain.Labor.ViewModels;
 using Domain.MarketingYear;
 using Domain.MarketingYear.Models;
@@ -25,6 +26,21 @@ namespace Domain.Labor
             _laborDao = laborDao;
             _huntsmanDao = huntsmanDao;
             _marketingYearService = marketingYearService;
+        }
+
+        public IList<LaborModel> GetLaborModels(DateTime fromDate, DateTime toDate)
+        {
+            IList<LaborDto> laborDtos = _laborDao.GetByDateRange(fromDate, toDate);
+
+            List<LaborModel> laborModels = laborDtos.Select(x => new LaborModel
+            {
+                Id = x.Id,
+                HuntsmanId = x.Id,
+                Description = x.Description,
+                Date = x.Date
+            }).ToList();
+
+            return laborModels;
         }
 
         public LaborBaseViewModel GetLaborViewModel(int marketingYearId)

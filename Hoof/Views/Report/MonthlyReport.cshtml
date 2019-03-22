@@ -1,7 +1,9 @@
 ﻿@using Common.Enums
 @using Common.Extensions
+@using Domain.Labor.Models
 @using Domain.Report.Models
-@model MonthlyReportModel
+@using Domain.Report.Models.Game
+@model Domain.Report.ViewModels.MonthlyReportViewModel
 
 @{
     ViewBag.Title = "Report";
@@ -55,7 +57,7 @@
     @foreach (MonthlyReportKindGameModel bigKindGameModel in Model.MonthlyReportBigGameModel.MonthlyReportKindGameModels)
     {
         if (bigKindGameModel.Kind.IsIn(bigGameKindsWithPortraitColumn))
-        {            
+        {
             <tr>
                 <td rowspan="@(bigKindGameModel.MonthlyReportSubKindGameModels.FirstOrDefault().MonthlyReportClassGameModels.Count + 5)" style="text-orientation: mixed">@bigKindGameModel.KindName</td>
             </tr>
@@ -71,7 +73,7 @@
         {
             foreach (MonthlyReportClassGameModel bigClassGameModel in bigSubKindGameModel.MonthlyReportClassGameModels)
             {
-                string className = bigKindGameModel.Kind == (int) GameKind.FallowDeer ? $"byk {bigClassGameModel.ClassName}" : $"{bigSubKindGameModel.SubKindName.ToLower()} {bigClassGameModel.ClassName}";
+                string className = bigKindGameModel.Kind == (int)GameKind.FallowDeer ? $"byk {bigClassGameModel.ClassName}" : $"{bigSubKindGameModel.SubKindName.ToLower()} {bigClassGameModel.ClassName}";
                 <tr>
                     <td>@className</td>
                     <td>@bigClassGameModel.Culls</td>
@@ -141,4 +143,24 @@
         <td colspan="1">@Model.MonthlyReportFodderModel.Salt.PutOut</td>
         <td colspan="1">kg</td>
     </tr>
+</table>
+
+<br />
+<br />
+
+<h3>Informacja o wykonanej poprawie naturalnych warunków bytowania zwierzyny :</h3>
+
+<br />
+
+<table class="table-hover" style="width: 100%">
+    @{int counter = 1;}
+    @foreach (LaborModel labor in Model.MonthlyReportLaborModel.LaborModels)
+    {
+        <tr style="font-size: 16px">
+            <td style="width: 2%">@counter.</td>
+            <td style="width: 88%">@labor.Description</td>
+            <td style="width: 10%">@labor.Date.ToString("dd/MM/yyyy")</td>
+        </tr>
+        counter++;
+    }
 </table>

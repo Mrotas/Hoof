@@ -138,6 +138,7 @@
     <Compile Include="Hunt\ViewModels\HuntViewModel.cs" />
     <Compile Include="Labor\ILaborService.cs" />
     <Compile Include="Labor\LaborService.cs" />
+    <Compile Include="Labor\Models\LaborModel.cs" />
     <Compile Include="Labor\ViewModels\LaborBaseViewModel.cs" />
     <Compile Include="Labor\ViewModels\LaborViewModel.cs" />
     <Compile Include="MarketingYear\IMarketingYearService.cs" />
@@ -155,12 +156,13 @@
     <Compile Include="Report\IReportService.cs" />
     <Compile Include="Report\Models\Fodder\MonthlyReportFodderModel.cs" />
     <Compile Include="Report\Models\Fodder\MonthlyReportFodderTypeModel.cs" />
-    <Compile Include="Report\Models\MonthlyReportClassGameModel.cs" />
-    <Compile Include="Report\Models\MonthlyReportGameBaseModel.cs" />
-    <Compile Include="Report\Models\MonthlyReportGameModel.cs" />
-    <Compile Include="Report\Models\MonthlyReportKindGameModel.cs" />
-    <Compile Include="Report\Models\MonthlyReportModel.cs" />
-    <Compile Include="Report\Models\MonthlyReportSubKindGameModel.cs" />
+    <Compile Include="Report\Models\Labor\MonthlyReportLaborModel.cs" />
+    <Compile Include="Report\Models\Game\MonthlyReportClassGameModel.cs" />
+    <Compile Include="Report\Models\Game\MonthlyReportGameBaseModel.cs" />
+    <Compile Include="Report\Models\Game\MonthlyReportGameModel.cs" />
+    <Compile Include="Report\Models\Game\MonthlyReportKindGameModel.cs" />
+    <Compile Include="Report\ViewModels\MonthlyReportViewModel.cs" />
+    <Compile Include="Report\Models\Game\MonthlyReportSubKindGameModel.cs" />
     <Compile Include="Report\ReportService.cs" />
     <Compile Include="CarcassRevenue\ViewModels\CarcassRevenueBaseViewModel.cs" />
     <Compile Include="CarcassRevenue\ViewModels\CarcassRevenueViewModel.cs" />
