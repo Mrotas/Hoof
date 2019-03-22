@@ -129,10 +129,17 @@
     <Compile Include="HuntEquipmentPlan\IHuntEquipmentPlanService.cs" />
     <Compile Include="HuntEquipmentPlan\ViewModels\HuntEquipmentPlanBaseViewModel.cs" />
     <Compile Include="HuntEquipmentPlan\ViewModels\HuntEquipmentPlanViewModel.cs" />
+    <Compile Include="Huntsman\HuntsmanService.cs" />
+    <Compile Include="Huntsman\IHuntsmanService.cs" />
+    <Compile Include="Huntsman\Models\HuntsmanModel.cs" />
     <Compile Include="Hunt\HuntService.cs" />
     <Compile Include="Hunt\IHuntService.cs" />
     <Compile Include="Hunt\Models\HuntCreateModel.cs" />
     <Compile Include="Hunt\ViewModels\HuntViewModel.cs" />
+    <Compile Include="Labor\ILaborService.cs" />
+    <Compile Include="Labor\LaborService.cs" />
+    <Compile Include="Labor\ViewModels\LaborBaseViewModel.cs" />
+    <Compile Include="Labor\ViewModels\LaborViewModel.cs" />
     <Compile Include="MarketingYear\IMarketingYearService.cs" />
     <Compile Include="MarketingYear\MarketingYearService.cs" />
     <Compile Include="MarketingYear\Models\MarketingYearModel.cs" />

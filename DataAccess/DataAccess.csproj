@@ -82,6 +82,8 @@
     <Compile Include="Dao\HuntedGame\IHuntedGameDao.cs" />
     <Compile Include="Dao\HuntEquipmentPlan\HuntEquipmentPlanDao.cs" />
     <Compile Include="Dao\HuntEquipmentPlan\IHuntEquipmentPlanDao.cs" />
+    <Compile Include="Dao\Labor\ILaborDao.cs" />
+    <Compile Include="Dao\Labor\LaborDao.cs" />
     <Compile Include="Dao\LossGame\ILossGameDao.cs" />
     <Compile Include="Dao\LossGame\LossGameDao.cs" />
     <Compile Include="Dao\Loss\ILossDao.cs" />
@@ -122,6 +124,7 @@
     <Compile Include="Dto\HuntedGameDto.cs" />
     <Compile Include="Dto\HuntEquipmentPlanDto.cs" />
     <Compile Include="Dto\HuntsmanDto.cs" />
+    <Compile Include="Dto\LaborDto.cs" />
     <Compile Include="Dto\LossDto.cs" />
     <Compile Include="Dto\LossGameDto.cs" />
     <Compile Include="Dto\MarketingYearDto.cs" />
@@ -143,6 +146,7 @@
     <Compile Include="Entities\GameHuntPlan.cs" />
     <Compile Include="Entities\HuntedGame.cs" />
     <Compile Include="Entities\HuntEquipmentPlan.cs" />
+    <Compile Include="Entities\Labor.cs" />
     <Compile Include="Entities\Loss.cs" />
     <Compile Include="Entities\LossGame.cs" />
     <Compile Include="Entities\MarketingYear.cs" />

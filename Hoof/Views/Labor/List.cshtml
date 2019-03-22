@@ -1,0 +1,163 @@
+﻿@using Domain.Labor.ViewModels
+@model Domain.Labor.ViewModels.LaborBaseViewModel
+
+@{
+    ViewBag.Title = "List";
+}
+
+@section Scripts{
+
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="~/Scripts/Labor/Labor.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var config = {
+                MarketingYearId: @Model.MarketingYearModel.Id,
+                Controller: "Labor"
+            };
+            var labor = new Labor(config);
+        });
+    </script>
+}
+
+<h4 style="text-align: center">Prace gospodarcze w kole łowieckim w roku gospodarczym @Model.MarketingYearModel</h4>
+
+<br />
+
+<button class="btn btn-primary" id="add" data-toggle="modal" data-target="#addLaborModal">Dodaj</button>
+<table class="table table-bordered table-hover" id="laborTable">
+    <tr>
+        <th style="width: 5%">
+            Lp.
+        </th>
+        <th hidden>
+            Identyfikator myśliwego
+        </th>
+        <th style="width: 20%">
+            Gospodarz
+        </th>
+        <th style="width: 55%">
+            Opis
+        </th>
+        <th style="width: 10%">
+            Data
+        </th>
+        <th style="width: 10%">
+            Zarządzaj
+        </th>
+    </tr>
+    @foreach (LaborViewModel item in Model.LaborViewModels.OrderBy(x => x.Date).ToList())
+    {
+        <tr>
+            <td style="text-align: center">
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td hidden>
+                @Html.DisplayFor(modelItem => item.HuntsmanId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HuntsmanName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td style="text-align: center">
+                @item.Date.ToString("dd/MM/yyyy")
+            </td>
+            <td style="text-align: center">
+                <button class="btn btn-xs btn-success editLabor">Edytuj</button>
+                <button class="btn btn-xs btn-danger deleteLabor">Usuń</button>
+            </td>
+        </tr>
+    }
+</table>
+
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Usuwanie pracy gospodarczej</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger" role="alert" style="display: none">
+                    <h4 class="alert-heading">
+                        <button type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </h4>
+                    <p class="alert-body"></p>
+                </div>
+
+                <div id="confirmDeleteModalBody">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Usuń</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="addLaborModal">
+    <div class="modal-dialog" style="width: 500px;">
+        <div class="modal-content">
+
+            <div class="modal-header" style="text-align: center; background-color: rgba(92, 184, 92, 0.6)">
+                <button type="button" class="close" data-dismiss="modal" id="closeModalXButton">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Dodaj pracę gospodarczą
+                </h4>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="alert alert-danger" role="alert" style="display: none">
+                    <h4 class="alert-heading">
+                        <button type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </h4>
+                    <p class="alert-body"></p>
+                </div>
+                
+                <div class="form-horizontal">
+                    
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-2" style="width: 100%">
+                            Gospodarz:
+                            @Html.DropDownList("Wybierz gospodarza", new List<SelectListItem>
+                            {
+                            }, "", new {Name = String.Empty, @class = "form-control", id = "huntsman", style = "width: 75%"})
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-2" style="width: 75%">
+                            Opis: <textarea type="text" class="form-control" id="description"> </textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-2" style="width: 75%">
+                            Data: <input type="date" class="form-control" id="date"/>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel">Zamknij</button>
+                        <button type="button" class="btn btn-success" id="save">Zapisz</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

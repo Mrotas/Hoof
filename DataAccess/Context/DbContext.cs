@@ -35,6 +35,7 @@ namespace DataAccess.Context
         public DbSet<HuntedGame> HuntedGame { get; set; }
         public DbSet<HuntEquipmentPlan> HuntEquipmentPlan { get; set; }
         public DbSet<Huntsman> Huntsman { get; set; }
+        public DbSet<Labor> Labor { get; set; }
         public DbSet<Loss> Loss { get; set; }
         public DbSet<LossGame> LossGame { get; set; }
         public DbSet<MarketingYear> MarketingYear { get; set; }

@@ -173,6 +173,8 @@
     <Compile Include="Controllers\HuntController.cs" />
     <Compile Include="Controllers\GameHuntPlanController.cs" />
     <Compile Include="Controllers\HuntEquipmentPlanController.cs" />
+    <Compile Include="Controllers\HuntsmanController.cs" />
+    <Compile Include="Controllers\LaborController.cs" />
     <Compile Include="Controllers\LossController.cs" />
     <Compile Include="Controllers\PastureController.cs" />
     <Compile Include="Controllers\PulpitController.cs" />
@@ -225,6 +227,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Labor\Labor.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\Pasture\Pasture.js" />
     <Content Include="Scripts\pdfmake.min.js" />
@@ -286,6 +289,8 @@
     <Content Include="Views\Expense\List.cshtml" />
     <Content Include="Views\CarcassRevenue\Index.cshtml" />
     <Content Include="Views\CarcassRevenue\List.cshtml" />
+    <Content Include="Views\Labor\Index.cshtml" />
+    <Content Include="Views\Labor\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
