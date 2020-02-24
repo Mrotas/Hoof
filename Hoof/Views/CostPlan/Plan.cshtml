@@ -1,4 +1,5 @@
-﻿@model Domain.CostPlan.ViewModels.CostPlanBaseViewModel
+﻿@using Common.Enums
+@model Domain.CostPlan.ViewModels.CostPlanBaseViewModel
 
 @{
     ViewBag.Title = "Plan";
@@ -11,7 +12,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
             var config = {
-                MarketingYearId: @Model.MarketingYearId,
+                MarketingYearId: @Model.MarketingYearModel.Id,
                 Controller: "CostPlan"
             };
             var costPlan = new CostPlan(config);
@@ -67,8 +68,12 @@
         <td>
             <input type="number" min="0" class="form-control" style="max-width: none" />
         </td>
-        <td style="text-align: center">
-            <button class="btn btn-primary" id="addPlan">Dodaj</button>
+        <td style="text-align: center">            
+            @{ var enableAddButton = Model.AnnualPlanStatusModel.Status == (int) AnnualPlanStatus.InProgress ||
+                                     Model.AnnualPlanStatusModel.Status == (int) AnnualPlanStatus.ToCorrect;
+                var style = enableAddButton ? "" : "disabled=\"disabled\"";
+            }
+            <button class="btn btn-brown" id="addPlan" @style>Dodaj</button>
         </td>
     </tr>
     @foreach (var item in Model.CostPlanViewModels.OrderBy(x => x.Type).ToList())

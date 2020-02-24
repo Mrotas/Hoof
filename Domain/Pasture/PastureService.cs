@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using DataAccess.Dao.Pasture;
 using DataAccess.Dto;
+using Domain.AnnualPlanStatus;
+using Domain.AnnualPlanStatus.Models;
 using Domain.MarketingYear;
 using Domain.MarketingYear.Models;
 using Domain.Pasture.ViewModels;
@@ -13,15 +15,17 @@ namespace Domain.Pasture
     {
         private readonly IPastureDao _pastureDao;
         private readonly IMarketingYearService _marketingYearService;
+        private readonly IAnnualPlanStatusService _annualPlanStatusService;
 
-        public PastureService() : this(new PastureDao(), new MarketingYearService())
+        public PastureService() : this(new PastureDao(), new MarketingYearService(), new AnnualPlanStatusService())
         {
         }
 
-        public PastureService(IPastureDao pastureDao, IMarketingYearService marketingYearService)
+        public PastureService(IPastureDao pastureDao, IMarketingYearService marketingYearService, IAnnualPlanStatusService annualPlanStatusService)
         {
             _pastureDao = pastureDao;
             _marketingYearService = marketingYearService;
+            _annualPlanStatusService = annualPlanStatusService;
         }
 
         public PastureBaseViewModel GetPastureViewModel(int marketingYearId)
@@ -40,11 +44,13 @@ namespace Domain.Pasture
             }).ToList();
 
             MarketingYearModel marketingYearModel = _marketingYearService.GetMarketingYearModel(marketingYearId);
+            AnnualPlanStatusModel annualPlanStatusModel = _annualPlanStatusService.GetByMarketingYearId(marketingYearId);
 
             var pastureBaseViewModel = new PastureBaseViewModel
             {
                 PastureViewModels = pastureViewModels,
-                MarketingYearModel = marketingYearModel
+                MarketingYearModel = marketingYearModel,
+                AnnualPlanStatusModel = annualPlanStatusModel
             };
 
             return pastureBaseViewModel;

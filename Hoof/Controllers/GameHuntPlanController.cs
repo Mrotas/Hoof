@@ -1,26 +1,32 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Domain.GameHuntPlan;
 using Domain.GameHuntPlan.ViewModels;
+using Domain.MarketingYear;
+using Domain.MarketingYear.Models;
 
 namespace Hoof.Controllers
 {
     public class GameHuntPlanController : Controller
     {
         private readonly IGameHuntPlanService _gameHuntPlanService;
+        private readonly IMarketingYearService _marketingYearService;
 
-        public GameHuntPlanController() : this(new GameHuntPlanService())
+        public GameHuntPlanController() : this(new GameHuntPlanService(), new MarketingYearService())
         {
         }
 
-        public GameHuntPlanController(IGameHuntPlanService gameHuntPlanService)
+        public GameHuntPlanController(IGameHuntPlanService gameHuntPlanService, IMarketingYearService marketingYearService)
         {
             _gameHuntPlanService = gameHuntPlanService;
+            _marketingYearService = marketingYearService;
         }
 
         public ActionResult Index()
         {
-            return View();
+            IList<MarketingYearModel> marketingYearModels = _marketingYearService.GetAll();
+            return View(marketingYearModels);
         }
 
         public ActionResult Plan(int marketingYearId)

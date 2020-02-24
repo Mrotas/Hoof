@@ -1,27 +1,33 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Domain.DeerLicker;
 using Domain.DeerLicker.ViewModels;
+using Domain.MarketingYear;
+using Domain.MarketingYear.Models;
 
 namespace Hoof.Controllers
 {
     public class DeerLickerController : Controller
     {
         private readonly IDeerLickerService _deerLickerService;
+        private readonly IMarketingYearService _marketingYearService;
 
-        public DeerLickerController() : this(new DeerLickerService())
+        public DeerLickerController() : this(new DeerLickerService(), new MarketingYearService())
         {
         }
 
-        public DeerLickerController(IDeerLickerService deerLickerService)
+        public DeerLickerController(IDeerLickerService deerLickerService, IMarketingYearService marketingYearService)
         {
             _deerLickerService = deerLickerService;
+            _marketingYearService = marketingYearService;
         }
 
 
         public ActionResult Index()
         {
-            return View();
+            IList<MarketingYearModel> marketingYearModels = _marketingYearService.GetAll();
+            return View(marketingYearModels);
         }
 
         public ActionResult List(int marketingYearId)
@@ -42,7 +48,8 @@ namespace Hoof.Controllers
             {
                 message = ex.Message;
             }
-            return Json(new { message }, JsonRequestBehavior.AllowGet);
+
+            return Json(new {message}, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -57,7 +64,8 @@ namespace Hoof.Controllers
             {
                 message = ex.Message;
             }
-            return Json(new { message }, JsonRequestBehavior.AllowGet);
+
+            return Json(new {message}, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -72,7 +80,8 @@ namespace Hoof.Controllers
             {
                 message = ex.Message;
             }
-            return Json(new { message }, JsonRequestBehavior.AllowGet);
+
+            return Json(new {message}, JsonRequestBehavior.AllowGet);
         }
     }
 }

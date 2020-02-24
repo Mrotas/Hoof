@@ -5,7 +5,7 @@ using DataAccess.Dto;
 
 namespace DataAccess.Dao.EmploymentPlan
 {
-    public class EmploymentPlanDao : DaoBase, IEmploymentPlanDao
+    public class EmploymentPlanDao : IEmploymentPlanDao
     {
         public IList<EmploymentPlanDto> GetByMarketingYear(int marketingYearId)
         {

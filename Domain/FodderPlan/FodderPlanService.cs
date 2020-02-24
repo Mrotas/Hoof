@@ -5,23 +5,29 @@ using Common.Extensions;
 using DataAccess.Dao.FodderPlan;
 using DataAccess.Dao.MarketingYear;
 using DataAccess.Dto;
+using Domain.AnnualPlanStatus;
+using Domain.AnnualPlanStatus.Models;
 using Domain.FodderPlan.ViewModels;
+using Domain.MarketingYear;
+using Domain.MarketingYear.Models;
 
 namespace Domain.FodderPlan
 {
     public class FodderPlanService : IFodderPlanService
     {
         private readonly IFodderPlanDao _fodderPlanDao;
-        private readonly IMarketingYearDao _marketingYearDao;
+        private readonly IMarketingYearService _marketingYearService;
+        private readonly IAnnualPlanStatusService _annualPlanStatusService;
 
-        public FodderPlanService() : this(new FodderPlanDao(), new MarketingYearDao())
+        public FodderPlanService() : this(new FodderPlanDao(), new MarketingYearService(), new AnnualPlanStatusService())
         {
         }
 
-        public FodderPlanService(IFodderPlanDao fodderPlanDao, IMarketingYearDao marketingYearDao)
+        public FodderPlanService(IFodderPlanDao fodderPlanDao, IMarketingYearService marketingYearService, IAnnualPlanStatusService annualPlanStatusService)
         {
             _fodderPlanDao = fodderPlanDao;
-            _marketingYearDao = marketingYearDao;
+            _annualPlanStatusService = annualPlanStatusService;
+            _marketingYearService = marketingYearService;
         }
 
         public FodderPlanBaseViewModel GetFodderPlanViewModel(int marketingYearId)
@@ -41,14 +47,14 @@ namespace Domain.FodderPlan
                 }
             ).ToList();
 
-            DataAccess.Entities.MarketingYear marketingYear = _marketingYearDao.GetById(marketingYearId);
+            MarketingYearModel marketingYearModel = _marketingYearService.GetMarketingYearModel(marketingYearId);
+            AnnualPlanStatusModel annualPlanStatusModel = _annualPlanStatusService.GetByMarketingYearId(marketingYearId);
 
             var fodderPlanViewBaseModel = new FodderPlanBaseViewModel
             {
                 FodderPlanViewModels = fodderPlanViewModels,
-                MarketingYearId = marketingYearId,
-                MarketingYearStart = marketingYear.Start,
-                MarketingYearEnd = marketingYear.End
+                MarketingYearModel = marketingYearModel,
+                AnnualPlanStatusModel = annualPlanStatusModel
             };
 
             return fodderPlanViewBaseModel;

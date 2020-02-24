@@ -18,6 +18,7 @@ namespace DataAccess.Context
             base.OnModelCreating(modelBuilder);
         }
         
+        public DbSet<AnnualPlanStatus> AnnualPlanStatus { get; set; }
         public DbSet<CarcassRevenue> CarcassRevenue { get; set; }
         public DbSet<Catch> Catch { get; set; }
         public DbSet<CostPlan> CostPlan { get; set; }
@@ -43,6 +44,7 @@ namespace DataAccess.Context
         public DbSet<Pulpit> Pulpit { get; set; }
         public DbSet<Region> Region { get; set; }
         public DbSet<TrunkFoodPlan> TrunkFoodPlan { get; set; }
+        public DbSet<User> User { get; set; }
         public DbSet<WateringPlace> WateringPlace { get; set; }
     }
 }

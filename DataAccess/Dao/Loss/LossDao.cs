@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using DataAccess.Dto;
+using DbContext = DataAccess.Context.DbContext;
 
 namespace DataAccess.Dao.Loss
 {
-    public class LossDao : DaoBase, ILossDao
+    public class LossDao : ILossDao
     {
         public IList<LossDto> GetAll()
         {
-            using (DbContext)
+            using (var db = new DbContext())
             {
-                List<Entities.Loss> losses = DbContext.Loss.ToList();
+                List<Entities.Loss> losses = db.Loss.ToList();
 
                 IList<LossDto> dtos = ToDtos(losses);
 
@@ -22,11 +23,11 @@ namespace DataAccess.Dao.Loss
 
         public IList<LossDto> GetByMarketingYear(int marketingYearId)
         {
-            using (DbContext)
+            using (var db = new DbContext())
             {
-                Entities.MarketingYear marketingYear = DbContext.MarketingYear.Find(marketingYearId);
+                Entities.MarketingYear marketingYear = db.MarketingYear.Find(marketingYearId);
 
-                List<Entities.Loss> losses = DbContext.Loss.Where(x => x.Date >= marketingYear.Start && x.Date <= marketingYear.End).ToList();
+                List<Entities.Loss> losses = db.Loss.Where(x => x.Date >= marketingYear.Start && x.Date <= marketingYear.End).ToList();
 
                 IList<LossDto> dtos = ToDtos(losses);
 
@@ -36,9 +37,9 @@ namespace DataAccess.Dao.Loss
 
         public void Insert(LossGameDto lossGameDto, LossDto lossDto)
         {
-            using (DbContext)
+            using (var db = new DbContext())
             {
-                using (DbContextTransaction transaction = DbContext.Database.BeginTransaction())
+                using (DbContextTransaction transaction = db.Database.BeginTransaction())
                 {
                     try
                     {
@@ -48,8 +49,8 @@ namespace DataAccess.Dao.Loss
                             Class = lossGameDto.Class
                         };
 
-                        DbContext.LossGame.Add(lossGameEntity);
-                        DbContext.SaveChanges();
+                        db.LossGame.Add(lossGameEntity);
+                        db.SaveChanges();
 
                         var lossEntity = new Entities.Loss
                         {
@@ -60,8 +61,8 @@ namespace DataAccess.Dao.Loss
                             SanitaryLoss = lossDto.SanitaryLoss
                         };
 
-                        DbContext.Loss.Add(lossEntity);
-                        DbContext.SaveChanges();
+                        db.Loss.Add(lossEntity);
+                        db.SaveChanges();
 
                         transaction.Commit();
                     }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using DataAccess.Dao.Expense;
 using DataAccess.Dto;
+using Domain.AnnualPlanStatus;
+using Domain.AnnualPlanStatus.Models;
 using Domain.Expense.ViewModels;
 using Domain.MarketingYear;
 using Domain.MarketingYear.Models;
@@ -13,15 +15,17 @@ namespace Domain.Expense
     {
         private readonly IExpenseDao _expenseDao;
         private readonly IMarketingYearService _marketingYearService;
+        private readonly IAnnualPlanStatusService _annualPlanStatusService;
 
-        public ExpenseService() : this(new ExpenseDao(), new MarketingYearService())
+        public ExpenseService() : this(new ExpenseDao(), new MarketingYearService(), new AnnualPlanStatusService())
         {
         }
 
-        public ExpenseService(IExpenseDao expenseDao, IMarketingYearService marketingYearService)
+        public ExpenseService(IExpenseDao expenseDao, IMarketingYearService marketingYearService, IAnnualPlanStatusService annualPlanStatusService)
         {
             _expenseDao = expenseDao;
             _marketingYearService = marketingYearService;
+            _annualPlanStatusService = annualPlanStatusService;
         }
 
         public ExpenseBaseViewModel GetExpenseBaseViewModel(int marketingYearId)
@@ -38,11 +42,13 @@ namespace Domain.Expense
             }).ToList();
 
             MarketingYearModel marketingYearModel = _marketingYearService.GetMarketingYearModel(marketingYearId);
+            AnnualPlanStatusModel annualPlanStatusModel = _annualPlanStatusService.GetByMarketingYearId(marketingYearId);
 
             var expenseBaseViewModel = new ExpenseBaseViewModel
             {
                 ExpenseViewModels = expenseViewModels,
-                MarketingYearModel = marketingYearModel
+                MarketingYearModel = marketingYearModel,
+                AnnualPlanStatusModel = annualPlanStatusModel
             };
 
             return expenseBaseViewModel;

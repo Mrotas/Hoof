@@ -6,8 +6,8 @@ namespace Domain.Catch
 {
     public interface ICatchService
     {
-        IList<CatchViewModel> GetAllCatches();
-        IList<CatchViewModel> GetCatchesByHuntsmanId(int huntsmanId);
+        IList<CatchViewModel> GetAllCatchesForCurrentMarketingYear();
+        IList<CatchViewModel> GetCurrentMarketingYearCatchesByUserId(int huntsmanId);
         void Create(CatchCreateModel model, int huntsmanId);
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using DataAccess.Dao.WateringPlace;
 using DataAccess.Dto;
+using Domain.AnnualPlanStatus;
+using Domain.AnnualPlanStatus.Models;
 using Domain.MarketingYear;
 using Domain.MarketingYear.Models;
 using Domain.WateringPlace.ViewModels;
@@ -13,15 +15,17 @@ namespace Domain.WateringPlace
     {
         private readonly IWateringPlaceDao _wateringPlaceDao;
         private readonly IMarketingYearService _marketingYearService;
+        private readonly IAnnualPlanStatusService _annualPlanStatusService;
 
-        public WateringPlaceService() : this(new WateringPlaceDao(), new MarketingYearService())
+        public WateringPlaceService() : this(new WateringPlaceDao(), new MarketingYearService(), new AnnualPlanStatusService())
         {
         }
 
-        public WateringPlaceService(IWateringPlaceDao wateringPlaceDao, IMarketingYearService marketingYearService)
+        public WateringPlaceService(IWateringPlaceDao wateringPlaceDao, IMarketingYearService marketingYearService, IAnnualPlanStatusService annualPlanStatusService)
         {
             _wateringPlaceDao = wateringPlaceDao;
             _marketingYearService = marketingYearService;
+            _annualPlanStatusService = annualPlanStatusService;
         }
 
         public WateringPlaceBaseViewModel GetWateringPlaceViewModel(int marketingYearId)
@@ -40,11 +44,13 @@ namespace Domain.WateringPlace
             }).ToList();
 
             MarketingYearModel marketingYearModel = _marketingYearService.GetMarketingYearModel(marketingYearId);
+            AnnualPlanStatusModel annualPlanStatusModel = _annualPlanStatusService.GetByMarketingYearId(marketingYearId);
 
             var wateringPlaceBaseViewModel = new WateringPlaceBaseViewModel
             {
                 WateringPlaceViewModels = wateringPlaceViewModels,
-                MarketingYearModel = marketingYearModel
+                MarketingYearModel = marketingYearModel,
+                AnnualPlanStatusModel = annualPlanStatusModel
             };
 
             return wateringPlaceBaseViewModel;

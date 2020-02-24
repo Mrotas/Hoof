@@ -53,7 +53,6 @@ namespace DataAccess.Dao.Pulpit
                 db.Pulpit.Add(entity);
                 db.SaveChanges();
             }
-
         }
 
         public void Update(PulpitDto dto)

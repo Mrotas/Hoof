@@ -5,7 +5,7 @@ using DataAccess.Dto;
 
 namespace DataAccess.Dao.CostPlan
 {
-    public class CostPlanDao : DaoBase, ICostPlanDao
+    public class CostPlanDao : ICostPlanDao
     {
         public IList<CostPlanDto> GetByMarketingYear(int marketingYearId)
         {

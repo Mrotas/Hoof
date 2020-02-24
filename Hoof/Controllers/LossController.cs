@@ -21,7 +21,7 @@ namespace Hoof.Controllers
         
         public ActionResult Index()
         {
-            List<GameLossViewModel> lossGames = _gameLossService.GetAllLossGames();
+            List<GameLossViewModel> lossGames = _gameLossService.GetAllLossGamesForCurrentMarketingYear();
             return View(lossGames);
         }
 

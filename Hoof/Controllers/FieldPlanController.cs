@@ -1,27 +1,33 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Domain.FieldPlan;
 using Domain.FieldPlan.Models;
 using Domain.FieldPlan.ViewModels;
+using Domain.MarketingYear;
+using Domain.MarketingYear.Models;
 
 namespace Hoof.Controllers
 {
     public class FieldPlanController : Controller
     {
         private readonly IFieldPlanService _fieldPlanService;
+        private readonly IMarketingYearService _marketingYearService;
 
-        public FieldPlanController() : this(new FieldPlanService())
+        public FieldPlanController() : this(new FieldPlanService(), new MarketingYearService())
         {
         }
 
-        public FieldPlanController(IFieldPlanService fieldPlanService)
+        public FieldPlanController(IFieldPlanService fieldPlanService, IMarketingYearService marketingYearService)
         {
             _fieldPlanService = fieldPlanService;
+            _marketingYearService = marketingYearService;
         }
 
         public ActionResult Index()
         {
-            return View();
+            IList<MarketingYearModel> marketingYearModels = _marketingYearService.GetAll();
+            return View(marketingYearModels);
         }
 
         public ActionResult Plan(int marketingYearId)

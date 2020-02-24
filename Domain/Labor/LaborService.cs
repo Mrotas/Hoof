@@ -4,6 +4,8 @@ using System.Linq;
 using DataAccess.Dao.Huntsman;
 using DataAccess.Dao.Labor;
 using DataAccess.Dto;
+using Domain.AnnualPlanStatus;
+using Domain.AnnualPlanStatus.Models;
 using Domain.Labor.Models;
 using Domain.Labor.ViewModels;
 using Domain.MarketingYear;
@@ -16,16 +18,18 @@ namespace Domain.Labor
         private readonly ILaborDao _laborDao;
         private readonly IHuntsmanDao _huntsmanDao;
         private readonly IMarketingYearService _marketingYearService;
+        private readonly IAnnualPlanStatusService _annualPlanStatusService;
 
-        public LaborService() : this(new LaborDao(),new HuntsmanDao(), new MarketingYearService())
+        public LaborService() : this(new LaborDao(),new HuntsmanDao(), new MarketingYearService(), new AnnualPlanStatusService())
         {
         }
 
-        public LaborService(ILaborDao laborDao, IHuntsmanDao huntsmanDao, IMarketingYearService marketingYearService)
+        public LaborService(ILaborDao laborDao, IHuntsmanDao huntsmanDao, IMarketingYearService marketingYearService, IAnnualPlanStatusService annualPlanStatusService)
         {
             _laborDao = laborDao;
             _huntsmanDao = huntsmanDao;
             _marketingYearService = marketingYearService;
+            _annualPlanStatusService = annualPlanStatusService;
         }
 
         public IList<LaborModel> GetLaborModels(DateTime fromDate, DateTime toDate)
@@ -63,11 +67,13 @@ namespace Domain.Labor
             ).ToList();
 
             MarketingYearModel marketingYearModel = _marketingYearService.GetMarketingYearModel(marketingYearId);
+            AnnualPlanStatusModel annualPlanStatusModel = _annualPlanStatusService.GetByMarketingYearId(marketingYearId);
 
             var laborBaseViewModel = new LaborBaseViewModel
             {
                 LaborViewModels = laborViewModels,
-                MarketingYearModel = marketingYearModel
+                MarketingYearModel = marketingYearModel,
+                AnnualPlanStatusModel = annualPlanStatusModel
             };
 
             return laborBaseViewModel;

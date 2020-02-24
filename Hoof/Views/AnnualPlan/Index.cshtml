@@ -1,4 +1,8 @@
-﻿
+﻿@using Domain.MarketingYear.Models
+@using Domain.Role
+@model IEnumerable<MarketingYearModel>
+
+
 @{
     ViewBag.Title = "Index";
 }
@@ -7,6 +11,7 @@
 {
     @Scripts.Render("~/bundles/jqueryval")
 
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="~/Content/AnnualPlan/AnnualPlanStyles.css" />
 
     <script type="text/javascript">
@@ -16,17 +21,73 @@
             window.location.href = "AnnualPlan/Plan?marketingYearId=" + marketingYearId;
         });
 
+        $('#createNew').on('click', function () {
+            $('#confirmAddModal').modal('show');
+        });
+
+        $('#confirmAdd').on('click', function () {
+            $.ajax({
+                type: 'POST',
+                url: '/AnnualPlan/Create',
+                success: function (data) {
+                    window.location = "AnnualPlan/Plan?marketingYearId=" + data;
+                },
+                error: function (data) {
+                    alert('Wystąpił błąd podczas tworzenia nowego Rocznego Planu. Proszę spróbować ponownie.');
+                }
+            });
+        });
     </script>
 }
 
 <br />
 
 <div style="text-align: center">
-    <label>Wybierz Rok Gospodarczy</label>
-    <select id="marketingYear">
-        <option value="3">2018/04/01 - 2019/03/31</option>
-        <option value="2">2017/04/01 - 2018/03/31</option>
-    </select>
+    @if (RoleManager.IsHeadHuntsman(Request.Cookies["User"]))
+    {
+        <div style="margin-bottom: 20px">
+            <button class="btn btn-success" id="createNew" style="font-size: 18px">Utwórz Roczny Plan na Rok Gospodarczy @(Model.Last().End.Year) / @(Model.Last().End.Year + 1)</button>
+        </div>
+    }
+        <h4>
+            Wybierz Rok Gospodarczy:
+            <select class="form-control" style="display: inline; width: 23%; font-size:18px" id="marketingYear">
+                @foreach (MarketingYearModel marketingYearModel in Model.OrderByDescending(x => x.Id))
+                {
+                    <option value="@marketingYearModel.Id">@marketingYearModel.ToSelectOption()</option>
+                }
+            </select>
+            <button class="btn btn-brown" id="generateButton">Generuj</button>
+        </h4>
+</div>
 
-    <button class="btn btn-primary" id="generateButton">Generuj</button>
+<div class="modal fade" id="confirmAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tworzenie Rocznego Planu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger" role="alert" style="display: none">
+                    <h4 class="alert-heading">
+                        <button type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </h4>
+                    <p class="alert-body"></p>
+                </div>
+
+                <div>
+                    Czy na pewno chcesz utworzyć Roczny Plan na rok gospodarczy @(Model.Last().End.Year) / @(Model.Last().End.Year + 1)?
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+                <button type="button" class="btn btn-success" id="confirmAdd">Utwórz</button>
+            </div>
+        </div>
+    </div>
 </div>

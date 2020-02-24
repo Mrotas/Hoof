@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DataAccess.Context;
 using DataAccess.Dto;
 
 namespace DataAccess.Dao.GameClass
 {
-    public class GameClassDao : DaoBase, IGameClassDao
+    public class GameClassDao : IGameClassDao
     {
         public IList<GameClassDto> GetAll()
         {
-            using (DbContext)
+            using (var db = new DbContext())
             {
-                List<Entities.GameClass> gameClasses = DbContext.GameClass.ToList();
+                List<Entities.GameClass> gameClasses = db.GameClass.ToList();
 
                 IList<GameClassDto> dtos = ToDtos(gameClasses);
 

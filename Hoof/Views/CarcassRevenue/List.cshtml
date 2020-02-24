@@ -1,5 +1,6 @@
-﻿@using Domain.CarcassRevenue.ViewModels
-@model Domain.CarcassRevenue.ViewModels.CarcassRevenueBaseViewModel
+﻿@using Common.Enums
+@using Domain.CarcassRevenue.ViewModels
+@model CarcassRevenueBaseViewModel
 
 @{
     ViewBag.Title = "Przychody";
@@ -8,7 +9,7 @@
 @section Scripts{
 
     @Scripts.Render("~/bundles/jqueryval")
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css" />
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js"></script>
     <script type="text/javascript" src="~/Scripts/CarcassRevenue/CarcassRevenue.js"></script>
     <script type="text/javascript">
@@ -26,7 +27,11 @@
 
 <br />
 
-<button class="btn btn-primary" id="add">Dodaj</button>
+@{ var displayAddButton = Model.AnnualPlanStatusModel.Status == (int)AnnualPlanStatus.InProgress ||
+                           Model.AnnualPlanStatusModel.Status == (int)AnnualPlanStatus.ToCorrect;
+    var display = displayAddButton ? "" : "display:none";
+}
+<button class="btn btn-brown" id="add" style="margin-bottom: 10px;@display">Dodaj</button>
 <table class="table table-bordered table-hover" id="expenseTable">
     <tr>
         <th style="width: 5%">
@@ -56,36 +61,36 @@
     </tr>
     @foreach (CarcassRevenueViewModel item in Model.CarcassRevenueViewModels.OrderBy(x => x.HuntDate).ToList())
     {
-    <tr>
-        <td style="text-align: center">
-            @Html.DisplayFor(modelItem => item.Id)
-        </td>
-        <td hidden>
-            @Html.DisplayFor(modelItem => item.HuntedGameId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GameKindName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GameSubKindName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ClassName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CarcassWeight)
-        </td>
-        <td>
-            @item.HuntDate.ToString("dd/MM/yyyy")
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Revenue)
-        </td>
-        <td style="text-align: center">
-            <button class="btn btn-xs btn-success editCarcassRevenue">Edytuj</button>
-            <button class="btn btn-xs btn-danger deleteCarcassRevenue">Usuń</button>
-        </td>
-    </tr>
+        <tr>
+            <td style="text-align: center">
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td hidden>
+                @Html.DisplayFor(modelItem => item.HuntedGameId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GameKindName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GameSubKindName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarcassWeight)
+            </td>
+            <td>
+                @item.HuntDate.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Revenue)
+            </td>
+            <td style="text-align: center">
+                <button class="btn btn-xs btn-success editCarcassRevenue">Edytuj</button>
+                <button class="btn btn-xs btn-danger deleteCarcassRevenue">Usuń</button>
+            </td>
+        </tr>
     }
 </table>
 
@@ -158,11 +163,9 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div>
-                        <table class="table table-bordered table-stripped" id="huntedGameTable" style="height: 430px">
 
-                        </table>
+                    <div>
+                        <table class="table table-bordered table-stripped" id="huntedGameTable" style="height: 430px"></table>
                     </div>
 
                     <div class="modal-footer">

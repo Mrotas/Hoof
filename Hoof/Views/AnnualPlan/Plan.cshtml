@@ -1,5 +1,6 @@
 ﻿@using Common
 @using Domain.AnnualPlan.Models.GamePlan
+@using Domain.Role
 @model Domain.AnnualPlan.ViewModels.AnnualPlanViewModel
 
 @{
@@ -13,6 +14,7 @@
     @Scripts.Render("~/Scripts/vfs_fonts.js")
     <link rel="stylesheet" href="~/Content/AnnualPlan/AnnualPlanStyles.css" />
     <script type="text/javascript" src="~/Scripts/AnnualPlan/AnnualPlanPdfGenerator.js"></script>
+    <script type="text/javascript" src="~/Scripts/AnnualPlan/AnnualPlan.js"></script>
     <script type="text/javascript">
 
         $('#bodyContainer').css('width', '75%');
@@ -63,10 +65,75 @@
             var annualPlanGenerator = new AnnualPlanGenerator(config);
         });
 
+        $(document).ready(function() {
+            var config = {};
+            config.MarketingYearId = @Model.MarketingYearModel.Id;
+            var annualPlan = new AnnualPlan(config);
+        });
+
     </script>
 }
 
-<button class="btn btn-danger" id="generateAnnualPlanPdf">Pobierz PDF</button>
+@{
+    var status = Model.AnnualPlanStatusModel.Status;
+    var approveButtonText = String.Empty;
+    var displayGeneratePdfButton = false;
+    var displayRejectButton = false;
+    var displayApproveButton = false;
+    var displayTimeStamp = false;
+}
+@if (RoleManager.IsHeadHuntsman(Request.Cookies["User"]))
+{
+    displayGeneratePdfButton = true;
+    displayTimeStamp = true;
+    if (status == 0)
+    {
+        approveButtonText = "Rozpocznij planowanie";
+        displayApproveButton = true;
+    }
+    else if (status == 1)
+    {
+        approveButtonText = "Wyślij do zatwierdzenia";
+        displayApproveButton = true;
+    }
+    else if (status == 4)
+    {
+        approveButtonText = "Wyślij do zatwierdzenia poprawek";
+        displayApproveButton = true;
+    }
+}
+else if (RoleManager.IsDirector(Request.Cookies["User"]))
+{
+    displayGeneratePdfButton = true;
+    displayTimeStamp = true;
+    if (status == 2)
+    {
+        approveButtonText = "Zatwierdź";
+        displayRejectButton = true;
+        displayApproveButton = true;
+    }
+}
+<button class="btn btn-danger" id="generateAnnualPlanPdf" style="margin-top: 10px;@(displayGeneratePdfButton ? "" : "display:none")">Pobierz PDF</button>
+
+<button class="btn btn-danger" id="rejectAnnualPlan" style="margin-top: 10px; float: right; margin-left: 10px; @(displayRejectButton ? "" : "display:none")">Wyślij do poprawy</button>
+<button class="btn btn-success" id="approveAnnualPlan" style="margin-top: 10px; float: right; @(displayApproveButton ? "" : "display:none")">@approveButtonText</button>
+
+<br />
+
+<table style="margin-top: 10px; float: right; @(displayTimeStamp ? "" : "display:none")">
+    <tr>
+        <td>Status planu:</td>
+        <td>@Model.AnnualPlanStatusModel.Description</td>
+    </tr>
+    <tr>
+        <td>Ostatnia aktualizacja statusu:</td>
+        <td>@Model.AnnualPlanStatusModel.TimeStamp.ToString("dd/MM/yyyy")</td>
+    </tr>
+</table>
+@*<span style="margin-top: 10px; float: right; @(displayTimeStamp ? "" : "display:none")">Ostatnia aktualizacja statusu: @Model.AnnualPlanStatusModel.TimeStamp.ToString("dd/MM/yyyy")</span>*@
+
+<br />
+
 <h2 style="text-align: center; font-weight: bold">ROCZNY PLAN ŁOWIECKI</h2>
 <h3 style="text-align: center; font-weight: bold">@($"na rok gospodarczy {Model.MarketingYearModel}")</h3>
 

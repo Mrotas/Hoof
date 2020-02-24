@@ -1,4 +1,5 @@
-﻿@model Domain.GameHuntPlan.ViewModels.HuntPlanViewModel
+﻿@using Common.Enums
+@model Domain.GameHuntPlan.ViewModels.HuntPlanViewModel
 
 @{
     ViewBag.Title = "Plan";
@@ -11,7 +12,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
             var config = {
-                MarketingYearId: @Model.MarketingYearId,
+                MarketingYearId: @Model.MarketingYearModel.Id,
                 Controller: "GameHuntPlan"
             };
             var gameHuntPlan = new GameHuntPlan(config);
@@ -135,7 +136,11 @@
             <input type="number" min="0" class="form-control" style="max-width: none" id="catch"/>
         </td>
         <td style="text-align: center">
-            <button class="btn btn-primary" id="addPlan">Dodaj</button>
+            @{ var enableAddButton = Model.AnnualPlanStatusModel.Status == (int)AnnualPlanStatus.InProgress ||
+                                     Model.AnnualPlanStatusModel.Status == (int)AnnualPlanStatus.ToCorrect;
+                var style = enableAddButton ? "" : "disabled=\"disabled\"";
+            }
+            <button class="btn btn-brown" id="addPlan" @style>Dodaj</button>
         </td>
     </tr>
     <tbody id="planTableBody">

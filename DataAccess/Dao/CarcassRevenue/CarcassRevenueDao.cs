@@ -5,7 +5,7 @@ using DataAccess.Dto;
 
 namespace DataAccess.Dao.CarcassRevenue
 {
-    public class CarcassRevenueDao : DaoBase, ICarcassRevenueDao
+    public class CarcassRevenueDao : ICarcassRevenueDao
     {
         public IList<CarcassRevenueDto> GetByMarketingYear(int marketingYearId)
         {

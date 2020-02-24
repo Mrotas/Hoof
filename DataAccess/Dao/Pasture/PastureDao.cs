@@ -5,7 +5,7 @@ using DataAccess.Dto;
 
 namespace DataAccess.Dao.Pasture
 {
-    public class PastureDao : DaoBase, IPastureDao
+    public class PastureDao : IPastureDao
     {
         public IList<PastureDto> GetByMarketingYear(int marketingYearId)
         {

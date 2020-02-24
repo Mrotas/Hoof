@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Domain.GameLoss.ViewModel.GameLossViewModel>
+﻿@using Domain.GameLoss.ViewModel
+@model IEnumerable<GameLossViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -6,7 +7,7 @@
 
 <h2>Ubytki</h2>
 
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#reportLossModal">
+<button type="button" class="btn btn-brown" data-toggle="modal" data-target="#reportLossModal" style="margin-bottom: 10px;">
     Zgłoś ubytek
 </button>
 
@@ -38,12 +39,12 @@
         <th>
             @Html.DisplayNameFor(model => model.Date)
         </th>
-        <th>
+        <th style="width: 10%">
             Zarządzaj
         </th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (GameLossViewModel item in Model)
     {
         <tr>
             <td>
@@ -68,12 +69,11 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Date)
+                @Html.DisplayFor(modelItem => item.DateString)
             </td>
-            <td>
-                @Html.ActionLink("Edytuj", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Szczegóły", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Usuń", "Delete", new { /* id=item.PrimaryKey */ })
+            <td style="text-align: center">
+                <button class="btn btn-xs btn-success">Edytuj</button>
+                <button class="btn btn-xs btn-danger">Usuń</button>
             </td>
         </tr>
     }
@@ -81,80 +81,83 @@
 </table>
 
 <div class="modal" id="reportLossModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="width: 500px;">
         <div class="modal-content">
 
-            <div class="modal-header">
+            <div class="modal-header" style="text-align: center; background-color: rgba(92, 184, 92, 0.6)">
+                <button type="button" class="close" data-dismiss="modal" id="closeModalXButton">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
                 <h4 class="modal-title">Zgłoś ubytek</h4>
-                <button type="button" class="close" data-dismiss="modal" id="closeModalXButton">&times;</button>
             </div>
 
             <div class="modal-body">
                 <div class="form-horizontal">
                     <div class="form-group form-horizontal">
-                        <div class="col-md-10">
-                            Data: <input type="date" class="form-control" id="huntDatepicker">
+                        <div class="col-md-7 col-md-offset-2" style="width: 75%">
+                            Data: <input type="date" class="form-control" id="huntDatepicker" style="width: 75%">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <div class="col-md-10">
+                        <div class="col-md-7 col-md-offset-2" style="width: 75%">
                             Okręg: @Html.DropDownList("Wybierz Obwód", new List<SelectListItem>
-                     {
-                         new SelectListItem {Text = "Płytnica", Value = "20"}
-                     }, "", new { @class = "form-control", id="circuit"})
+                            {
+                                new SelectListItem {Text = "Płytnica", Value = "20"}
+                            }, "", new { @class = "form-control", id="circuit"})
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <div class="col-md-10">
+                        <div class="col-md-7 col-md-offset-2" style="width: 75%">
                             Region: @Html.DropDownList("Wybierz Rewir", new List<SelectListItem>
-                    {
-                        new SelectListItem {Text = "1", Value = "1"},
-                        new SelectListItem {Text = "2", Value = "2"},
-                        new SelectListItem {Text = "3", Value = "3"},
-                        new SelectListItem {Text = "4", Value = "4"},
-                        new SelectListItem {Text = "5", Value = "5"},
-                        new SelectListItem {Text = "6", Value = "6"},
-                        new SelectListItem {Text = "7", Value = "7"},
-                        new SelectListItem {Text = "8", Value = "8"},
-                        new SelectListItem {Text = "9", Value = "9"},
-                        new SelectListItem {Text = "10", Value = "10"},
-                        new SelectListItem {Text = "11", Value = "11"},
-                        new SelectListItem {Text = "12", Value = "12"},
-                        new SelectListItem {Text = "13", Value = "13"},
-                        new SelectListItem {Text = "14", Value = "14"},
-                        new SelectListItem {Text = "15", Value = "15"},
-                        new SelectListItem {Text = "16", Value = "16"}
-                    }, "", new { @class = "form-control", id= "district" })
+                            {
+                                new SelectListItem {Text = "1", Value = "1"},
+                                new SelectListItem {Text = "2", Value = "2"},
+                                new SelectListItem {Text = "3", Value = "3"},
+                                new SelectListItem {Text = "4", Value = "4"},
+                                new SelectListItem {Text = "5", Value = "5"},
+                                new SelectListItem {Text = "6", Value = "6"},
+                                new SelectListItem {Text = "7", Value = "7"},
+                                new SelectListItem {Text = "8", Value = "8"},
+                                new SelectListItem {Text = "9", Value = "9"},
+                                new SelectListItem {Text = "10", Value = "10"},
+                                new SelectListItem {Text = "11", Value = "11"},
+                                new SelectListItem {Text = "12", Value = "12"},
+                                new SelectListItem {Text = "13", Value = "13"},
+                                new SelectListItem {Text = "14", Value = "14"},
+                                new SelectListItem {Text = "15", Value = "15"},
+                                new SelectListItem {Text = "16", Value = "16"}
+                            }, "", new { @class = "form-control", id= "district" })
                         </div>
                     </div>
 
                     <div id="gameSection">
                         <div class="form-group" id="gameKindSection">
-                            <div class="col-md-10">
+                            <div class="col-md-7 col-md-offset-2" style="width: 75%">
                                 Typ zwierzyny: @Html.DropDownList("Wybierz typ zwierzyny", new List<SelectListItem>
-                 {
-                     new SelectListItem {Text = "", Value = "-1"},
-                     new SelectListItem {Text = "Łoś", Value = "1"},
-                     new SelectListItem {Text = "Jeleń", Value = "2"},
-                     new SelectListItem {Text = "Jeleń Sika", Value = "3"},
-                     new SelectListItem {Text = "Daniel", Value = "4"},
-                     new SelectListItem {Text = "Sarna", Value = "5"},
-                     new SelectListItem {Text = "Muflon", Value = "6"},
-                     new SelectListItem {Text = "Dzik", Value = "7"},
-                 }, new { @class = "form-control" , id = "gameKindSelect"})
+                                {
+                                    new SelectListItem {Text = "", Value = "-1"},
+                                    new SelectListItem {Text = "Łoś", Value = "1"},
+                                    new SelectListItem {Text = "Jeleń", Value = "2"},
+                                    new SelectListItem {Text = "Jeleń Sika", Value = "3"},
+                                    new SelectListItem {Text = "Daniel", Value = "4"},
+                                    new SelectListItem {Text = "Sarna", Value = "5"},
+                                    new SelectListItem {Text = "Muflon", Value = "6"},
+                                    new SelectListItem {Text = "Dzik", Value = "7"},
+                                }, new { @class = "form-control" , id = "gameKindSelect"})
                             </div>
                         </div>
 
                         <div class="form-group" id="sanitaryLossSection">
-                            <div class="col-md-10">
+                            <div class="col-md-7 col-md-offset-2" style="width: 75%">
                                 Odstrzał sanitarny: <input type="checkbox" class="form-control" id="sanitaryLoss" />
                             </div>
                         </div>
 
                         <div class="form-group" id="descriptionSection">
-                            <div class="col-md-10">
+                            <div class="col-md-7 col-md-offset-2" style="width: 75%">
                                 Opis: <input type="text" class="form-control" id="description" />
                             </div>
                         </div>

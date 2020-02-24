@@ -5,7 +5,7 @@ using DataAccess.Dto;
 
 namespace DataAccess.Dao.HuntEquipmentPlan
 {
-    public class HuntEquipmentPlanDao : DaoBase, IHuntEquipmentPlanDao
+    public class HuntEquipmentPlanDao : IHuntEquipmentPlanDao
     {
         public IList<HuntEquipmentPlanDto> GetByMarketingYear(int marketingYearId)
         {

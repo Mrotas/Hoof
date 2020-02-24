@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using DataAccess.Dao.Pulpit;
 using DataAccess.Dto;
+using Domain.AnnualPlanStatus;
+using Domain.AnnualPlanStatus.Models;
 using Domain.MarketingYear;
 using Domain.MarketingYear.Models;
 using Domain.Pulpit.ViewModels;
@@ -13,15 +15,17 @@ namespace Domain.Pulpit
     {
         private readonly IPulpitDao _pulpitDao;
         private readonly IMarketingYearService _marketingYearService;
+        private readonly IAnnualPlanStatusService _annualPlanStatusService;
 
-        public PulpitService() : this(new PulpitDao(), new MarketingYearService())
+        public PulpitService() : this(new PulpitDao(), new MarketingYearService(), new AnnualPlanStatusService())
         {
         }
 
-        public PulpitService(IPulpitDao pulpitDao, IMarketingYearService marketingYearService)
+        public PulpitService(IPulpitDao pulpitDao, IMarketingYearService marketingYearService, IAnnualPlanStatusService annualPlanStatusService)
         {
             _pulpitDao = pulpitDao;
             _marketingYearService = marketingYearService;
+            _annualPlanStatusService = annualPlanStatusService;
         }
 
         public PulpitBaseViewModel GetPulpitViewModel(int marketingYearId)
@@ -42,11 +46,13 @@ namespace Domain.Pulpit
             }).ToList();
 
             MarketingYearModel marketingYearModel = _marketingYearService.GetMarketingYearModel(marketingYearId);
+            AnnualPlanStatusModel annualPlanStatusModel = _annualPlanStatusService.GetByMarketingYearId(marketingYearId);
 
             var pulpitBaseViewModel = new PulpitBaseViewModel
             {
                 PulpitViewModels = pulpitViewModels,
-                MarketingYearModel = marketingYearModel
+                MarketingYearModel = marketingYearModel,
+                AnnualPlanStatusModel = annualPlanStatusModel
             };
 
             return pulpitBaseViewModel;

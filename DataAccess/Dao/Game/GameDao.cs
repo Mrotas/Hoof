@@ -2,16 +2,17 @@
 using DataAccess.Dto;
 using System.Collections.Generic;
 using System.Linq;
+using DataAccess.Context;
 
 namespace DataAccess.Dao.Game
 {
-    public class GameDao : DaoBase, IGameDao
+    public class GameDao : IGameDao
     {
         public IList<GameDto> GetAll()
         {
-            using (DbContext)
+            using (var db = new DbContext())
             {
-                List<Entities.Game> games = DbContext.Game.ToList();
+                List<Entities.Game> games = db.Game.ToList();
 
                 IList<GameDto> dtos = ToDtos(games);
 
@@ -21,9 +22,9 @@ namespace DataAccess.Dao.Game
 
         public IList<GameDto> GetByType(int gameType)
         {
-            using (DbContext)
+            using (var db = new DbContext())
             {
-                List<Entities.Game> games = DbContext.Game.Where(x => x.Type == gameType).ToList();
+                List<Entities.Game> games = db.Game.Where(x => x.Type == gameType).ToList();
 
                 IList<GameDto> dtos = ToDtos(games);
 
@@ -33,9 +34,9 @@ namespace DataAccess.Dao.Game
 
         public IList<GameDto> GetByKindName(string kindName)
         {
-            using (DbContext)
+            using (var db = new DbContext())
             {
-                List<Entities.Game> games = DbContext.Game.Where(x => x.KindName == kindName).ToList();
+                List<Entities.Game> games = db.Game.Where(x => x.KindName == kindName).ToList();
                 
                 IList<GameDto> dtos = ToDtos(games);
 
@@ -45,9 +46,9 @@ namespace DataAccess.Dao.Game
         
         public IList<GameDto> Get(int type, int kind, int? subKind)
         {
-            using (DbContext)
+            using (var db = new DbContext())
             {
-                List<Entities.Game> games = DbContext.Game.Where(x => x.Type == type && x.Kind == kind).ToList();
+                List<Entities.Game> games = db.Game.Where(x => x.Type == type && x.Kind == kind).ToList();
 
                 if (subKind.HasValue)
                 {

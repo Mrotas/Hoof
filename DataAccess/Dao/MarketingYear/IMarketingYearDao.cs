@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DataAccess.Dto;
 
 namespace DataAccess.Dao.MarketingYear
@@ -7,7 +6,8 @@ namespace DataAccess.Dao.MarketingYear
     public interface IMarketingYearDao
     {
         IList<MarketingYearDto> GetAll();
-        Entities.MarketingYear GetById(int marketingYearId);
-        int GetMarketingYearId(DateTime marketingYearStart, DateTime marketingYearEnd);
+        MarketingYearDto GetCurrent();
+        MarketingYearDto GetById(int marketingYearId);
+        int Insert(MarketingYearDto newMarketingYear);
     }
 }

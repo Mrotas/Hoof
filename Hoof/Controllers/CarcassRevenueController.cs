@@ -1,26 +1,32 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Domain.CarcassRevenue;
 using Domain.CarcassRevenue.ViewModels;
+using Domain.MarketingYear;
+using Domain.MarketingYear.Models;
 
 namespace Hoof.Controllers
 {
     public class CarcassRevenueController : Controller
     {
         private readonly ICarcassRevenueService _carcassRevenueService;
+        private readonly IMarketingYearService _marketingYearService;
 
-        public CarcassRevenueController() : this(new CarcassRevenueService())
+        public CarcassRevenueController() : this(new CarcassRevenueService(), new MarketingYearService())
         {
         }
 
-        public CarcassRevenueController(ICarcassRevenueService carcassRevenueService)
+        public CarcassRevenueController(ICarcassRevenueService carcassRevenueService, IMarketingYearService marketingYearService)
         {
             _carcassRevenueService = carcassRevenueService;
+            _marketingYearService = marketingYearService;
         }
 
         public ActionResult Index()
         {
-            return View();
+            IList<MarketingYearModel> marketingYearModels = _marketingYearService.GetAll();
+            return View(marketingYearModels);
         }
 
         public ActionResult List(int marketingYearId)

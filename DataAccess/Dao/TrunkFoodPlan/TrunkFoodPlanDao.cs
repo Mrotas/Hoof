@@ -4,7 +4,7 @@ using DataAccess.Dto;
 
 namespace DataAccess.Dao.TrunkFoodPlan
 {
-    public class TrunkFoodPlanDao : DaoBase, ITrunkFoodPlanDao
+    public class TrunkFoodPlanDao : ITrunkFoodPlanDao
     {
         public TrunkFoodPlanDto GetByMarketingYear(int marketingYearId)
         {

@@ -1,102 +1,172 @@
-﻿<!DOCTYPE html>
+﻿@using Domain.Role
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>Koło Literatów polskich nr 39</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+        <div class="container" style="width: 100%">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Strona główna", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Roczny plan", "Index", "AnnualPlan")</li>
-                    <li>@Html.ActionLink("Meldunek", "Index", "Report")</li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            Polowania
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink("Wszystkie polowania", "Index", "Hunt")</li>
-                            <li>@Html.ActionLink("Moje polowania", "MyHunts", "Hunt")</li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            Odłowy
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink("Wszystkie odłowy", "Index", "Catch")</li>
-                            <li>@Html.ActionLink("Moje odłowy", "MyCaughts", "Catch")</li>
-                        </ul>
-                    </li>
-                    <li>@Html.ActionLink("Ubytki", "Index", "Loss")</li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            Gospodarka
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink("Karma", "Index", "Fodder")</li>
-                            <li>@Html.ActionLink("Prace gospodarcze", "Index", "Labor")</li>
-                            <li>@Html.ActionLink("Koszty", "Index", "Expense")</li>
-                            <li>@Html.ActionLink("Przychody", "Index", "CarcassRevenue")</li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            Urządzenia łowieckie
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink("Paśniki", "Index", "Pasture")</li>
-                            <li>@Html.ActionLink("Lizawki", "Index", "DeerLicker")</li>
-                            <li>@Html.ActionLink("Ambony", "Index", "Pulpit")</li>
-                            <li>@Html.ActionLink("Wodopoje", "Index", "WateringPlace")</li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            Plan
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink("Zatrudnienie", "Index", "EmploymentPlan")</li>
-                            <li>@Html.ActionLink("Urządzenia łowieckie", "Index", "HuntEquipmentPlan")</li>
-                            <li>@Html.ActionLink("Powierzchnia żeru", "Index", "TrunkFoodPlan")</li>
-                            <li>@Html.ActionLink("Powierzchnia łąk", "Index", "FieldPlan")</li>
-                            <li>@Html.ActionLink("Karma", "Index", "FodderPlan")</li>
-                            <li>@Html.ActionLink("Koszty", "Index", "CostPlan")</li>
-                            <li>@Html.ActionLink("Pozyskanie zwierzyny", "Index", "GameHuntPlan")</li>
-                            <li>@Html.ActionLink("Liczebność zwierzyny", "Index", "GameCountPlan")</li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav" style="width: 100%;">
+                        @if (Request.IsAuthenticated)
+                        {
+                            
+                            var isHeadHunter = RoleManager.IsHeadHuntsman(Request.Cookies["User"]);
+                            var isDirector = RoleManager.IsDirector(Request.Cookies["User"]);
+
+                            <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Roczny plan", "Index", "AnnualPlan")</li>
+
+                            if (isHeadHunter)
+                            {
+                                <li>@Html.ActionLink("Meldunek", "Index", "Report")</li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                        Polowania
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>@Html.ActionLink("Wszystkie polowania", "Index", "Hunt")</li>
+                                        <li>@Html.ActionLink("Moje polowania", "MyHunts", "Hunt")</li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                        Odłowy
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>@Html.ActionLink("Wszystkie odłowy", "Index", "Catch")</li>
+                                        <li>@Html.ActionLink("Moje odłowy", "MyCaughts", "Catch")</li>
+                                    </ul>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("Moje polowania", "MyHunts", "Hunt")</li>
+                                <li>@Html.ActionLink("Moje odłowy", "MyCaughts", "Catch")</li>
+                            }
+
+                            <li>@Html.ActionLink("Ubytki", "Index", "Loss")</li>
+
+                            if (isHeadHunter)
+                            {
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                        Gospodarka
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>@Html.ActionLink("Karma", "Index", "Fodder")</li>
+                                        <li>@Html.ActionLink("Prace gospodarcze", "Index", "Labor")</li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                        Urządzenia łowieckie
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>@Html.ActionLink("Ambony", "Index", "Pulpit")</li>
+                                        <li>@Html.ActionLink("Paśniki", "Index", "Pasture")</li>
+                                        <li>@Html.ActionLink("Lizawki", "Index", "DeerLicker")</li>
+                                        <li>@Html.ActionLink("Wodopoje", "Index", "WateringPlace")</li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                        Plan
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>@Html.ActionLink("Zatrudnienie", "Index", "EmploymentPlan")</li>
+                                        <li>@Html.ActionLink("Urządzenia łowieckie", "Index", "HuntEquipmentPlan")</li>
+                                        <li>@Html.ActionLink("Powierzchnia żeru", "Index", "TrunkFoodPlan")</li>
+                                        <li>@Html.ActionLink("Powierzchnia łąk", "Index", "FieldPlan")</li>
+                                        <li>@Html.ActionLink("Karma", "Index", "FodderPlan")</li>
+                                        <li>@Html.ActionLink("Koszty", "Index", "CostPlan")</li>
+                                        <li>@Html.ActionLink("Pozyskanie zwierzyny", "Index", "GameHuntPlan")</li>
+                                        <li>@Html.ActionLink("Liczebność zwierzyny", "Index", "GameCountPlan")</li>
+                                    </ul>
+                                </li>
+                            }
+                            else if (isDirector)
+                            {
+                                <li>@Html.ActionLink("Koszty", "Index", "Expense")</li>
+                                <li>@Html.ActionLink("Przychody", "Index", "CarcassRevenue")</li>
+                            }
+
+                            <li style="float: right">@Html.ActionLink("Wyloguj", "Logout", "User")</li>
+                            if (isDirector)
+                            {
+                                <li style="float: right">@Html.ActionLink("Użytkownicy", "Index", "User")</li>
+                            }
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Koło Łowieckie Literatów Polskich nr 39", "Login", "User", null, new { style = "font-size: 20px" })</li>
+                        }
+                    </ul>
+                </div>
         </div>
     </div>
     <div class="container body-content" id="bodyContainer">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
+    <footer class="footer">    
+        
+        <div class="footer-header"></div>
+
+        <div class="container-fluid text-center footer-content">
+
+            <div class="row">
+
+                <div class="col-md-6 moveTo">
+                    <h5 class="text-uppercase" style="margin-bottom: 20px">O nas</h5>
+                    <p>Koło Łowieckie „Literatów Polskich” w Warszawie, rok założenia 1954.</p>
+                    <p>Koło dzierżawi dwa obwody łowieckie obwód nr 20 „Smolary” w okręgu pilskim i obwód nr 247 „Trzęśniew ” w okręgu konińskim.</p>
+                </div>
+
+                <div class="col-md-4 col-lg-3 moveTo">
+                    <h5 class="text-uppercase" style="margin-bottom: 20px">Kontakt</h5>
+                    <p> <i class="glyphicon glyphicon-home"></i> ul.Rostworowskiego 6/2, 01-496 Warszawa</p>
+                    <p><i class="glyphicon glyphicon-envelope"></i> kontakt@literatowpolskich.pl</p>
+                    <p><i class="glyphicon glyphicon-phone"></i> 123 456 789</p>
+                    <p><i class="glyphicon glyphicon-piggy-bank"></i> 12 1234 1234 1234 1234 1234 1234</p>
+                </div>
+
+                <div class="col-md-3 moveTo">
+                    <h5 class="text-uppercase" style="margin-bottom: 20px">Szybki dostęp</h5>
+                    <ul class="list-unstyled">
+                        <li style="margin-bottom: 10px">@Html.ActionLink("Polowania", "MyHunts", "Hunt", null, new {style = "color:white"})</li>
+                        <li style="margin-bottom: 10px">@Html.ActionLink("Odłowy", "MyCaughts", "Catch", null, new {style = "color:white"})</li>
+                        <li style="margin-bottom: 10px">@Html.ActionLink("Ubytki", "Index", "Loss", null, new {style = "color:white"})</li>
+                        <li>@Html.ActionLink("Roczny Plan", "Index", "AnnualPlan", null, new {style = "color:white"})</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>    
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        $('.moveTo').on('click', function() {
+            $("html, body").animate({ scrollTop: $(document).height() }, 700);
+        });
+    </script>
 </body>
 </html>

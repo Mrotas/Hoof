@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
+using Domain.MarketingYear;
+using Domain.MarketingYear.Models;
 using Domain.TrunkFoodPlan;
 using Domain.TrunkFoodPlan.Models;
 using Domain.TrunkFoodPlan.ViewModels;
@@ -9,19 +12,22 @@ namespace Hoof.Controllers
     public class TrunkFoodPlanController : Controller
     {
         private readonly ITrunkFoodPlanService _trunkFoodPlanService;
+        private readonly IMarketingYearService _marketingYearService;
 
-        public TrunkFoodPlanController() : this(new TrunkFoodPlanService())
+        public TrunkFoodPlanController() : this(new TrunkFoodPlanService(), new MarketingYearService())
         {
         }
 
-        public TrunkFoodPlanController(ITrunkFoodPlanService trunkFoodPlanService)
+        public TrunkFoodPlanController(ITrunkFoodPlanService trunkFoodPlanService, IMarketingYearService marketingYearService)
         {
             _trunkFoodPlanService = trunkFoodPlanService;
+            _marketingYearService = marketingYearService;
         }
 
         public ActionResult Index()
         {
-            return View();
+            IList<MarketingYearModel> marketingYearModels = _marketingYearService.GetAll();
+            return View(marketingYearModels);
         }
 
         public ActionResult Plan(int marketingYearId)

@@ -12,5 +12,10 @@ namespace Domain.MarketingYear.Models
         {
             return $"{Start.Year}/{End.Year}";
         }
+
+        public string ToSelectOption()
+        {
+            return $"{Start:dd/MM/yyyy} - {End:dd/MM/yyyy}";
+        }
     }
 }

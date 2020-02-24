@@ -4,6 +4,8 @@ using System.Linq;
 using Common.Extensions;
 using DataAccess.Dao.Fodder;
 using DataAccess.Dto;
+using Domain.AnnualPlanStatus;
+using Domain.AnnualPlanStatus.Models;
 using Domain.Fodder.ViewModels;
 using Domain.MarketingYear;
 using Domain.MarketingYear.Models;
@@ -14,15 +16,17 @@ namespace Domain.Fodder
     {
         private readonly IFodderDao _fodderDao;
         private readonly IMarketingYearService _marketingYearService;
+        private readonly IAnnualPlanStatusService _annualPlanStatusService;
 
-        public FodderService() : this(new FodderDao(), new MarketingYearService())
+        public FodderService() : this(new FodderDao(), new MarketingYearService(), new AnnualPlanStatusService())
         {
         }
 
-        public FodderService(IFodderDao fodderDao, IMarketingYearService marketingYearService)
+        public FodderService(IFodderDao fodderDao, IMarketingYearService marketingYearService, IAnnualPlanStatusService annualPlanStatusService)
         {
             _fodderDao = fodderDao;
             _marketingYearService = marketingYearService;
+            _annualPlanStatusService = annualPlanStatusService;
         }
 
         public FodderBaseViewModel GetFodderViewModel(int marketingYearId)
@@ -41,11 +45,13 @@ namespace Domain.Fodder
             }).ToList();
 
             MarketingYearModel marketingYearModel = _marketingYearService.GetMarketingYearModel(marketingYearId);
+            AnnualPlanStatusModel annualPlanStatusModel = _annualPlanStatusService.GetByMarketingYearId(marketingYearId);
 
             var fodderPlanViewBaseModel = new FodderBaseViewModel
             {
                 FodderViewModels = fodderViewModels,
-                MarketingYearModel = marketingYearModel
+                MarketingYearModel = marketingYearModel,
+                AnnualPlanStatusModel = annualPlanStatusModel
             };
 
             return fodderPlanViewBaseModel;

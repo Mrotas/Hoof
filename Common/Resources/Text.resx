@@ -465,4 +465,19 @@
   <data name="ReducedArea" xml:space="preserve">
     <value>powierzchnia zredukowana</value>
   </data>
+  <data name="Approved" xml:space="preserve">
+    <value>Zaakceptowany</value>
+  </data>
+  <data name="PlanInProgress" xml:space="preserve">
+    <value>W trakcie planowania</value>
+  </data>
+  <data name="ReadyToApprove" xml:space="preserve">
+    <value>Gotowy do akceptacji</value>
+  </data>
+  <data name="ReadyToPlan" xml:space="preserve">
+    <value>Gotowy do planowania</value>
+  </data>
+  <data name="ToCorrect" xml:space="preserve">
+    <value>Do poprawy</value>
+  </data>
 </root>

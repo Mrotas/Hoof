@@ -14,6 +14,8 @@ namespace Domain.Catch.ViewModels
         [Display(Name = "Data")]
         public DateTime Date { get; set; }
 
+        public string DateString => Date.ToString("dd/MM/yyyy");
+
         [Display(Name = "Miasto")]
         public string City { get; set; }
 

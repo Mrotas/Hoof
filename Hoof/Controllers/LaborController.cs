@@ -1,26 +1,32 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Domain.Labor;
 using Domain.Labor.ViewModels;
+using Domain.MarketingYear;
+using Domain.MarketingYear.Models;
 
 namespace Hoof.Controllers
 {
     public class LaborController : Controller
     {
         private readonly ILaborService _laborService;
+        private readonly IMarketingYearService _marketingYearService;
 
-        public LaborController() : this(new LaborService())
+        public LaborController() : this(new LaborService(), new MarketingYearService())
         {
         }
 
-        public LaborController(ILaborService laborService)
+        public LaborController(ILaborService laborService, IMarketingYearService marketingYearService)
         {
             _laborService = laborService;
+            _marketingYearService = marketingYearService;
         }
 
         public ActionResult Index()
         {
-            return View();
+            IList<MarketingYearModel> marketingYearModels = _marketingYearService.GetAll();
+            return View(marketingYearModels);
         }
 
         public ActionResult List(int marketingYearId)

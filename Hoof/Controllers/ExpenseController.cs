@@ -1,26 +1,32 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Domain.Expense;
 using Domain.Expense.ViewModels;
+using Domain.MarketingYear;
+using Domain.MarketingYear.Models;
 
 namespace Hoof.Controllers
 {
     public class ExpenseController : Controller
     {
         private readonly IExpenseService _expenseService;
+        private readonly IMarketingYearService _marketingYearService;
 
-        public ExpenseController() : this(new ExpenseService())
+        public ExpenseController() : this(new ExpenseService(), new MarketingYearService())
         {
         }
 
-        public ExpenseController(IExpenseService expenseService)
+        public ExpenseController(IExpenseService expenseService, IMarketingYearService marketingYearService)
         {
             _expenseService = expenseService;
+            _marketingYearService = marketingYearService;
         }
 
         public ActionResult Index()
         {
-            return View();
+            IList<MarketingYearModel> marketingYearModels = _marketingYearService.GetAll();
+            return View(marketingYearModels);
         }
 
         public ActionResult List(int marketingYearId)

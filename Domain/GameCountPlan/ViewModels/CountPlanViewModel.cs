@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Domain.AnnualPlanStatus.Models;
+using Domain.MarketingYear.Models;
 
 namespace Domain.GameCountPlan.ViewModels
 {
     public class CountPlanViewModel
     {
-        public int MarketingYearId { get; set; }
-        public DateTime MarketingYearStart { get; set; }
-        public DateTime MarketingYearEnd { get; set; }
+        public MarketingYearModel MarketingYearModel { get; set; }
+        public AnnualPlanStatusModel AnnualPlanStatusModel { get; set; }
 
         [Display(Name = "Rok gospodarczy")]
-        public string MarketingYear => $"{MarketingYearStart:dd/MM/yyyy} - {MarketingYearEnd:dd/MM/yyyy}";
+        public string MarketingYear => $"{MarketingYearModel.Start:dd/MM/yyyy} - {MarketingYearModel.End:dd/MM/yyyy}";
 
         public IList<GameCountPlanViewModel> GameCountPlanViewModels { get; set; }
     }

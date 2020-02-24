@@ -41,6 +41,19 @@ namespace Common.Extensions
             }
         }
 
+        public static string GetAnnualPlanStatusName(int annualPlanStatus)
+        {
+            switch (annualPlanStatus)
+            {
+                case 0: return ToUpperCamelCase(Text.ReadyToPlan);
+                case 1: return ToUpperCamelCase(Text.PlanInProgress);
+                case 2: return ToUpperCamelCase(Text.ReadyToApprove);
+                case 3: return ToUpperCamelCase(Text.Approved);
+                case 4: return ToUpperCamelCase(Text.ToCorrect);
+                default: throw new NotImplementedException();
+            }
+        }
+
         private static string ToUpperCamelCase(string text)
         {
             return Char.ToUpper(text.ElementAt(0)) + text.Substring(1);

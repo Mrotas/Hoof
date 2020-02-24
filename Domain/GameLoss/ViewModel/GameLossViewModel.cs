@@ -31,5 +31,7 @@ namespace Domain.GameLoss.ViewModel
 
         [Display(Name = "Data zgłoszenia")]
         public DateTime Date { get; set; }
+
+        public string DateString => Date.ToString("dd/MM/yyyy");
     }
 }

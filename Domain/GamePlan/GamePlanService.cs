@@ -80,7 +80,7 @@ namespace Domain.GamePlan
             var annualPlanKindGameModels = new List<AnnualPlanKindGameModel>();
             foreach (var gameByKind in gamesByKind)
             {
-                if (!CurrentHuntPlans.Any(x => x.GameId == gameByKind.FirstOrDefault().Id))
+                if (!CurrentHuntPlans.Any(x => gameByKind.Any(y => y.Id == x.GameId)))
                 {
                     continue;
                 }

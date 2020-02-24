@@ -6,7 +6,11 @@ using DataAccess.Dao.GameClass;
 using DataAccess.Dao.GameCountFor10March;
 using DataAccess.Dao.MarketingYear;
 using DataAccess.Dto;
+using Domain.AnnualPlanStatus;
+using Domain.AnnualPlanStatus.Models;
 using Domain.GameCountPlan.ViewModels;
+using Domain.MarketingYear;
+using Domain.MarketingYear.Models;
 
 namespace Domain.GameCountPlan
 {
@@ -26,18 +30,20 @@ namespace Domain.GameCountPlan
         private readonly IGameCountFor10MarchDao _gameCountFor10MarchDao;
         private readonly IGameDao _gameDao;
         private readonly IGameClassDao _gameClassDao;
-        private readonly IMarketingYearDao _marketingYearDao;
+        private readonly IMarketingYearService _marketingYearService;
+        private readonly IAnnualPlanStatusService _annualPlanStatusService;
 
-        public GameCountPlanService() : this(new GameCountFor10MarchDao(), new GameDao(), new GameClassDao(), new MarketingYearDao())
+        public GameCountPlanService() : this(new GameCountFor10MarchDao(), new GameDao(), new GameClassDao(), new MarketingYearService(), new AnnualPlanStatusService())
         {
         }
 
-        public GameCountPlanService(IGameCountFor10MarchDao gameCountFor10MarchDao, IGameDao gameDao, IGameClassDao gameClassDao, IMarketingYearDao marketingYearDao)
+        public GameCountPlanService(IGameCountFor10MarchDao gameCountFor10MarchDao, IGameDao gameDao, IGameClassDao gameClassDao, IMarketingYearService marketingYearService, IAnnualPlanStatusService annualPlanStatusService)
         {
             _gameCountFor10MarchDao = gameCountFor10MarchDao;
             _gameDao = gameDao;
             _gameClassDao = gameClassDao;
-            _marketingYearDao = marketingYearDao;
+            _marketingYearService = marketingYearService;
+            _annualPlanStatusService = annualPlanStatusService;
         }
 
         public CountPlanViewModel GetCountPlanViewModel(int marketingYearId)
@@ -64,14 +70,14 @@ namespace Domain.GameCountPlan
                 }
             ).ToList();
 
-            DataAccess.Entities.MarketingYear marketingYear = _marketingYearDao.GetById(MarketingYearId);
+            MarketingYearModel marketingYearModel = _marketingYearService.GetMarketingYearModel(MarketingYearId);
+            AnnualPlanStatusModel annualPlanStatusModel = _annualPlanStatusService.GetByMarketingYearId(marketingYearId);
 
             var huntPlanViewModel = new CountPlanViewModel
             {
-                MarketingYearId = marketingYear.Id,
-                MarketingYearStart = marketingYear.Start,
-                MarketingYearEnd = marketingYear.End,
-                GameCountPlanViewModels = gameCountPlanViewModels
+                GameCountPlanViewModels = gameCountPlanViewModels,
+                MarketingYearModel = marketingYearModel,
+                AnnualPlanStatusModel = annualPlanStatusModel
             };
 
             return huntPlanViewModel;

@@ -1,5 +1,6 @@
-﻿@using Domain.Expense.ViewModels
-@model Domain.Expense.ViewModels.ExpenseBaseViewModel
+﻿@using Common.Enums
+@using Domain.Expense.ViewModels
+@model ExpenseBaseViewModel
 
 @{
     ViewBag.Title = "List";
@@ -24,7 +25,11 @@
 
 <br />
 
-<button class="btn btn-primary" id="add" data-toggle="modal" data-target="#addExpenseModal">Dodaj</button>
+@{ var displayAddButton = Model.AnnualPlanStatusModel.Status == (int)AnnualPlanStatus.InProgress ||
+                           Model.AnnualPlanStatusModel.Status == (int)AnnualPlanStatus.ToCorrect;
+    var display = displayAddButton ? "" : "display:none";
+}
+<button class="btn btn-brown" id="add" data-toggle="modal" data-target="#addExpenseModal" style="margin-bottom: 10px;@display">Dodaj</button>
 <table class="table table-bordered table-hover" id="expenseTable">
     <tr>
         <th style="width: 5%">

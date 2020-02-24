@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Web;
 using System.Web.Mvc;
 using Domain.Hunt;
 using Domain.Hunt.Models;
@@ -21,14 +23,25 @@ namespace Hoof.Controllers
 
         public ActionResult Index()
         {
-            IList<HuntViewModel> huntModels = _huntService.GetAllHunts();
+            IList<HuntViewModel> huntModels = _huntService.GetAllHuntsForCurrentMarketingYear();
             return View(huntModels);
         }
 
         public ActionResult MyHunts()
         {
-            //TODO get huntsmanId
-            IList<HuntViewModel> myHunts = _huntService.GetHuntsByHuntsmanId(1);
+            HttpCookie userCookie = Request.Cookies["User"];
+            if (userCookie == null)
+            {
+                return View(new List<HuntViewModel>());
+            }
+
+            string userIdString = userCookie["UserId"];
+            if (!Int32.TryParse(userIdString, out int userId))
+            {
+                return View(new List<HuntViewModel>());
+            }
+
+            IList<HuntViewModel> myHunts = _huntService.GetCurrentMarketingYearHuntsByUserId(userId);
             return View(myHunts);
         }
 
@@ -42,9 +55,19 @@ namespace Hoof.Controllers
         [HttpPost]
         public JsonResult Create(HuntCreateModel model)
         {
-            //TODO get huntsmanId
-            int huntsmanId = 1;
-            _huntService.Create(model, huntsmanId);
+            HttpCookie userCookie = Request.Cookies["User"];
+            if (userCookie == null)
+            {
+                return Json(new { data = false }, JsonRequestBehavior.AllowGet);
+            }
+
+            string userIdString = userCookie["UserId"];
+            if (!Int32.TryParse(userIdString, out int userId))
+            {
+                return Json(new { data = false }, JsonRequestBehavior.AllowGet);
+            }
+
+            _huntService.Create(model, userId);
             return Json(new {data = true}, JsonRequestBehavior.AllowGet);
         }
     }

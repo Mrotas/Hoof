@@ -1,4 +1,6 @@
-﻿
+﻿@using Domain.MarketingYear.Models
+@model IEnumerable<MarketingYearModel>
+
 @{
     ViewBag.Title = "Index";
 }
@@ -13,7 +15,7 @@
 
     <script type="text/javascript">
 
-        $('#generateButton').on('click',function () {
+        $('#generateButton').on('click', function () {
             var marketingYearId = $('#marketingYear :selected').val();
             window.location.href = "FieldPlan/Plan?marketingYearId=" + marketingYearId;
         });
@@ -24,12 +26,15 @@
 <br />
 
 <div style="text-align: center">
-    <label>Wybierz Rok Gospodarczy</label>
-    <select id="marketingYear">
-        <option value="3">2018/04/01 - 2019/03/31</option>
-        <option value="2">2017/04/01 - 2018/03/31</option>
-        <option value="1">2016/04/01 - 2017/03/31</option>
-    </select>
+    <h4>
+        Wybierz Rok Gospodarczy
+        <select class="form-control" style="display: inline; width: 23%; font-size:18px" id="marketingYear">
+            @foreach (MarketingYearModel marketingYearModel in Model.OrderByDescending(x => x.Id))
+            {
+                <option value="@marketingYearModel.Id">@marketingYearModel.ToSelectOption()</option>
+            }
+        </select>
 
-    <button class="btn btn-primary" id="generateButton">Pokaż</button>
+        <button class="btn btn-brown" id="generateButton">Pokaż</button>
+    </h4>
 </div>

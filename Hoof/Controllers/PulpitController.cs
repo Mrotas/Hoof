@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
+using Domain.MarketingYear;
+using Domain.MarketingYear.Models;
 using Domain.Pulpit;
 using Domain.Pulpit.ViewModels;
 
@@ -8,19 +11,22 @@ namespace Hoof.Controllers
     public class PulpitController : Controller
     {
         private readonly IPulpitService _pulpitService;
+        private readonly IMarketingYearService _marketingYearService;
 
-        public PulpitController() : this(new PulpitService())
+        public PulpitController() : this(new PulpitService(), new MarketingYearService())
         {
         }
 
-        public PulpitController(IPulpitService pulpitService)
+        public PulpitController(IPulpitService pulpitService, IMarketingYearService marketingYearService)
         {
             _pulpitService = pulpitService;
+            _marketingYearService = marketingYearService;
         }
 
         public ActionResult Index()
         {
-            return View();
+            IList<MarketingYearModel> marketingYearModels = _marketingYearService.GetAll();
+            return View(marketingYearModels);
         }
 
         public ActionResult List(int marketingYearId)

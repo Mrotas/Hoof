@@ -6,15 +6,12 @@
 
 <h2>Moje odłowy</h2>
 
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addCatchModal">
+<button type="button" class="btn btn-brown" data-toggle="modal" data-target="#addCatchModal" style="margin-bottom: 10px;">
     Dodaj odłów
 </button>
 
-<table class="table">
+<table class="table table-bordered table-hover">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.City)
         </th>
@@ -34,16 +31,16 @@
             @Html.DisplayNameFor(model => model.Count)
         </th>
         <th>
-
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th style="width: 10%">
+            Zarządzaj
         </th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.City)
             </td>
@@ -63,9 +60,11 @@
                 @Html.DisplayFor(modelItem => item.Count)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.DisplayFor(modelItem => item.DateString)
+            </td>
+            <td style="text-align: center">
+                <button class="btn btn-xs btn-success">Edytuj</button>
+                <button class="btn btn-xs btn-danger">Usuń</button>
             </td>
         </tr>
     }

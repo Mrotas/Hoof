@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\DbContext.cs" />
+    <Compile Include="Dao\AnnualPlanStatus\AnnualPlanStatusDao.cs" />
+    <Compile Include="Dao\AnnualPlanStatus\IAnnualPlanStatusDao.cs" />
     <Compile Include="Dao\CarcassRevenue\CarcassRevenueDao.cs" />
     <Compile Include="Dao\CarcassRevenue\ICarcassRevenueDao.cs" />
     <Compile Include="Dao\Catch\CatchDao.cs" />
@@ -96,7 +98,6 @@
     <Compile Include="Dao\Pulpit\PulpitDao.cs" />
     <Compile Include="Dao\TrunkFoodPlan\ITrunkFoodPlanDao.cs" />
     <Compile Include="Dao\TrunkFoodPlan\TrunkFoodPlanDao.cs" />
-    <Compile Include="Dao\DaoBase.cs" />
     <Compile Include="Dao\Game\GameDao.cs" />
     <Compile Include="Dao\Game\IGameDao.cs" />
     <Compile Include="Dao\Huntsman\HuntsmanDao.cs" />
@@ -105,8 +106,11 @@
     <Compile Include="Dao\Hunt\IHuntDao.cs" />
     <Compile Include="Dao\Region\IRegionDao.cs" />
     <Compile Include="Dao\Region\RegionDao.cs" />
+    <Compile Include="Dao\User\IUserDao.cs" />
+    <Compile Include="Dao\User\UserDao.cs" />
     <Compile Include="Dao\WateringPlace\IWateringPlaceDao.cs" />
     <Compile Include="Dao\WateringPlace\WateringPlaceDao.cs" />
+    <Compile Include="Dto\AnnualPlanStatusDto.cs" />
     <Compile Include="Dto\CarcassRevenueDto.cs" />
     <Compile Include="Dto\CatchDto.cs" />
     <Compile Include="Dto\CostPlanDto.cs" />
@@ -132,7 +136,9 @@
     <Compile Include="Dto\PulpitDto.cs" />
     <Compile Include="Dto\RegionDto.cs" />
     <Compile Include="Dto\TrunkFoodPlanDto.cs" />
+    <Compile Include="Dto\UserDto.cs" />
     <Compile Include="Dto\WateringPlaceDto.cs" />
+    <Compile Include="Entities\AnnualPlanStatus.cs" />
     <Compile Include="Entities\Catch.cs" />
     <Compile Include="Entities\Expense.cs" />
     <Compile Include="Entities\CostPlan.cs" />
@@ -158,6 +164,7 @@
     <Compile Include="Entities\Hunt.cs" />
     <Compile Include="Entities\Huntsman.cs" />
     <Compile Include="Entities\Region.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\WateringPlace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

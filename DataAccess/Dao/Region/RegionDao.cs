@@ -1,16 +1,17 @@
 ﻿using DataAccess.Dto;
 using System.Collections.Generic;
 using System.Linq;
+using DataAccess.Context;
 
 namespace DataAccess.Dao.Region
 {
-    public class RegionDao : DaoBase, IRegionDao
+    public class RegionDao : IRegionDao
     {
         public IList<RegionDto> GetAll()
         {
-            using (DbContext)
+            using (var db = new DbContext())
             {
-                List<Entities.Region> regions = DbContext.Region.ToList();
+                List<Entities.Region> regions = db.Region.ToList();
 
                 IList<RegionDto> dtos = ToDtos(regions);
 
@@ -20,9 +21,9 @@ namespace DataAccess.Dao.Region
 
         public int GetRegionId(string city, int circuit, int district)
         {
-            using (DbContext)
+            using (var db = new DbContext())
             {
-                int regionId = DbContext.Region.Where(x => x.City == city && x.Circuit == circuit && x.District == district).Select(x => x.Id).FirstOrDefault();
+                int regionId = db.Region.Where(x => x.City == city && x.Circuit == circuit && x.District == district).Select(x => x.Id).FirstOrDefault();
                 return regionId;
             }
         }

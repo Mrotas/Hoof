@@ -5,13 +5,13 @@ using DataAccess.Dto;
 
 namespace DataAccess.Dao.LossGame
 {
-    public class LossGameDao : DaoBase, ILossGameDao
+    public class LossGameDao : ILossGameDao
     {
         public IList<LossGameDto> GetAll()
         {
-            using (DbContext)
+            using (var db = new DbContext())
             {
-                List<Entities.LossGame> lossGames = DbContext.LossGame.ToList();
+                List<Entities.LossGame> lossGames = db.LossGame.ToList();
 
                 IList<LossGameDto> dtos = ToDtos(lossGames);
 
@@ -21,12 +21,12 @@ namespace DataAccess.Dao.LossGame
 
         public IList<LossGameDto> GetByMarketingYear(int marketingYearId)
         {
-            using (DbContext)
+            using (var db = new DbContext())
             {
-                Entities.MarketingYear marketingYear = DbContext.MarketingYear.Find(marketingYearId);
+                Entities.MarketingYear marketingYear = db.MarketingYear.Find(marketingYearId);
 
-                List<Entities.LossGame> lossGames = (from loss in DbContext.Loss
-                                                    join lossGame in DbContext.LossGame on loss.LossGameId equals lossGame.Id
+                List<Entities.LossGame> lossGames = (from loss in db.Loss
+                                                    join lossGame in db.LossGame on loss.LossGameId equals lossGame.Id
                                                     where loss.Date >= marketingYear.Start && loss.Date <= marketingYear.End
                                                     select lossGame).ToList();
 
@@ -60,10 +60,10 @@ namespace DataAccess.Dao.LossGame
                 Class = dto.Class
             };
 
-            using (DbContext)
+            using (var db = new DbContext())
             {
-                Entities.LossGame addedLossGame = DbContext.LossGame.Add(entity);
-                DbContext.SaveChanges();
+                Entities.LossGame addedLossGame = db.LossGame.Add(entity);
+                db.SaveChanges();
                 return addedLossGame.Id;
             }
         }

@@ -2,25 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using DataAccess.Dao.HuntEquipmentPlan;
-using DataAccess.Dao.MarketingYear;
 using DataAccess.Dto;
+using Domain.AnnualPlanStatus;
+using Domain.AnnualPlanStatus.Models;
 using Domain.HuntEquipmentPlan.ViewModels;
+using Domain.MarketingYear;
+using Domain.MarketingYear.Models;
 
 namespace Domain.HuntEquipmentPlan
 {
     public class HuntEquipmentPlanService : IHuntEquipmentPlanService
     {
         private readonly IHuntEquipmentPlanDao _huntEquipmentPlanDao;
-        private readonly IMarketingYearDao _marketingYearDao;
+        private readonly IMarketingYearService _marketingYearService;
+        private readonly IAnnualPlanStatusService _annualPlanStatusService;
 
-        public HuntEquipmentPlanService() : this(new HuntEquipmentPlanDao(), new MarketingYearDao())
+        public HuntEquipmentPlanService() : this(new HuntEquipmentPlanDao(), new MarketingYearService(), new AnnualPlanStatusService())
         {
         }
 
-        public HuntEquipmentPlanService(IHuntEquipmentPlanDao huntEquipmentPlanDao, IMarketingYearDao marketingYearDao)
+        public HuntEquipmentPlanService(IHuntEquipmentPlanDao huntEquipmentPlanDao, IMarketingYearService marketingYearService, IAnnualPlanStatusService annualPlanStatusService)
         {
             _huntEquipmentPlanDao = huntEquipmentPlanDao;
-            _marketingYearDao = marketingYearDao;
+            _marketingYearService = marketingYearService;
+            _annualPlanStatusService = annualPlanStatusService;
         }
 
         public HuntEquipmentPlanBaseViewModel GetHuntEquipmentPlanViewModel(int marketingYearId)
@@ -40,14 +45,14 @@ namespace Domain.HuntEquipmentPlan
                 }
             ).ToList();
 
-            DataAccess.Entities.MarketingYear marketingYear = _marketingYearDao.GetById(marketingYearId);
+            MarketingYearModel marketingYearModel = _marketingYearService.GetMarketingYearModel(marketingYearId);
+            AnnualPlanStatusModel annualPlanStatusModel = _annualPlanStatusService.GetByMarketingYearId(marketingYearId);
 
             var huntEquipmentPlanBaseViewModel = new HuntEquipmentPlanBaseViewModel
             {
                 HuntEquipmentPlanViewModels = huntEquipmentPlanViewModels,
-                MarketingYearId = marketingYearId,
-                MarketingYearStart = marketingYear.Start,
-                MarketingYearEnd = marketingYear.End
+                MarketingYearModel = marketingYearModel,
+                AnnualPlanStatusModel = annualPlanStatusModel
             };
 
             return huntEquipmentPlanBaseViewModel;

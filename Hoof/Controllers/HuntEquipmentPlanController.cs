@@ -1,26 +1,32 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Domain.HuntEquipmentPlan;
 using Domain.HuntEquipmentPlan.ViewModels;
+using Domain.MarketingYear;
+using Domain.MarketingYear.Models;
 
 namespace Hoof.Controllers
 {
     public class HuntEquipmentPlanController : Controller
     {
         private readonly IHuntEquipmentPlanService _huntEquipmentPlanService;
+        private readonly IMarketingYearService _marketingYearService;
 
-        public HuntEquipmentPlanController(): this(new HuntEquipmentPlanService())
+        public HuntEquipmentPlanController(): this(new HuntEquipmentPlanService(), new MarketingYearService())
         {
         }
 
-        public HuntEquipmentPlanController(IHuntEquipmentPlanService huntEquipmentPlanService)
+        public HuntEquipmentPlanController(IHuntEquipmentPlanService huntEquipmentPlanService, IMarketingYearService marketingYearService)
         {
             _huntEquipmentPlanService = huntEquipmentPlanService;
+            _marketingYearService = marketingYearService;
         }
 
         public ActionResult Index()
         {
-            return View();
+            IList<MarketingYearModel> marketingYearModels = _marketingYearService.GetAll();
+            return View(marketingYearModels);
         }
 
         public ActionResult Plan(int marketingYearId)

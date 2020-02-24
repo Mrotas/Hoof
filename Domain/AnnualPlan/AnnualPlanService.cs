@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using Common.Enums;
 using Common.Extensions;
 using DataAccess.Dao.CarcassRevenue;
@@ -22,8 +23,10 @@ using Domain.AnnualPlan.Models.Employment;
 using Domain.AnnualPlan.Models.Fodder;
 using Domain.AnnualPlan.Models.HuntEquipment;
 using Domain.AnnualPlan.ViewModels;
+using Domain.AnnualPlanStatus;
 using Domain.GamePlan;
 using Domain.MarketingYear;
+using Domain.User;
 
 namespace Domain.AnnualPlan
 {
@@ -33,6 +36,7 @@ namespace Domain.AnnualPlan
         public int PreviousMarketingYearId { get; set; }
 
         private readonly IMarketingYearService _marketingYearService;
+        private readonly IAnnualPlanStatusService _annualPlanStatusService;
         private readonly IEmploymentPlanDao _employeePlanDao;
         private readonly IHuntEquipmentPlanDao _huntEquipmentPlanDao;
         private readonly IPastureDao _pastureDao;
@@ -47,6 +51,7 @@ namespace Domain.AnnualPlan
         private readonly IExpenseDao _expenseDao;
         private readonly ICarcassRevenueDao _carcassRevenueDao;
         private readonly IGamePlanService _gamePlanService;
+        private readonly IUserService _userService;
 
         public AnnualPlanService() : this(new EmploymentPlanDao(), 
             new HuntEquipmentPlanDao(),
@@ -62,7 +67,9 @@ namespace Domain.AnnualPlan
             new ExpenseDao(),
             new CarcassRevenueDao(),
             new GamePlanService(), 
-            new MarketingYearService())
+            new MarketingYearService(), 
+            new AnnualPlanStatusService(),
+            new UserService())
         {
         }
 
@@ -80,7 +87,9 @@ namespace Domain.AnnualPlan
             IExpenseDao expenseDao,
             ICarcassRevenueDao carcassRevenueDao,
             IGamePlanService gamePlanService,
-            IMarketingYearService marketingYearService)
+            IMarketingYearService marketingYearService,
+            IAnnualPlanStatusService annualPlanStatusService,
+            IUserService userService)
         {
             _employeePlanDao = employeePlanDao;
             _huntEquipmentPlanDao = huntEquipmentPlanDao;
@@ -97,9 +106,11 @@ namespace Domain.AnnualPlan
             _carcassRevenueDao = carcassRevenueDao;
             _gamePlanService = gamePlanService;
             _marketingYearService = marketingYearService;
+            _annualPlanStatusService = annualPlanStatusService;
+            _userService = userService;
         }
 
-        public AnnualPlanViewModel GetAnnualPlanViewModel(int marketingYearId)
+        public AnnualPlanViewModel GetAnnualPlanViewModel(HttpCookie userCookie, int marketingYearId)
         {
             CurrentMarketingYearId = marketingYearId;
             PreviousMarketingYearId = marketingYearId - 1;
@@ -107,6 +118,8 @@ namespace Domain.AnnualPlan
             var annualPlanViewModel = new AnnualPlanViewModel();
 
             annualPlanViewModel.MarketingYearModel = _marketingYearService.GetMarketingYearModel(CurrentMarketingYearId);
+
+            annualPlanViewModel.AnnualPlanStatusModel = _annualPlanStatusService.GetByMarketingYearId(marketingYearId);
 
             annualPlanViewModel.AnnualPlanModel = GetAnnualPlanModel();
             
@@ -116,7 +129,7 @@ namespace Domain.AnnualPlan
            
             return annualPlanViewModel;
         }
-        
+
         private AnnualPlanModel GetAnnualPlanModel()
         {
             var annualPlanModel = new AnnualPlanModel();

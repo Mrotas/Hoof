@@ -5,7 +5,7 @@ using DataAccess.Dto;
 
 namespace DataAccess.Dao.FieldPlan
 {
-    public class FieldPlanDao : DaoBase, IFieldPlanDao
+    public class FieldPlanDao : IFieldPlanDao
     {
         public FieldPlanDto GetByMarketingYear(int marketingYearId)
         {

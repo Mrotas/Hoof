@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DataAccess.Context;
 using DataAccess.Dto;
 
 namespace DataAccess.Dao.Catch
 {
-    public class CatchDao : DaoBase, ICatchDao
+    public class CatchDao : ICatchDao
     {
         public IList<CatchDto> GetAll()
         {
-            using (DbContext)
+            using (var db = new DbContext())
             {
-                List<Entities.Catch> catches = DbContext.Catch.ToList();
+                List<Entities.Catch> catches = db.Catch.ToList();
 
                 IList<CatchDto> dtos = ToDtos(catches);
 
@@ -21,10 +22,10 @@ namespace DataAccess.Dao.Catch
 
         public IList<CatchDto> GetByMarketingYear(int marketingYearId)
         {
-            using (DbContext)
+            using (var db = new DbContext())
             {
-                Entities.MarketingYear marketingYear = DbContext.MarketingYear.Find(marketingYearId);
-                List<Entities.Catch> catches = DbContext.Catch.Where(x => x.Date >= marketingYear.Start && x.Date <= marketingYear.End).ToList();
+                Entities.MarketingYear marketingYear = db.MarketingYear.Find(marketingYearId);
+                List<Entities.Catch> catches = db.Catch.Where(x => x.Date >= marketingYear.Start && x.Date <= marketingYear.End).ToList();
 
                 IList<CatchDto> dtos = ToDtos(catches);
 
@@ -34,9 +35,9 @@ namespace DataAccess.Dao.Catch
 
         public IList<CatchDto> GetByDateRange(DateTime fromDate, DateTime toDate)
         {
-            using (DbContext)
+            using (var db = new DbContext())
             {
-                List<Entities.Catch> catches = DbContext.Catch.Where(x => x.Date >= fromDate && x.Date <= toDate).ToList();
+                List<Entities.Catch> catches = db.Catch.Where(x => x.Date >= fromDate && x.Date <= toDate).ToList();
 
                 var dtos = ToDtos(catches);
 
@@ -55,10 +56,10 @@ namespace DataAccess.Dao.Catch
                 Count = catchDto.Count
             };
 
-            using (DbContext)
+            using (var db = new DbContext())
             {
-                DbContext.Catch.Add(gameCatch);
-                DbContext.SaveChanges();
+                db.Catch.Add(gameCatch);
+                db.SaveChanges();
             }
         }
 

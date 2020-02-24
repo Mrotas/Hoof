@@ -2,24 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using DataAccess.Dao.EmploymentPlan;
-using DataAccess.Dao.MarketingYear;
 using DataAccess.Dto;
+using Domain.AnnualPlanStatus;
+using Domain.AnnualPlanStatus.Models;
 using Domain.EmploymentPlan.ViewModels;
+using Domain.MarketingYear;
+using Domain.MarketingYear.Models;
 
 namespace Domain.EmploymentPlan
 {
     public class EmploymentPlanService : IEmploymentPlanService
     {
         private readonly IEmploymentPlanDao _employmentPlanDao;
-        private readonly IMarketingYearDao _marketingYearDao;
-        public EmploymentPlanService() : this(new EmploymentPlanDao(), new MarketingYearDao())
+        private readonly IMarketingYearService _marketingYearService;
+        private readonly IAnnualPlanStatusService _annualPlanStatusService;
+
+        public EmploymentPlanService() : this(new EmploymentPlanDao(), new MarketingYearService(), new AnnualPlanStatusService())
         {
         }
 
-        public EmploymentPlanService(IEmploymentPlanDao employmentPlanDao, IMarketingYearDao marketingYearDao)
+        public EmploymentPlanService(IEmploymentPlanDao employmentPlanDao, IMarketingYearService marketingYearService, IAnnualPlanStatusService annualPlanStatusService)
         {
             _employmentPlanDao = employmentPlanDao;
-            _marketingYearDao = marketingYearDao;
+            _marketingYearService = marketingYearService;
+            _annualPlanStatusService = annualPlanStatusService;
         }
 
         public EmploymentPlanBaseViewModel GetEmploymentPlanViewModel(int marketingYearId)
@@ -39,14 +45,14 @@ namespace Domain.EmploymentPlan
                 }
             ).ToList();
 
-            DataAccess.Entities.MarketingYear marketingYear = _marketingYearDao.GetById(marketingYearId);
+            MarketingYearModel marketingYearModel = _marketingYearService.GetMarketingYearModel(marketingYearId);
+            AnnualPlanStatusModel annualPlanStatusModel = _annualPlanStatusService.GetByMarketingYearId(marketingYearId);
 
             var employmentPlanBaseViewModel = new EmploymentPlanBaseViewModel
             {
                 EmploymentPlanViewModels = employmentPlanViewModels,
-                MarketingYearId = marketingYearId,
-                MarketingYearStart = marketingYear.Start,
-                MarketingYearEnd = marketingYear.End
+                MarketingYearModel = marketingYearModel,
+                AnnualPlanStatusModel = annualPlanStatusModel
             };
 
             return employmentPlanBaseViewModel;

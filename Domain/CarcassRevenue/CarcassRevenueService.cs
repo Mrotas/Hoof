@@ -7,6 +7,8 @@ using DataAccess.Dao.GameClass;
 using DataAccess.Dao.Hunt;
 using DataAccess.Dao.HuntedGame;
 using DataAccess.Dto;
+using Domain.AnnualPlanStatus;
+using Domain.AnnualPlanStatus.Models;
 using Domain.CarcassRevenue.ViewModels;
 using Domain.MarketingYear;
 using Domain.MarketingYear.Models;
@@ -21,12 +23,13 @@ namespace Domain.CarcassRevenue
         private readonly IGameDao _gameDao;
         private readonly IGameClassDao _gameClassDao;
         private readonly IMarketingYearService _marketingYearService;
+        private readonly IAnnualPlanStatusService _annualPlanStatusService;
 
-        public CarcassRevenueService() : this(new CarcassRevenueDao(), new HuntDao(),new HuntedGameDao(), new GameDao(), new GameClassDao(), new MarketingYearService())
+        public CarcassRevenueService() : this(new CarcassRevenueDao(), new HuntDao(),new HuntedGameDao(), new GameDao(), new GameClassDao(), new MarketingYearService(), new AnnualPlanStatusService())
         {
         }
 
-        public CarcassRevenueService(ICarcassRevenueDao carcassRevenueDao, IHuntDao huntDao, IHuntedGameDao huntedGameDao, IGameDao gameDao, IGameClassDao gameClassDao, IMarketingYearService marketingYearService)
+        public CarcassRevenueService(ICarcassRevenueDao carcassRevenueDao, IHuntDao huntDao, IHuntedGameDao huntedGameDao, IGameDao gameDao, IGameClassDao gameClassDao, IMarketingYearService marketingYearService, IAnnualPlanStatusService annualPlanStatusService)
         {
             _carcassRevenueDao = carcassRevenueDao;
             _huntDao = huntDao;
@@ -34,6 +37,7 @@ namespace Domain.CarcassRevenue
             _gameDao = gameDao;
             _gameClassDao = gameClassDao;
             _marketingYearService = marketingYearService;
+            _annualPlanStatusService = annualPlanStatusService;
         }
 
         public CarcassRevenueBaseViewModel GetCarcassRevenueViewModel(int marketingYearId)
@@ -69,10 +73,13 @@ namespace Domain.CarcassRevenue
                 }
             ).ToList();
 
+            AnnualPlanStatusModel annualPlanStatusModel = _annualPlanStatusService.GetByMarketingYearId(marketingYearId);
+
             var carcassRevenueBaseViewModel = new CarcassRevenueBaseViewModel
             {
                 CarcassRevenueViewModels = carcassRevenueViewModels,
-                MarketingYearModel = marketingYearModel
+                MarketingYearModel = marketingYearModel,
+                AnnualPlanStatusModel = annualPlanStatusModel
             };
 
             return carcassRevenueBaseViewModel;

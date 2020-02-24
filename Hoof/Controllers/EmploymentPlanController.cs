@@ -1,26 +1,32 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Domain.EmploymentPlan;
 using Domain.EmploymentPlan.ViewModels;
+using Domain.MarketingYear;
+using Domain.MarketingYear.Models;
 
 namespace Hoof.Controllers
 {
     public class EmploymentPlanController : Controller
     {
         private readonly IEmploymentPlanService _employmentPlanService;
+        private readonly IMarketingYearService _marketingYearService;
 
-        public EmploymentPlanController() : this(new EmploymentPlanService())
+        public EmploymentPlanController() : this(new EmploymentPlanService(), new MarketingYearService())
         {
         }
 
-        public EmploymentPlanController(IEmploymentPlanService employmentPlanService)
+        public EmploymentPlanController(IEmploymentPlanService employmentPlanService, IMarketingYearService marketingYearService)
         {
             _employmentPlanService = employmentPlanService;
+            _marketingYearService = marketingYearService;
         }
 
         public ActionResult Index()
         {
-            return View();
+            IList<MarketingYearModel> marketingYearModels = _marketingYearService.GetAll();
+            return View(marketingYearModels);
         }
 
         public ActionResult Plan(int marketingYearId)

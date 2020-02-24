@@ -43,7 +43,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,6 +54,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnnualPlanStatus\AnnualPlanStatusService.cs" />
+    <Compile Include="AnnualPlanStatus\IAnnualPlanStatusService.cs" />
+    <Compile Include="AnnualPlanStatus\Models\AnnualPlanStatusModel.cs" />
     <Compile Include="AnnualPlan\AnnualPlanService.cs" />
     <Compile Include="AnnualPlan\Models\Cost\AnnualPlanCostTypeModel.cs" />
     <Compile Include="AnnualPlan\Models\Employment\AnnualPlanEmploymentModel.cs" />
@@ -73,6 +78,7 @@
     <Compile Include="CostPlan\ICostPlanService.cs" />
     <Compile Include="CostPlan\ViewModels\CostPlanBaseViewModel.cs" />
     <Compile Include="CostPlan\ViewModels\CostPlanViewModel.cs" />
+    <Compile Include="Cryptography\Encrypt.cs" />
     <Compile Include="DeerLicker\DeerLickerService.cs" />
     <Compile Include="DeerLicker\IDeerLickerService.cs" />
     <Compile Include="DeerLicker\ViewModels\DeerLickerBaseViewModel.cs" />
@@ -144,6 +150,9 @@
     <Compile Include="MarketingYear\IMarketingYearService.cs" />
     <Compile Include="MarketingYear\MarketingYearService.cs" />
     <Compile Include="MarketingYear\Models\MarketingYearModel.cs" />
+    <Compile Include="Notification\INotificationService.cs" />
+    <Compile Include="Notification\Models\CreateAccountNotificationMessage.cs" />
+    <Compile Include="Notification\NotificationService.cs" />
     <Compile Include="Pasture\IPastureService.cs" />
     <Compile Include="Pasture\PastureService.cs" />
     <Compile Include="Pasture\ViewModels\PastureBaseViewModel.cs" />
@@ -166,10 +175,18 @@
     <Compile Include="Report\ReportService.cs" />
     <Compile Include="CarcassRevenue\ViewModels\CarcassRevenueBaseViewModel.cs" />
     <Compile Include="CarcassRevenue\ViewModels\CarcassRevenueViewModel.cs" />
+    <Compile Include="Role\RoleManager.cs" />
     <Compile Include="TrunkFoodPlan\ITrunkFoodPlanService.cs" />
     <Compile Include="TrunkFoodPlan\Models\TrunkFoodPlanModel.cs" />
     <Compile Include="TrunkFoodPlan\TrunkFoodPlanService.cs" />
     <Compile Include="TrunkFoodPlan\ViewModels\TrunkFoodPlanViewModel.cs" />
+    <Compile Include="User\IUserService.cs" />
+    <Compile Include="User\Models\UserModel.cs" />
+    <Compile Include="User\Models\VerificationLinkModel.cs" />
+    <Compile Include="User\UserService.cs" />
+    <Compile Include="User\ViewModels\CreateUserViewModel.cs" />
+    <Compile Include="User\ViewModels\LoginViewModel.cs" />
+    <Compile Include="User\ViewModels\UserViewModel.cs" />
     <Compile Include="WateringPlace\IWateringPlaceService.cs" />
     <Compile Include="WateringPlace\ViewModels\WateringPlaceBaseViewModel.cs" />
     <Compile Include="WateringPlace\ViewModels\WateringPlaceViewModel.cs" />

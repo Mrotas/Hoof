@@ -5,7 +5,7 @@ using DataAccess.Dto;
 
 namespace DataAccess.Dao.FodderPlan
 {
-    public class FodderPlanDao : DaoBase, IFodderPlanDao
+    public class FodderPlanDao : IFodderPlanDao
     {
         public IList<FodderPlanDto> GetByMarketingYear(int marketingYearId)
         {

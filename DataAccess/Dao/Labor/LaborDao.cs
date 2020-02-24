@@ -6,13 +6,13 @@ using DataAccess.Dto;
 
 namespace DataAccess.Dao.Labor
 {
-    public class LaborDao: DaoBase, ILaborDao
+    public class LaborDao: ILaborDao
     {
         public IList<LaborDto> GetByMarketingYear(int marketingYearId)
         {
             using (var db = new DbContext())
             {
-                Entities.MarketingYear marketingYear = DbContext.MarketingYear.Find(marketingYearId);
+                Entities.MarketingYear marketingYear = db.MarketingYear.Find(marketingYearId);
                 List<Entities.Labor> expenses = db.Labor.Where(x => x.Date >= marketingYear.Start && x.Date <= marketingYear.End).ToList();
 
                 IList<LaborDto> dtos = ToDtos(expenses);

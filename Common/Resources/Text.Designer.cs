@@ -70,6 +70,15 @@ namespace Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zaakceptowany.
+        /// </summary>
+        public static string Approved {
+            get {
+                return ResourceManager.GetString("Approved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to woliery.
         /// </summary>
         public static string Aviaries {
@@ -799,6 +808,15 @@ namespace Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to W trakcie planowania.
+        /// </summary>
+        public static string PlanInProgress {
+            get {
+                return ResourceManager.GetString("PlanInProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stan planowany do realizacji w łowieckim roku gospodarczym poprzedzającym łowiecki rok gospodarczy, na który sporządzono rpł..
         /// </summary>
         public static string PreviousEconomyPlan {
@@ -867,6 +885,24 @@ namespace Common {
         public static string Raccoons {
             get {
                 return ResourceManager.GetString("Raccoons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gotowy do akceptacji.
+        /// </summary>
+        public static string ReadyToApprove {
+            get {
+                return ResourceManager.GetString("ReadyToApprove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gotowy do planowania.
+        /// </summary>
+        public static string ReadyToPlan {
+            get {
+                return ResourceManager.GetString("ReadyToPlan", resourceCulture);
             }
         }
         
@@ -975,6 +1011,15 @@ namespace Common {
         public static string ThirdClass {
             get {
                 return ResourceManager.GetString("ThirdClass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do poprawy.
+        /// </summary>
+        public static string ToCorrect {
+            get {
+                return ResourceManager.GetString("ToCorrect", resourceCulture);
             }
         }
         

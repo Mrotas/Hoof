@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
+using Domain.MarketingYear;
+using Domain.MarketingYear.Models;
 using Domain.WateringPlace;
 using Domain.WateringPlace.ViewModels;
 
@@ -8,19 +11,22 @@ namespace Hoof.Controllers
     public class WateringPlaceController : Controller
     {
         private readonly IWateringPlaceService _wateringPlaceService;
+        private readonly IMarketingYearService _marketingYearService;
 
-        public WateringPlaceController() : this(new WateringPlaceService())
+        public WateringPlaceController() : this(new WateringPlaceService(), new MarketingYearService())
         {
         }
 
-        public WateringPlaceController(IWateringPlaceService wateringPlace)
+        public WateringPlaceController(IWateringPlaceService wateringPlace, IMarketingYearService marketingYearService)
         {
             _wateringPlaceService = wateringPlace;
+            _marketingYearService = marketingYearService;
         }
 
         public ActionResult Index()
         {
-            return View();
+            IList<MarketingYearModel> marketingYearModels = _marketingYearService.GetAll();
+            return View(marketingYearModels);
         }
 
         public ActionResult List(int marketingYearId)

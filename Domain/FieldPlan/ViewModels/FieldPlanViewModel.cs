@@ -1,18 +1,18 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using Domain.AnnualPlanStatus.Models;
 using Domain.FieldPlan.Models;
+using Domain.MarketingYear.Models;
 
 namespace Domain.FieldPlan.ViewModels
 {
     public class FieldPlanViewModel
     {
-        public FiledPlanModel FiledPlanModel { get; set; }
-
-        public int MarketingYearId { get; set; }
-        public DateTime MarketingYearStart { get; set; }
-        public DateTime MarketingYearEnd { get; set; }
+        public MarketingYearModel MarketingYearModel { get; set; }
+        public AnnualPlanStatusModel AnnualPlanStatusModel { get; set; }
 
         [Display(Name = "Rok gospodarczy")]
-        public string MarketingYear => $"{MarketingYearStart:dd/MM/yyyy} - {MarketingYearEnd:dd/MM/yyyy}";
+        public string MarketingYear => $"{MarketingYearModel.Start:dd/MM/yyyy} - {MarketingYearModel.End:dd/MM/yyyy}";
+
+        public FiledPlanModel FiledPlanModel { get; set; }
     }
 }

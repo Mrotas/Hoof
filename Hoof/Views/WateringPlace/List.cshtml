@@ -1,5 +1,6 @@
-﻿@using Domain.WateringPlace.ViewModels
-@model Domain.WateringPlace.ViewModels.WateringPlaceBaseViewModel
+﻿@using Common.Enums
+@using Domain.WateringPlace.ViewModels
+@model WateringPlaceBaseViewModel
 
 @{
     ViewBag.Title = "List";
@@ -20,11 +21,15 @@
     </script>
 }
 
-<h4 style="text-align: center">Zagospodarowanie paśników w roku gospodarczym @Model.MarketingYearModel</h4>
+<h4 style="text-align: center">Zagospodarowanie wodopojów w roku gospodarczym @Model.MarketingYearModel</h4>
 
 <br />
 
-<button class="btn btn-primary" id="add" data-toggle="modal" data-target="#addWateringPlaceModal">Dodaj</button>
+@{ var displayAddButton = Model.AnnualPlanStatusModel.Status == (int)AnnualPlanStatus.InProgress ||
+                          Model.AnnualPlanStatusModel.Status == (int)AnnualPlanStatus.ToCorrect;
+    var display = displayAddButton ? "" : "display:none";
+}
+<button class="btn btn-brown" id="add" data-toggle="modal" data-target="#addWateringPlaceModal" style="margin-bottom: 10px;@display">Dodaj</button>
 <table class="table table-bordered table-hover" id="wateringPlaceTable">
     <tr>
         <th style="width: 5%">

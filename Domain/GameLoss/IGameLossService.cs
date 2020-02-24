@@ -6,7 +6,7 @@ namespace Domain.GameLoss
 {
     public interface IGameLossService
     {
-        List<GameLossViewModel> GetAllLossGames();
+        List<GameLossViewModel> GetAllLossGamesForCurrentMarketingYear();
         void ReportLoss(GameLossModel model);
     }
 }

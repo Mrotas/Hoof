@@ -5,13 +5,13 @@ using DataAccess.Dto;
 
 namespace DataAccess.Dao.Expense
 {
-    public class ExpenseDao : DaoBase, IExpenseDao
+    public class ExpenseDao : IExpenseDao
     {
         public IList<ExpenseDto> GetByMarketingYear(int marketingYearId)
         {
             using (var db = new DbContext())
             {
-                Entities.MarketingYear marketingYear = DbContext.MarketingYear.Find(marketingYearId);
+                Entities.MarketingYear marketingYear = db.MarketingYear.Find(marketingYearId);
                 List<Entities.Expense> expenses = db.Expense.Where(x => x.Date >= marketingYear.Start && x.Date <= marketingYear.End).ToList();
 
                 IList<ExpenseDto> dtos = ToDtos(expenses);

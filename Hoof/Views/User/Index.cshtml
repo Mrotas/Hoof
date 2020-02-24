@@ -1,0 +1,179 @@
+﻿@using Domain.User.ViewModels
+@model IEnumerable<UserViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section Scripts{
+
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="~/Scripts/User/User.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var config = {
+                Controller: "User"
+            };
+            var user = new User(config);
+        });
+    </script>
+}
+
+<div class="alert alert-success" id="successAlert" role="alert" style="display: none">
+    <h4 class="alert-heading">
+        Sukces !
+        <button type="button" class="close" id="closeSuccessAlert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </h4>
+    <p class="success-alert-body"></p>
+    <hr>
+    <p class="mb-0 alert-footer" style="font-size: 9pt">Aby konto stało się aktywne, właściciel musi wejść do systemu przez link aktywacyjny.</p>
+</div>
+
+<h4 style="text-align: center">Użytkownicy systemu koła łowieckiego Literatów Polskich nr 39</h4>
+
+<br />
+
+<button class="btn btn-brown" id="add" data-toggle="modal" data-target="#addUserModal" style="margin-bottom: 10px;">Dodaj</button>
+<table class="table table-bordered table-hover" id="userTable">
+    <tr>
+        <th hidden>
+            UserId
+        </th>
+        <th hidden>
+            HuntsmanId
+        </th>
+        <th style="width: 20%">
+            Nazwisko
+        </th>
+        <th style="width: 20%">
+            Imię
+        </th>
+        <th style="width: 20%">
+            Rola w kole
+        </th>
+        <th style="width: 30%">
+            Email
+        </th>
+        <th style="width: 10%">
+            Zarządzaj
+        </th>
+    </tr>
+    @foreach (UserViewModel item in Model.OrderBy(x => x.LastName))
+    {
+        <tr>
+            <td hidden>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td hidden>
+                @Html.DisplayFor(modelItem => item.HuntsmanId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td style="text-align: center">
+                <button class="btn btn-xs btn-success editUser">Edytuj</button>
+                <button class="btn btn-xs btn-danger deleteUser">Usuń</button>
+            </td>
+        </tr>
+    }
+</table>
+
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Usuwanie członka koła łowieckiego</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="confirmDeleteModalBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Usuń</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="addUserModal">
+    <div class="modal-dialog" style="width: 500px;">
+        <div class="modal-content">
+
+            <div class="modal-header" style="text-align: center; background-color: rgba(92, 184, 92, 0.6)">
+                <button type="button" class="close" data-dismiss="modal" id="closeModalXButton">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Dodaj członka koła łowieckiego
+                </h4>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="alert alert-danger" id="dangerAlert" role="alert" style="display: none">
+                    <h4 class="alert-heading">
+                        <button type="button" class="close" id="closeDangerAlert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </h4>
+                    <p class="alert-body"></p>
+                </div>
+
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-2" style="width: 75%">
+                            Imię: <input type="text" class="form-control" id="name" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-2" style="width: 75%">
+                            Nazwisko: <input type="text" class="form-control" id="lastName" autocomplete="off"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-2" style="width: 75%">
+                            Rola w kole łowieckim:
+                            @Html.DropDownList("Wybierz rolę", new List<SelectListItem>
+                            {
+                                new SelectListItem {Text = "Myśliwy", Value = "1"},
+                                new SelectListItem {Text = "Łowczy", Value = "2"},
+                                new SelectListItem {Text = "Członek zarządu", Value = "3"}
+                            }, "", new {Name = String.Empty, @class = "form-control", id = "role"})
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-2" style="width: 75%">
+                            Email: <input type="text" class="form-control" id="email" autocomplete="off"/>
+                        </div>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel">Zamknij</button>
+                        <button type="button" class="btn btn-success" id="save">Zapisz</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

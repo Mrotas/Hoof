@@ -1,7 +1,6 @@
 ﻿@using Common.Enums
 @using Common.Extensions
 @using Domain.Labor.Models
-@using Domain.Report.Models
 @using Domain.Report.Models.Game
 @model Domain.Report.ViewModels.MonthlyReportViewModel
 
@@ -27,7 +26,7 @@
     </script>
 
 }
-<button class="btn btn-danger" id="generateReportPdf">Pobierz PDF</button>
+<button class="btn btn-danger" id="generateReportPdf" style="margin-top: 10px">Pobierz PDF</button>
 <br />
 <h3 style="font-weight: bold; text-align: center">Informacja o pozyskaniu zwierzyny w obwodzie łowieckim nr 20</h3>
 <h4 style="font-weight: bold; text-align: center">w sezonie łow. @Model.MarketingYearModel.Start.ToString("yyyy")/@Model.MarketingYearModel.End.ToString("yyyy") za okres od @Model.ReportDateFrom.ToString("dd.MM.yyyy") roku do @Model.ReportDateTo.ToString("dd.MM.yyyy") roku</h4>

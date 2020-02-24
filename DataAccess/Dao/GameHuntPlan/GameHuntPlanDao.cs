@@ -6,7 +6,7 @@ using DataAccess.Dto;
 
 namespace DataAccess.Dao.GameHuntPlan
 {
-    public class GameHuntPlanDao : DaoBase, IGameHuntPlanDao
+    public class GameHuntPlanDao : IGameHuntPlanDao
     {
         public IList<GameHuntPlanDto> GetAll()
         {

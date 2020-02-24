@@ -1,16 +1,25 @@
-﻿@section Scripts{
+﻿@model Domain.MarketingYear.Models.MarketingYearModel
+
+@section Scripts{
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     @Scripts.Render("~/bundles/jqueryval")
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-        $(document).ready(function () {
-            $("#dateTo").datepicker($.datepicker.regional["pl"]);
-        });
+        //$(document).ready(function () {
+        //    $("#dateTo").datepicker($.datepicker.regional["pl"]);
+        //});
 
         $('#showReport').on('click', function () {
             var dateTo = $('#dateTo').val();
-            window.location.href = "Report/MonthlyReport?dateFrom=04/01/2018&dateTo=" + dateTo;
+            if (dateTo === '') {
+                $('#alert').text('Proszę wybrać datę końcową.');
+                $('#dateTo').addClass('has-error');
+            } else {
+                $('#alert').text('');
+                $('#dateTo').removeClass('has-error');
+                window.location.href = 'Report/MonthlyReport?dateFrom=' + @Model.Start.Year + '-' + @Model.Start.Month + '-' + @Model.Start.Day + '&dateTo=' + dateTo;
+            }
         });
     </script>
 }
@@ -19,8 +28,10 @@
 <br />
 
 <div style="text-align: center">
-    <p>Pobierz meldunek za okres od 01/04/@(DateTime.Today.Year - 1) do 
-        <input id="dateTo" value="@DateTime.Today.ToString("MM/dd/yyyy")"> 
-        <button class="btn btn-default" id="showReport">Pokaż</button>
-    </p>
+    <h4>
+        Pobierz meldunek za okres od @Model.Start.ToString("dd/MM/yyyy") do
+        <input class="form-control" style="display: inline; width: 16%; font-size: 18px" type="date" id="dateTo" />
+        <button class="btn btn-brown" id="showReport">Pokaż</button>
+    </h4>
+    <span id="alert" class="has-error"></span>
 </div>

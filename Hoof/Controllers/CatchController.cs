@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Web;
 using System.Web.Mvc;
 using Domain.Catch;
 using Domain.Catch.Models;
@@ -21,23 +23,44 @@ namespace Hoof.Controllers
 
         public ActionResult Index()
         {
-            IList<CatchViewModel> catchViewModels = _catchService.GetAllCatches();
+            IList<CatchViewModel> catchViewModels = _catchService.GetAllCatchesForCurrentMarketingYear();
             return View(catchViewModels);
         }
 
         public ActionResult MyCaughts()
         {
-            //TODO get huntsmanId
-            IList<CatchViewModel> catchViewModels = _catchService.GetCatchesByHuntsmanId(1);
+            HttpCookie userCookie = Request.Cookies["User"];
+            if (userCookie == null)
+            {
+                return View(new List<CatchViewModel>());
+            }
+
+            string userIdString = userCookie["UserId"];
+            if (!Int32.TryParse(userIdString, out int userId))
+            {
+                return View(new List<CatchViewModel>());
+            }
+
+            IList<CatchViewModel> catchViewModels = _catchService.GetCurrentMarketingYearCatchesByUserId(userId);
             return View(catchViewModels);
         }
 
         [HttpPost]
         public JsonResult Create(CatchCreateModel model)
         {
-            //TODO get huntsmanId
-            int huntsmanId = 1;
-            _catchService.Create(model, huntsmanId);
+            HttpCookie userCookie = Request.Cookies["User"];
+            if (userCookie == null)
+            {
+                return Json(new { data = false }, JsonRequestBehavior.AllowGet);
+            }
+
+            string userIdString = userCookie["UserId"];
+            if (!Int32.TryParse(userIdString, out int userId))
+            {
+                return Json(new { data = false }, JsonRequestBehavior.AllowGet);
+            }
+
+            _catchService.Create(model, userId);
             return Json(new { data = true }, JsonRequestBehavior.AllowGet);
         }
     }

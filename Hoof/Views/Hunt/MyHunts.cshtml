@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Domain.Hunt.ViewModels.HuntViewModel>
+﻿@using Domain.Hunt.ViewModels
+@model IEnumerable<Domain.Hunt.ViewModels.HuntViewModel>
 
 @{
     ViewBag.Title = "MyHunts";
@@ -6,7 +7,7 @@
 
 <h2>Moje polowania</h2>
 
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addHuntModal">
+<button type="button" class="btn btn-brown" data-toggle="modal" data-target="#addHuntModal" style="margin-bottom: 10px;">
     Dodaj polowanie
 </button>
 
@@ -38,12 +39,12 @@
         <th>
             @Html.DisplayNameFor(model => model.Date)
         </th>
-        <th>
+        <th style="width: 10%">
             Zarządzaj
         </th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (HuntViewModel item in Model)
     {
         <tr>
             <td>
@@ -68,11 +69,11 @@
                 @Html.DisplayFor(modelItem => item.Shots)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Date)
+                @Html.DisplayFor(modelItem => item.DateString)
             </td>
-            <td>
-                @Html.ActionLink("Edytuj", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Usuń", "Delete", new { /* id=item.PrimaryKey */ })
+            <td style="text-align: center">
+                <button class="btn btn-xs btn-success">Edytuj</button>
+                <button class="btn btn-xs btn-danger">Usuń</button>
             </td>
         </tr>
     }

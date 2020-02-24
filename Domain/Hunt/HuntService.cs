@@ -8,6 +8,7 @@ using DataAccess.Dao.HuntedGame;
 using DataAccess.Dao.Huntsman;
 using DataAccess.Dao.MarketingYear;
 using DataAccess.Dao.Region;
+using DataAccess.Dao.User;
 using DataAccess.Dto;
 using Domain.Hunt.Models;
 using Domain.Hunt.ViewModels;
@@ -25,6 +26,9 @@ namespace Domain.Hunt
         private IList<GameDto> _games;
         private IList<GameDto> Games => _games ?? (_games = _gameDao.GetAll());
 
+        private IList<UserDto> _users;
+        private IList<UserDto> Users => _users ?? (_users = _userDao.GetAll());
+
         private IList<HuntsmanDto> _huntsmans;
         private IList<HuntsmanDto> Huntsmans => _huntsmans ?? (_huntsmans = _huntsmanDao.GetAll());
 
@@ -36,20 +40,22 @@ namespace Domain.Hunt
 
         private readonly IHuntDao _huntDao;
         private readonly IGameDao _gameDao;
+        private readonly IUserDao _userDao;
         private readonly IHuntsmanDao _huntsmanDao;
         private readonly IRegionDao _regionDao;
         private readonly IHuntedGameDao _huntedGameDao;
         private readonly IGameClassDao _gameClassDao;
         private readonly IMarketingYearDao _marketingYearDao;
 
-        public HuntService() : this (new HuntDao(), new GameDao(), new HuntsmanDao(), new RegionDao(), new HuntedGameDao(), new GameClassDao(), new MarketingYearDao())
+        public HuntService() : this (new HuntDao(), new GameDao(), new UserDao(), new HuntsmanDao(), new RegionDao(), new HuntedGameDao(), new GameClassDao(), new MarketingYearDao())
         {
         }
 
-        public HuntService(IHuntDao huntDao, IGameDao gameDao, IHuntsmanDao huntsmanDao, IRegionDao regionDao, IHuntedGameDao huntedGameDao, IGameClassDao gameClassDao, IMarketingYearDao marketingYearDao)
+        public HuntService(IHuntDao huntDao, IGameDao gameDao, IUserDao userDao, IHuntsmanDao huntsmanDao, IRegionDao regionDao, IHuntedGameDao huntedGameDao, IGameClassDao gameClassDao, IMarketingYearDao marketingYearDao)
         {
             _huntDao = huntDao;
             _gameDao = gameDao;
+            _userDao = userDao;
             _huntsmanDao = huntsmanDao;
             _regionDao = regionDao;
             _huntedGameDao = huntedGameDao;
@@ -57,8 +63,9 @@ namespace Domain.Hunt
             _marketingYearDao = marketingYearDao;
         }
 
-        public IList<HuntViewModel> GetAllHunts()
+        public IList<HuntViewModel> GetAllHuntsForCurrentMarketingYear()
         {
+            MarketingYearDto marketingYear = _marketingYearDao.GetCurrent();
             List<HuntViewModel> huntViewModels = 
             (
                 from hunt in Hunts
@@ -66,6 +73,7 @@ namespace Domain.Hunt
                 join huntedGame in HuntedGames on hunt.HuntedGameId equals huntedGame.Id
                 join game in Games on huntedGame.GameId equals game.Id
                 join region in Regions on hunt.RegionId equals region.Id
+                where hunt.Date >= marketingYear.Start && hunt.Date <= marketingYear.End
                 select new HuntViewModel
                 {
                     HuntsmanName = huntsman.Name,
@@ -88,7 +96,7 @@ namespace Domain.Hunt
 
         public IList<HuntViewModel> GetByMarketingYearId(int marketingYearId)
         {
-            DataAccess.Entities.MarketingYear marketingYear = _marketingYearDao.GetById(marketingYearId);
+            MarketingYearDto marketingYear = _marketingYearDao.GetById(marketingYearId);
             List<HuntViewModel> huntViewModels =
             (
                 from hunt in Hunts
@@ -117,16 +125,19 @@ namespace Domain.Hunt
             return huntViewModels;
         }
 
-        public IList<HuntViewModel> GetHuntsByHuntsmanId(int huntsmanId)
+        public IList<HuntViewModel> GetCurrentMarketingYearHuntsByUserId(int userId)
         {
+            MarketingYearDto marketingYear = _marketingYearDao.GetCurrent();
             List<HuntViewModel> huntViewModels = 
             (
                 from hunt in Hunts
                 join huntsman in Huntsmans on hunt.HuntsmanId equals huntsman.Id
+                join user in Users on huntsman.Id equals user.HuntsmanId
                 join huntedGame in HuntedGames on hunt.HuntedGameId equals huntedGame.Id
                 join game in Games on huntedGame.GameId equals game.Id
                 join region in Regions on hunt.RegionId equals region.Id
-                where huntsman.Id == huntsmanId
+                where user.Id == userId &&
+                      hunt.Date >= marketingYear.Start && hunt.Date <= marketingYear.End
                 select new HuntViewModel
                 {
                     HuntsmanName = huntsman.Name,
@@ -147,7 +158,7 @@ namespace Domain.Hunt
             return huntViewModels;
         }
         
-        public void Create(HuntCreateModel model, int huntsmanId)
+        public void Create(HuntCreateModel model, int userId)
         {
             GameDto game = null;
             int? huntedGameId = null;
@@ -167,9 +178,11 @@ namespace Domain.Hunt
 
             int regionId = _regionDao.GetRegionId(model.City, model.Circuit, model.District);
 
+            UserDto user = _userDao.GetById(userId);
+
             var huntDto = new HuntDto
             {
-                HuntsmanId = huntsmanId,
+                HuntsmanId = user.HuntsmanId,
                 HuntedGameId = huntedGameId,
                 RegionId = regionId,
                 Shots = model.Shots,

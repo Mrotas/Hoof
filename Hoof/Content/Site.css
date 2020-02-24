@@ -29,6 +29,11 @@ select.has-error {
     border-color: red
 }
 
+span.has-error {
+    color: #d9534f;
+    font-weight: bold;
+}
+
 tr.editable,
 tr.editable:hover{
     background-color: #e2f4e2 !important;
@@ -50,4 +55,55 @@ td.clearSearch a > span{
     color: #d9534f;
     font-size: 24px;
     padding-top: 5px;
+}
+
+.navbar-inverse,
+.navbar-brand,
+.navbar-nav > li > a {
+    background-color: #398439;
+    border-color: #4cae4c;
+    color: white !important;
+}
+
+.navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus,
+.navbar-nav > li > .dropdown-menu > li > a:hover {
+    background-color: darkgreen;
+}
+
+.navbar-nav > li > .dropdown-menu,
+.navbar-nav > li > .dropdown-menu > li > a {
+    background-color: #398439;
+    color: white;
+}
+
+#bodyContainer {
+    min-height: calc(100vh - 110px);
+}
+
+.footer {
+    padding-top: 20px;
+    height: 50px;
+}
+
+.btn-brown {
+    color: #fff;
+    background-color: #8a6d3b;
+    border-color: #7d6336;
+}
+
+.btn-brown:focus,
+.btn-brown:hover {
+    color: #fff;
+    background-color: #7d6336;
+    border-color: #6d562f;
+}
+
+.footer-content,
+.btn-brown:active {
+    color: #fff;
+    background-color: #6d562f;
+    border-color: #614c2a;
 }

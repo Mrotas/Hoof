@@ -2,31 +2,35 @@
 using DataAccess.Dao.FieldPlan;
 using DataAccess.Dao.MarketingYear;
 using DataAccess.Dto;
+using Domain.AnnualPlanStatus;
+using Domain.AnnualPlanStatus.Models;
 using Domain.FieldPlan.Models;
 using Domain.FieldPlan.ViewModels;
+using Domain.MarketingYear;
+using Domain.MarketingYear.Models;
 
 namespace Domain.FieldPlan
 {
     public class FieldPlanService : IFieldPlanService
     {
         private readonly IFieldPlanDao _fieldPlanDao;
-        private readonly IMarketingYearDao _marketingYearDao;
+        private readonly IMarketingYearService _marketingYearService;
+        private readonly IAnnualPlanStatusService _annualPlanStatusService;
 
-        public FieldPlanService() : this(new FieldPlanDao(), new MarketingYearDao())
+        public FieldPlanService() : this(new FieldPlanDao(), new MarketingYearService(), new AnnualPlanStatusService())
         {
         }
 
-        public FieldPlanService(IFieldPlanDao fieldPlanDao, IMarketingYearDao marketingYearDao)
+        public FieldPlanService(IFieldPlanDao fieldPlanDao, IMarketingYearService marketingYearService, IAnnualPlanStatusService annualPlanStatusService)
         {
             _fieldPlanDao = fieldPlanDao;
-            _marketingYearDao = marketingYearDao;
+            _marketingYearService = marketingYearService;
+            _annualPlanStatusService = annualPlanStatusService;
         }
 
         public FieldPlanViewModel GetFieldPlanViewModel(int marketingYearId)
         {
             FieldPlanDto fieldPlanDto = _fieldPlanDao.GetByMarketingYear(marketingYearId);
-
-            DataAccess.Entities.MarketingYear marketingYear = _marketingYearDao.GetById(marketingYearId);
 
             FiledPlanModel filedPlanModel = null;
             if (fieldPlanDto != null)
@@ -37,12 +41,14 @@ namespace Domain.FieldPlan
                 };
             }
 
+            MarketingYearModel marketingYearModel = _marketingYearService.GetMarketingYearModel(marketingYearId);
+            AnnualPlanStatusModel annualPlanStatusModel = _annualPlanStatusService.GetByMarketingYearId(marketingYearId);
+
             var fieldPlanViewModel = new FieldPlanViewModel
             {
                 FiledPlanModel = filedPlanModel,
-                MarketingYearId = marketingYear.Id,
-                MarketingYearStart = marketingYear.Start,
-                MarketingYearEnd = marketingYear.End
+                MarketingYearModel = marketingYearModel,
+                AnnualPlanStatusModel = annualPlanStatusModel
             };
 
             return fieldPlanViewModel;

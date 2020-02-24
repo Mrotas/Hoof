@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "VerifyAccount";
+}
+
+@section Scripts{
+
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $('#save').on('click', function() {
+
+            if ($('#password').val() !== $('#confirmPassword').val()) {
+                $('#errorMessage').addClass('has-error');
+                $('#errorMessage').text('Podane hasła nie są jednakowe !');
+                return;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/User/ChangePassword',
+                data: {
+                    password: $('#password').val()
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (!data) {
+                        window.location.href = 'User/Login';
+                    } else {
+                        alert(data);
+                    }
+                },
+                error: function () {
+                    alert('Coś poszło nie tak, proszę odświeżyć stronę.');
+                }
+            });
+
+        });
+    </script>
+}
+
+<h2>Weryfikacja konta</h2>
+
+@if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
+{
+    <div class="alert alert-success">
+        <strong>Brawo!</strong> Twoje konto zostało aktywowane pomyślnie.
+    </div>
+
+    <h4>Proszę ustawić hasło do konta systemowego.</h4>
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-6 col-md-offset-2" style="width: 75%">
+                Hasło: <input type="password" class="form-control" id="password" autocomplete="off">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6 col-md-offset-2" style="width: 75%">
+                Powtórz Hasło: <input type="password" class="form-control" id="confirmPassword" autocomplete="off">
+            </div>
+        </div>
+
+        <div>
+            <span id="errorMessage"></span>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-10">
+                <input type="submit" value="Zapisz" class="btn btn-brown" id="save" />
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-danger">
+        <strong>Błąd!</strong> @ViewBag.Message
+    </div>
+}

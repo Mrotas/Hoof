@@ -1,5 +1,6 @@
-﻿@using Domain.Pulpit.ViewModels
-@model Domain.Pulpit.ViewModels.PulpitBaseViewModel
+﻿@using Common.Enums
+@using Domain.Pulpit.ViewModels
+@model PulpitBaseViewModel
 
 @{
     ViewBag.Title = "List";
@@ -24,7 +25,11 @@
 
 <br />
 
-<button class="btn btn-primary" id="add" data-toggle="modal" data-target="#addPulpitModal">Dodaj</button>
+@{ var displayAddButton = Model.AnnualPlanStatusModel.Status == (int)AnnualPlanStatus.InProgress ||
+                           Model.AnnualPlanStatusModel.Status == (int)AnnualPlanStatus.ToCorrect;
+    var display = displayAddButton ? "" : "display:none";
+}
+<button class="btn btn-brown" id="add" data-toggle="modal" data-target="#addPulpitModal" style="margin-bottom: 10px;@display">Dodaj</button>
 <table class="table table-bordered table-hover" id="pulpitTable">
     <tr>
         <th style="width: 5%">
@@ -126,7 +131,6 @@
         </div>
     </div>
 </div>
-
 
 <div class="modal" id="addPulpitModal">
     <div class="modal-dialog" style="width: 500px;">

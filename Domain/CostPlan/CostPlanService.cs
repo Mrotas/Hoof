@@ -4,23 +4,29 @@ using System.Linq;
 using DataAccess.Dao.CostPlan;
 using DataAccess.Dao.MarketingYear;
 using DataAccess.Dto;
+using Domain.AnnualPlanStatus;
+using Domain.AnnualPlanStatus.Models;
 using Domain.CostPlan.ViewModels;
+using Domain.MarketingYear;
+using Domain.MarketingYear.Models;
 
 namespace Domain.CostPlan
 {
     public class CostPlanService : ICostPlanService
     {
         private readonly ICostPlanDao _costPlanDao;
-        private readonly IMarketingYearDao _marketingYearDao;
+        private readonly IMarketingYearService _marketingYearService;
+        private readonly IAnnualPlanStatusService _annualPlanStatusService;
 
-        public CostPlanService() : this(new CostPlanDao(), new MarketingYearDao())
+        public CostPlanService() : this(new CostPlanDao(), new MarketingYearService(), new AnnualPlanStatusService())
         {
         }
 
-        public CostPlanService(ICostPlanDao costPlanDao, IMarketingYearDao marketingYearDao)
+        public CostPlanService(ICostPlanDao costPlanDao, IMarketingYearService marketingYearService, IAnnualPlanStatusService annualPlanStatusService)
         {
             _costPlanDao = costPlanDao;
-            _marketingYearDao = marketingYearDao;
+            _marketingYearService = marketingYearService;
+            _annualPlanStatusService = annualPlanStatusService;
         }
 
         public CostPlanBaseViewModel GetCostPlanViewModel(int marketingYearId)
@@ -40,14 +46,14 @@ namespace Domain.CostPlan
                 }
             ).ToList();
 
-            DataAccess.Entities.MarketingYear marketingYear = _marketingYearDao.GetById(marketingYearId);
+            MarketingYearModel marketingYearModel = _marketingYearService.GetMarketingYearModel(marketingYearId);
+            AnnualPlanStatusModel annualPlanStatusModel = _annualPlanStatusService.GetByMarketingYearId(marketingYearId);
 
             var costPlanViewBaseModel = new CostPlanBaseViewModel
             {
                 CostPlanViewModels = costPlanViewModels,
-                MarketingYearId = marketingYearId,
-                MarketingYearStart = marketingYear.Start,
-                MarketingYearEnd = marketingYear.End
+                MarketingYearModel = marketingYearModel,
+                AnnualPlanStatusModel = annualPlanStatusModel
             };
 
             return costPlanViewBaseModel;

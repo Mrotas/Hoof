@@ -1,4 +1,5 @@
-﻿@model Domain.TrunkFoodPlan.ViewModels.TrunkFoodPlanViewModel
+﻿@using Common.Enums
+@model Domain.TrunkFoodPlan.ViewModels.TrunkFoodPlanViewModel
 
 @{
     ViewBag.Title = "Plan";
@@ -11,7 +12,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
             var config = {
-                MarketingYearId: @Model.MarketingYearId,
+                MarketingYearId: @Model.MarketingYearModel.Id,
                 Controller: "TrunkFoodPlan"
             };
             var trunkFoodPlan = new TrunkFoodPlan(config);
@@ -67,7 +68,11 @@
             <input type="number" min="0" step="0.1" class="form-control" style="max-width: none" />
         </td>
         <td style="text-align: center">
-            <button class="btn btn-primary" id="addPlan">Dodaj</button>
+            @{ var enableAddButton = Model.AnnualPlanStatusModel.Status == (int)AnnualPlanStatus.InProgress ||
+                                     Model.AnnualPlanStatusModel.Status == (int)AnnualPlanStatus.ToCorrect;
+                var style = enableAddButton ? "" : "disabled=\"disabled\"";
+            }
+            <button class="btn btn-brown" id="addPlan" @style>Dodaj</button>
         </td>
     </tr>
     @if (Model.TrunkFoodPlanModel != null)

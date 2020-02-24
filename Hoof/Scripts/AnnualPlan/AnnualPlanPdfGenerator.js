@@ -4,6 +4,15 @@
 
     var paragraphPoints = ['a)', 'b)', 'c)', 'd)', 'e)', 'f)'];
 
+    var getDate = function() {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        return dd + '/' + mm + '/' + yyyy;
+    }
+
     var getLineStartXPosition = function (lines, currentLine) {
         var currentLineLength = currentLine.length;
         var longestLineLength = 0;
@@ -143,7 +152,7 @@
         huntClubInformation.push({
             text: [
                 { text: '7. Data sporządzenia rocznego planu łowieckiego: ', fontSize: 10 },
-                { text: '03/03/2019', fontSize: 10, bold: true }
+                { text: getDate(), fontSize: 10, bold: true }
             ], margin: [0, 15, 0, 0]
         });
         

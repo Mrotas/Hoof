@@ -6,13 +6,13 @@ using DataAccess.Context;
 
 namespace DataAccess.Dao.GameCountFor10March
 {
-    public class GameCountFor10MarchDao : DaoBase, IGameCountFor10MarchDao
+    public class GameCountFor10MarchDao : IGameCountFor10MarchDao
     {
         public IList<GameCountFor10MarchDto> GetByMarketingYear(int marketingYearId)
         {
-            using (DbContext)
+            using (var db = new DbContext())
             {
-                List<Entities.GameCountFor10March> gameCountFor10MarchPlan = DbContext.GameCountFor10March.Where(x => x.MarketingYearId == marketingYearId).ToList();
+                List<Entities.GameCountFor10March> gameCountFor10MarchPlan = db.GameCountFor10March.Where(x => x.MarketingYearId == marketingYearId).ToList();
 
                 var dtos = ToDtos(gameCountFor10MarchPlan);
 

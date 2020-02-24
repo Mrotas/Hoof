@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using DataAccess.Dao.DeerLicker;
 using DataAccess.Dto;
+using Domain.AnnualPlanStatus;
+using Domain.AnnualPlanStatus.Models;
 using Domain.DeerLicker.ViewModels;
 using Domain.MarketingYear;
 using Domain.MarketingYear.Models;
@@ -13,15 +15,17 @@ namespace Domain.DeerLicker
     {
         private readonly IDeerLickerDao _deerLickerDao;
         private readonly IMarketingYearService _marketingYearService;
+        private readonly IAnnualPlanStatusService _annualPlanStatusService;
 
-        public DeerLickerService() : this(new DeerLickerDao(), new MarketingYearService())
+        public DeerLickerService() : this(new DeerLickerDao(), new MarketingYearService(), new AnnualPlanStatusService())
         {
         }
 
-        public DeerLickerService(IDeerLickerDao deerLickerDao, IMarketingYearService marketingYearService)
+        public DeerLickerService(IDeerLickerDao deerLickerDao, IMarketingYearService marketingYearService, IAnnualPlanStatusService annualPlanStatusService)
         {
             _deerLickerDao = deerLickerDao;
             _marketingYearService = marketingYearService;
+            _annualPlanStatusService = annualPlanStatusService;
         }
 
         public DeerLickerBaseViewModel GetDeerLickerViewModel(int marketingYearId)
@@ -39,11 +43,13 @@ namespace Domain.DeerLicker
             }).ToList();
 
             MarketingYearModel marketingYearModel = _marketingYearService.GetMarketingYearModel(marketingYearId);
+            AnnualPlanStatusModel annualPlanStatusModel = _annualPlanStatusService.GetByMarketingYearId(marketingYearId);
 
             var pastureBaseViewModel = new DeerLickerBaseViewModel
             {
                 DeerLickerViewModels = deerLickerViewModels,
-                MarketingYearModel = marketingYearModel
+                MarketingYearModel = marketingYearModel,
+                AnnualPlanStatusModel = annualPlanStatusModel
             };
 
             return pastureBaseViewModel;

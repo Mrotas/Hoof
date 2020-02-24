@@ -2,16 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DataAccess.Context;
 
 namespace DataAccess.Dao.Hunt
 {
-    public class HuntDao : DaoBase, IHuntDao
+    public class HuntDao : IHuntDao
     {
         public IList<HuntDto> GetAll()
         {
-            using (DbContext)
+            using (var db = new DbContext())
             {
-                List<Entities.Hunt> hunts = DbContext.Hunt.ToList();
+                List<Entities.Hunt> hunts = db.Hunt.ToList();
 
                 IList<HuntDto> dtos = ToDtos(hunts);
 
@@ -21,10 +22,10 @@ namespace DataAccess.Dao.Hunt
 
         public IList<HuntDto> GetByMarketingYear(int marketingYearId)
         {
-            using (DbContext)
+            using (var db = new DbContext())
             {
-                Entities.MarketingYear marketingYear = DbContext.MarketingYear.Find(marketingYearId);
-                List<Entities.Hunt> hunts = DbContext.Hunt.Where(x => x.Date >= marketingYear.Start && x.Date <= marketingYear.End).ToList();
+                Entities.MarketingYear marketingYear = db.MarketingYear.Find(marketingYearId);
+                List<Entities.Hunt> hunts = db.Hunt.Where(x => x.Date >= marketingYear.Start && x.Date <= marketingYear.End).ToList();
 
                 IList<HuntDto> dtos = ToDtos(hunts);
 
@@ -34,9 +35,9 @@ namespace DataAccess.Dao.Hunt
 
         public IList<HuntDto> GetHuntsByDateRange(DateTime startDate, DateTime endDate)
         {
-            using (DbContext)
+            using (var db = new DbContext())
             {
-                List<Entities.Hunt> hunts = DbContext.Hunt.Where(x => x.Date >= startDate && x.Date <= endDate).ToList();
+                List<Entities.Hunt> hunts = db.Hunt.Where(x => x.Date >= startDate && x.Date <= endDate).ToList();
 
                 var dtos = ToDtos(hunts);
 
@@ -55,10 +56,10 @@ namespace DataAccess.Dao.Hunt
                 Shots = huntDto.Shots
             };
 
-            using (DbContext)
+            using (var db = new DbContext())
             {
-                DbContext.Hunt.Add(hunt);
-                DbContext.SaveChanges();
+                db.Hunt.Add(hunt);
+                db.SaveChanges();
             }
         }
 

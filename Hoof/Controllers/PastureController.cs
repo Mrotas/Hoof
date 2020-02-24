@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
+using Domain.MarketingYear;
+using Domain.MarketingYear.Models;
 using Domain.Pasture;
 using Domain.Pasture.ViewModels;
 
@@ -8,19 +11,22 @@ namespace Hoof.Controllers
     public class PastureController : Controller
     {
         private readonly IPastureService _pastureService;
+        private readonly IMarketingYearService _marketingYearService;
 
-        public PastureController() : this(new PastureService())
+        public PastureController() : this(new PastureService(), new MarketingYearService())
         {
         }
 
-        public PastureController(IPastureService pastureService)
+        public PastureController(IPastureService pastureService, IMarketingYearService marketingYearService)
         {
             _pastureService = pastureService;
+            _marketingYearService = marketingYearService;
         }
 
         public ActionResult Index()
         {
-            return View();
+            IList<MarketingYearModel> marketingYearModels = _marketingYearService.GetAll();
+            return View(marketingYearModels);
         }
 
         public ActionResult List(int marketingYearId)
